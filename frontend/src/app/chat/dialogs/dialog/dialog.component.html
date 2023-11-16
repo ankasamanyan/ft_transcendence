@@ -1,0 +1,18 @@
+<div class="dialog">
+  <img class="comrades-photo" [src]="dialog?.pictureUrl" alt="">
+  <div class="name-time-message">
+    <div class="name-time">
+      <span class="name">
+        {{dialog?.name}}
+      </span>
+      <span class="time">
+        {{dialog?.lastMessageTime}}
+      </span>
+    </div>
+    <div class="message">
+      <span>
+        {{dialog?.lastMessage}}
+      </span>
+    </div>
+  </div>
+</div>

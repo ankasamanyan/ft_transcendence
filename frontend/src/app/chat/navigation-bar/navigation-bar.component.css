@@ -1,0 +1,34 @@
+#navigation-bar {
+  background-color: #171e2d;
+  height: 100vh;
+  width: 70px;
+}
+
+#avatar {
+  width: 50px;
+  border-radius: 25px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#chat-icon {
+  position: absolute;
+  top: 120px;
+  left: 27px;
+  color: #de3737;
+}
+
+#game-icon {
+  position: absolute;
+  top: 80px;
+  left: 27px;
+  color: white;
+}
+
+#logout-icon {
+  position: absolute;
+  bottom: 20px;
+  left: 27px;
+  color: white;
+}

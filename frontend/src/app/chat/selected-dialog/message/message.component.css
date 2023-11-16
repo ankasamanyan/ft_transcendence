@@ -1,0 +1,21 @@
+.text-time {
+  padding: 10px 10px 10px 15px;
+  margin: 10px 20px 10px 20px;
+  background-color: #e6eef2;
+  border-radius: 10px;
+  max-width: 60%;
+  position: relative;
+}
+
+.text {
+  font-size: 13px;
+  font-weight: 300;
+}
+
+.time {
+  font-weight: lighter;
+  font-size: 12px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}

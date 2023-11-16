@@ -1,0 +1,11 @@
+<div id="whole-selected-dialog">
+  <div id="selected-person">
+    {{selectedPerson}}
+  </div>
+  <div *ngFor="let message of selectedDialog.messageHistory">
+    <app-message [message]="message"></app-message>
+  </div>
+  <div id="write-message-form">
+    <input id="write-message-input" placeholder="Write a message...">
+  </div>
+</div>

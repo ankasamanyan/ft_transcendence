@@ -1,0 +1,33 @@
+#selected-person {
+  font-weight: bold;
+  font-size: 15px;
+  height: 57px;
+  box-shadow: 0 7px 17px -6px rgba(0,0,0,0.09);
+  padding: 13px 13px 13px 20px;
+}
+
+#whole-selected-dialog {
+  height: 100vh;
+  width: 130%;
+  position: relative;
+}
+
+#write-message-form {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 1px 17px rgba(0,0,0,0.09);
+
+}
+ #write-message-input {
+   font-size: 13px;
+   font-weight: 300;
+   height: 50px;
+   width: 100%;
+   border: none;
+   padding: 20px;
+ }
+
+#write-message-input:focus {
+  outline: none;
+}
