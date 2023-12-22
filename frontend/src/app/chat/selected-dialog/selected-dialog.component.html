@@ -2,7 +2,7 @@
   <div id="selected-person">
     {{selectedPerson}}
   </div>
-  <div *ngFor="let message of selectedDialog.messageHistory">
+  <div id="message-history" *ngFor="let message of selectedDialog.messageHistory">
     <app-message [message]="message"></app-message>
   </div>
   <div id="write-message-form">

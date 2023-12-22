@@ -2,6 +2,7 @@
   background-color: #171e2d;
   height: 100vh;
   width: 70px;
+  position: fixed;
 }
 
 #avatar {

@@ -4,15 +4,28 @@
   height: 57px;
   box-shadow: 0 7px 17px -6px rgba(0,0,0,0.09);
   padding: 13px 13px 13px 20px;
+  position: fixed;
+  left: 330px;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 1;
 }
 
 #whole-selected-dialog {
   height: 100vh;
+  width: calc(100% - 330px);
+  position: absolute;
+  left: 330px;
+  top: 57px;
+}
+
+#message-history {
   position: relative;
 }
 
 #write-message-form {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   box-shadow: 0 1px 17px rgba(0,0,0,0.09);
