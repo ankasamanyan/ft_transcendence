@@ -53,3 +53,9 @@
 .selectedColor {
   color: #de3737;
 }
+
+@media (max-height: 250px) {
+  #logout-icon {
+    visibility: hidden;
+  }
+}
