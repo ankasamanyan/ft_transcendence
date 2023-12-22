@@ -39,3 +39,7 @@
   left: 27px;
   color: white;
 }
+
+#logout-icon:hover, #podium-icon:hover, #game-icon:hover, #chat-icon:hover {
+  color: #de3737;
+}
