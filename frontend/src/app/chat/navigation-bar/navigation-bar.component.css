@@ -42,4 +42,9 @@
 
 #logout-icon:hover, #podium-icon:hover, #game-icon:hover, #chat-icon:hover {
   color: #de3737;
+  cursor: pointer;
+}
+
+#avatar:hover {
+  cursor: pointer;
 }
