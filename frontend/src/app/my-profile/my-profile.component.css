@@ -1,3 +1,8 @@
 #whole-profile {
     display:flex;
 }
+
+p {
+    position: absolute;
+    left: 70px;
+}
