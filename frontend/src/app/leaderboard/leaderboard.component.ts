@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import {NavigationBarStatus} from "../model/NavigationBar";
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  selector: 'app-leaderboard',
+  templateUrl: './leaderboard.component.html',
+  styleUrls: ['./leaderboard.component.css']
 })
-export class ChatComponent {
+export class LeaderboardComponent {
 
   protected readonly NavigationBarStatus = NavigationBarStatus;
 }

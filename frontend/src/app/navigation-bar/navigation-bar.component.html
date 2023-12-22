@@ -1,0 +1,17 @@
+<div id="navigation-bar">
+    <a [routerLink]="['/my-profile']">
+        <img id="avatar" src="../../assets/placeholderAvatar.jpeg" alt="avatar">
+    </a>
+    <a [routerLink]="['/game']">
+        <i id="game-icon" class="bi bi-dice-2 our-icons" [ngClass]="{'selectedColor': isGameSelected()}"></i>
+    </a>
+    <a [routerLink]="['/leaderboard']">
+        <i id="podium-icon" class="bi bi-trophy our-icons" [ngClass]="{'selectedColor': isLeaderboardSelected()}"></i>
+    </a>
+    <a [routerLink]="['/chat']">
+        <i id="chat-icon" class="bi bi-chat-right-text our-icons" [ngClass]="{'selectedColor': isChatSelected()}"></i>
+    </a>
+    <a [routerLink]="['/authorization']">
+        <i id="logout-icon" class="bi bi-box-arrow-in-right our-icons" [ngClass]="{'selectedColor': isLogoutSelected()}"></i>
+    </a>
+</div>
