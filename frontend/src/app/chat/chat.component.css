@@ -1,3 +1,7 @@
 #whole-chat {
   display:flex;
 }
+
+app-selected-dialog {
+  flex: 1;
+}
