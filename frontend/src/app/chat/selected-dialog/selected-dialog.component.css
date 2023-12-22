@@ -8,6 +8,7 @@
 
 #whole-selected-dialog {
   height: 100vh;
+  width: 130%;
   position: relative;
 }
 
@@ -16,6 +17,7 @@
   bottom: 0;
   width: 100%;
   box-shadow: 0 1px 17px rgba(0,0,0,0.09);
+
 }
  #write-message-input {
    font-size: 13px;
