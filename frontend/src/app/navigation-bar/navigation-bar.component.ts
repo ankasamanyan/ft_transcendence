@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {NavigationBarStatus} from "../model/NavigationBar";
+import {NavigationBarStatus} from "../domain/NavigationBar";
 
 @Component({
   selector: 'app-navigation-bar',
