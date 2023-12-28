@@ -7,6 +7,6 @@ export class DialogController {
 
   @Get('/selected-dialog/:senderId:receiverId')
   getDialog(@Param('senderId') senderId, @Param('receiverId') receiverId): string {
-    return this.dialogService.getDialog();
+    return this.dialogService.getDialog(senderId, receiverId);
   }
 }
