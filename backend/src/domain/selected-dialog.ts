@@ -1,4 +1,4 @@
-import {Message} from "./Message";
+import {Message} from "./message";
 
 export class SelectedDialog {
   public messageHistory: Message[] | undefined

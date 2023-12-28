@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavigationBarStatus} from "../domain/NavigationBar";
+import {NavigationBarStatus} from "../domain/navigation-bar";
 
 @Component({
   selector: 'app-game',

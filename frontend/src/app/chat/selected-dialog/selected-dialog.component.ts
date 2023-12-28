@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {SelectedDialog} from "../../domain/SelectedDialog";
-import {Message} from "../../domain/Message";
+import {SelectedDialog} from "../../domain/selected-dialog";
+import {Message} from "../../domain/message";
 
 @Component({
   selector: 'app-selected-dialog',

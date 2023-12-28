@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
-import {SelectedDialog} from "../domain/SelectedDialog";
+import {SelectedDialog} from "../domain/selected-dialog";
 import {SelectedDialogResponse} from "./dto/selected-dialog.dto";
 
 @Injectable({

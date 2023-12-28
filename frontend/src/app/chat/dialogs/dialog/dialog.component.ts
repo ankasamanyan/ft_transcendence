@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Dialog} from "../../../domain/Dialog";
+import {Dialog} from "../../../domain/dialog";
 
 @Component({
   selector: 'app-dialog',
