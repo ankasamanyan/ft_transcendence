@@ -1,0 +1,45 @@
+version: '3'
+
+silent: true
+
+tasks:
+  install:
+    cmds:
+      - task: install-frontend
+      - task: install-backend
+
+  install-frontend:
+    dir: frontend
+    cmds:
+      - npm ci
+
+  install-backend:
+    dir: backend
+    cmds:
+      - npm ci
+
+  start:
+    cmds:
+      - task: start-dependencies
+      - task --parallel start-backend start-frontend
+
+  start-backend:
+    dir: backend
+    cmds:
+      - npm run start
+
+  start-frontend:
+    dir: frontend
+    cmds:
+      - ng serve --open
+
+  start-dependencies:
+    dir: dependencies
+    cmds:
+      - docker compose up -d
+      - task: await-postgresql-startup
+
+  await-postgresql-startup:
+    cmds:
+      - echo "Waiting for mysql"
+      - until docker inspect transcendence-db | grep "Running\":\ true," &>/dev/null; do echo -n '.'; sleep 2; done
