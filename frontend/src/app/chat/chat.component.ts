@@ -7,6 +7,5 @@ import {NavigationBarStatus} from "../domain/navigation-bar";
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
-
   protected readonly NavigationBarStatus = NavigationBarStatus;
 }

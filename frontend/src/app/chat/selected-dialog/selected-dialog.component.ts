@@ -8,6 +8,14 @@ import {Message} from "../../domain/message";
   styleUrls: ['./selected-dialog.component.css']
 })
 export class SelectedDialogComponent {
+  selectedDialogScrollable: boolean = false;
+  makeSelectedDialogScrollable() {
+    this.selectedDialogScrollable = true;
+  }
+
+  makeSelectedDialogStatic() {
+    this.selectedDialogScrollable = false;
+  }
   selectedPerson: string = "Cedric";
   selectedDialog: SelectedDialog = new SelectedDialog([
     new Message(

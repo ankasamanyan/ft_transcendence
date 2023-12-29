@@ -19,6 +19,9 @@
   left: 330px;
   top: 57px;
 }
+#whole-selected-dialog.static {
+  position: fixed;
+}
 
 #message-history {
   position: relative;

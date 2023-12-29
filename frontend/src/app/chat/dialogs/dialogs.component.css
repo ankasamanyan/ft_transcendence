@@ -7,6 +7,10 @@
   top: 57px;
 }
 
+#dialogs.static {
+  position: fixed;
+}
+
 #search {
   width: 220px;
   position: fixed;

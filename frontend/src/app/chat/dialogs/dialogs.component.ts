@@ -7,6 +7,15 @@ import {Dialog} from "../../domain/dialog";
   styleUrls: ['./dialogs.component.css']
 })
 export class DialogsComponent {
+  dialogsScrollable: boolean = false;
+  makeDialogsScrollable() {
+    this.dialogsScrollable = true;
+  }
+
+  makeDialogsStatic() {
+    this.dialogsScrollable = false;
+  }
+
   dialogs: Dialog[] = [
     new Dialog(
       "Cedric",

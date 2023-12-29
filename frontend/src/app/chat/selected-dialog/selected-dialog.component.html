@@ -1,4 +1,7 @@
-<div id="whole-selected-dialog">
+<div id="whole-selected-dialog"
+     (mouseenter)="makeSelectedDialogScrollable()"
+     (mouseleave)="makeSelectedDialogStatic()"
+     [ngClass]="selectedDialogScrollable ? 'scrollable' : 'static'">
   <div id="selected-person">
     {{selectedPerson}}
   </div>

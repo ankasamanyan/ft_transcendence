@@ -1,4 +1,7 @@
-<div id="dialogs">
+<div id="dialogs"
+     (mouseenter)="makeDialogsScrollable()"
+     (mouseleave)="makeDialogsStatic()"
+     [ngClass]="dialogsScrollable ? 'scrollable' : 'static'">
     <form id="search">
       <input id="input-field-for-search"
              class="form-control"
