@@ -38,3 +38,8 @@
 #all-available-dialogs {
   padding: 15px 15px 15px 20px;
 }
+
+#all-available-dialogs:hover {
+  background-color: #fafcff;
+  cursor: pointer;
+}
