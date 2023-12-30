@@ -26,7 +26,8 @@ export class DialogsComponent {
     if (dialogToSearchFor == "") {
       this.displayedDialogs = this.dialogs;
     } else {
-      this.displayedDialogs = this.dialogs.filter((dialog) => dialog.name?.startsWith(dialogToSearchFor));
+      this.displayedDialogs = this.dialogs
+        .filter((dialog) => dialog.name?.toUpperCase().startsWith(dialogToSearchFor.toUpperCase()));
     }
   }
 
