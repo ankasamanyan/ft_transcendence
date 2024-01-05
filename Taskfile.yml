@@ -29,6 +29,8 @@ tasks:
       - npm run start
 
   start-frontend:
+    deps:
+      - task: stop-frontend
     dir: frontend
     cmds:
       - ng serve --open
@@ -43,3 +45,8 @@ tasks:
     cmds:
       - echo "Waiting for mysql"
       - until docker inspect transcendence-db | grep "Running\":\ true," &>/dev/null; do echo -n '.'; sleep 2; done
+
+  stop-frontend:
+    cmds:
+      - cmd: kill -9 "$(lsof -sTCP:LISTEN -ti tcp:4200)"
+        ignore_error: true
