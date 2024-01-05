@@ -43,7 +43,7 @@ tasks:
 
   await-postgresql-startup:
     cmds:
-      - echo "Waiting for mysql"
+      - echo "Waiting for postgresql"
       - until docker inspect transcendence-db | grep "Running\":\ true," &>/dev/null; do echo -n '.'; sleep 2; done
 
   stop-frontend:
