@@ -10,6 +10,8 @@ export class NavigationBarComponent {
   @Input()
   navigationStatus: NavigationBarStatus | undefined;
 
+  showExitModal: boolean = false;
+
   isGameSelected() {
     return this.navigationStatus == NavigationBarStatus.GAME;
   }

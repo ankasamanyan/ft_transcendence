@@ -1,17 +1,22 @@
 <div id="navigation-bar">
-    <a [routerLink]="['/my-profile']">
-        <img id="avatar" src="../../assets/placeholderAvatar.jpeg" alt="avatar">
-    </a>
-    <a [routerLink]="['/game']">
-        <i id="game-icon" class="bi bi-dice-2 our-icons" [ngClass]="{'selectedColor': isGameSelected()}"></i>
-    </a>
-    <a [routerLink]="['/leaderboard']">
-        <i id="podium-icon" class="bi bi-trophy our-icons" [ngClass]="{'selectedColor': isLeaderboardSelected()}"></i>
-    </a>
-    <a [routerLink]="['/chat']">
-        <i id="chat-icon" class="bi bi-chat-right-text our-icons" [ngClass]="{'selectedColor': isChatSelected()}"></i>
-    </a>
-    <a [routerLink]="['/authorization']">
-        <i id="logout-icon" class="bi bi-box-arrow-in-right our-icons" [ngClass]="{'selectedColor': isLogoutSelected()}"></i>
-    </a>
+    <img [routerLink]="['/my-profile']" id="avatar" src="../../assets/placeholderAvatar.jpeg" alt="avatar">
+    <i [routerLink]="['/game']" id="game-icon" class="bi bi-dice-2 our-icons" [ngClass]="{'selectedColor': isGameSelected()}"></i>
+    <i [routerLink]="['/leaderboard']" id="podium-icon" class="bi bi-trophy our-icons" [ngClass]="{'selectedColor': isLeaderboardSelected()}"></i>
+    <i [routerLink]="['/chat']"id="chat-icon" class="bi bi-chat-right-text our-icons" [ngClass]="{'selectedColor': isChatSelected()}"></i>
+    <i (click)="showExitModal=true" id="logout-icon" class="bi bi-box-arrow-in-right our-icons" [ngClass]="{'selectedColor': isLogoutSelected()}"></i>
+</div>
+
+<div class="wish-to-exit-modal" *ngIf="showExitModal">
+    <div class="wish-to-exit-inner-modal">
+        <div class="exit-icon">
+            <i class="bi bi-x-lg" (click)="showExitModal=false"></i>
+        </div>
+        <div class="container">
+            <span>Are you quite confident you wish to logout?</span>
+        </div>
+        <div id="buttons">
+            <button (click)="showExitModal=false" id="no-button">No, not quite</button>
+            <button [routerLink]="['/authorization']" id="yes-button">Yes, I am</button>
+        </div>
+    </div>
 </div>
