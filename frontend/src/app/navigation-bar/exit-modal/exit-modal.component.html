@@ -1,0 +1,14 @@
+<div class="wish-to-exit-modal">
+    <div class="wish-to-exit-inner-modal">
+        <div class="exit-icon">
+            <i class="bi bi-x-lg" (click)="modalClose.emit()"></i>
+        </div>
+        <div class="container">
+            <span>Are you quite confident you wish to logout?</span>
+        </div>
+        <div id="buttons">
+            <button (click)="modalClose.emit()" id="no-button">No, not quite</button>
+            <button [routerLink]="['/authorization']" id="yes-button">Yes, I am</button>
+        </div>
+    </div>
+</div>

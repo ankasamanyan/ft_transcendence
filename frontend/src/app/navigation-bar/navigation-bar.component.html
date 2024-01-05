@@ -6,17 +6,7 @@
     <i (click)="showExitModal=true" id="logout-icon" class="bi bi-box-arrow-in-right our-icons" [ngClass]="{'selectedColor': isLogoutSelected()}"></i>
 </div>
 
-<div class="wish-to-exit-modal" *ngIf="showExitModal">
-    <div class="wish-to-exit-inner-modal">
-        <div class="exit-icon">
-            <i class="bi bi-x-lg" (click)="showExitModal=false"></i>
-        </div>
-        <div class="container">
-            <span>Are you quite confident you wish to logout?</span>
-        </div>
-        <div id="buttons">
-            <button (click)="showExitModal=false" id="no-button">No, not quite</button>
-            <button [routerLink]="['/authorization']" id="yes-button">Yes, I am</button>
-        </div>
-    </div>
-</div>
+<app-exit-modal
+        *ngIf="showExitModal"
+        (modalClose)="showExitModal=false">
+</app-exit-modal>

@@ -15,6 +15,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { GameComponent } from './game/game.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { AuthorizationPageComponent } from './authorization-page/authorization-page.component';
+import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AuthorizationPageComponent } from './authorization-page/authorization-p
     MyProfileComponent,
     GameComponent,
     LeaderboardComponent,
-    AuthorizationPageComponent
+    AuthorizationPageComponent,
+    ExitModalComponent
   ],
   imports: [
     BrowserModule,
