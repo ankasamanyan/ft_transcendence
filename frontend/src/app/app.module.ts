@@ -13,7 +13,6 @@ import { DialogComponent } from './chat/dialogs/dialog/dialog.component';
 import { MessageComponent } from './chat/selected-dialog/message/message.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { GameComponent } from './game/game.component';
-import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { AuthorizationPageComponent } from './authorization-page/authorization-page.component';
 import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.component';
 
@@ -28,7 +27,6 @@ import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.compo
     MessageComponent,
     MyProfileComponent,
     GameComponent,
-    LeaderboardComponent,
     AuthorizationPageComponent,
     ExitModalComponent
   ],
@@ -40,7 +38,6 @@ import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.compo
       { path: '', component: ChatComponent },
       { path: 'my-profile', component: MyProfileComponent },
       { path: 'game', component: GameComponent },
-      { path: 'leaderboard', component: LeaderboardComponent },
       { path: 'chat', component: ChatComponent },
       { path: 'authorization', component: AuthorizationPageComponent }
     ])
