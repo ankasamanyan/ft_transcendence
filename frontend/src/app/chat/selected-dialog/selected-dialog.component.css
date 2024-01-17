@@ -1,6 +1,4 @@
-#selected-person {
-  font-weight: bold;
-  font-size: 15px;
+#dialog-header {
   height: 57px;
   box-shadow: 0 7px 17px -6px rgba(0,0,0,0.09);
   padding: 13px 13px 13px 20px;
@@ -12,11 +10,44 @@
   z-index: 1;
 }
 
-.bi-three-dots-vertical {
+#selected-person {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.dropdown {
+  display: inline-block;
   float: right;
-  margin-right: 5px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.09);
+  z-index: 1;
+  border-radius: 4px;
+}
+
+.dropdown-content div {
+  padding: 10px;
+  font-size: 15px;
+}
+
+.dropdown-content div:hover {
+  background-color: #eff1f1;
+  border-radius: 4px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.bi-three-dots-vertical {
   cursor: pointer;
-  padding: 3px 7px;
+  padding: 3px 6px;
   border-radius: 6px;
 }
 
