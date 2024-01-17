@@ -7,9 +7,21 @@
   position: fixed;
   left: 330px;
   top: 0;
-  width: 100%;
+  width: calc(100% - 330px);
   background-color: white;
   z-index: 1;
+}
+
+.bi-three-dots-vertical {
+  float: right;
+  margin-right: 5px;
+  cursor: pointer;
+  padding: 3px 7px;
+  border-radius: 6px;
+}
+
+.bi-three-dots-vertical:hover {
+  color: darkgrey;
 }
 
 #whole-selected-dialog {

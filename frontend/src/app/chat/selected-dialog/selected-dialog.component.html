@@ -4,6 +4,7 @@
      [ngClass]="selectedDialogScrollable ? 'scrollable' : 'static'">
   <div id="selected-person">
     {{selectedPerson}}
+    <i class="bi bi-three-dots-vertical"></i>
   </div>
   <div id="message-history" *ngFor="let message of selectedDialog.messageHistory">
     <app-message [message]="message"></app-message>
