@@ -20,12 +20,22 @@
   float: right;
 }
 
+.bi-three-dots-vertical {
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 6px;
+}
+
+.bi-three-dots-vertical:hover {
+  color: darkgrey;
+}
+
 .dropdown-content {
   display: none;
   position: absolute;
   right: 0;
   background-color: white;
-  min-width: 120px;
+  min-width: 135px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.09);
   z-index: 1;
   border-radius: 4px;
@@ -34,6 +44,24 @@
 .dropdown-content div {
   padding: 10px;
   font-size: 15px;
+  cursor: pointer;
+}
+#invite-action:hover .game-icon{
+  display: none;
+}
+
+#invite-action:hover .game-icon-hidden{
+  display: inline;
+  margin-right: 8px;
+  color: #de3737;
+}
+
+.game-icon {
+  margin-right: 8px;
+}
+
+.game-icon-hidden {
+  display: none;
 }
 
 .dropdown-content div:hover {
@@ -43,16 +71,6 @@
 
 .dropdown:hover .dropdown-content {
   display: block;
-}
-
-.bi-three-dots-vertical {
-  cursor: pointer;
-  padding: 3px 6px;
-  border-radius: 6px;
-}
-
-.bi-three-dots-vertical:hover {
-  color: darkgrey;
 }
 
 #whole-selected-dialog {
