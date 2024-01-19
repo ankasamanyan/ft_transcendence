@@ -8,4 +8,15 @@ import { Component } from '@angular/core';
 export class SelectedDialogHeaderComponent {
   selectedPerson: string = "Cedric";
   showBlockModal: boolean = false;
+  showInviteNotification: boolean = false;
+
+  sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  showNotificationForFewSeconds() {
+    this.showInviteNotification = true;
+    this.sleep(2000).then(() => { this.showInviteNotification = false; });
+  }
+
 }

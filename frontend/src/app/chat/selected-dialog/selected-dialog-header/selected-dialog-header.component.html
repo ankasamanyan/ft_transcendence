@@ -3,7 +3,7 @@
     <div class="dropdown">
         <i class="bi bi-three-dots-vertical"></i>
         <div class="dropdown-content">
-            <div id="invite-action">
+            <div id="invite-action" (click)="showNotificationForFewSeconds()">
                 <i class="bi bi-dice-2 game-icon"></i>
                 <i class="bi bi-dice-2-fill game-icon-hidden">
                 </i>Invite to play
@@ -15,6 +15,11 @@
         </div>
     </div>
 </div>
+
+<app-invitation-received-notification
+    *ngIf="showInviteNotification"
+    (notificationClose)="showInviteNotification=false">
+</app-invitation-received-notification>
 
 <app-block-modal
         *ngIf="showBlockModal"
