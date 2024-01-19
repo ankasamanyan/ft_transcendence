@@ -17,6 +17,7 @@ import { AuthorizationPageComponent } from './authorization-page/authorization-p
 import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.component';
 import { SelectedDialogHeaderComponent } from './chat/selected-dialog/selected-dialog-header/selected-dialog-header.component';
 import { BlockModalComponent } from './chat/selected-dialog/selected-dialog-header/block-modal/block-modal.component';
+import { InvitationReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-received-notification/invitation-received-notification.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { BlockModalComponent } from './chat/selected-dialog/selected-dialog-head
     AuthorizationPageComponent,
     ExitModalComponent,
     SelectedDialogHeaderComponent,
-    BlockModalComponent
+    BlockModalComponent,
+    InvitationReceivedNotificationComponent
   ],
   imports: [
     BrowserModule,
