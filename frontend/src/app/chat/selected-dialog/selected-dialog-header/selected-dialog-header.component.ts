@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class SelectedDialogHeaderComponent {
   selectedPerson: string = "Cedric";
+  showBlockModal: boolean = false;
 }

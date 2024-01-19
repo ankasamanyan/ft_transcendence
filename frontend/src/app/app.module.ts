@@ -16,6 +16,7 @@ import { GameComponent } from './game/game.component';
 import { AuthorizationPageComponent } from './authorization-page/authorization-page.component';
 import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.component';
 import { SelectedDialogHeaderComponent } from './chat/selected-dialog/selected-dialog-header/selected-dialog-header.component';
+import { BlockModalComponent } from './chat/selected-dialog/selected-dialog-header/block-modal/block-modal.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SelectedDialogHeaderComponent } from './chat/selected-dialog/selected-d
     GameComponent,
     AuthorizationPageComponent,
     ExitModalComponent,
-    SelectedDialogHeaderComponent
+    SelectedDialogHeaderComponent,
+    BlockModalComponent
   ],
   imports: [
     BrowserModule,
