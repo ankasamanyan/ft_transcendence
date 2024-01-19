@@ -2,23 +2,7 @@
      (mouseenter)="makeSelectedDialogScrollable()"
      (mouseleave)="makeSelectedDialogStatic()"
      [ngClass]="selectedDialogScrollable ? 'scrollable' : 'static'">
-    <div id="dialog-header">
-        <span id="selected-person">{{selectedPerson}}</span>
-        <div class="dropdown">
-            <i class="bi bi-three-dots-vertical"></i>
-            <div class="dropdown-content">
-                <div id="invite-action">
-                    <i class="bi bi-dice-2 game-icon"></i>
-                    <i class="bi bi-dice-2-fill game-icon-hidden">
-                    </i>Invite to play
-                </div>
-                <div id="block-action">
-                    <i class="bi bi-person-slash block-icon">
-                    </i>Block
-                </div>
-            </div>
-        </div>
-    </div>
+    <app-selected-dialog-header></app-selected-dialog-header>
     <div id="message-history" *ngFor="let message of selectedDialog.messageHistory">
         <app-message [message]="message"></app-message>
     </div>

@@ -16,7 +16,6 @@ export class SelectedDialogComponent {
   makeSelectedDialogStatic() {
     this.selectedDialogScrollable = false;
   }
-  selectedPerson: string = "Cedric";
   selectedDialog: SelectedDialog = new SelectedDialog([
     new Message(
       "Anahit",

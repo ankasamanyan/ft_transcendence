@@ -15,6 +15,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { GameComponent } from './game/game.component';
 import { AuthorizationPageComponent } from './authorization-page/authorization-page.component';
 import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.component';
+import { SelectedDialogHeaderComponent } from './chat/selected-dialog/selected-dialog-header/selected-dialog-header.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.compo
     MyProfileComponent,
     GameComponent,
     AuthorizationPageComponent,
-    ExitModalComponent
+    ExitModalComponent,
+    SelectedDialogHeaderComponent
   ],
   imports: [
     BrowserModule,
