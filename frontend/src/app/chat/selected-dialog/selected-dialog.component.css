@@ -56,7 +56,11 @@
   color: #de3737;
 }
 
-.game-icon {
+#block-action:hover .block-icon {
+  color: dimgray;
+}
+
+.game-icon, .block-icon {
   margin-right: 8px;
 }
 
