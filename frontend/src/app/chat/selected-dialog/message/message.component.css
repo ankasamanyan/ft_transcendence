@@ -20,11 +20,11 @@
   right: 10px;
 }
 
-@media (min-width: 1700px) {
-  .text-time {
-    display: flex;
-    margin-left: 20px !important;
-    margin-top: 16px;
-  }
-}
+/*@media (min-width: 1920px) {*/
+/*  .text-time {*/
+/*    display: flex;*/
+/*    margin-left: 20px !important;*/
+/*    margin-top: 16px;*/
+/*  }*/
+/*}*/
 
