@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {SelectedDialog} from "../../domain/selected-dialog";
 import {Message} from "../../domain/message";
+import { DialogService } from "../../service/dialog.service"
 
 @Component({
   selector: 'app-selected-dialog',
@@ -8,6 +9,12 @@ import {Message} from "../../domain/message";
   styleUrls: ['./selected-dialog.component.css']
 })
 export class SelectedDialogComponent {
+  mockData: SelectedDialog | undefined;
+
+  constructor(dialogService: DialogService) {
+    dialogService.getDialog("Heather", "Maria").subscribe((value: SelectedDialog)  => {this.mockData = value;});
+
+  }
   selectedDialogScrollable: boolean = false;
   makeSelectedDialogScrollable() {
     this.selectedDialogScrollable = true;

@@ -16,6 +16,7 @@ import { GameComponent } from './game/game.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { AuthorizationPageComponent } from './authorization-page/authorization-page.component';
 import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.compo
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     NgbModule,
     AppRoutingModule,
     RouterModule.forRoot([
