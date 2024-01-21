@@ -20,7 +20,7 @@
   right: 10px;
 }
 
-@media (min-width: 1550px) {
+@media (min-width: 1700px) {
   .text-time {
     display: flex;
     margin-left: 20px !important;
