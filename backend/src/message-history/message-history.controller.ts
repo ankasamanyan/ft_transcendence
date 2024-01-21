@@ -1,13 +1,13 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { MessageHistoryService } from './message-history.service';
 import { MessageDto } from './dto/message.dto';
 
-@Controller('message-history')
+@Controller('selected-dialog/')
 export class MessageHistoryController {
 	constructor(private messageHistoryService: MessageHistoryService) { }
 
-	@Get()
-	async getMessageHistory() {
+	@Get(':senderId/:receiverId')
+	async getMessageHistory(@Param('senderId') senderId: string, @Param('receiverId')receiverId: string) {
 		const messageHistory = await this.messageHistoryService.getMessageHistory();
 		return messageHistory;
 	}
