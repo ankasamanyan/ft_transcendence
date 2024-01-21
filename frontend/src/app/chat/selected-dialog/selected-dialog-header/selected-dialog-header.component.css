@@ -35,7 +35,7 @@
     min-width: 135px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.09);
     z-index: 1;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .dropdown-content div {
@@ -62,7 +62,7 @@
 
 .dropdown-content div:hover {
     background-color: #eff1f1;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 #invite-action:hover .game-icon{
