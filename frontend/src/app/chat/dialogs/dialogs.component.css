@@ -17,6 +17,18 @@
   left: 90px;
   top: 10px;
   z-index: 2;
+  display: flex;
+}
+
+.bi-plus-lg {
+  font-size: 20px;
+  color: grey;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.bi-plus-lg:hover {
+  color: darkgrey;
 }
 
 #separator-between-search-and-dialogs {

@@ -2,17 +2,20 @@
      (mouseenter)="makeDialogsScrollable()"
      (mouseleave)="makeDialogsStatic()"
      [ngClass]="dialogsScrollable ? 'scrollable' : 'static'">
-    <form id="search">
-      <input id="input-field-for-search"
-             class="form-control"
-             type="search"
-             placeholder="Search"
-             aria-label="Search"
-             #dialogToSearchFor
-             (input)="find(dialogToSearchFor.value)">
-    </form>
-  <div id="separator-between-search-and-dialogs"></div>
-  <div id="all-available-dialogs" *ngFor="let dialog of displayedDialogs">
-    <app-dialog [dialog]="dialog"></app-dialog>
-  </div>
+    <div id="search">
+        <form>
+            <input id="input-field-for-search"
+                   class="form-control"
+                   type="search"
+                   placeholder="Search"
+                   aria-label="Search"
+                   #dialogToSearchFor
+                   (input)="find(dialogToSearchFor.value)">
+        </form>
+        <i class="bi bi-plus-lg"></i>
+    </div>
+    <div id="separator-between-search-and-dialogs"></div>
+    <div id="all-available-dialogs" *ngFor="let dialog of displayedDialogs">
+        <app-dialog [dialog]="dialog"></app-dialog>
+    </div>
 </div>
