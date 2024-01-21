@@ -19,3 +19,12 @@
   bottom: 10px;
   right: 10px;
 }
+
+@media (min-width: 1550px) {
+  .text-time {
+    display: flex;
+    margin-left: 20px !important;
+    margin-top: 16px;
+  }
+}
+
