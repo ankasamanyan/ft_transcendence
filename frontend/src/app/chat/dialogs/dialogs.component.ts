@@ -11,6 +11,8 @@ export class DialogsComponent {
   dialogs: Dialog[] = [];
   displayedDialogs: Dialog[] = [];
 
+  showCreateChannelModal: boolean = false;
+
   constructor() {
     this.initializeDialogs();
   }

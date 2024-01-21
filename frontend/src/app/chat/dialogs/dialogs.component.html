@@ -12,16 +12,15 @@
                    #dialogToSearchFor
                    (input)="find(dialogToSearchFor.value)">
         </form>
-        <div class="dropdown">
-            <i class="bi bi-plus-lg"></i>
-            <div class="dropdown-content">
-                <div id="create-channel-action">
-                    <i class="bi bi-people"></i>Create a channel</div>
-            </div>
-        </div>
+            <i class="bi bi-plus-lg" (click)="showCreateChannelModal=true"></i>
     </div>
     <div id="separator-between-search-and-dialogs"></div>
     <div id="all-available-dialogs" *ngFor="let dialog of displayedDialogs">
         <app-dialog [dialog]="dialog"></app-dialog>
     </div>
 </div>
+
+<app-create-channel-modal
+        *ngIf="showCreateChannelModal"
+        (modalClose)="showCreateChannelModal=false">
+</app-create-channel-modal>

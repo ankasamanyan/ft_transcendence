@@ -1,0 +1,14 @@
+img {
+    width: 13%;
+    height: 30px;
+    border-radius: 25px;
+    margin-right: 9px;
+    object-fit: cover;
+}
+
+.bi-check {
+    float: right;
+    margin-right: 8px;
+    font-size: 18px;
+    color: #de3737;
+}

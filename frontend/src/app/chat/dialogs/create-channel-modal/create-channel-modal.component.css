@@ -1,0 +1,87 @@
+.create-channel-modal {
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.2);
+}
+
+.create-channel-inner-modal {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: none;
+    width: 320px;
+    height: 310px;
+    border-radius: 10px;
+    box-shadow: 0 1px 17px rgba(0,0,0,0.09);
+    font-weight: 300;
+}
+
+#first-line {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 12px;
+    margin-bottom: 24px;
+}
+
+.modal-header {
+    font-weight: bold;
+}
+
+.exit-icon {
+    cursor: pointer;
+}
+
+.exit-icon:hover {
+    color: darkgrey;
+}
+
+#whom-question {
+    margin-bottom: 14px;
+    font-weight: lighter;
+}
+
+.possible-choices {
+    display: block;
+    background-color: white;
+    min-width: 200px;
+    border-radius: 8px;
+    overflow: scroll;
+    max-height: 140px;
+}
+
+.possible-choices div {
+    padding: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.possible-choices div:hover {
+    background-color: #eff1f1;
+    border-radius: 8px;
+}
+
+button {
+    border: none;
+    border-radius: 7px;
+    height: 35px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 10px;
+    font-weight: 300;
+}
+
+#create-button {
+    background-color: #de3737;
+    color: white;
+    float: right;
+}
+
+#create-button:hover {
+    background-color: #c92828;
+}

@@ -1,0 +1,19 @@
+<div class="create-channel-modal">
+    <div class="create-channel-inner-modal">
+        <div id="first-line">
+            <div class="modal-header">Create a channel</div>
+            <div class="exit-icon">
+                <i class="bi bi-x-lg" (click)="modalClose.emit()"></i>
+            </div>
+        </div>
+        <div class="container">
+            <div id="whom-question">Whom do you wish to invite?</div>
+                <div class="possible-choices">
+                    <div *ngFor="let dialog of dialogs">
+                        <app-select-option [dialog]="dialog"></app-select-option>
+                    </div>
+                </div>
+            <button id="create-button" (click)="modalClose.emit()">Create</button>
+        </div>
+    </div>
+</div>

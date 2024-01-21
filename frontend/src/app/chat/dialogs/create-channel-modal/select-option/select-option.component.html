@@ -1,0 +1,5 @@
+<div (click)="isSelected=!isSelected">
+    <img [src]="dialog!.pictureUrl">
+    <span>{{dialog!.name}}</span>
+    <i class="bi bi-check" *ngIf="isSelected"></i>
+</div>
