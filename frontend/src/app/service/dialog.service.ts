@@ -11,7 +11,7 @@ export class DialogService {
   constructor(private httpClient: HttpClient) { }
 
   getDialog(senderId: string, receiverId: string): Observable<SelectedDialog> {
-    return this.httpClient.get<SelectedDialogResponse>("/selected-dialog/" + senderId + receiverId).pipe(
+    return this.httpClient.get<SelectedDialogResponse>("http://localhost:3000/selected-dialog/" + senderId + "/" + receiverId).pipe(
       map((dialog: SelectedDialogResponse) => {
         return SelectedDialogResponse.toDomain(dialog);
       }));

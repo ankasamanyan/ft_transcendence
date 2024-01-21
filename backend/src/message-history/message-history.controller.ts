@@ -6,7 +6,7 @@ import { MessageDto } from './dto/message.dto';
 export class MessageHistoryController {
 	constructor(private messageHistoryService: MessageHistoryService) { }
 
-	@Get(':senderId:receiverId')
+	@Get(':senderId/:receiverId')
 	getMessageHistory(@Param('senderId') senderId: string, @Param('receiverId')receiverId: string) {
 		const messageHistory = this.messageHistoryService.getMessageHistory();
 		return messageHistory;
