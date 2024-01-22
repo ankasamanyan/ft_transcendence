@@ -2,14 +2,17 @@
   padding: 10px 10px 10px 15px;
   margin: 10px 20px 10px 20px;
   background-color: var(--color-light-blue);
-  border-radius: 10px;
+  border-radius: 11px;
   max-width: 360px;
   position: relative;
+  display: flex;
+  width: fit-content;
 }
 
 .text {
   font-size: 13px;
   font-weight: 300;
+  margin-right: 32px;
 }
 
 .time {
