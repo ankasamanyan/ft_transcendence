@@ -10,5 +10,5 @@ img {
     float: right;
     margin-right: 8px;
     font-size: 18px;
-    color: #de3737;
+    color: var(--color-orange);
 }

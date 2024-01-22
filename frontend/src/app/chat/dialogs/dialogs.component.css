@@ -1,5 +1,5 @@
 #dialogs {
-  background-color: #e6eef2;
+  background-color: var(--color-light-blue);
   height: 100%;
   width: 260px;
   position: absolute;
@@ -42,7 +42,7 @@
   position: fixed;
   top: 0;
   width: 260px;
-  background-color: #e6eef2;
+  background-color: var(--color-light-blue);
   z-index: 1;
 }
 
@@ -57,6 +57,6 @@
 }
 
 #all-available-dialogs:hover {
-  background-color: #fafcff;
+  background-color: var(--color-light-blue-lighter);
   cursor: pointer;
 }

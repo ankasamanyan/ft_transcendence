@@ -43,5 +43,5 @@ span {
     margin-top: auto;
     margin-bottom: auto;
     margin-right: 15px;
-    color: #c92828;
+    color: var(--color-orange-darker);
 }

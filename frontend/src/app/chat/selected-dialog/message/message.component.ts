@@ -12,8 +12,8 @@ export class MessageComponent {
 
   determineColorPosition() {
     if (this.message?.senderId == "Anahit")
-      return "background-color: #de3737; color: white; display: block; margin-left: auto;"
+      return "background-color: var(--color-orange); color: white; display: block; margin-left: auto;"
     else
-      return "background-color: #e6eef2;"
+      return "background-color: var(--color-light-blue);"
   }
 }

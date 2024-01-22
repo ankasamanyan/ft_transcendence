@@ -62,7 +62,7 @@
 }
 
 .possible-choices div:hover {
-    background-color: #eff1f1;
+    background-color: var(--color-light-gray);
     border-radius: 8px;
 }
 
@@ -77,11 +77,11 @@ button {
 }
 
 #create-button {
-    background-color: #de3737;
+    background-color: var(--color-orange);
     color: white;
     float: right;
 }
 
 #create-button:hover {
-    background-color: #c92828;
+    background-color: var(--color-orange-darker);
 }

@@ -33,7 +33,7 @@
 }
 
 #logout-icon:hover, #game-icon:hover, #chat-icon:hover {
-  color: #de3737;
+  color: var(--color-orange);
   cursor: pointer;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .selectedColor {
-  color: #de3737;
+  color: var(--color-orange);
 }
 
 @media (max-height: 250px) {

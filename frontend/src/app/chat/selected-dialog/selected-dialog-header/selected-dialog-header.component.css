@@ -61,7 +61,7 @@
 }
 
 .dropdown-content div:hover {
-    background-color: #eff1f1;
+    background-color: var(--color-light-gray);
     border-radius: 8px;
 }
 
@@ -71,7 +71,7 @@
 
 #invite-action:hover .game-icon-hidden{
     display: inline;
-    color: #de3737;
+    color: var(--color-orange);
 }
 
 #block-action:hover .block-icon {

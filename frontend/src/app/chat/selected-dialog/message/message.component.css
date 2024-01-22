@@ -1,7 +1,7 @@
 .text-time {
   padding: 10px 10px 10px 15px;
   margin: 10px 20px 10px 20px;
-  background-color: #e6eef2;
+  background-color: var(--color-light-blue);
   border-radius: 10px;
   max-width: 360px;
   position: relative;
