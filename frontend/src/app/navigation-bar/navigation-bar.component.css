@@ -1,5 +1,5 @@
 #navigation-bar {
-  background-color: #171e2d;
+  background-color: var(--color-dark-blue);
   height: 100vh;
   width: 70px;
   position: fixed;
