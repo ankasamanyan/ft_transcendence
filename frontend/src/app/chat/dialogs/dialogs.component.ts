@@ -48,12 +48,12 @@ export class DialogsComponent {
       new Dialog(
         "Krisi",
         "assets/placeholderComrade3.jpeg",
-        "So, I am curious: have you ever...",
+        "So, I am curious: have you ever been in a situation",
         "19:04"),
       new Dialog(
         "Santiago",
         "assets/placeholderComrade4.jpeg",
-        "Trying to reboot yet again, honestly...",
+        "Trying to reboot yet again",
         "18:45"),
       new Dialog(
         "Fedia",

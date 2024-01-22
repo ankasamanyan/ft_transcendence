@@ -6,14 +6,7 @@ export class Dialog {
   constructor(name: string, pictureUrl: string, lastMessage: string, lastMessageTime: string) {
     this.name = name;
     this.pictureUrl = pictureUrl;
-    this.lastMessage = this.formatMessage(lastMessage);
+    this.lastMessage = lastMessage;
     this.lastMessageTime = lastMessageTime;
-  }
-
-  formatMessage(message: string) {
-    let formattedMessage = message.substring(0, 25);
-    if (message.length > 24)
-        return formattedMessage + "...";
-    return formattedMessage;
   }
 }
