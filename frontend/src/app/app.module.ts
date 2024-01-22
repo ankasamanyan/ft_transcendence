@@ -20,6 +20,7 @@ import { BlockModalComponent } from './chat/selected-dialog/selected-dialog-head
 import { InvitationReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-received-notification/invitation-received-notification.component';
 import { CreateChannelModalComponent } from './chat/dialogs/create-channel-modal/create-channel-modal.component';
 import { SelectOptionComponent } from './chat/dialogs/create-channel-modal/select-option/select-option.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { SelectOptionComponent } from './chat/dialogs/create-channel-modal/selec
     BrowserModule,
     NgbModule,
     AppRoutingModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: ChatComponent },
       { path: 'my-profile', component: MyProfileComponent },
