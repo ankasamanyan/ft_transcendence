@@ -23,11 +23,21 @@
   right: 10px;
 }
 
-/*@media (min-width: 1920px) {*/
-/*  .text-time {*/
-/*    display: flex;*/
-/*    margin-left: 20px !important;*/
-/*    margin-top: 16px;*/
-/*  }*/
-/*}*/
+@media (max-width: 768px) and (min-width: 577px) {
+  .text-time {
+    margin-left: 20px !important;
+    width: auto;
+  }
+}
 
+@media (min-width: 1200px) {
+  .text-time {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 767px) {
+  .text-time {
+    max-width: 280px;
+  }
+}

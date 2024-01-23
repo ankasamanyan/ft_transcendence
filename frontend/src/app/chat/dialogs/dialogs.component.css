@@ -1,62 +1,51 @@
 #dialogs {
   background-color: var(--color-light-blue);
-  height: 100%;
-  width: 260px;
-  position: absolute;
-  left: 70px;
-  top: 57px;
+  margin-left: 70px;
+  height: 100vh;
 }
 
-#dialogs.static {
-  position: fixed;
-}
+/*#dialogs.static {*/
+/*  position: fixed;*/
+/*}*/
 
 #search {
-  width: 220px;
-  position: fixed;
-  left: 90px;
-  top: 10px;
+  position: sticky;
+  padding: 10px 0 10px 20px;
+  top: 0;
+  height: 57px;
   z-index: 2;
   display: flex;
-}
-
-.bi-people {
-  margin-right: 8px;
+  box-shadow: 0 7px 17px -6px rgba(0,0,0,0.09);
 }
 
 .bi-plus-lg {
   font-size: 20px;
   color: grey;
   cursor: pointer;
-  margin-left: 4px;
   padding: 2px;
+  margin-left: 8px;
+  margin-right: 14px;
 }
 
 .bi-plus-lg:hover {
   color: darkgrey;
 }
-
-#separator-between-search-and-dialogs {
-  box-shadow: 0 7px 17px -6px rgba(0,0,0,0.09);
-  height: 57px;
-  position: fixed;
-  top: 0;
-  width: 260px;
-  background-color: var(--color-light-blue);
-  z-index: 1;
+form {
+  width: 100%;
+  max-width: 700px;
 }
 
 #input-field-for-search {
   border-radius: 18px;
-  padding: 4px 4px 4px 15px;
+  padding-left: 20px;
   font-size: 14px;
 }
 
-#all-available-dialogs {
+.dialog {
   padding: 15px 15px 15px 20px;
 }
 
-#all-available-dialogs:hover {
+.dialog:hover {
   background-color: var(--color-light-blue-lighter);
   cursor: pointer;
 }

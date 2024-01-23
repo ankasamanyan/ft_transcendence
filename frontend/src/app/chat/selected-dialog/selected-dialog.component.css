@@ -1,14 +1,6 @@
-#whole-selected-dialog {
-  height: 100vh;
-  width: calc(100% - 330px);
-  position: absolute;
-  left: 330px;
-  top: 57px;
-}
-
-#whole-selected-dialog.static {
-  position: fixed;
-}
+/*#whole-selected-dialog.static {*/
+/*  position: fixed;*/
+/*}*/
 
 #message-history {
   position: relative;
@@ -20,6 +12,7 @@
   width: 100%;
   box-shadow: 0 1px 17px rgba(0,0,0,0.09);
 }
+
  #write-message-input {
    font-size: 13px;
    font-weight: 300;

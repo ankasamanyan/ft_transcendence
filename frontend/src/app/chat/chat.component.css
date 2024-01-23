@@ -1,7 +1,19 @@
-#whole-chat {
-  display:flex;
+@media (max-width: 576px) {
+    .dialogs {
+        display: none;
+    }
+    .selected-dialog {
+        width: calc(100% - 70px);
+        margin-left: 70px;
+    }
 }
 
-app-selected-dialog {
-  flex: 1;
+@media (min-width: 577px) {
+    .selected-dialog {
+        padding-left: 0;
+    }
+
+    .dialogs {
+        padding-right: 0;
+    }
 }

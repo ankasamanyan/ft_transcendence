@@ -2,10 +2,8 @@
     height: 57px;
     box-shadow: 0 7px 17px -6px rgba(0,0,0,0.09);
     padding: 13px 13px 13px 20px;
-    position: fixed;
-    left: 330px;
+    position: sticky;
     top: 0;
-    width: calc(100% - 330px);
     background-color: white;
     z-index: 1;
 }

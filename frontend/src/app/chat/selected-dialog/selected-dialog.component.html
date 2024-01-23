@@ -3,10 +3,12 @@
      (mouseleave)="makeSelectedDialogStatic()"
      [ngClass]="selectedDialogScrollable ? 'scrollable' : 'static'">
     <app-selected-dialog-header></app-selected-dialog-header>
-    <div id="message-history" *ngFor="let message of selectedDialog?.messageHistory">
-        <app-message [message]="message"></app-message>
-    </div>
-    <div id="write-message-form">
-        <input id="write-message-input" placeholder="Write a message...">
+    <div id="selected-dialog-body">
+        <div id="message-history" *ngFor="let message of selectedDialog?.messageHistory">
+            <app-message [message]="message"></app-message>
+        </div>
+        <div id="write-message-form">
+            <input id="write-message-input" placeholder="Write a message...">
+        </div>
     </div>
 </div>
