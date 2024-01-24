@@ -1,6 +1,7 @@
-/*#whole-selected-dialog.static {*/
-/*  position: fixed;*/
-/*}*/
+#whole-selected-dialog {
+  overflow-y: auto;
+  height: 100vh;
+}
 
 #message-history {
   position: relative;

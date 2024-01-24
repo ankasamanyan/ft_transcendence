@@ -1,7 +1,4 @@
-<div id="dialogs"
-     (mouseenter)="makeDialogsScrollable()"
-     (mouseleave)="makeDialogsStatic()"
-     [ngClass]="dialogsScrollable ? 'scrollable' : 'static'">
+<div id="dialogs">
     <div id="search">
         <form>
             <input id="input-field-for-search"
@@ -14,8 +11,8 @@
         </form>
         <i class="bi bi-plus-lg" (click)="showCreateChannelModal=true"></i>
     </div>
-    <div id="all-available-dialogs">
-        <div class = "dialog" *ngFor="let dialog of displayedDialogs">
+    <div id="all-available-dialogs" class="scrollable">
+        <div class="dialog" *ngFor="let dialog of displayedDialogs">
             <app-dialog [dialog]="dialog"></app-dialog>
         </div>
     </div>

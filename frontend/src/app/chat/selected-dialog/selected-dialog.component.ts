@@ -16,13 +16,4 @@ export class SelectedDialogComponent {
       this.selectedDialog = value;
     });
   }
-
-  selectedDialogScrollable: boolean = false;
-  makeSelectedDialogScrollable() {
-    this.selectedDialogScrollable = true;
-  }
-
-  makeSelectedDialogStatic() {
-    this.selectedDialogScrollable = false;
-  }
 }

@@ -7,7 +7,6 @@ import {Dialog} from "../../domain/dialog";
   styleUrls: ['./dialogs.component.css']
 })
 export class DialogsComponent {
-  dialogsScrollable: boolean = false;
   dialogs: Dialog[] = [];
   displayedDialogs: Dialog[] = [];
 
@@ -16,14 +15,6 @@ export class DialogsComponent {
   constructor() {
     this.initializeDialogs();
   }
-  makeDialogsScrollable() {
-    this.dialogsScrollable = true;
-  }
-
-  makeDialogsStatic() {
-    this.dialogsScrollable = false;
-  }
-
   find(dialogToSearchFor: string) {
     if (dialogToSearchFor == "") {
       this.displayedDialogs = this.dialogs;
