@@ -16,6 +16,7 @@
   z-index: 1;
   display: flex;
   box-shadow: 0 7px 17px -6px rgba(0,0,0,0.09);
+  background-color: var(--color-light-blue);
 }
 
 .bi-plus-lg {
