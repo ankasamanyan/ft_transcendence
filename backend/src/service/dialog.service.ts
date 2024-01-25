@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {Message} from "../domain/message";
 import {of} from "rxjs";
-import {SelectedDialogResponse} from "../adapter/dto/selected-dialog.dto";
+import {SelectedDialogResponse} from "../adapter/dto/selected-dialog-response";
 
 @Injectable()
 export class DialogService {
