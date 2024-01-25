@@ -7,6 +7,10 @@ export class SelectedDialogResponse {
   static toDomain(response: SelectedDialogResponse): SelectedDialog {
     return new SelectedDialog(response.messageHistory.map(message => MessageResponse.toDomain(message)));
   }
+
+  static fromDomain(dialog: SelectedDialog): SelectedDialogResponse {
+    return new SelectedDialogResponse(dialog.messageHistory.map(message => MessageResponse.fromDomain(message)));
+  }
 }
 
 export class MessageResponse {
@@ -23,6 +27,15 @@ export class MessageResponse {
       response.receiverId,
       response.text,
       response.time
+    );
+  }
+
+  static fromDomain(message: Message): MessageResponse {
+    return new MessageResponse(
+      message.senderId,
+      message.receiverId,
+      message.text,
+      message.time
     );
   }
 }

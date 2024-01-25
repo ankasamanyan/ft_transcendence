@@ -1,5 +1,7 @@
 import {Controller, Get, Param} from '@nestjs/common';
 import {DialogService} from "../service/dialog.service";
+import {of} from "rxjs";
+import {SelectedDialogResponse} from "./dto/selected-dialog-response";
 
 @Controller('/selected-dialog/')
 export class DialogController {
@@ -7,6 +9,6 @@ export class DialogController {
 
   @Get(':senderId/:receiverId')
   getDialog(@Param('senderId') senderId: string, @Param('receiverId') receiverId: string) {
-    return this.dialogService.getDialog(senderId, receiverId);
+    return of(SelectedDialogResponse.fromDomain(this.dialogService.getDialog(senderId, receiverId)));
   }
 }

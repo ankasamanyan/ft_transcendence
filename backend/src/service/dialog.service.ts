@@ -1,12 +1,11 @@
 import {Injectable} from '@nestjs/common';
 import {Message} from "../domain/message";
-import {of} from "rxjs";
-import {SelectedDialogResponse} from "../adapter/dto/selected-dialog-response";
+import {SelectedDialog} from "../domain/selected-dialog";
 
 @Injectable()
 export class DialogService {
   getDialog(senderId: string, receiverId: string) {
-    return of(new SelectedDialogResponse([
+    return new SelectedDialog([
       new Message(
         "Anahit",
         "Cedric",
@@ -37,6 +36,6 @@ export class DialogService {
         "Cedric",
         "I need cookies👉👈",
         "9.25"),
-    ]));
+    ]);
   }
 }
