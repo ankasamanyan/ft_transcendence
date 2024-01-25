@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Dialog} from "../../domain/dialog";
+import {DialogsService} from "../../service/dialogs.service";
 
 @Component({
   selector: 'app-dialogs',
@@ -12,9 +13,13 @@ export class DialogsComponent {
 
   showCreateChannelModal: boolean = false;
 
-  constructor() {
-    this.initializeDialogs();
+  constructor(dialogsService: DialogsService) {
+    dialogsService.getDialogs("Anahit").subscribe((value)  => {
+      this.dialogs = value.dialogs!;
+      this.displayedDialogs = this.dialogs;
+    });
   }
+
   find(dialogToSearchFor: string) {
     if (dialogToSearchFor == "") {
       this.displayedDialogs = this.dialogs;
@@ -22,41 +27,5 @@ export class DialogsComponent {
       this.displayedDialogs = this.dialogs
         .filter((dialog) => dialog.name?.toUpperCase().startsWith(dialogToSearchFor.toUpperCase()));
     }
-  }
-
-  initializeDialogs() {
-    this.dialogs = [
-      new Dialog(
-        "Cedric",
-        "assets/placeholderComrade2.jpeg",
-        "I need cookies👉👈",
-        "9.25"),
-      new Dialog(
-        "Tetiana",
-        "assets/placeholderComrade.jpeg",
-        "Oh well, you know, so distinguished",
-        "22:25"),
-      new Dialog(
-        "Krisi",
-        "assets/placeholderComrade3.jpeg",
-        "So, I am curious: have you ever been in a situation",
-        "19:04"),
-      new Dialog(
-        "Santiago",
-        "assets/placeholderComrade4.jpeg",
-        "Trying to reboot yet again",
-        "18:45"),
-      new Dialog(
-        "Fedia",
-        "assets/placeholderComrade5.jpeg",
-        "This laptop is heavy enough to kill people",
-        "16:56"),
-      new Dialog(
-        "Wolf",
-        "assets/placeholderComrade6.jpeg",
-        "Just check my github, it's all there",
-        "14:02")
-    ];
-    this.displayedDialogs = this.dialogs;
   }
 }
