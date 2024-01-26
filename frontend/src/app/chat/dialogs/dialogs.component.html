@@ -12,11 +12,10 @@
         <i class="bi bi-plus-lg" (click)="showCreateChannelModal=true"></i>
     </div>
     <div id="all-available-dialogs" class="scrollable">
-        <div class="dialog" *ngFor="let dialog of displayedDialogs">
-            <app-dialog
-                    [dialog]="dialog"
-                    (click)="changeSelectedPerson(dialog.name!)">
-            </app-dialog>
+        <div class="dialog"
+             *ngFor="let dialog of displayedDialogs"
+             (click)="changeSelectedPerson(dialog.name!)">
+            <app-dialog [dialog]="dialog"></app-dialog>
         </div>
     </div>
 </div>
