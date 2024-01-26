@@ -17,7 +17,7 @@ export class CreateChannelModalComponent {
       "I need cookies👉👈",
       "9.25"),
     new Dialog(
-      "Tetiana",
+      "Tania",
       "assets/placeholderComrade.jpeg",
       "Oh well, you know, so distinguished",
       "22:25"),
