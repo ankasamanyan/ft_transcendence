@@ -18,8 +18,8 @@ export class DialogsService {
       new Dialog(
         "Krisi",
         "assets/placeholderComrade3.jpeg",
-        "So, I am curious: have you ever been in a situation",
-        "19:04"),
+        "That's what she said",
+        "19:07"),
       new Dialog(
         "Santiago",
         "assets/placeholderComrade4.jpeg",

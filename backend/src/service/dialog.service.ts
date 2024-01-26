@@ -73,6 +73,38 @@ export class DialogService {
         "Tania",
         "Deal🤝",
         "22.27")
+    ]),
+    new SelectedDialog([
+      new Message(
+        "Anahit",
+        "Krisi",
+        "Maybe you could take a short break? We could grab something to eat or just meet at 42. No need to exert yourself",
+        "18.50"),
+      new Message(
+        "Krisi",
+        "Anahit",
+        "Well, yeah, having no breaks might prove to be challenging",
+        "18.52"),
+      new Message(
+        "Krisi",
+        "Anahit",
+        "You think I won't manage?🤔",
+        "18.54"),
+      new Message(
+        "Anahit",
+        "Krisi",
+        "I don't know, it does sound rather exhausting",
+        "19.03"),
+      new Message(
+        "Anahit",
+        "Krisi",
+        "You really think you can go all day long?",
+        "19.04"),
+      new Message(
+        "Krisi",
+        "Anahit",
+        "That's what she said",
+        "19.07")
     ])];
   getDialog(senderId: string, receiverId: string) {
     return this.dialogs.find(dialog => dialog.messageHistory.some(
