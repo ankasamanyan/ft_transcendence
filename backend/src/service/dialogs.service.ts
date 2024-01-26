@@ -11,10 +11,10 @@ export class DialogsService {
         "I need cookies👉👈",
         "9.25"),
       new Dialog(
-        "Tetiana",
+        "Tania",
         "assets/placeholderComrade.jpeg",
-        "Oh well, you know, so distinguished",
-        "22:25"),
+        "Deal🤝",
+        "22.27"),
       new Dialog(
         "Krisi",
         "assets/placeholderComrade3.jpeg",

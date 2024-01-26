@@ -13,7 +13,10 @@
     </div>
     <div id="all-available-dialogs" class="scrollable">
         <div class="dialog" *ngFor="let dialog of displayedDialogs">
-            <app-dialog [dialog]="dialog"></app-dialog>
+            <app-dialog
+                    [dialog]="dialog"
+                    (click)="changeSelectedPerson(dialog.name!)">
+            </app-dialog>
         </div>
     </div>
 </div>

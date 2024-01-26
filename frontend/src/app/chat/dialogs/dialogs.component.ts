@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {Dialog} from "../../domain/dialog";
 import {DialogsService} from "../../service/dialogs.service";
 
@@ -10,12 +10,15 @@ import {DialogsService} from "../../service/dialogs.service";
 export class DialogsComponent {
   dialogs: Dialog[] = [];
   displayedDialogs: Dialog[] = [];
-
   showCreateChannelModal: boolean = false;
+
+  @Output()
+  selectedPersonChanged = new EventEmitter<string>();
 
   constructor(dialogsService: DialogsService) {
     dialogsService.getDialogs("Anahit").subscribe((value)  => {
       this.dialogs = value.dialogs!;
+      this.changeSelectedPerson(this.dialogs[0].name!);
       this.displayedDialogs = this.dialogs;
     });
   }
@@ -27,5 +30,9 @@ export class DialogsComponent {
       this.displayedDialogs = this.dialogs
         .filter((dialog) => dialog.name?.toUpperCase().startsWith(dialogToSearchFor.toUpperCase()));
     }
+  }
+
+  changeSelectedPerson(selectedPerson: string) {
+    this.selectedPersonChanged.emit(selectedPerson);
   }
 }

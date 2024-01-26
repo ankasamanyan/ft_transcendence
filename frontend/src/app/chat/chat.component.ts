@@ -8,4 +8,10 @@ import {NavigationBarStatus} from "../domain/navigation-bar";
 })
 export class ChatComponent {
   protected readonly NavigationBarStatus = NavigationBarStatus;
+
+  selectedPerson: string | undefined;
+
+  saveSelectedPerson(selectedPerson: string) {
+    this.selectedPerson = selectedPerson;
+  }
 }
