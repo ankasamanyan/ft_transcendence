@@ -11,6 +11,7 @@ export class DialogsComponent {
   dialogs: Dialog[] = [];
   displayedDialogs: Dialog[] = [];
   showCreateChannelModal: boolean = false;
+  selectedPerson: string | undefined;
 
   @Output()
   selectedPersonChanged = new EventEmitter<string>();
@@ -33,6 +34,7 @@ export class DialogsComponent {
   }
 
   changeSelectedPerson(selectedPerson: string) {
+    this.selectedPerson = selectedPerson;
     this.selectedPersonChanged.emit(selectedPerson);
   }
 }

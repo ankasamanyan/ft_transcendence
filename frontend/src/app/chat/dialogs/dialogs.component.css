@@ -59,3 +59,7 @@ form {
   background-color: var(--color-light-blue-lighter);
   cursor: pointer;
 }
+
+.selected-color {
+  background-color: var(--color-light-blue-lighter);
+}

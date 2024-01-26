@@ -14,7 +14,8 @@
     <div id="all-available-dialogs" class="scrollable">
         <div class="dialog"
              *ngFor="let dialog of displayedDialogs"
-             (click)="changeSelectedPerson(dialog.name!)">
+             (click)="changeSelectedPerson(dialog.name!)"
+             [ngClass]="{'selected-color': dialog.name! === this.selectedPerson}">
             <app-dialog [dialog]="dialog"></app-dialog>
         </div>
     </div>
