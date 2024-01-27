@@ -18,6 +18,10 @@ import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.compo
 import { SelectedDialogHeaderComponent } from './chat/selected-dialog/selected-dialog-header/selected-dialog-header.component';
 import { BlockModalComponent } from './chat/selected-dialog/selected-dialog-header/block-modal/block-modal.component';
 import { InvitationReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-received-notification/invitation-received-notification.component';
+import { FriendsComponent } from './my-profile/friends/friends.component';
+import { StatisticsComponent } from './my-profile/statistics/statistics.component';
+import { AchievementsComponent } from './my-profile/achievements/achievements.component';
+import { MatchHistoryComponent } from './my-profile/match-history/match-history.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import { InvitationReceivedNotificationComponent } from './chat/selected-dialog/
     ExitModalComponent,
     SelectedDialogHeaderComponent,
     BlockModalComponent,
-    InvitationReceivedNotificationComponent
+    InvitationReceivedNotificationComponent,
+    FriendsComponent,
+    StatisticsComponent,
+    AchievementsComponent,
+    MatchHistoryComponent
   ],
   imports: [
     BrowserModule,

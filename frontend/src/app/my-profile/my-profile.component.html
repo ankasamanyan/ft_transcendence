@@ -1,9 +1,38 @@
-<div id="whole-profile">
-    <app-navigation-bar></app-navigation-bar>
-    <ul>Once the profile component is done, we'll see:
-        <li>user's wins and loses</li>
-        <li>ladder level</li>
-        <li>achievements</li>
-        <li>match history</li>
-    </ul>
+<app-navigation-bar></app-navigation-bar>
+<div class="user-page-container">
+  <div class="main-content-container">
+    <div class="profile-container">
+      <div class="edit-icon">
+        <i class="bi bi-pencil-square menu" > </i>
+
+      </div>
+      <div class="gear-icon">
+        <i class="bi bi-gear-fill menu" ></i>
+      </div>
+      <div class="profile-icon">
+        <img src="../../assets/placeholderAvatar.jpeg" alt="Profile Picture">
+      </div>
+      <div class="profile-info">
+        <h4 class="name">{{name}} {{surname}}</h4>
+        <h5 class="username">{{username}}</h5>
+      </div>
+      <div class="icon-set">
+        <div class="icon-set-item">
+          <i class="bi bi-people"></i>
+        </div>
+        <div class="icon-set-item">
+          <i class="bi bi-bar-chart"></i>
+        </div>
+        <div class="icon-set-item">
+          <i class="bi bi-controller"></i>
+        </div>
+        <div class="icon-set-item">
+          <i class="bi bi-trophy"></i>
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      <app-friends></app-friends>
+    </div>
+  </div>
 </div>
