@@ -7,10 +7,12 @@ import {MessageController} from "./adapter/message.controller";
 import {MessageService} from "./service/message.service";
 import {DialogsService} from "./service/dialogs.service";
 import {DialogsController} from "./adapter/dialogs.controller";
+import {UsersController} from "./adapter/users.controller";
+import {UsersService} from "./service/users.service";
 
 @Module({
   imports: [],
-  controllers: [AppController, DialogController, MessageController, DialogsController],
-  providers: [AppService, DialogService, MessageService, DialogsService],
+  controllers: [AppController, DialogController, MessageController, DialogsController, UsersController],
+  providers: [AppService, DialogService, MessageService, DialogsService, UsersService],
 })
 export class AppModule {}

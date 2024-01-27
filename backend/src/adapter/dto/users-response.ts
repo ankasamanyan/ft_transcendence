@@ -6,6 +6,10 @@ export class UsersResponse {
   static toDomain(response: UsersResponse): Users {
     return new Users(response.users.map(user => UserResponse.toDomain(user)));
   }
+
+  static fromDomain(users: Users): UsersResponse {
+    return new UsersResponse(users.users.map(user => UserResponse.fromDomain(user)))
+  }
 }
 
 export class UserResponse {
@@ -16,6 +20,14 @@ export class UserResponse {
       response.userId,
       response.name,
       response.pictureUrl,
+    );
+  }
+
+  static fromDomain(user: User): UserResponse {
+    return new UserResponse(
+      user.userId,
+      user.name,
+      user.pictureUrl,
     );
   }
 }
