@@ -33,7 +33,7 @@ export class DialogsService {
       new Dialog(
         "Wolf",
         "assets/placeholderComrade6.jpeg",
-        "Check out my github, it's all there",
+        "Okay, I'll run it by my team, but it's a highly, highly unlikely scenario",
         "14:02")
     ]);
   }

@@ -151,6 +151,38 @@ export class DialogService {
         "Anahit",
         "Да, компания собирается хорошая)",
         "16.13")
+    ]),
+    new SelectedDialog([
+      new Message(
+        "Wolf",
+        "Anahit",
+        "We have React and your team is using Angular. Honestly, I can't see how that could work",
+        "13.14"),
+      new Message(
+        "Anahit",
+        "Wolf",
+        "That is an obstacle, but one we can overcome😇",
+        "13.20"),
+      new Message(
+        "Wolf",
+        "Anahit",
+        "Another thing is organizing twice as many people to work together. That is challenging enough with the amount of people we currently have",
+        "13.31"),
+      new Message(
+        "Anahit",
+        "Wolf",
+        "True. That would resemble working on a real-life project more closely though, could be useful",
+        "13.32"),
+      new Message(
+        "Anahit",
+        "Wolf",
+        "Tania is concerned with that as well, but she does not mind trying it out",
+        "13.34"),
+      new Message(
+        "Wolf",
+        "Anahit",
+        "Okay, I'll run it by my team, but it's a highly, highly unlikely scenario",
+        "14.02")
     ])];
   getDialog(senderId: string, receiverId: string) {
     return this.dialogs.find(dialog => dialog.messageHistory.some(
