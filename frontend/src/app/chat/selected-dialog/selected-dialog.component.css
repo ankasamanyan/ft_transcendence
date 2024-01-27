@@ -3,6 +3,10 @@
   height: 100vh;
 }
 
+.message-history-parent {
+  padding-bottom: 50px;
+}
+
 #message-history {
   position: relative;
 }
