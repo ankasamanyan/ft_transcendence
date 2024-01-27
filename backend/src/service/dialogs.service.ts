@@ -28,8 +28,8 @@ export class DialogsService {
       new Dialog(
         "Fedia",
         "assets/placeholderComrade5.jpeg",
-        "This laptop is heavy enough to kill people",
-        "16:56"),
+        "Да, компания собирается хорошая)",
+        "16.13"),
       new Dialog(
         "Wolf",
         "assets/placeholderComrade6.jpeg",

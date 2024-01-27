@@ -124,6 +124,33 @@ export class DialogService {
         "Santiago",
         "🐱",
         "18.45")
+    ]),
+    new SelectedDialog([
+      new Message(
+        "Fedia",
+        "Anahit",
+        "Так и я про то. Если корпоратив не заканчивается приглашением твоего друга на интервью, то это не пойми что, а не корпоратив",
+        "15.57"),
+      new Message(
+        "Anahit",
+        "Fedia",
+        "😂😂😂",
+        "16.06"),
+      new Message(
+        "Anahit",
+        "Fedia",
+        "Достойный результат!👏👏👏",
+        "16.08"),
+      new Message(
+        "Anahit",
+        "Fedia",
+        "Пуне и Юля тоже прошли, насколько я помню?",
+        "16.11"),
+      new Message(
+        "Fedia",
+        "Anahit",
+        "Да, компания собирается хорошая)",
+        "16.13")
     ])];
   getDialog(senderId: string, receiverId: string) {
     return this.dialogs.find(dialog => dialog.messageHistory.some(
