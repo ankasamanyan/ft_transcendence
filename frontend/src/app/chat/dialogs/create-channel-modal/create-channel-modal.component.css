@@ -55,17 +55,6 @@
     max-height: 140px;
 }
 
-.possible-choices div {
-    padding: 8px;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-.possible-choices div:hover {
-    background-color: var(--color-light-gray);
-    border-radius: 8px;
-}
-
 button {
     border: none;
     border-radius: 7px;

@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Dialog} from "../../../../domain/dialog";
+import {User} from "../../../../domain/user";
 
 @Component({
   selector: 'app-select-option',
@@ -8,7 +8,7 @@ import {Dialog} from "../../../../domain/dialog";
 })
 export class SelectOptionComponent {
   @Input()
-  dialog: Dialog |undefined;
+  user: User |undefined;
 
   isSelected: boolean = false;
 }

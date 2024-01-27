@@ -1,3 +1,14 @@
+div {
+    padding: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+div:hover {
+    background-color: var(--color-light-gray);
+    border-radius: 8px;
+}
+
 img {
     width: 13%;
     height: 30px;

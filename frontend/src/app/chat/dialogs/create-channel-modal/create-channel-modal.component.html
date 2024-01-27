@@ -9,8 +9,8 @@
         <div class="container">
             <div id="whom-question">Whom do you wish to invite?</div>
                 <div class="possible-choices">
-                    <div *ngFor="let dialog of dialogs">
-                        <app-select-option [dialog]="dialog"></app-select-option>
+                    <div *ngFor="let user of users?.users">
+                        <app-select-option [user]="user"></app-select-option>
                     </div>
                 </div>
             <button id="create-button" (click)="modalClose.emit()">Create</button>
