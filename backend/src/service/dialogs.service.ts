@@ -23,7 +23,7 @@ export class DialogsService {
       new Dialog(
         "Santiago",
         "assets/placeholderComrade4.jpeg",
-        "Trying to reboot yet again",
+        "🐱",
         "18:45"),
       new Dialog(
         "Fedia",

@@ -105,6 +105,25 @@ export class DialogService {
         "Anahit",
         "That's what she said",
         "19.07")
+    ]),
+    new SelectedDialog([
+      new Message(
+        "Santiago",
+        "Anahit",
+        "I understand you position and share your concerns. " +
+        "Yet I have a few points I want to make.\n\n" +
+        "Firstly, I believe in trying to make the best out of the situation you find yourself in. " +
+        "It shows one's ability to accommodate to the situation, deal with problems and be flexible when the circumstances demand it. " +
+        "There is a possibility that the managers listening to our presentations share this point of view.\n\n" +
+        "Secondly, we will be able to bring necessary changes to this place once we have a contract. " +
+        "So you won't be ignoring the problems of our organization, I just suggest you postpone addressing them.\n\n" +
+        "I genuinely want you to succeed and that's why I share my perspective. The decision on how to proceed further is yours, of course.",
+        "18.01"),
+      new Message(
+        "Anahit",
+        "Santiago",
+        "🐱",
+        "18.45")
     ])];
   getDialog(senderId: string, receiverId: string) {
     return this.dialogs.find(dialog => dialog.messageHistory.some(
