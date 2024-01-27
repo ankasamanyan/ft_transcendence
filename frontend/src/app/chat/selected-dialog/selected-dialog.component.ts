@@ -39,12 +39,8 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
     this.scrollToTheBottom();
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.scrollToTheBottom();
-  }
-
   scrollToTheBottom() {
-    this.wholeSelectedDialogContainer.nativeElement.scrollTop = this.wholeSelectedDialogContainer.nativeElement.scrollHeight;
+    const container = this.wholeSelectedDialogContainer.nativeElement;
+    container.scrollTop = container.scrollHeight;
   }
 }
