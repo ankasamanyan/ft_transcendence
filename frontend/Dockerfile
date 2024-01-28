@@ -2,8 +2,8 @@
 
 FROM --platform=$BUILDPLATFORM node:17.0.1-bullseye-slim as builder
 
-RUN mkdir /project
-WORKDIR /project
+RUN mkdir /frontend
+WORKDIR /frontend
 
 RUN npm install -g @angular/cli@13
 
