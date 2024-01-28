@@ -22,6 +22,9 @@ import { FriendsComponent } from './my-profile/friends/friends.component';
 import { StatisticsComponent } from './my-profile/statistics/statistics.component';
 import { AchievementsComponent } from './my-profile/achievements/achievements.component';
 import { MatchHistoryComponent } from './my-profile/match-history/match-history.component';
+import { CreateChannelModalComponent } from './chat/dialogs/create-channel-modal/create-channel-modal.component';
+import { SelectOptionComponent } from './chat/dialogs/create-channel-modal/select-option/select-option.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -42,12 +45,15 @@ import { MatchHistoryComponent } from './my-profile/match-history/match-history.
     FriendsComponent,
     StatisticsComponent,
     AchievementsComponent,
-    MatchHistoryComponent
+    MatchHistoryComponent,
+    CreateChannelModalComponent,
+    SelectOptionComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     AppRoutingModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: ChatComponent },
       { path: 'my-profile', component: MyProfileComponent },

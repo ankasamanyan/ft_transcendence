@@ -1,0 +1,5 @@
+<div (click)="isSelected=!isSelected">
+    <img [src]="user!.pictureUrl">
+    <span>{{user!.name}}</span>
+    <i class="bi bi-check" *ngIf="isSelected"></i>
+</div>
