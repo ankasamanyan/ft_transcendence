@@ -1,6 +1,6 @@
 import {Controller, Get, Param} from '@nestjs/common';
 import {DialogsService} from "../service/dialogs.service";
-import {DialogsResponse} from "./dto/dialogs-response";
+import { DialogsResponse } from 'src/domain/dialogs-response';
 import {of} from "rxjs";
 
 @Controller('/dialogs/')

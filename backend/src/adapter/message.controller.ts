@@ -1,6 +1,6 @@
 import {Controller, Post} from '@nestjs/common';
 import {MessageService} from "../service/message.service";
-import {MessageRequest} from "./dto/message-request";
+import { MessageRequest } from 'src/domain/message-request';
 
 @Controller('/messages')
 export class MessageController {

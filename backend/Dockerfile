@@ -12,4 +12,4 @@ RUN chmod 777 start.sh
 EXPOSE 3000
 EXPOSE 5500
 EXPOSE 5555
-CMD ["npm","run", "start"]
+CMD ["./start.sh"]

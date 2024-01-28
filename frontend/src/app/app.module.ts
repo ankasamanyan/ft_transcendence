@@ -15,16 +15,16 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { GameComponent } from './game/game.component';
 import { AuthorizationPageComponent } from './authorization-page/authorization-page.component';
 import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SelectedDialogHeaderComponent } from './chat/selected-dialog/selected-dialog-header/selected-dialog-header.component';
 import { BlockModalComponent } from './chat/selected-dialog/selected-dialog-header/block-modal/block-modal.component';
 import { InvitationReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-received-notification/invitation-received-notification.component';
+import { CreateChannelModalComponent } from './chat/dialogs/create-channel-modal/create-channel-modal.component';
+import { SelectOptionComponent } from './chat/dialogs/create-channel-modal/select-option/select-option.component';
 import { FriendsComponent } from './my-profile/friends/friends.component';
 import { StatisticsComponent } from './my-profile/statistics/statistics.component';
 import { AchievementsComponent } from './my-profile/achievements/achievements.component';
 import { MatchHistoryComponent } from './my-profile/match-history/match-history.component';
-import { CreateChannelModalComponent } from './chat/dialogs/create-channel-modal/create-channel-modal.component';
-import { SelectOptionComponent } from './chat/dialogs/create-channel-modal/select-option/select-option.component';
-import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -42,15 +42,16 @@ import {HttpClientModule} from "@angular/common/http";
     SelectedDialogHeaderComponent,
     BlockModalComponent,
     InvitationReceivedNotificationComponent,
+    CreateChannelModalComponent,
+    SelectOptionComponent,
     FriendsComponent,
     StatisticsComponent,
     AchievementsComponent,
     MatchHistoryComponent,
-    CreateChannelModalComponent,
-    SelectOptionComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     NgbModule,
     AppRoutingModule,
     HttpClientModule,
