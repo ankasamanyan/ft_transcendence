@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import {DialogController} from "./adapter/dialog.controller";
+import {DialogGateway} from "./adapter/dialog.controller";
 import {DialogService} from "./service/dialog.service";
 import {MessageController} from "./adapter/message.controller";
 import {MessageService} from "./service/message.service";
@@ -12,7 +12,7 @@ import {UsersService} from "./service/users.service";
 
 @Module({
   imports: [],
-  controllers: [AppController, DialogController, MessageController, DialogsController, UsersController],
-  providers: [AppService, DialogService, MessageService, DialogsService, UsersService],
+  controllers: [AppController, MessageController, DialogsController, UsersController],
+  providers: [AppService, DialogService, MessageService, DialogsService, UsersService, DialogGateway],
 })
 export class AppModule {}
