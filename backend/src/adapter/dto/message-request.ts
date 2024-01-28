@@ -1,4 +1,4 @@
-import {Message} from "../domain/message";
+import {Message} from "../../domain/message";
 
 export class MessageRequest {
   constructor(

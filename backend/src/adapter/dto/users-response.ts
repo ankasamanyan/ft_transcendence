@@ -1,4 +1,4 @@
-import {User, Users} from "../domain/user";
+import {User, Users} from "../../domain/user";
 
 export class UsersResponse {
   constructor(public users: UserResponse[]) {}
