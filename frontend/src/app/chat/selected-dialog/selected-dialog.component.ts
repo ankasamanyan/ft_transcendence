@@ -11,7 +11,6 @@ import {
 import {SelectedDialog} from "../../domain/selected-dialog";
 import {DialogService} from "../../service/dialog.service";
 
-
 @Component({
   selector: 'app-selected-dialog',
   templateUrl: './selected-dialog.component.html',

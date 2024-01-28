@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+}
+
+.tab-container {
+  padding: 40px;
+  background-color: #ffffff;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  color: #171e2d;
+}
+
+h5 {
+  margin-left: 70px;
+  margin-top: 30px;
+}

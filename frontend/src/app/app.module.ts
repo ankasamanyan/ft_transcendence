@@ -21,7 +21,10 @@ import { BlockModalComponent } from './chat/selected-dialog/selected-dialog-head
 import { InvitationReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-received-notification/invitation-received-notification.component';
 import { CreateChannelModalComponent } from './chat/dialogs/create-channel-modal/create-channel-modal.component';
 import { SelectOptionComponent } from './chat/dialogs/create-channel-modal/select-option/select-option.component';
-
+import { FriendsComponent } from './my-profile/friends/friends.component';
+import { StatisticsComponent } from './my-profile/statistics/statistics.component';
+import { AchievementsComponent } from './my-profile/achievements/achievements.component';
+import { MatchHistoryComponent } from './my-profile/match-history/match-history.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,11 @@ import { SelectOptionComponent } from './chat/dialogs/create-channel-modal/selec
     BlockModalComponent,
     InvitationReceivedNotificationComponent,
     CreateChannelModalComponent,
-    SelectOptionComponent
+    SelectOptionComponent,
+    FriendsComponent,
+    StatisticsComponent,
+    AchievementsComponent,
+    MatchHistoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +60,6 @@ import { SelectOptionComponent } from './chat/dialogs/create-channel-modal/selec
       { path: 'my-profile', component: MyProfileComponent },
       { path: 'game', component: GameComponent },
       { path: 'chat', component: ChatComponent },
-      { path: 'authorization', component: AuthorizationPageComponent }
     ])
   ],
   providers: [],
