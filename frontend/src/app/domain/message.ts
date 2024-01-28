@@ -1,8 +1,8 @@
 export class Message {
-  public senderId: string | undefined;
-  public receiverId: string | undefined;
-  public text: string | undefined;
-  public time: string | undefined;
+  public senderId: string;
+  public receiverId: string;
+  public text: string;
+  public time: string;
   constructor(senderId: string, receiverId: string, text: string, time: string) {
     this.senderId = senderId;
     this.receiverId = receiverId;

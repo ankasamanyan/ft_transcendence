@@ -16,10 +16,6 @@ export class NavigationBarComponent {
     return this.navigationStatus == NavigationBarStatus.GAME;
   }
 
-  isLeaderboardSelected() {
-    return this.navigationStatus == NavigationBarStatus.LEADERBOARD;
-  }
-
   isChatSelected() {
     return this.navigationStatus == NavigationBarStatus.CHAT;
   }

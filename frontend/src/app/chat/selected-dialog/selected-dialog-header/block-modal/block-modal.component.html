@@ -1,0 +1,14 @@
+<div class="wish-to-block-modal">
+    <div class="wish-to-block-inner-modal">
+        <div class="exit-icon">
+            <i class="bi bi-x-lg" (click)="modalClose.emit()"></i>
+        </div>
+        <div class="container">
+            <span>Are you certain you wish to block this person? You won't be able to see any messages from this account anymore</span>
+        </div>
+        <div id="buttons" class="container">
+            <button (click)="modalClose.emit()" id="no-button">I changed my mind</button>
+            <button (click)="modalClose.emit()" id="block-button">Block</button>
+        </div>
+    </div>
+</div>

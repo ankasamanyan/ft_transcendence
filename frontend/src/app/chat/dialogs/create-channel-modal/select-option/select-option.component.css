@@ -1,0 +1,25 @@
+div {
+    padding: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+div:hover {
+    background-color: var(--color-light-gray);
+    border-radius: 8px;
+}
+
+img {
+    width: 13%;
+    height: 30px;
+    border-radius: 25px;
+    margin-right: 9px;
+    object-fit: cover;
+}
+
+.bi-check {
+    float: right;
+    margin-right: 8px;
+    font-size: 18px;
+    color: var(--color-orange);
+}

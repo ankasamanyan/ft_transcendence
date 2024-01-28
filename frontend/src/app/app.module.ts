@@ -13,10 +13,15 @@ import { DialogComponent } from './chat/dialogs/dialog/dialog.component';
 import { MessageComponent } from './chat/selected-dialog/message/message.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { GameComponent } from './game/game.component';
-import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { AuthorizationPageComponent } from './authorization-page/authorization-page.component';
 import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { SelectedDialogHeaderComponent } from './chat/selected-dialog/selected-dialog-header/selected-dialog-header.component';
+import { BlockModalComponent } from './chat/selected-dialog/selected-dialog-header/block-modal/block-modal.component';
+import { InvitationReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-received-notification/invitation-received-notification.component';
+import { CreateChannelModalComponent } from './chat/dialogs/create-channel-modal/create-channel-modal.component';
+import { SelectOptionComponent } from './chat/dialogs/create-channel-modal/select-option/select-option.component';
+
 
 @NgModule({
   declarations: [
@@ -29,20 +34,24 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     MessageComponent,
     MyProfileComponent,
     GameComponent,
-    LeaderboardComponent,
     AuthorizationPageComponent,
-    ExitModalComponent
+    ExitModalComponent,
+    SelectedDialogHeaderComponent,
+    BlockModalComponent,
+    InvitationReceivedNotificationComponent,
+    CreateChannelModalComponent,
+    SelectOptionComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     NgbModule,
     AppRoutingModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: ChatComponent },
       { path: 'my-profile', component: MyProfileComponent },
       { path: 'game', component: GameComponent },
-      { path: 'leaderboard', component: LeaderboardComponent },
       { path: 'chat', component: ChatComponent },
       { path: 'authorization', component: AuthorizationPageComponent }
     ])

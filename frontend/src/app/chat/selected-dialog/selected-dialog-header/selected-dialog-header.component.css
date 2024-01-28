@@ -1,0 +1,77 @@
+#dialog-header {
+    height: 57px;
+    box-shadow: 0 7px 17px -6px rgba(0,0,0,0.09);
+    padding: 13px 13px 13px 20px;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+}
+
+#selected-person {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.dropdown {
+    display: inline-block;
+    float: right;
+}
+
+.bi-three-dots-vertical {
+    cursor: pointer;
+    padding: 3px 6px;
+    border-radius: 6px;
+    color: grey;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 135px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.09);
+    z-index: 1;
+    border-radius: 8px;
+}
+
+.dropdown-content div {
+    padding: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.game-icon, .block-icon, .game-icon-hidden {
+    margin-right: 8px;
+}
+
+.game-icon-hidden {
+    display: none;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.bi-three-dots-vertical:hover {
+    color: darkgrey;
+}
+
+.dropdown-content div:hover {
+    background-color: var(--color-light-gray);
+    border-radius: 8px;
+}
+
+#invite-action:hover .game-icon{
+    display: none;
+}
+
+#invite-action:hover .game-icon-hidden{
+    display: inline;
+    color: var(--color-orange);
+}
+
+#block-action:hover .block-icon {
+    color: dimgray;
+}

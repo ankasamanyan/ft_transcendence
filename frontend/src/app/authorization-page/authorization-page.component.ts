@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./authorization-page.component.css']
 })
 export class AuthorizationPageComponent {
+  //test
+  //test2
 
 }
