@@ -9,13 +9,19 @@ import {
   ViewChild
 } from '@angular/core';
 import {SelectedDialog} from "../../domain/selected-dialog";
+<<<<<<< HEAD
 import {DialogService} from "../../service/dialog.service";
+=======
+import {Message} from "../../domain/message";
+import { DialogService } from "../../service/dialog.service"
+>>>>>>> Dockerization
 
 @Component({
   selector: 'app-selected-dialog',
   templateUrl: './selected-dialog.component.html',
   styleUrls: ['./selected-dialog.component.css']
 })
+<<<<<<< HEAD
 export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
   @Input()
   selectedPerson: string | undefined;
@@ -25,6 +31,18 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
   selectedDialog: SelectedDialog | undefined;
 
   constructor(public dialogService: DialogService) {
+=======
+export class SelectedDialogComponent {
+  mockData: SelectedDialog | undefined;
+
+  constructor(dialogService: DialogService) {
+    dialogService.getDialog("Heather", "Maria").subscribe((value: SelectedDialog)  => {this.mockData = value;});
+
+  }
+  selectedDialogScrollable: boolean = false;
+  makeSelectedDialogScrollable() {
+    this.selectedDialogScrollable = true;
+>>>>>>> Dockerization
   }
 
   ngOnChanges(changes: SimpleChanges): void {

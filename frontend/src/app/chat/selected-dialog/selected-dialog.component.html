@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div #wholeSelectedDialogContainer id="whole-selected-dialog">
     <app-selected-dialog-header [selectedPerson]="selectedPerson"></app-selected-dialog-header>
     <div id="selected-dialog-body">
@@ -10,4 +11,23 @@
             <input id="write-message-input" placeholder="Write a message...">
         </div>
     </div>
+=======
+<div id="whole-selected-dialog"
+     (mouseenter)="makeSelectedDialogScrollable()"
+     (mouseleave)="makeSelectedDialogStatic()"
+     [ngClass]="selectedDialogScrollable ? 'scrollable' : 'static'">
+  <div id="selected-person">
+    {{selectedPerson}}
+  </div>
+  <div id="message-history" *ngFor="let message of selectedDialog.messageHistory">
+    <app-message [message]="message"></app-message>
+  </div>
+  <div id="write-message-form">
+    <input id="write-message-input" placeholder="Write a message...">
+  </div>
+  <div>{{mockData?.messageHistory![0].text}}</div>
+  <div>{{mockData?.messageHistory![0].receiverId}}</div>
+  <div>{{mockData?.messageHistory![0].senderId}}</div>
+  <div>{{mockData?.messageHistory![0].time}}</div>
+>>>>>>> Dockerization
 </div>
