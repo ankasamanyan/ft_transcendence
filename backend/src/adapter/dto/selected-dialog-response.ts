@@ -1,5 +1,5 @@
-import {SelectedDialog} from "../../domain/selected-dialog";
-import {Message} from "../../domain/message";
+import { SelectedDialog } from "src/domain/selected-dialog";
+import { Message } from "src/domain/message";
 
 export class SelectedDialogResponse {
   constructor(public messageHistory: MessageResponse[]) {}
