@@ -1,17 +1,17 @@
 body {
-    margin: 0;
-  }
+  margin: 0;
+}
 
-.friends-container {
-    padding: 40px;
-    background-color: #fefefe;
-    min-height: 100vh;
-    overflow: hidden;
-    position: relative;
-    color: #171e2d;
-  }
+.tab-container {
+  padding: 40px;
+  background-color: #ffffff;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  color: #171e2d;
+}
 
-  h3 {
-    margin-left: 70px;
-    margin-top: 30px;
-  }
+h5 {
+  margin-left: 70px;
+  margin-top: 30px;
+}

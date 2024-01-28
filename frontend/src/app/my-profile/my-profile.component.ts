@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-my-profile',
@@ -6,13 +8,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./my-profile.component.css'],
 })
 
-export class MyProfileComponent {
-  public selectedMenuItem: string = 'Friends';
-  public name: String = 'Anait';
-  public surname: String = 'Kasamanian';
-  public username: String = '@akasaman'
 
-  selectMenuItem(menuItem: string): void {
+  export class MyProfileComponent implements OnInit{
+
+  public name: string = 'Anait';
+  public surname: string = 'Kasamanian';
+  public username: string = '@akasaman';
+  public selectedMenuItem: string = 'friends';
+  
+  
+  ngOnInit(): void {
+  }
+
+  selectMenuItem(menuItem: string) {
     this.selectedMenuItem = menuItem;
   }
 }
