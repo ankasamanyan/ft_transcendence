@@ -1,7 +1,7 @@
 import {Controller, Get, Param} from '@nestjs/common';
 import {DialogService} from "../service/dialog.service";
 import {of} from "rxjs";
-import {SelectedDialogResponse} from "../domain/selected-dialog.dto";
+import {SelectedDialogResponse} from "./dto/selected-dialog-response";
 
 @Controller('/selected-dialog/')
 export class DialogController {
