@@ -1,4 +1,4 @@
-import {Dialog, Dialogs} from "../../domain/dialog";
+import { Dialog, Dialogs } from "./dialog";
 
 export class DialogsResponse {
   constructor(public dialogs: DialogResponse[]) {}

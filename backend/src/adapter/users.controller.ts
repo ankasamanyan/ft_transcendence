@@ -1,6 +1,6 @@
 import {Controller, Get, Param} from '@nestjs/common';
 import {of} from "rxjs";
-import {UsersResponse} from "./dto/users-response";
+import { UsersResponse } from 'src/domain/users-response';
 import {UsersService} from "../service/users.service";
 
 @Controller('/users/')
