@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-selected-dialog-header',
@@ -6,7 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./selected-dialog-header.component.css']
 })
 export class SelectedDialogHeaderComponent {
-  selectedPerson: string = "Cedric";
+  @Input()
+  selectedPerson: string | undefined;
+
   showBlockModal: boolean = false;
   showInviteNotification: boolean = false;
 

@@ -26,3 +26,21 @@ export class MessageResponse {
     );
   }
 }
+
+export class MessageRequest {
+  constructor(
+    public senderId: string,
+    public receiverId: string,
+    public text: string,
+    public time: string
+  ) {}
+
+  static fromDomain(message: Message): MessageRequest {
+    return new MessageRequest(
+      message.senderId,
+      message.receiverId,
+      message.text,
+      message.time
+    );
+  }
+}

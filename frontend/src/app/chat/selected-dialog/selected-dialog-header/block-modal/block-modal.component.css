@@ -47,20 +47,20 @@ button {
 }
 
 #block-button {
-    background-color: #de3737;
+    background-color: var(--color-orange);
     color: white;
     width: 92px;
     margin-right: 7px;
 }
 
 #block-button:hover {
-    background-color: #c92828;
+    background-color: var(--color-orange-darker);
 }
 
 #no-button {
-    background-color: #e6eef2;
+    background-color: var(--color-light-blue);
 }
 
 #no-button:hover {
-    background-color: #d5e0e6;
+    background-color: var(--color-light-blue-darker);
 }

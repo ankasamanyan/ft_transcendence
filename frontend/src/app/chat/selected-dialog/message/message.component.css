@@ -1,15 +1,19 @@
 .text-time {
   padding: 10px 10px 10px 15px;
   margin: 10px 20px 10px 20px;
-  background-color: #e6eef2;
-  border-radius: 10px;
+  background-color: var(--color-light-blue);
+  border-radius: 11px;
   max-width: 360px;
   position: relative;
+  display: flex;
+  width: fit-content;
 }
 
 .text {
   font-size: 13px;
   font-weight: 300;
+  margin-right: 35px;
+  white-space: pre-line;
 }
 
 .time {
@@ -18,4 +22,16 @@
   position: absolute;
   bottom: 10px;
   right: 10px;
+}
+
+@media (min-width: 1200px) {
+  .text-time {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 767px) {
+  .text-time {
+    max-width: 280px;
+  }
 }

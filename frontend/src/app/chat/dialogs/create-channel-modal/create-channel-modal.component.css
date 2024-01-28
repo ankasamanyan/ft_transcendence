@@ -1,4 +1,4 @@
-.wish-to-exit-modal {
+.create-channel-modal {
     position: fixed;
     z-index: 2;
     left: 0;
@@ -10,20 +10,30 @@
     background-color: rgba(0,0,0,0.2);
 }
 
-.wish-to-exit-inner-modal {
+.create-channel-inner-modal {
     background-color: #fefefe;
     margin: 10% auto;
     padding: 20px;
     border: none;
-    width: 300px;
+    width: 320px;
+    height: 310px;
     border-radius: 10px;
     box-shadow: 0 1px 17px rgba(0,0,0,0.09);
     font-weight: 300;
 }
 
-.exit-icon {
+#first-line {
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
+    margin-left: 12px;
+    margin-bottom: 24px;
+}
+
+.modal-header {
+    font-weight: bold;
+}
+
+.exit-icon {
     cursor: pointer;
 }
 
@@ -31,8 +41,18 @@
     color: darkgrey;
 }
 
-#buttons {
-    margin-top: 14px;
+#whom-question {
+    margin-bottom: 14px;
+    font-weight: lighter;
+}
+
+.possible-choices {
+    display: block;
+    background-color: white;
+    min-width: 200px;
+    border-radius: 8px;
+    overflow: scroll;
+    max-height: 140px;
 }
 
 button {
@@ -41,23 +61,16 @@ button {
     height: 35px;
     padding-right: 16px;
     padding-left: 16px;
-    margin: 5px;
+    margin-top: 10px;
     font-weight: 300;
 }
 
-#yes-button {
+#create-button {
     background-color: var(--color-orange);
     color: white;
+    float: right;
 }
 
-#yes-button:hover {
+#create-button:hover {
     background-color: var(--color-orange-darker);
-}
-
-#no-button {
-    background-color: var(--color-light-blue);
-}
-
-#no-button:hover {
-    background-color: var(--color-light-blue-darker);
 }

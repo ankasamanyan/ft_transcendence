@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    --color-orange: #de3737;
+    --color-orange-darker: #c92828;
+    --color-light-blue: #e6eef2;
+    --color-light-blue-lighter: #fafcff;
+    --color-light-blue-darker: #d5e0e6;
+    --color-light-gray: #eff1f1;
+    --color-dark-blue: #171e2d;
+}
