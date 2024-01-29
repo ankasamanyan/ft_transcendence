@@ -46,7 +46,7 @@
 
 form {
   width: 100%;
-  max-width: 700px;
+  max-width: 720px;
 }
 
 #input-field-for-search {
@@ -60,7 +60,7 @@ form {
   text-align: center;
   color: dimgray;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 200;
   margin-top: 30px;
 }
 
