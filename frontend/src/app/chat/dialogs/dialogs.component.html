@@ -9,7 +9,7 @@
                    #dialogToSearchFor
                    (input)="find(dialogToSearchFor.value)">
         </form>
-        <i class="bi bi-plus-lg" (click)="showCreateChannelModal=true"></i>
+        <i class="bi bi-plus-lg" *ngIf="users" (click)="showCreateChannelModal=true"></i>
     </div>
     <div id="all-available-dialogs" class="scrollable">
         <div class="dialog"
@@ -23,5 +23,6 @@
 
 <app-create-channel-modal
         *ngIf="showCreateChannelModal"
+        [users]="users"
         (modalClose)="showCreateChannelModal=false">
 </app-create-channel-modal>

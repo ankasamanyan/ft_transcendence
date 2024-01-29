@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {Dialog} from "../../domain/dialog";
 import {DialogsService} from "../../service/dialogs.service";
+import {UsersService} from "../../service/users.service";
+import {Users} from "../../domain/user";
 
 @Component({
   selector: 'app-dialogs',
@@ -12,15 +14,19 @@ export class DialogsComponent {
   displayedDialogs: Dialog[] = [];
   showCreateChannelModal: boolean = false;
   selectedPerson: string | undefined;
+  users: Users | undefined;
 
   @Output()
   selectedPersonChanged = new EventEmitter<string>();
 
-  constructor(dialogsService: DialogsService) {
+  constructor(dialogsService: DialogsService, usersService: UsersService) {
     dialogsService.getDialogs("Anahit").subscribe((value)  => {
       this.dialogs = value.dialogs!;
       this.changeSelectedPerson(this.dialogs[0].name!);
       this.displayedDialogs = this.dialogs;
+    });
+    usersService.getUsers("Anahit").subscribe((value)  => {
+      this.users = value;
     });
   }
 
