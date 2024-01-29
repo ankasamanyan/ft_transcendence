@@ -1,5 +1,5 @@
 <div id="dialogs">
-    <div id="search">
+    <div id="search" [ngClass]="{'padding-right' : users == undefined}">
         <form>
             <input id="input-field-for-search"
                    class="form-control"
