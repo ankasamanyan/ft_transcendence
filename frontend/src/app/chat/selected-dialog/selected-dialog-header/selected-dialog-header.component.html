@@ -18,6 +18,7 @@
 
 <app-invitation-received-notification
     *ngIf="showInviteNotification"
+    [selectedPerson]="selectedPerson"
     (notificationClose)="showInviteNotification=false">
 </app-invitation-received-notification>
 
