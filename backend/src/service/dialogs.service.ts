@@ -1,8 +1,13 @@
 import {Injectable} from '@nestjs/common';
 import {Dialog, Dialogs} from "../domain/dialog";
+// imports necessary to use prisma
 
 @Injectable()
 export class DialogsService {
+  //fillDialogsWithMockConversation() needs to add the mock conversation to the database
+
+  //getDialogs needs to return the data from the database
+  //in Dialogs form
   getDialogs(authentificatedUser: string) {
     return new Dialogs([
       new Dialog(

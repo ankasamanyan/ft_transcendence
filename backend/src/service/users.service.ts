@@ -3,6 +3,7 @@ import {User, Users} from "../domain/user";
 
 @Injectable()
 export class UsersService {
+  //getUsers should fetch data from DB
   getUsers(userId: string) {
     return new Users([
       new User(
