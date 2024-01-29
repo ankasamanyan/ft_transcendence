@@ -1,15 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-friends',
   templateUrl: `./friends.component.html`,
-  styleUrls: [`./friends.component.css`]
+  styleUrls: [`./friends.component.css`],
+
 })
-export class FriendsComponent {
-  // Sample friends data (replace with your actual data)
-  friendsList = [
-    { name: 'Friend 1', /* other details */ },
-    { name: 'Friend 2', /* other details */ },
-    // Add more friends as needed
-  ];
+export class FriendsComponent implements OnInit {
+  public friendsList: any[] = [];
+  public placeHolderMessage: string = 'List is currently empty...'
+
+  ngOnInit(): void {
+    this.friendsList = [
+      { 
+        name: 'Cedric Erdelen', 
+        profilePicture: '../../../../src/assets/placeholderComrade2.jpeg',
+        username: '@cerdelen',
+
+      },
+      { 
+        name: 'Tetiana Fedorenko',
+        profilePicture: '../../../../src/assets/placeholderComrade.jpeg',
+        username: '@tfedoren',
+      },
+    ];
+  }
+
+  sendDirectMessage() {
+
+  }
+
+  sendGameRequest() {
+    
+  }
 }
