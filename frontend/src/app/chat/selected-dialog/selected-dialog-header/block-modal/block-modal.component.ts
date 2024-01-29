@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-block-modal',
@@ -8,4 +8,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 export class BlockModalComponent {
   @Output()
   modalClose = new EventEmitter<void>();
+
+  @Input()
+  selectedPerson: string | undefined;
 }

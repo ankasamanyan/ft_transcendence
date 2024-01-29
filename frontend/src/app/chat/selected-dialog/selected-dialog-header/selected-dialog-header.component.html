@@ -24,5 +24,6 @@
 
 <app-block-modal
         *ngIf="showBlockModal"
+        [selectedPerson]="selectedPerson"
         (modalClose)="showBlockModal=false">
 </app-block-modal>
