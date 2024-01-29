@@ -12,6 +12,7 @@
         <i class="bi bi-plus-lg" *ngIf="users" (click)="showCreateChannelModal=true"></i>
     </div>
     <div id="all-available-dialogs" class="scrollable">
+        <div id="no-dialogs" *ngIf="noDialogs()">You don't have any open conversations yet</div>
         <div class="dialog"
              *ngFor="let dialog of displayedDialogs"
              (click)="changeSelectedPerson(dialog.name!)"

@@ -12,9 +12,11 @@ import {Users} from "../../domain/user";
 export class DialogsComponent {
   dialogs: Dialog[] = [];
   displayedDialogs: Dialog[] = [];
-  showCreateChannelModal: boolean = false;
   selectedPerson: string | undefined;
   users: Users | undefined;
+
+  showCreateChannelModal: boolean = false;
+  dialogsLoaded: boolean = false;
 
   @Output()
   selectedPersonChanged = new EventEmitter<string>();
@@ -24,6 +26,7 @@ export class DialogsComponent {
       this.dialogs = value.dialogs!;
       this.changeSelectedPerson(this.dialogs[0].name!);
       this.displayedDialogs = this.dialogs;
+      this.dialogsLoaded = true;
     });
     usersService.getUsers("Anahit").subscribe((value)  => {
       this.users = value;
@@ -42,5 +45,9 @@ export class DialogsComponent {
   changeSelectedPerson(selectedPerson: string) {
     this.selectedPerson = selectedPerson;
     this.selectedPersonChanged.emit(selectedPerson);
+  }
+
+  noDialogs() {
+    return this.dialogs.length === 0 && this.dialogsLoaded;
   }
 }

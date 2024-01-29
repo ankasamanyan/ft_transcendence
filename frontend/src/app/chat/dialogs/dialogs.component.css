@@ -55,6 +55,15 @@ form {
   font-size: 14px;
 }
 
+#no-dialogs {
+  padding: 20px;
+  text-align: center;
+  color: dimgray;
+  font-style: italic;
+  font-weight: 300;
+  margin-top: 30px;
+}
+
 .dialog {
   padding: 15px 15px 15px 20px;
 }
