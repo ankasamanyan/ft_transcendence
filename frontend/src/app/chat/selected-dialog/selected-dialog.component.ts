@@ -53,7 +53,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
               "Anahit",
               this.selectedPerson!,
               this.message!,
-              new Date().toLocaleString())
+              new Date())
       );
       this.message = '';
       this.clearInputField();

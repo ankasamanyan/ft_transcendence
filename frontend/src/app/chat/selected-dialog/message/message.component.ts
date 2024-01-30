@@ -16,4 +16,8 @@ export class MessageComponent {
     else
       return "background-color: var(--color-light-blue);"
   }
+
+  getTime() {
+    return new Date(this.message!.date).getHours()+ "." + new Date(this.message!.date).getMinutes().toString().padStart(2, "0");
+  }
 }

@@ -14,7 +14,7 @@ export class MessageResponse {
     public senderId: string,
     public receiverId: string,
     public text: string,
-    public time: string
+    public date: Date
   ) {}
 
   static toDomain(response: MessageResponse): Message {
@@ -22,7 +22,7 @@ export class MessageResponse {
       response.senderId,
       response.receiverId,
       response.text,
-      response.time
+      response.date
     );
   }
 }
@@ -32,7 +32,7 @@ export class MessageRequest {
     public senderId: string,
     public receiverId: string,
     public text: string,
-    public time: string
+    public date: Date
   ) {}
 
   static fromDomain(message: Message): MessageRequest {
@@ -40,7 +40,7 @@ export class MessageRequest {
       message.senderId,
       message.receiverId,
       message.text,
-      message.time
+      message.date
     );
   }
 }
