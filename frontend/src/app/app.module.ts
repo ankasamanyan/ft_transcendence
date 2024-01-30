@@ -25,6 +25,7 @@ import { FriendsComponent } from './my-profile/friends/friends.component';
 import { StatisticsComponent } from './my-profile/statistics/statistics.component';
 import { AchievementsComponent } from './my-profile/achievements/achievements.component';
 import { MatchHistoryComponent } from './my-profile/match-history/match-history.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MatchHistoryComponent } from './my-profile/match-history/match-history.
     NgbModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     RouterModule.forRoot([
       { path: '', component: ChatComponent },
       { path: 'my-profile', component: MyProfileComponent },

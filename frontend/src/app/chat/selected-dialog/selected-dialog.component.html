@@ -7,7 +7,10 @@
             </div>
         </div>
         <div id="write-message-form">
-            <input id="write-message-input" placeholder="Write a message...">
+            <input  id="write-message-input"
+                    placeholder="Write a message..."
+                    [(ngModel)]="message"
+                    (keyup.enter)="sendMessage()">
         </div>
     </div>
 </div>
