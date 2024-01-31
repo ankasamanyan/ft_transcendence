@@ -23,6 +23,11 @@ export class FriendsComponent implements OnInit {
         profilePicture: '../../../../src/assets/placeholderComrade.jpeg',
         username: '@tfedoren',
       },
+      { 
+        name: 'Kristiyana Milcheva',
+        profilePicture: '../../../../src/assets/placeholderComrade1.jpeg',
+        username: '@kmilchev',
+      },
     ];
   }
 
