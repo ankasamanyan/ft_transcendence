@@ -19,3 +19,23 @@ export class UserResponse {
     );
   }
 }
+
+export class UsersRequest {
+  constructor(public users: UserRequest[]) {}
+
+  static fromDomain(users: Users): UsersRequest {
+    return new UsersRequest(users.users.map(user => UserRequest.fromDomain(user)));
+  }
+}
+
+export class UserRequest {
+  constructor(public userId: string, public name: string, public pictureUrl: string) {}
+
+  static fromDomain(response: User): UserRequest {
+    return new UserRequest(
+        response.userId,
+        response.name,
+        response.pictureUrl,
+    );
+  }
+}

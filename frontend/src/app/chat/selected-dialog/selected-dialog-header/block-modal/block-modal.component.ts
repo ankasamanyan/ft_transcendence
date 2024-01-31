@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {BlockedUsersService} from "../../../../service/blocked-users.service";
 
 @Component({
   selector: 'app-block-modal',
@@ -11,4 +12,7 @@ export class BlockModalComponent {
 
   @Input()
   selectedPerson: string | undefined;
+
+  constructor(blockedUsersService: BlockedUsersService) {
+  }
 }
