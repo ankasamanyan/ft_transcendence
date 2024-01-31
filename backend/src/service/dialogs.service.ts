@@ -9,32 +9,32 @@ export class DialogsService {
         "Cedric",
         "assets/placeholderComrade2.jpeg",
         "I need cookies👉👈",
-        "9.25"),
+          new Date(2024, 0, 30, 9, 25)),
       new Dialog(
         "Tania",
         "assets/placeholderComrade.jpeg",
         "Deal🤝",
-        "22.27"),
+          new Date(2024, 0, 29, 22, 27)),
       new Dialog(
         "Krisi",
         "assets/placeholderComrade3.jpeg",
         "That's what she said",
-        "19:07"),
+          new Date(2024, 0, 29, 19, 7)),
       new Dialog(
         "Santiago",
         "assets/placeholderComrade4.jpeg",
         "🐱",
-        "18:45"),
+          new Date(2024, 0, 29, 18, 45)),
       new Dialog(
         "Fedia",
         "assets/placeholderComrade5.jpeg",
         "Да, компания собирается хорошая)",
-        "16.13"),
+          new Date(2024, 0, 29, 16, 13)),
       new Dialog(
         "Wolf",
         "assets/placeholderComrade6.jpeg",
         "Okay, I'll run it by my team, but it's a highly, highly unlikely scenario",
-        "14:02")
+          new Date(2024, 0, 29, 14, 2)),
     ]);
   }
 }

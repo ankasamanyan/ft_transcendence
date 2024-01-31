@@ -17,7 +17,7 @@ export class DialogResponse {
     public name: string,
     public pictureUrl: string,
     public lastMessage: string,
-    public lastMessageTime: string
+    public lastMessageDate: Date
   ) {}
 
   static toDomain(response: DialogResponse): Dialog {
@@ -25,7 +25,7 @@ export class DialogResponse {
       response.name,
       response.pictureUrl,
       response.lastMessage,
-      response.lastMessageTime
+      response.lastMessageDate
     );
   }
 
@@ -34,7 +34,7 @@ export class DialogResponse {
       dialog.name,
       dialog.pictureUrl,
       dialog.lastMessage,
-      dialog.lastMessageTime
+      dialog.lastMessageDate
     );
   }
 }
