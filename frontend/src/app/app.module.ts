@@ -25,6 +25,8 @@ import { FriendsComponent } from './my-profile/friends/friends.component';
 import { StatisticsComponent } from './my-profile/statistics/statistics.component';
 import { AchievementsComponent } from './my-profile/achievements/achievements.component';
 import { MatchHistoryComponent } from './my-profile/match-history/match-history.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material/tabs';
 import {FormsModule} from "@angular/forms";
 
 @NgModule({
@@ -56,15 +58,19 @@ import {FormsModule} from "@angular/forms";
     NgbModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatTabsModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: ChatComponent },
       { path: 'my-profile', component: MyProfileComponent },
       { path: 'game', component: GameComponent },
       { path: 'chat', component: ChatComponent },
-    ])
+    ]),
   ],
-  providers: [],
+  providers: [
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

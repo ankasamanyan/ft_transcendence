@@ -15,3 +15,54 @@ h5 {
   margin-left: 70px;
   margin-top: 30px;
 }
+
+
+.friend-card {
+  display: flex;
+  padding: 20px;
+  padding-left: 40px;
+  margin-top: 20px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: var(--color-light-blue);
+}
+
+.friend-header {
+  display: flex;
+  align-items: center;
+}
+
+.friend-picture {
+  max-width: 70px;
+  border-radius: 50%;
+  margin-right: 45px;
+  background-color: var(--color-light-blue-darker);
+
+}
+
+.friend-info {
+  text-align: left;
+}
+
+.username {
+  color: #4d6495;
+}
+
+.action-button {
+  border: 2px solid #4d6495;
+  background-color: transparent;
+  color: #4d6495;
+  padding: 8px 16px;
+  text-align: center;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  justify-content: flex-end;
+}
+
+.action-button:hover {
+  background-color: #4d6495;
+  color: white;
+}

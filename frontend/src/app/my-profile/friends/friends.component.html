@@ -1,4 +1,22 @@
 <div class="tab-container">
     <h5>My Friends</h5>
-    <p>Here you will find information about your friends</p>
+    <mat-tab-group>
+      <mat-tab label="Friends"> 
+        <div *ngIf="friendsList.length === 0">
+          {{placeHolderMessage}}
+        </div>
+          <div class="friend-card"  *ngFor="let friend of friendsList">
+            <div class="friend-header">
+              <img class="friend-picture" [src]='friend.profilePicture' alt="Friend Picture">
+              <div class="friend-info">
+                <h3>{{ friend.name }}</h3>
+                <p class="username">{{ friend.username }}</p>
+                <button class="action-button">View Profile</button>
+              </div>
+            </div>
+          </div>
+      </mat-tab>
+      <mat-tab label="Pending"> {{placeHolderMessage}}</mat-tab>
+      <mat-tab label="Banned"> {{placeHolderMessage}} </mat-tab>
+    </mat-tab-group>
 </div>
