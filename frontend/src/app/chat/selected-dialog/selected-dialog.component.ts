@@ -54,9 +54,10 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
               this.selectedPerson!,
               this.message!,
               new Date())
-      );
-      this.message = '';
-      this.clearInputField();
+      ).subscribe(() => {
+        this.message = '';
+        this.clearInputField();
+      });
     }
   }
   clearInputField() {
