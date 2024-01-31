@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {BlockedUsersService} from "../../../../service/blocked-users.service";
+import {User, Users} from "../../../../domain/user";
 
 @Component({
   selector: 'app-block-modal',
@@ -13,6 +14,15 @@ export class BlockModalComponent {
   @Input()
   selectedPerson: string | undefined;
 
-  constructor(blockedUsersService: BlockedUsersService) {
+  constructor(public blockedUsersService: BlockedUsersService) {
+  }
+
+  blockUser() {
+    this.blockedUsersService.blockUser(new Users([
+        new User("Anahit", "Anahit", "assets/placeholderAvatar.jpeg"),
+        new User(this.selectedPerson!, this.selectedPerson!, "assets/placeholderComrade2.jpeg"),
+    ])).subscribe(()=> {
+      this.modalClose.emit();
+    });
   }
 }
