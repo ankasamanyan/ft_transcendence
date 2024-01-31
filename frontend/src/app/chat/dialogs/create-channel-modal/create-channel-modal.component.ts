@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {UsersService} from "../../../service/users.service";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Users} from "../../../domain/user";
 
 @Component({
@@ -11,10 +10,6 @@ export class CreateChannelModalComponent {
   @Output()
   modalClose = new EventEmitter<void>();
 
+  @Input()
   users: Users | undefined;
-  constructor(usersService: UsersService) {
-    usersService.getUsers("Anahit").subscribe((value)  => {
-      this.users = value;
-    });
-  }
 }

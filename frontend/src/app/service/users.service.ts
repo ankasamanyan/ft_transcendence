@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {User, Users} from "../domain/user";
+import {Users} from "../domain/user";
 import {UsersResponse} from "./dto/users.dto";
 
 @Injectable({

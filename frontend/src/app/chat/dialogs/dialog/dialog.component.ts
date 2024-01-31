@@ -9,4 +9,8 @@ import {Dialog} from "../../../domain/dialog";
 export class DialogComponent {
   @Input()
   dialog: Dialog | undefined;
+
+  getTime() {
+    return new Date(this.dialog!.lastMessageDate).getHours()+ "." + new Date(this.dialog!.lastMessageDate).getMinutes().toString().padStart(2, "0");
+  }
 }

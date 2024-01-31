@@ -2,7 +2,6 @@ import {
   AfterViewChecked,
   Component,
   ElementRef,
-  HostListener,
   Input,
   OnChanges,
   SimpleChanges,
@@ -10,6 +9,8 @@ import {
 } from '@angular/core';
 import {SelectedDialog} from "../../domain/selected-dialog";
 import {DialogService} from "../../service/dialog.service";
+import {MessageService} from "../../service/message.service";
+import {Message} from "../../domain/message";
 
 @Component({
   selector: 'app-selected-dialog',
@@ -23,8 +24,9 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
   @ViewChild('wholeSelectedDialogContainer') private wholeSelectedDialogContainer!: ElementRef;
 
   selectedDialog: SelectedDialog | undefined;
+  message: string | undefined;
 
-  constructor(public dialogService: DialogService) {
+  constructor(public dialogService: DialogService, public messageService: MessageService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -42,5 +44,24 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
   scrollToTheBottom() {
     const container = this.wholeSelectedDialogContainer.nativeElement;
     container.scrollTop = container.scrollHeight;
+  }
+
+  sendMessage() {
+    if (this.message!! && this.message !== '') {
+      this.messageService.saveMessage(
+          new Message(
+              "Anahit",
+              this.selectedPerson!,
+              this.message!,
+              new Date())
+      ).subscribe(() => {
+        this.message = '';
+        this.clearInputField();
+      });
+    }
+  }
+  clearInputField() {
+    const inputElement = document.getElementById("write-message-input") as HTMLInputElement;
+    inputElement.value = '';
   }
 }

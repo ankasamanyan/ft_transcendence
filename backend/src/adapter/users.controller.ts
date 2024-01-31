@@ -8,7 +8,7 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get(':userId')
-  getDialogs(@Param('user') userId: string) {
+  getUsers(@Param('user') userId: string) {
     return of(UsersResponse.fromDomain(this.usersService.getUsers(userId)));
   }
 }

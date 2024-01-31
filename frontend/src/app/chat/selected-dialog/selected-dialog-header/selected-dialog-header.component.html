@@ -1,6 +1,6 @@
 <div id="dialog-header">
     <span id="selected-person">{{selectedPerson}}</span>
-    <div class="dropdown">
+    <div class="dropdown" *ngIf="selectedPerson">
         <i class="bi bi-three-dots-vertical"></i>
         <div class="dropdown-content">
             <div id="invite-action" (click)="showNotificationForFewSeconds()">
@@ -18,10 +18,12 @@
 
 <app-invitation-received-notification
     *ngIf="showInviteNotification"
+    [selectedPerson]="selectedPerson"
     (notificationClose)="showInviteNotification=false">
 </app-invitation-received-notification>
 
 <app-block-modal
         *ngIf="showBlockModal"
+        [selectedPerson]="selectedPerson"
         (modalClose)="showBlockModal=false">
 </app-block-modal>

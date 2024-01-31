@@ -5,7 +5,7 @@ export class MessageRequest {
     public senderId: string,
     public receiverId: string,
     public text: string,
-    public time: string
+    public date: Date
   ) {
   }
 
@@ -14,7 +14,7 @@ export class MessageRequest {
       request.senderId,
       request.receiverId,
       request.text,
-      request.time
+      request.date
     );
   }
 }

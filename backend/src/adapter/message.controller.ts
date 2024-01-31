@@ -1,4 +1,4 @@
-import {Controller, Post} from '@nestjs/common';
+import {Body, Controller, Post} from '@nestjs/common';
 import {MessageService} from "../service/message.service";
 import { MessageRequest } from 'src/adapter/dto/message-request';
 
@@ -7,7 +7,7 @@ export class MessageController {
   constructor(private messageService: MessageService) {}
 
   @Post()
-  saveMessage(request: MessageRequest) {
+  saveMessage(@Body() request: MessageRequest) {
     this.messageService.save(MessageRequest.toDomain(request));
   }
 }
