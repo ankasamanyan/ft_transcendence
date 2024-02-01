@@ -3,7 +3,7 @@ import {Dialog, Dialogs} from "../domain/dialog";
 
 @Injectable()
 export class DialogsService {
-  getDialogs(authentificatedUser: string) {
+  getDialogs(authenticatedUser: string) {
     return new Dialogs([
       new Dialog(
         "Cedric",
