@@ -1,8 +1,9 @@
 import {MessagesRepository} from "../../domain/messages-repository";
 import {Message} from "../../domain/message";
+import {PrismaService} from "../../service/prisma.service";
 
 export class PrismaMessagesRepository implements MessagesRepository {
-    constructor() {
+    constructor(private prisma: PrismaService) {
 
     }
 

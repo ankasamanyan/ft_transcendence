@@ -1,7 +1,8 @@
 import {UsersRepository} from "../../domain/users-repository";
+import {PrismaService} from "../../service/prisma.service";
 
 export class PrismaUsersRepository implements UsersRepository {
-    constructor() {
+    constructor(private prisma: PrismaService) {
 
     }
 
