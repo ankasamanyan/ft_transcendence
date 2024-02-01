@@ -1,6 +1,35 @@
 import {Injectable} from '@nestjs/common';
 import {Message} from "../domain/message";
 import {SelectedDialog} from "../domain/selected-dialog";
+import { PrismaClient } from '@prisma/client';
+import { Dialog } from 'src/domain/dialog';
+
+/*
+readonly prisma = new PrismaClient();
+
+async getSelectedDialog(senderId: string, receiverId: string) : Promise<Message[]> {
+  try {
+    const selectedDialog = await prisma.dialogs.findMany({
+      where: {
+        sender: {
+          equals: senderId,
+        },
+      },
+    });
+
+    return selectedDialog;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+*/
+
+async function fetchData() {
+  const users = await prisma.user.findMany();
+  console.log(users);
+}
+
 
 @Injectable()
 export class DialogService {
