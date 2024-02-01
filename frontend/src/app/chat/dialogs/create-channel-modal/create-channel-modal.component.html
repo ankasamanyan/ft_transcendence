@@ -10,10 +10,13 @@
             <div id="whom-question">Whom do you wish to invite?</div>
                 <div class="possible-choices">
                     <div *ngFor="let user of users?.users">
-                        <app-select-option [user]="user"></app-select-option>
+                        <app-select-option
+                                [user]="user"
+                                (selectedStatusChanged)="saveUserStatus(user, $event)">
+                        </app-select-option>
                     </div>
                 </div>
-            <button id="create-button" (click)="modalClose.emit()">Create</button>
+            <button id="create-button" (click)="selectUsers()">Create</button>
         </div>
     </div>
 </div>
