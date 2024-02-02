@@ -1,6 +1,7 @@
 import {PrismaService} from "../../service/prisma.service";
 import {Injectable} from "@nestjs/common";
 import {User} from "../../domain/user";
+import {UserResponse, UsersResponse} from "../dto/users-response";
 
 @Injectable()
 export class PrismaUsersRepository {
@@ -32,6 +33,14 @@ export class PrismaUsersRepository {
         );
     }
 
-    getUsers(userId: number) {
+    async getUsers(userId: number) {
+        const users = await this.prisma.user.findMany({
+            where: {
+                id: {
+                    not: Number(userId)
+                }
+            }
+        }) as UserResponse[];
+        return new UsersResponse(users);
     }
 }

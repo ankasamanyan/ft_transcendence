@@ -1,5 +1,5 @@
 import {Body, Controller, Get, Param, Post} from '@nestjs/common';
-import {of} from "rxjs";
+import {from, of} from "rxjs";
 import { UsersResponse } from 'src/adapter/dto/users-response';
 import {UsersService} from "../service/users.service";
 import {UserRequest} from "./dto/users-request";
@@ -20,6 +20,6 @@ export class UsersController {
 
   @Get('/:userId')
   getUsers(@Param('userId') userId: number) {
-    return of(UsersResponse.fromDomain(this.usersService.getUsers(userId)));
+    return from(this.usersService.getUsers(userId));
   }
 }

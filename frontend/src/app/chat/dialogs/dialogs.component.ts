@@ -28,7 +28,7 @@ export class DialogsComponent {
       this.displayedDialogs = this.dialogs;
       this.dialogsLoaded = true;
     });
-    usersService.getUsers(0).subscribe((value)  => {
+    usersService.getUsers(1).subscribe((value)  => {
       this.users = value;
     });
   }
