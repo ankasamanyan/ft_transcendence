@@ -13,6 +13,7 @@ import {BlockedUsersController} from "./adapter/blocked-users.controller";
 import {BlockedUsersService} from "./service/blocked-users.service";
 import {ChannelController} from "./adapter/channel.controller";
 import {ChannelService} from "./service/channel.service";
+import {PrismaService} from "./service/prisma.service";
 
 @Module({
     imports: [],
@@ -31,7 +32,8 @@ import {ChannelService} from "./service/channel.service";
         DialogsService,
         UsersService,
         BlockedUsersService,
-        ChannelService],
+        ChannelService,
+        PrismaService],
 })
 export class AppModule {
 }
