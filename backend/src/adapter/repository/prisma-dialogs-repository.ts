@@ -1,9 +1,8 @@
-import {DialogsRepository} from "../../domain/dialogs-repository";
 import {PrismaService} from "../../service/prisma.service";
 import {Injectable} from "@nestjs/common";
 
 @Injectable()
-export class PrismaDialogsRepository implements DialogsRepository {
+export class PrismaDialogsRepository {
     constructor(private prisma: PrismaService) {
 
     }
