@@ -9,7 +9,7 @@ export class UsersResponse {
 }
 
 export class UserResponse {
-  constructor(public id: number, public name: string, public pictureUrl: string) {}
+  constructor(public id: number | undefined, public name: string, public pictureUrl: string) {}
 
   static toDomain(response: UserResponse): User {
     return new User(
@@ -29,7 +29,7 @@ export class UsersRequest {
 }
 
 export class UserRequest {
-  constructor(public id: number, public name: string, public pictureUrl: string) {}
+  constructor(public id: number | undefined, public name: string, public pictureUrl: string) {}
 
   static fromDomain(response: User): UserRequest {
     return new UserRequest(

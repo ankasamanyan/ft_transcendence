@@ -6,11 +6,11 @@ export class Users {
 }
 
 export class User {
-  public id: number;
+  public id: number | undefined;
   public name: string;
   public pictureUrl: string;
 
-  constructor(id: number, name: string, pictureUrl: string) {
+  constructor(id: number | undefined, name: string, pictureUrl: string) {
     this.id = id;
     this.name = name;
     this.pictureUrl = pictureUrl;

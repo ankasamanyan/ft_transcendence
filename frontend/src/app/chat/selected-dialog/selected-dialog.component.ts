@@ -32,7 +32,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.selectedPerson) {
-      this.dialogService.getDialog(0, this.selectedPerson.id).subscribe((value: SelectedDialog) => {
+      this.dialogService.getDialog(0, this.selectedPerson.id!).subscribe((value: SelectedDialog) => {
         this.selectedDialog = value;
       });
     }
@@ -52,7 +52,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
       this.messageService.saveMessage(
           new Message(
               0,
-              this.selectedPerson!.id,
+              this.selectedPerson!.id!,
               this.message!,
               new Date())
       ).subscribe(() => {

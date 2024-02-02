@@ -13,7 +13,7 @@ export class UsersRequest {
 }
 
 export class UserRequest {
-  constructor(public id: number, public name: string, public pictureUrl: string) {}
+  constructor(public id: number | undefined, public name: string, public pictureUrl: string) {}
 
   static toDomain(request: UserRequest): User {
     return new User(
