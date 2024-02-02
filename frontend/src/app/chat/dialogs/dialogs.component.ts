@@ -22,7 +22,7 @@ export class DialogsComponent {
   selectedPersonChanged = new EventEmitter<User>();
 
   constructor(dialogsService: DialogsService, usersService: UsersService) {
-    dialogsService.getDialogs(0).subscribe((value)  => {
+    dialogsService.getDialogs(1).subscribe((value)  => {
       this.dialogs = value.dialogs!;
       this.changeSelectedPerson(this.dialogs[0].user);
       this.displayedDialogs = this.dialogs;

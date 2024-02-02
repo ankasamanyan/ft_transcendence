@@ -1,9 +1,14 @@
 import {Injectable} from '@nestjs/common';
 import {Message} from "../domain/message";
 import {SelectedDialog} from "../domain/selected-dialog";
+import {PrismaMessagesRepository} from "../adapter/repository/prisma-messages-repository";
+import {from} from "rxjs";
 
 @Injectable()
 export class DialogService {
+  constructor(public messagesRepository: PrismaMessagesRepository) {
+  }
+
   dialogs: SelectedDialog[] = [
     new SelectedDialog([
     new Message(
@@ -185,8 +190,6 @@ export class DialogService {
           new Date(2024, 0, 29, 14, 2)),
     ])];
   getDialog(senderId: number, receiverId: number) {
-    return this.dialogs.find(dialog => dialog.messageHistory.some(
-      message => message.receiverId == receiverId)
-    );
+    return from(this.messagesRepository.getDialog(senderId, receiverId));
   }
 }

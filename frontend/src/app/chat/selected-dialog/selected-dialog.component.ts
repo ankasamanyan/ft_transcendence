@@ -32,7 +32,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.selectedPerson) {
-      this.dialogService.getDialog(0, this.selectedPerson.id!).subscribe((value: SelectedDialog) => {
+      this.dialogService.getDialog(1, this.selectedPerson.id!).subscribe((value: SelectedDialog) => {
         this.selectedDialog = value;
       });
     }
