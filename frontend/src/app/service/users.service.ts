@@ -11,9 +11,14 @@ export class UsersService {
 
   constructor(private httpClient: HttpClient) { }
 
+  initializeUsers() {
+    return this.httpClient.post<void>("http://localhost:3000/users", {});
+  }
+
   addUser(user: User) {
     return this.httpClient.post<void>("http://localhost:3000/users", UserRequest.fromDomain(user));
   }
+
   getUsers(userId: number): Observable<Users> {
     return this.httpClient.get<UsersResponse>("http://localhost:3000/users/" + userId).pipe(
       map((users: UsersResponse) => {
