@@ -11,6 +11,10 @@ export class MessageService {
 
   constructor(private httpClient: HttpClient) { }
 
+  initializeMessages() {
+    return this.httpClient.post<void>("http://localhost:3000/messages", {});
+  }
+
   saveMessage(message: Message): Observable<void> {
     return this.httpClient.post<void>(
       "http://localhost:3000/messages",
