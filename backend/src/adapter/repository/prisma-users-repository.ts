@@ -11,7 +11,7 @@ export class PrismaUsersRepository {
         await this.prisma.user.create({
             data: {
                 name: user.name,
-                picture: user.name
+                picture: user.pictureUrl
             }}
         );
     }
