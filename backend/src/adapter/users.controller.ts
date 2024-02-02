@@ -20,6 +20,6 @@ export class UsersController {
 
   @Get('/:userId')
   getUsers(@Param('userId') userId: number) {
-    return from(this.usersService.getUsers(userId));
+    return this.usersService.getUsers(userId);
   }
 }

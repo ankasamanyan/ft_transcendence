@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common';
-import {User, Users} from "../domain/user";
+import {User} from "../domain/user";
 import {from} from "rxjs";
 import {PrismaUsersRepository} from "../adapter/repository/prisma-users-repository";
 
@@ -17,6 +17,6 @@ export class UsersService {
   }
 
   getUsers(userId: number) {
-    return this.usersRepository.getUsers(userId);
+    return from(this.usersRepository.getUsers(userId));
   }
 }
