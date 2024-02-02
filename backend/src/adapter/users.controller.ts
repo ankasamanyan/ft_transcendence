@@ -11,7 +11,7 @@ export class UsersController {
 
   @Post()
   addUser(@Body() request: UserRequest) {
-    this.usersService.addUser(UserRequest.toDomain(request));
+    return this.usersService.addUser(UserRequest.toDomain(request));
   }
 
   @Get(':userId')

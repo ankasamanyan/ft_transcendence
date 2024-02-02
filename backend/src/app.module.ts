@@ -14,6 +14,7 @@ import {BlockedUsersService} from "./service/blocked-users.service";
 import {ChannelController} from "./adapter/channel.controller";
 import {ChannelService} from "./service/channel.service";
 import {PrismaService} from "./service/prisma.service";
+import {PrismaUsersRepository} from "./adapter/repository/prisma-users-repository";
 
 @Module({
     imports: [],
@@ -33,7 +34,8 @@ import {PrismaService} from "./service/prisma.service";
         UsersService,
         BlockedUsersService,
         ChannelService,
-        PrismaService],
+        PrismaService,
+        PrismaUsersRepository],
 })
 export class AppModule {
 }
