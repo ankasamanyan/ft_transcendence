@@ -2,7 +2,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {Dialog} from "../../domain/dialog";
 import {DialogsService} from "../../service/dialogs.service";
 import {UsersService} from "../../service/users.service";
-import {Users} from "../../domain/user";
+import {User, Users} from "../../domain/user";
 
 @Component({
   selector: 'app-dialogs',
@@ -12,23 +12,23 @@ import {Users} from "../../domain/user";
 export class DialogsComponent {
   dialogs: Dialog[] = [];
   displayedDialogs: Dialog[] = [];
-  selectedPerson: string | undefined;
+  selectedPerson: User | undefined;
   users: Users | undefined;
 
   showCreateChannelModal: boolean = false;
   dialogsLoaded: boolean = false;
 
   @Output()
-  selectedPersonChanged = new EventEmitter<string>();
+  selectedPersonChanged = new EventEmitter<User>();
 
   constructor(dialogsService: DialogsService, usersService: UsersService) {
-    dialogsService.getDialogs("Anahit").subscribe((value)  => {
+    dialogsService.getDialogs(0).subscribe((value)  => {
       this.dialogs = value.dialogs!;
-      this.changeSelectedPerson(this.dialogs[0].name!);
+      this.changeSelectedPerson(this.dialogs[0].user);
       this.displayedDialogs = this.dialogs;
       this.dialogsLoaded = true;
     });
-    usersService.getUsers("Anahit").subscribe((value)  => {
+    usersService.getUsers(0).subscribe((value)  => {
       this.users = value;
     });
   }
@@ -38,11 +38,11 @@ export class DialogsComponent {
       this.displayedDialogs = this.dialogs;
     } else {
       this.displayedDialogs = this.dialogs
-        .filter((dialog) => dialog.name?.toUpperCase().startsWith(dialogToSearchFor.toUpperCase()));
+        .filter((dialog) => dialog.user.name?.toUpperCase().startsWith(dialogToSearchFor.toUpperCase()));
     }
   }
 
-  changeSelectedPerson(selectedPerson: string) {
+  changeSelectedPerson(selectedPerson: User) {
     this.selectedPerson = selectedPerson;
     this.selectedPersonChanged.emit(selectedPerson);
   }

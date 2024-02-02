@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {User} from "../../../../domain/user";
 
 @Component({
   selector: 'app-invitation-received-notification',
@@ -10,5 +11,5 @@ export class InvitationReceivedNotificationComponent {
   notificationClose = new EventEmitter<void>();
 
   @Input()
-  selectedPerson: string | undefined;
+  selectedPerson: User | undefined;
 }

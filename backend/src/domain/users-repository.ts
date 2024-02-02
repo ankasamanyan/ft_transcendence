@@ -1,3 +1,3 @@
 export interface UsersRepository {
-    getUsers(userId: string);
+    getUsers(userId: number);
 }

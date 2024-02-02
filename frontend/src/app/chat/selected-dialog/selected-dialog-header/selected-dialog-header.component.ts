@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {User} from "../../../domain/user";
 
 @Component({
   selector: 'app-selected-dialog-header',
@@ -7,7 +8,7 @@ import {Component, Input} from '@angular/core';
 })
 export class SelectedDialogHeaderComponent {
   @Input()
-  selectedPerson: string | undefined;
+  selectedPerson: User | undefined;
 
   showBlockModal: boolean = false;
   showInviteNotification: boolean = false;

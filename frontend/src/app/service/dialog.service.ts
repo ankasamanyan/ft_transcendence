@@ -10,7 +10,7 @@ import {SelectedDialogResponse} from "./dto/selected-dialog.dto";
 export class DialogService {
   constructor(private httpClient: HttpClient) { }
 
-  getDialog(senderId: string, receiverId: string): Observable<SelectedDialog> {
+  getDialog(senderId: number, receiverId: number): Observable<SelectedDialog> {
     return this.httpClient.get<SelectedDialogResponse>("http://localhost:3000/selected-dialog/" + senderId + "/" + receiverId).pipe(
       map((dialog: SelectedDialogResponse) => {
         return SelectedDialogResponse.toDomain(dialog);

@@ -3,30 +3,30 @@ import {User, Users} from "../domain/user";
 
 @Injectable()
 export class UsersService {
-  getUsers(userId: string) {
+  getUsers(userId: number) {
     return new Users([
       new User(
-        "Cedric",
+        1,
         "Cedric",
         "assets/placeholderComrade2.jpeg"),
       new User(
-        "Tania",
+        2,
         "Tania",
         "assets/placeholderComrade.jpeg"),
       new User(
-        "Krisi",
+        3,
         "Krisi",
         "assets/placeholderComrade3.jpeg"),
       new User(
-        "Santiago",
+        4,
         "Santiago",
         "assets/placeholderComrade4.jpeg"),
       new User(
-        "Fedia",
+        5,
         "Fedia",
         "assets/placeholderComrade5.jpeg"),
       new User(
-        "Wolf",
+        6,
         "Wolf",
         "assets/placeholderComrade6.jpeg")
     ]);

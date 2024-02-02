@@ -1,4 +1,5 @@
 import {Dialog, Dialogs} from "../../domain/dialog";
+import {User} from "../../domain/user";
 
 export class DialogsResponse {
   constructor(public dialogs: DialogResponse[]) {}
@@ -14,7 +15,7 @@ export class DialogsResponse {
 
 export class DialogResponse {
   constructor(
-    public name: string,
+    public user: User,
     public pictureUrl: string,
     public lastMessage: string,
     public lastMessageDate: Date
@@ -22,7 +23,7 @@ export class DialogResponse {
 
   static toDomain(response: DialogResponse): Dialog {
     return new Dialog(
-      response.name,
+      response.user,
       response.pictureUrl,
       response.lastMessage,
       response.lastMessageDate
@@ -31,7 +32,7 @@ export class DialogResponse {
 
   static fromDomain(dialog: Dialog): DialogResponse {
     return new DialogResponse(
-      dialog.name,
+      dialog.user,
       dialog.pictureUrl,
       dialog.lastMessage,
       dialog.lastMessageDate

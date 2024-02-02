@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {NavigationBarStatus} from "../domain/navigation-bar";
+import {User} from "../domain/user";
 
 @Component({
   selector: 'app-chat',
@@ -9,9 +10,9 @@ import {NavigationBarStatus} from "../domain/navigation-bar";
 export class ChatComponent {
   protected readonly NavigationBarStatus = NavigationBarStatus;
 
-  selectedPerson: string | undefined;
+  selectedPerson: User | undefined;
 
-  saveSelectedPerson(selectedPerson: string) {
+  saveSelectedPerson(selectedPerson: User) {
     this.selectedPerson = selectedPerson;
   }
 }

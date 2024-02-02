@@ -11,7 +11,7 @@ export class UsersService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getUsers(userId: string): Observable<Users> {
+  getUsers(userId: number): Observable<Users> {
     return this.httpClient.get<UsersResponse>("http://localhost:3000/users/" + userId).pipe(
       map((users: UsersResponse) => {
         return UsersResponse.toDomain(users);

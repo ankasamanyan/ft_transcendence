@@ -6,12 +6,12 @@ export class Users {
 }
 
 export class User {
-  public userId: string;
+  public id: number;
   public name: string;
   public pictureUrl: string;
 
-  constructor(userId: string, name: string, pictureUrl: string) {
-    this.userId = userId;
+  constructor(id: number, name: string, pictureUrl: string) {
+    this.id = id;
     this.name = name;
     this.pictureUrl = pictureUrl;
   }

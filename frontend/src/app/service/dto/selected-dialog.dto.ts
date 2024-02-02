@@ -11,8 +11,8 @@ export class SelectedDialogResponse {
 
 export class MessageResponse {
   constructor(
-    public senderId: string,
-    public receiverId: string,
+    public senderId: number,
+    public receiverId: number,
     public text: string,
     public date: Date
   ) {}
@@ -29,8 +29,8 @@ export class MessageResponse {
 
 export class MessageRequest {
   constructor(
-    public senderId: string,
-    public receiverId: string,
+    public senderId: number,
+    public receiverId: number,
     public text: string,
     public date: Date
   ) {}

@@ -8,7 +8,7 @@ export class DialogController {
   constructor(private dialogService: DialogService) {}
 
   @Get(':senderId/:receiverId')
-  getDialog(@Param('senderId') senderId: string, @Param('receiverId') receiverId: string) {
+  getDialog(@Param('senderId') senderId: number, @Param('receiverId') receiverId: number) {
     return of(SelectedDialogResponse.fromDomain(this.dialogService.getDialog(senderId, receiverId)));
   }
 }

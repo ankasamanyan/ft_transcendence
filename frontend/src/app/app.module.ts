@@ -66,6 +66,7 @@ import {FormsModule} from "@angular/forms";
       { path: 'my-profile', component: MyProfileComponent },
       { path: 'game', component: GameComponent },
       { path: 'chat', component: ChatComponent },
+      { path: 'authorization', component: AuthorizationPageComponent },
     ]),
   ],
   providers: [

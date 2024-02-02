@@ -1,3 +1,3 @@
 export interface DialogsRepository {
-    getDialogs(authenticatedUser: string);
+    getDialogs(userId: number);
 }

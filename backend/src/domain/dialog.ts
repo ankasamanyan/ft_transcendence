@@ -1,3 +1,5 @@
+import {User} from "./user";
+
 export class Dialogs {
   dialogs: Dialog[];
   constructor(dialogs: Dialog[]) {
@@ -6,12 +8,12 @@ export class Dialogs {
 }
 
 export class Dialog {
+  public user: User;
   public pictureUrl: string;
-  public name: string;
   public lastMessage: string;
   public lastMessageDate: Date;
-  constructor(name: string, pictureUrl: string, lastMessage: string, lastMessageDate: Date) {
-    this.name = name;
+  constructor(user: User, pictureUrl: string, lastMessage: string, lastMessageDate: Date) {
+    this.user = user;
     this.pictureUrl = pictureUrl;
     this.lastMessage = lastMessage;
     this.lastMessageDate = lastMessageDate;
