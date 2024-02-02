@@ -3,6 +3,9 @@ import {User, Users} from "../domain/user";
 
 @Injectable()
 export class UsersService {
+  addUser(user: User) {
+
+  }
   getUsers(userId: number) {
     return new Users([
       new User(
