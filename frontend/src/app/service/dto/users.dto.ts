@@ -9,13 +9,13 @@ export class UsersResponse {
 }
 
 export class UserResponse {
-  constructor(public id: number | undefined, public name: string, public pictureUrl: string) {}
+  constructor(public id: number | undefined, public name: string, public picture: string) {}
 
   static toDomain(response: UserResponse): User {
     return new User(
       response.id,
       response.name,
-      response.pictureUrl,
+      response.picture,
     );
   }
 }
@@ -29,13 +29,13 @@ export class UsersRequest {
 }
 
 export class UserRequest {
-  constructor(public id: number | undefined, public name: string, public pictureUrl: string) {}
+  constructor(public id: number | undefined, public name: string, public picture: string) {}
 
   static fromDomain(response: User): UserRequest {
     return new UserRequest(
         response.id,
         response.name,
-        response.pictureUrl,
+        response.picture,
     );
   }
 }

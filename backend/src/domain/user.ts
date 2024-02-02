@@ -8,11 +8,11 @@ export class Users {
 export class User {
   public id: number | undefined;
   public name: string;
-  public pictureUrl: string;
+  public picture: string;
 
-  constructor(id: number | undefined, name: string, pictureUrl: string) {
+  constructor(id: number | undefined, name: string, picture: string) {
     this.id = id;
     this.name = name;
-    this.pictureUrl = pictureUrl;
+    this.picture = picture;
   }
 }
