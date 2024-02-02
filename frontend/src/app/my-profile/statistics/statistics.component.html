@@ -1,5 +1,8 @@
 <div class="tab-container">
     <h5>Game Statistics</h5>
-    <p>Here you will find information about your game statistics</p>
-
+    <div class="empty-list-container" *ngIf="staticList.length === 0">
+        <div class="empty-list">
+          <p>{{placeHolderMessage}}</p>
+        </div>
+    </div>
 </div>

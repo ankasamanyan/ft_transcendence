@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent {
-
+  public placeHolderMessage: string = "You will see something here, once you start playing << THE PONG >> 🎯✨"
+  public staticList: any[] = [];
 }

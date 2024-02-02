@@ -1,4 +1,8 @@
 <div class="tab-container">
     <h5>My Achievements</h5>
-<p>Here you will find information about your achievements</p>
+    <div class="empty-list-container" *ngIf="achievementList.length === 0" >
+        <div class="empty-list">
+          <p>{{placeHolderMessage}}</p>
+        </div>
+    </div>
 </div>

@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./achievements.component.css']
 })
 export class AchievementsComponent {
-
+  public placeHolderMessage: string = 'You will see something here, when you have at least one Achievement 🚀✨'
+  public achievementList: any[] = [];
 }
