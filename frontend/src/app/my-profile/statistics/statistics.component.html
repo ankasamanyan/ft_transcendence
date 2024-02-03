@@ -1,8 +1,13 @@
 <div class="tab-container">
+
     <h5>Game Statistics</h5>
-    <div class="empty-list-container" *ngIf="staticList.length === 0">
+
+    <div class="empty-list-container" *ngIf="userWins == 0 && userLosses == 0">
         <div class="empty-list">
           <p>{{placeHolderMessage}}</p>
         </div>
     </div>
+
+  <app-pie-chart [wins]="userWins" [losses]="userLosses"></app-pie-chart>
+
 </div>
