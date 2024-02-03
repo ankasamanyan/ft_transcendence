@@ -1,6 +1,4 @@
 import {Injectable} from '@nestjs/common';
-import {Message} from "../domain/message";
-import {SelectedDialog} from "../domain/selected-dialog";
 import {PrismaMessagesRepository} from "../adapter/repository/prisma-messages-repository";
 import {from} from "rxjs";
 

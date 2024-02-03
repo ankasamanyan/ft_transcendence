@@ -1,9 +1,14 @@
 import {Injectable} from '@nestjs/common';
 import {Dialog, Dialogs} from "../domain/dialog";
 import {User} from "../domain/user";
+import {PrismaDialogsRepository} from "../adapter/repository/prisma-dialogs-repository";
 
 @Injectable()
 export class DialogsService {
+
+  constructor(public dialogsRepository: PrismaDialogsRepository) {
+  }
+
   getDialogs(userId: number) {
     return new Dialogs([
       new Dialog(
