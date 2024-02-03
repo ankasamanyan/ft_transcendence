@@ -13,21 +13,21 @@ export class UsersRequest {
 }
 
 export class UserRequest {
-  constructor(public userId: string, public name: string, public pictureUrl: string) {}
+  constructor(public id: number | undefined, public name: string, public picture: string) {}
 
   static toDomain(request: UserRequest): User {
     return new User(
-        request.userId,
+        request.id,
         request.name,
-        request.pictureUrl,
+        request.picture,
     );
   }
 
   static fromDomain(user: User): UserRequest {
     return new UserRequest(
-      user.userId,
+      user.id,
       user.name,
-      user.pictureUrl,
+      user.picture,
     );
   }
 }

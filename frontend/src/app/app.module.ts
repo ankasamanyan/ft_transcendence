@@ -68,6 +68,7 @@ import { PieChartComponent } from './my-profile/statistics/pie-chart/pie-chart.c
       { path: 'my-profile', component: MyProfileComponent },
       { path: 'game', component: GameComponent },
       { path: 'chat', component: ChatComponent },
+      { path: 'authorization', component: AuthorizationPageComponent },
     ]),
   ],
   providers: [

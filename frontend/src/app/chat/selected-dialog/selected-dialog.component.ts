@@ -11,6 +11,7 @@ import {SelectedDialog} from "../../domain/selected-dialog";
 import {DialogService} from "../../service/dialog.service";
 import {MessageService} from "../../service/message.service";
 import {Message} from "../../domain/message";
+import {User} from "../../domain/user";
 
 @Component({
   selector: 'app-selected-dialog',
@@ -19,7 +20,7 @@ import {Message} from "../../domain/message";
 })
 export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
   @Input()
-  selectedPerson: string | undefined;
+  selectedPerson: User | undefined;
 
   @ViewChild('wholeSelectedDialogContainer') private wholeSelectedDialogContainer!: ElementRef;
 
@@ -31,7 +32,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.selectedPerson) {
-      this.dialogService.getDialog("Anahit", this.selectedPerson).subscribe((value: SelectedDialog) => {
+      this.dialogService.getDialog(1, this.selectedPerson.id!).subscribe((value: SelectedDialog) => {
         this.selectedDialog = value;
       });
     }
@@ -50,8 +51,8 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
     if (this.message!! && this.message !== '') {
       this.messageService.saveMessage(
           new Message(
-              "Anahit",
-              this.selectedPerson!,
+              0,
+              this.selectedPerson!.id!,
               this.message!,
               new Date())
       ).subscribe(() => {

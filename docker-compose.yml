@@ -16,6 +16,8 @@ services:
     stdin_open: true
     restart: always
     container_name: frontend
+    depends_on:
+      - backend
 
   backend:
     build: ./backend
@@ -24,7 +26,7 @@ services:
       - "5500:5500" 
       - "5555:5555" # prisma
     environment:
-      - DB_URL=postgresql://user:password123@db:5432/postgres_db?schema=public
+      - DB_URL=postgresql://user:password123@db:5432/postgres_dbw?schema=public
     volumes:
       - ./backend/prisma:/backend/prisma # for dev experience, remove for prod
       - ./backend/src:/backend/src # for dev experience, remove for prod

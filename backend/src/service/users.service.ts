@@ -1,34 +1,22 @@
 import {Injectable} from '@nestjs/common';
-import {User, Users} from "../domain/user";
+import {User} from "../domain/user";
+import {from} from "rxjs";
+import {PrismaUsersRepository} from "../adapter/repository/prisma-users-repository";
 
 @Injectable()
 export class UsersService {
-  getUsers(userId: string) {
-    return new Users([
-      new User(
-        "Cedric",
-        "Cedric",
-        "assets/placeholderComrade2.jpeg"),
-      new User(
-        "Tania",
-        "Tania",
-        "assets/placeholderComrade.jpeg"),
-      new User(
-        "Krisi",
-        "Krisi",
-        "assets/placeholderComrade3.jpeg"),
-      new User(
-        "Santiago",
-        "Santiago",
-        "assets/placeholderComrade4.jpeg"),
-      new User(
-        "Fedia",
-        "Fedia",
-        "assets/placeholderComrade5.jpeg"),
-      new User(
-        "Wolf",
-        "Wolf",
-        "assets/placeholderComrade6.jpeg")
-    ]);
+  constructor(public usersRepository: PrismaUsersRepository) {
+  }
+
+  initializeUsers() {
+    return from(this.usersRepository.initializeUsers());
+  }
+
+  addUser(user: User) {
+    return from(this.usersRepository.addUser(user));
+  }
+
+  getUsers(userId: number) {
+    return from(this.usersRepository.getUsers(userId));
   }
 }

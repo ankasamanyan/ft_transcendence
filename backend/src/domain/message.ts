@@ -1,9 +1,9 @@
 export class Message {
-  public senderId: string;
-  public receiverId: string;
+  public senderId: number;
+  public receiverId: number;
   public text: string;
   public date: Date;
-  constructor(senderId: string, receiverId: string, text: string, date: Date) {
+  constructor(senderId: number, receiverId: number, text: string, date: Date) {
     this.senderId = senderId;
     this.receiverId = receiverId;
     this.text = text;

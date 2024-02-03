@@ -7,18 +7,19 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DB_URL")
+  url      = "postgresql://user:password123@db:5432/postgres_dbw?schema=public"
 }
 
 model Message {
-  sender    String
-  receiver  String
-  message   String
-  time      String
-  id        Int @id @default(autoincrement())
+  id            Int @id @default(autoincrement())
+  sender_id     Int
+  receiver_id   Int
+  text          String
+  date          DateTime
 }
 
 model User {
   id        Int @id @default(autoincrement())
   name      String
+  picture   String
 }

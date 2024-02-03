@@ -6,13 +6,13 @@ export class Users {
 }
 
 export class User {
-  public userId: string;
+  public id: number | undefined;
   public name: string;
-  public pictureUrl: string;
+  public picture: string;
 
-  constructor(userId: string, name: string, pictureUrl: string) {
-    this.userId = userId;
+  constructor(id: number | undefined, name: string, picture: string) {
+    this.id = id;
     this.name = name;
-    this.pictureUrl = pictureUrl;
+    this.picture = picture;
   }
 }

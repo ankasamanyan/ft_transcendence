@@ -12,15 +12,15 @@ export class BlockModalComponent {
   modalClose = new EventEmitter<void>();
 
   @Input()
-  selectedPerson: string | undefined;
+  selectedPerson: User | undefined;
 
   constructor(public blockedUsersService: BlockedUsersService) {
   }
 
   blockUser() {
     this.blockedUsersService.blockUser(new Users([
-        new User("Anahit", "Anahit", "assets/placeholderAvatar.jpeg"),
-        new User(this.selectedPerson!, this.selectedPerson!, "assets/placeholderComrade2.jpeg"),
+        new User(0, "Anahit", "assets/placeholderAvatar.jpeg"),
+        new User(1, this.selectedPerson!.name, "assets/placeholderComrade2.jpeg"),
     ])).subscribe(()=> {
       this.modalClose.emit();
     });

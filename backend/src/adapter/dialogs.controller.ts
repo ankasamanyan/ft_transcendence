@@ -7,8 +7,8 @@ import {of} from "rxjs";
 export class DialogsController {
   constructor(private dialogsService: DialogsService) {}
 
-  @Get(':authentificatedUser')
-  getDialogs(@Param('authentificatedUser') authentificatedUser: string) {
-    return of(DialogsResponse.fromDomain(this.dialogsService.getDialogs(authentificatedUser)));
+  @Get(':userId')
+  getDialogs(@Param('userId') userId: number) {
+    return of(DialogsResponse.fromDomain(this.dialogsService.getDialogs(userId)));
   }
 }

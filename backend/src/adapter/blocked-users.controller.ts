@@ -1,4 +1,4 @@
-import {Body, Controller, Param, Post} from '@nestjs/common';
+import {Body, Controller, Post} from '@nestjs/common';
 import {UsersRequest} from "./dto/users-request";
 import {BlockedUsersService} from "../service/blocked-users.service";
 

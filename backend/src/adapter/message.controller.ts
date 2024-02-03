@@ -7,6 +7,11 @@ export class MessageController {
   constructor(private messageService: MessageService) {}
 
   @Post()
+  initializeMessages() {
+    return this.messageService.initializeMessages();
+  }
+
+  @Post()
   saveMessage(@Body() request: MessageRequest) {
     this.messageService.save(MessageRequest.toDomain(request));
   }

@@ -15,8 +15,8 @@
         <div id="no-dialogs" *ngIf="noDialogs()">You don't have any open conversations yet</div>
         <div class="dialog"
              *ngFor="let dialog of displayedDialogs"
-             (click)="changeSelectedPerson(dialog.name!)"
-             [ngClass]="{'selected-color': dialog.name! === this.selectedPerson}">
+             (click)="changeSelectedPerson(dialog.user)"
+             [ngClass]="{'selected-color': dialog.user === this.selectedPerson}">
             <app-dialog [dialog]="dialog"></app-dialog>
         </div>
     </div>

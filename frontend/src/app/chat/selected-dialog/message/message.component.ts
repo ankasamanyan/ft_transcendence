@@ -11,7 +11,7 @@ export class MessageComponent {
   message: Message | undefined;
 
   determineColorPosition() {
-    if (this.message?.senderId == "Anahit")
+    if (this.message?.senderId == 1)
       return "background-color: var(--color-orange); color: white; display: block; margin-left: auto;"
     else
       return "background-color: var(--color-light-blue);"
