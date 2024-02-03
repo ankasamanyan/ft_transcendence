@@ -1,0 +1,26 @@
+<!-- pie-chart.component.html -->
+<div class="header">
+    <h5>Winning rate :</h5>
+</div>
+<div class="diagram-container">
+
+    <div class="color-samples">
+      <div class="color-sample wins">
+        <div class="sample"></div>
+        <span class="explanation">Wins : {{wins}}</span>
+      </div>
+  
+      <div class="color-sample losses">
+        <div class="sample"></div>
+        <span class="explanation">Losses : {{losses}}</span>
+      </div>
+
+      <div class="color-sample total">
+        <div class="sample"></div>
+        <span class="explanation">Total : {{wins + losses}}</span>
+      </div>
+    </div>
+  
+    <canvas #pieChartCanvas></canvas>
+</div>
+  

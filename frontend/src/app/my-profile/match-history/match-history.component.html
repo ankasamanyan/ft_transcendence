@@ -1,5 +1,8 @@
 <div class="tab-container">
     <h5>Match History</h5>
-    <p>Here you will find information about your match history</p>
-
+    <div class="empty-list-container" *ngIf="historyList.length === 0" >
+        <div class="empty-list">
+          <p>{{placeHolderMessage}}</p>
+        </div>
+    </div>
 </div>

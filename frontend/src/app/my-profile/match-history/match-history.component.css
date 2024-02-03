@@ -12,6 +12,30 @@ body {
 }
 
 h5 {
-  margin-left: 70px;
-  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  display: table;
+  margin-bottom: 30px;
+}
+
+.empty-list-container {
+  padding: 20px 0;
+  background-color: #ffffff;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  color: #4d6495;
+  font-size: large;
+}
+
+.empty-list {
+  padding: 70px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: var(--color-light-blue);
+}
+
+.empty-list p {
+  margin: 0;
 }

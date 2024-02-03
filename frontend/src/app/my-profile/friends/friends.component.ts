@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FriendsComponent implements OnInit {
   public friendsList: any[] = [];
-  public placeHolderMessage: string = 'List is currently empty...'
+  public placeHolderMessage: string = 'This list is currently empty 🤷🏻‍♀️'
 
   ngOnInit(): void {
     this.friendsList = [
