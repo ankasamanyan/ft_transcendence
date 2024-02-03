@@ -1,10 +1,10 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import {RouterModule} from "@angular/router";
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { RouterModule } from "@angular/router";
 import { ChatComponent } from './chat/chat.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { DialogsComponent } from './chat/dialogs/dialogs.component';
@@ -27,7 +27,8 @@ import { AchievementsComponent } from './my-profile/achievements/achievements.co
 import { MatchHistoryComponent } from './my-profile/match-history/match-history.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
+import { PieChartComponent } from './my-profile/statistics/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import {FormsModule} from "@angular/forms";
     StatisticsComponent,
     AchievementsComponent,
     MatchHistoryComponent,
+    PieChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,7 @@ import {FormsModule} from "@angular/forms";
   providers: [
 
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }
