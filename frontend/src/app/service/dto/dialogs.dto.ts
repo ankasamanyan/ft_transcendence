@@ -12,7 +12,6 @@ export class DialogsResponse {
 export class DialogResponse {
   constructor(
     public user: User,
-    public pictureUrl: string,
     public lastMessage: string,
     public lastMessageDate: Date
   ) {}
@@ -20,7 +19,6 @@ export class DialogResponse {
   static toDomain(response: DialogResponse): Dialog {
     return new Dialog(
       response.user,
-      response.pictureUrl,
       response.lastMessage,
       response.lastMessageDate
     );
