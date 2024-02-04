@@ -1,4 +1,4 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Post} from '@nestjs/common';
 import {UsersRequest} from "./dto/users-request";
 import {BlockedUsersService} from "../service/blocked-users.service";
 
@@ -10,4 +10,7 @@ export class BlockedUsersController {
   blockUser(@Body() request: UsersRequest) {
     this.blockedUsersService.blockUser(UsersRequest.toDomain(request));
   }
+
+  //@Delete()
+  //unblockUser(users: Users) //blocked and unblocked users are received together
 }
