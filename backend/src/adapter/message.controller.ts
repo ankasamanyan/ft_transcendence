@@ -6,13 +6,13 @@ import { MessageRequest } from 'src/adapter/dto/message-request';
 export class MessageController {
   constructor(private messageService: MessageService) {}
 
-  @Post()
+  @Post("/mocks")
   initializeMessages() {
     return this.messageService.initializeMessages();
   }
 
   @Post()
   saveMessage(@Body() request: MessageRequest) {
-    this.messageService.save(MessageRequest.toDomain(request));
+    return this.messageService.save(MessageRequest.toDomain(request));
   }
 }

@@ -29,7 +29,15 @@ export class PrismaMessagesRepository {
                 return new MessageResponse(message.sender_id, message.receiver_id, message.text, message.date)}));
     }
 
-    save(message: Message) {
+    async save(message: Message) {
+        await this.prisma.message.create({
+            data: {
+                sender_id: Number(message.senderId),
+                receiver_id: Number(message.receiverId),
+                text: message.text,
+                date: message.date
+            }}
+        );
     }
 
     async initializeMessages() {

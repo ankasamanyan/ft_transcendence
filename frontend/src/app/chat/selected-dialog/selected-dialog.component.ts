@@ -51,7 +51,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
     if (this.message!! && this.message !== '') {
       this.messageService.saveMessage(
           new Message(
-              0,
+              1,
               this.selectedPerson!.id!,
               this.message!,
               new Date())

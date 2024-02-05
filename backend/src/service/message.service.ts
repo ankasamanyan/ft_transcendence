@@ -13,6 +13,6 @@ export class MessageService {
   }
 
   save(message: Message) {
-
+    return this.messageRepository.save(message);
   }
 }
