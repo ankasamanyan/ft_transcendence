@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Dialog} from "../../domain/dialog";
 import {DialogsService} from "../../service/dialogs.service";
 import {UsersService} from "../../service/users.service";
@@ -9,7 +9,7 @@ import {User, Users} from "../../domain/user";
   templateUrl: './dialogs.component.html',
   styleUrls: ['./dialogs.component.css']
 })
-export class DialogsComponent {
+export class DialogsComponent implements OnInit {
   dialogs: Dialog[] = [];
   displayedDialogs: Dialog[] = [];
   selectedPerson: User | undefined;
@@ -21,7 +21,7 @@ export class DialogsComponent {
   @Output()
   selectedPersonChanged = new EventEmitter<User>();
 
-  constructor(dialogsService: DialogsService, usersService: UsersService) {
+  constructor(private dialogsService: DialogsService, usersService: UsersService) {
     dialogsService.getDialogs(1).subscribe((value)  => {
       this.dialogs = value.dialogs!;
       this.changeSelectedPerson(this.dialogs[0].user);
@@ -30,6 +30,20 @@ export class DialogsComponent {
     });
     usersService.getUsers(1).subscribe((value)  => {
       this.users = value;
+    });
+  }
+
+  ngOnInit(): void {
+    this.dialogsService.updateDialogs.next(false);
+    this.dialogsService.updateDialogs.subscribe(value => {
+      if (value) {
+        this.dialogsService.getDialogs(1).subscribe((value)  => {
+          this.dialogs = value.dialogs!;
+          this.changeSelectedPerson(this.dialogs[0].user);
+          this.displayedDialogs = this.dialogs;
+          this.dialogsLoaded = true;
+        });
+      }
     });
   }
 

@@ -12,6 +12,7 @@ import {DialogService} from "../../service/dialog.service";
 import {MessageService} from "../../service/message.service";
 import {Message} from "../../domain/message";
 import {User} from "../../domain/user";
+import {DialogsService} from "../../service/dialogs.service";
 
 @Component({
   selector: 'app-selected-dialog',
@@ -27,7 +28,10 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
   selectedDialog: SelectedDialog | undefined;
   message: string | undefined;
 
-  constructor(public dialogService: DialogService, public messageService: MessageService) {
+  constructor(
+      public dialogService: DialogService,
+      public messageService: MessageService,
+      public dialogsService: DialogsService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -61,6 +65,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
         this.dialogService.getDialog(1, this.selectedPerson!.id!).subscribe((value: SelectedDialog) => {
           this.selectedDialog = value;
         });
+        this.dialogsService.updateDialogs.next(true);
       });
     }
   }
