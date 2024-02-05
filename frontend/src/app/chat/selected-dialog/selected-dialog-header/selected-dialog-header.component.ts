@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {User} from "../../../domain/user";
+import {User, Users} from "../../../domain/user";
+import {FriendService} from "../../../service/friend.service";
 
 @Component({
   selector: 'app-selected-dialog-header',
@@ -14,8 +15,22 @@ export class SelectedDialogHeaderComponent {
   showInvitedToPlayNotification: boolean = false;
   showInvitedToBeFriendsNotification: boolean = false;
 
+  constructor(public friendService: FriendService) {
+  }
+
   sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  sendAFriendRequest() {
+    this.friendService.sendAFriendRequest(
+        new Users([
+            new User(1, "Anahit", "assets/placeholderAvatar.jpeg"),
+            this.selectedPerson!
+        ])
+    ).subscribe(() => {
+      this.showInvitedToBeFriendsNotificationForFewSeconds();
+    });
   }
 
   showInviteNotificationForFewSeconds() {
@@ -23,7 +38,7 @@ export class SelectedDialogHeaderComponent {
     this.sleep(2000).then(() => { this.showInvitedToPlayNotification = false; });
   }
 
-  showBefriendNotificationForFewSeconds() {
+  showInvitedToBeFriendsNotificationForFewSeconds() {
     this.showInvitedToBeFriendsNotification = true;
     this.sleep(2000).then(() => { this.showInvitedToBeFriendsNotification = false; });
   }
