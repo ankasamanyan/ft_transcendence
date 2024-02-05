@@ -38,3 +38,10 @@ model Channel {
   adminId        Int[]
   userId         Int[]
 }
+
+model Friend {
+    id                  Int @id @default(autoincrement())
+    sent_user_id        Int
+    received_user_id    Int
+    status              String
+}
