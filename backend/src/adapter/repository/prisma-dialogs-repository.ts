@@ -42,6 +42,7 @@ export class PrismaDialogsRepository {
                      LEFT JOIN "User" u_sender on u_sender.id = m.sender_id
                      LEFT JOIN "User" u_receiver on u_receiver.id = m.receiver_id
             where m.id in (SELECT id from subres)
+            order by m.date desc
         `;
 
         return new DialogsResponse(dialogs.map((dialog) => {
