@@ -20,17 +20,17 @@
     </div>
 </div>
 
-<app-invitation-received-notification
-    *ngIf="showInvitedNotification"
+<app-invitation-to-play-received-notification
+    *ngIf="showInvitedToPlayNotification"
     [selectedPerson]="selectedPerson"
-    (notificationClose)="showInvitedNotification=false">
-</app-invitation-received-notification>
+    (notificationClose)="showInvitedToPlayNotification=false">
+</app-invitation-to-play-received-notification>
 
-<app-added-to-friends-notification
-        *ngIf="showBefriendedNotification"
+<app-invitation-to-be-friends-received-notification
+        *ngIf="showInvitedToBeFriendsNotification"
         [selectedPerson]="selectedPerson"
-        (notificationClose)="showInvitedNotification=false">
-</app-added-to-friends-notification>
+        (notificationClose)="showInvitedToPlayNotification=false">
+</app-invitation-to-be-friends-received-notification>
 
 <app-block-modal
         *ngIf="showBlockModal"
