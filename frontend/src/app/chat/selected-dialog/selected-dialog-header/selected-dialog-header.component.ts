@@ -11,15 +11,22 @@ export class SelectedDialogHeaderComponent {
   selectedPerson: User | undefined;
 
   showBlockModal: boolean = false;
-  showInviteNotification: boolean = false;
+  showInvitedNotification: boolean = false;
+  showBefriendedNotification: boolean = false;
 
   sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  showNotificationForFewSeconds() {
-    this.showInviteNotification = true;
-    this.sleep(2000).then(() => { this.showInviteNotification = false; });
+  showInviteNotificationForFewSeconds() {
+    this.showInvitedNotification = true;
+    this.sleep(2000).then(() => { this.showInvitedNotification = false; });
   }
+
+  showBefriendNotificationForFewSeconds() {
+    this.showBefriendedNotification = true;
+    this.sleep(2000).then(() => { this.showBefriendedNotification = false; });
+  }
+
 
 }

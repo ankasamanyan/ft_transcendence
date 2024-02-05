@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule } from "@angular/forms";
 import { PieChartComponent } from './my-profile/statistics/pie-chart/pie-chart.component';
+import { AddedToFriendsNotificationComponent } from './chat/selected-dialog/selected-dialog-header/added-to-friends-notification/added-to-friends-notification.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { PieChartComponent } from './my-profile/statistics/pie-chart/pie-chart.c
     AchievementsComponent,
     MatchHistoryComponent,
     PieChartComponent,
+    AddedToFriendsNotificationComponent,
   ],
   imports: [
     BrowserModule,

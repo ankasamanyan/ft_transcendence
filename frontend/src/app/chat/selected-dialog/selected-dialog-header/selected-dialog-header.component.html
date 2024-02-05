@@ -3,12 +3,12 @@
     <div class="dropdown" *ngIf="selectedPerson">
         <i class="bi bi-three-dots-vertical"></i>
         <div class="dropdown-content">
-            <div id="invite-action" (click)="showNotificationForFewSeconds()">
+            <div id="invite-action" (click)="showInviteNotificationForFewSeconds()">
                 <i class="bi bi-dice-2 game-icon"></i>
                 <i class="bi bi-dice-2-fill game-icon-hidden">
                 </i>Invite to play
             </div>
-            <div id="befriend-action">
+            <div id="befriend-action" (click)="showBefriendNotificationForFewSeconds()">
                 <i class="bi bi-people befriend-icon">
                 </i>Add to friends
             </div>
@@ -21,10 +21,16 @@
 </div>
 
 <app-invitation-received-notification
-    *ngIf="showInviteNotification"
+    *ngIf="showInvitedNotification"
     [selectedPerson]="selectedPerson"
-    (notificationClose)="showInviteNotification=false">
+    (notificationClose)="showInvitedNotification=false">
 </app-invitation-received-notification>
+
+<app-added-to-friends-notification
+        *ngIf="showBefriendedNotification"
+        [selectedPerson]="selectedPerson"
+        (notificationClose)="showInvitedNotification=false">
+</app-added-to-friends-notification>
 
 <app-block-modal
         *ngIf="showBlockModal"
