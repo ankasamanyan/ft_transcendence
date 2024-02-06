@@ -42,6 +42,22 @@ export class PrismaFriendRepository {
         }));
     }
 
+    async befriendable(sentUserId: number, receivedUserId: number) {
+        const friendRequest = await this.prisma.friend.findFirst({
+            where: {
+                OR: [
+                    {sent_user_id: Number(sentUserId), received_user_id: Number(receivedUserId)},
+                    {sent_user_id: Number(receivedUserId), received_user_id: Number(sentUserId)}
+                ]
+            }
+        });
+
+        if (!friendRequest || friendRequest.status === "DECLINED") {
+            return true;
+        }
+        return false;
+    }
+
     async initializeFriends() {
         if (await this.prisma.friend.count() === 0) {
             await this.prisma.friend.createMany({

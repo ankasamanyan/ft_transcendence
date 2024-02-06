@@ -16,6 +16,11 @@ export class FriendController {
     return this.friendService.getFriends(userId);
   }
 
+  @Get('/:sentUserId/:receivedUserId')
+  befriendable(@Param('sentUserId') sentUserId: number, @Param('receivedUserId') receivedUserId: number) {
+    return this.friendService.befriendable(sentUserId, receivedUserId);
+  }
+
   @Post("/mocks")
   initializeFriends() {
     return this.friendService.initializeFriends();

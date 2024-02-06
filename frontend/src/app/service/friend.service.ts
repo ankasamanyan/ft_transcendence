@@ -23,6 +23,10 @@ export class FriendService {
         }));
   }
 
+  befriendable(sentUserId: number, receivedUserId: number) {
+    return this.httpClient.get<boolean>("http://localhost:3000/friends/" + sentUserId + "/" + receivedUserId);
+  }
+
   initializeFriends() {
     return this.httpClient.post<void>("http://localhost:3000/friends/mocks", {});
   }

@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, Param} from '@nestjs/common';
 import {Users} from "../domain/user";
 import {PrismaFriendRepository} from "../adapter/repository/prisma-friend-repository";
 import {from} from "rxjs";
@@ -14,6 +14,10 @@ export class FriendService {
 
   getFriends(userId: number) {
     return from(this.friendRepository.getFriends(userId));
+  }
+
+  befriendable(sentUserId: number, receivedUserId: number) {
+    return from(this.friendRepository.befriendable(sentUserId, receivedUserId));
   }
 
   initializeFriends() {
