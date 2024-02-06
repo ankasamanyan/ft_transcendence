@@ -19,4 +19,5 @@ export class UsersService {
   getUsers(userId: number) {
     return from(this.usersRepository.getUsers(userId));
   }
+
 }

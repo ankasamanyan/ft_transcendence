@@ -10,11 +10,11 @@ export class BlockedUsersService {
 
   }
 
-  getBlockedUsers(blockerId: number) {
+  getBlockedUsers(user: User) {
 
   }
 
-  unblockUser(userToUnblock: number) {
+  unblockUser(users: Users) {
 
   }
 }

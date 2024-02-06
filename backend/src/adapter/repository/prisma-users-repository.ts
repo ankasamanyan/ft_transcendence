@@ -44,6 +44,7 @@ export class PrismaUsersRepository {
         return new UsersResponse(users);
     }
 
+    //maybe i need to use userid instead of user?
     async blockUser(users: Users) {
         const user = users.users[0];
         const blockedUser = users.users[1];
