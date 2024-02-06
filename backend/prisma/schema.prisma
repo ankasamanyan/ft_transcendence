@@ -11,27 +11,29 @@ datasource db {
 }
 
 model Message {
-  id            Int @id @default(autoincrement())
-  sender_id     Int
-  receiver_id   Int
-  text          String
-  date          DateTime
+  id          Int      @id @default(autoincrement())
+  sender_id   Int
+  receiver_id Int
+  text        String
+  date        DateTime
 }
 
 model User {
-  id        Int @id @default(autoincrement())
-  name      String
-  picture   String
+  id            Int    @id @default(autoincrement())
+  name          String
+  picture       String
+  blockedUsers  User[] @relation("BlockedUsers")
+  blockingUsers User[] @relation("BlockedUsers")
 }
 
 model BlockedUsers {
-   id        Int @id @default(autoincrement())
-   blockerId  Int
-   blockedId  Int
+  id        Int @id @default(autoincrement())
+  blockerId Int
+  blockedId Int
 }
 
 model Channel {
-  id        Int @id @default(autoincrement())
+  id             Int     @id @default(autoincrement())
   status         Int
   channelOwnerId Int
   password       String?
@@ -40,8 +42,8 @@ model Channel {
 }
 
 model Friend {
-    id                  Int @id @default(autoincrement())
-    sent_user_id        Int
-    received_user_id    Int
-    status              String
+  id               Int    @id @default(autoincrement())
+  sent_user_id     Int
+  received_user_id Int
+  status           String
 }
