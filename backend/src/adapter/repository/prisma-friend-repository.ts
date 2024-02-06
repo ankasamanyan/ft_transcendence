@@ -21,9 +21,10 @@ export class PrismaFriendRepository {
 
     async getFriends(userId: number) {
         const userIdAsInteger = Number(userId);
-        const friends: Array<{id: number; name: string; picture: string}> = await this.prisma.$queryRaw`
+        const friends: Array<{id: number; name: string; intra_login: string; picture: string}> = await this.prisma.$queryRaw`
             SELECT u.id as id,
                    u.name as name,
+                   u.intra_login as intra_login,
                    u.picture as picture
             FROM "User" u
             JOIN "Friend" f ON u.id = CASE
@@ -36,6 +37,7 @@ export class PrismaFriendRepository {
             return new UserResponse(
                 user.id,
                 user.name,
+                user.intra_login,
                 user.picture);
         }));
     }

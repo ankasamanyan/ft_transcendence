@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {FriendService} from "../../service/friend.service";
+import {User} from "../../domain/user";
 
 @Component({
   selector: 'app-friends',
@@ -9,6 +11,13 @@ import { Component, OnInit } from '@angular/core';
 export class FriendsComponent implements OnInit {
   public friendsList: any[] = [];
   public placeHolderMessage: string = 'This list is currently empty 🤷🏻‍♀️'
+  friends: User[] | undefined;
+
+  constructor(private friendService: FriendService) {
+    this.friendService.getFriends(1).subscribe((value)=> {
+      this.friends = value.users;
+    })
+  }
 
   ngOnInit(): void {
     this.friendsList = [

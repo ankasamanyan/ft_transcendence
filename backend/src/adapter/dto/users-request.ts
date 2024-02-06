@@ -13,12 +13,18 @@ export class UsersRequest {
 }
 
 export class UserRequest {
-  constructor(public id: number | undefined, public name: string, public picture: string) {}
+  constructor(
+      public id: number | undefined,
+      public name: string,
+      public intraLogin: string,
+      public picture: string)
+  {}
 
   static toDomain(request: UserRequest): User {
     return new User(
         request.id,
         request.name,
+        request.intraLogin,
         request.picture,
     );
   }
@@ -27,6 +33,7 @@ export class UserRequest {
     return new UserRequest(
       user.id,
       user.name,
+      user.intraLogin,
       user.picture,
     );
   }

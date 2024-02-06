@@ -13,13 +13,13 @@ export class PrismaUsersRepository {
         if (await this.prisma.user.count() === 0) {
             await this.prisma.user.createMany({
                 data: [
-                    {name: "Anahit", picture: "assets/placeholderAvatar.jpeg"},
-                    {name: "Tania", picture: "assets/placeholderComrade.jpeg"},
-                    {name: "Cedric", picture: "assets/placeholderComrade2.jpeg"},
-                    {name: "Krisi", picture: "assets/placeholderComrade3.jpeg"},
-                    {name: "Santiago", picture: "assets/placeholderComrade4.jpeg"},
-                    {name: "Fedia", picture: "assets/placeholderComrade5.jpeg"},
-                    {name: "Wolf", picture: "assets/placeholderComrade6.jpeg"},
+                    {name: "Anahit", intra_login: "@akasaman",picture: "assets/placeholderAvatar.jpeg"},
+                    {name: "Tania", intra_login: "@tfedoren",picture: "assets/placeholderComrade.jpeg"},
+                    {name: "Cedric", intra_login: "@cerdelen",picture: "assets/placeholderComrade2.jpeg"},
+                    {name: "Krisi", intra_login: "@kmilchev",picture: "assets/placeholderComrade3.jpeg"},
+                    {name: "Santiago", intra_login: "@stena-he",picture: "assets/placeholderComrade4.jpeg"},
+                    {name: "Fedia", intra_login: "@fstaryk",picture: "assets/placeholderComrade5.jpeg"},
+                    {name: "Wolf", intra_login: "@wmardin", picture: "assets/placeholderComrade6.jpeg"},
                 ]
             });
         }
@@ -28,6 +28,7 @@ export class PrismaUsersRepository {
         await this.prisma.user.create({
             data: {
                 name: user.name,
+                intra_login: user.intraLogin,
                 picture: user.picture
             }}
         );
@@ -40,8 +41,14 @@ export class PrismaUsersRepository {
                     not: Number(userId)
                 }
             }
-        }) as UserResponse[];
-        return new UsersResponse(users);
+        });
+        return new UsersResponse(users.map((user) => {
+            return new UserResponse(
+                user.id,
+                user.name,
+                user.intra_login,
+                user.picture);
+        }));
     }
 
     async blockUser(users: Users) {

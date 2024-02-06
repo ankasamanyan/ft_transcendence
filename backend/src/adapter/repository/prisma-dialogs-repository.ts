@@ -7,6 +7,7 @@ interface RawSql {
     other_user_id: number;
     name: string;
     picture: string;
+    intra_login: string;
     text: string;
     date: Date;
 }
@@ -31,13 +32,16 @@ export class PrismaDialogsRepository {
                    m.date                          as date,
                    (CASE u_sender.id
                         WHEN ${userIdAsInteger} THEN u_receiver.picture
-                        ELSE u_sender.picture END) as picture,
+                        ELSE u_sender.picture END)      as picture,
                    (CASE u_sender.id
                         WHEN ${userIdAsInteger} THEN u_receiver.name
-                        ELSE u_sender.name END)    as name,
+                        ELSE u_sender.name END)         as name,
+                    (CASE u_sender.id
+                    WHEN ${userIdAsInteger} THEN u_receiver.intra_login
+                        ELSE u_sender.intra_login END)  as intra_login,
                    (CASE u_sender.id
                         WHEN ${userIdAsInteger} THEN u_receiver.id
-                    ELSE u_sender.id END)          as other_user_id
+                    ELSE u_sender.id END)               as other_user_id
             from "Message" m
                      LEFT JOIN "User" u_sender on u_sender.id = m.sender_id
                      LEFT JOIN "User" u_receiver on u_receiver.id = m.receiver_id
@@ -49,6 +53,7 @@ export class PrismaDialogsRepository {
             const otherUser = new User(
                 dialog.other_user_id,
                 dialog.name,
+                dialog.intra_login,
                 dialog.picture
             );
             return new DialogResponse(

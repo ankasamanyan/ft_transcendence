@@ -21,6 +21,7 @@ model Message {
 model User {
   id            Int    @id @default(autoincrement())
   name          String
+  intra_login   String
   picture       String
   blockedUsers  User[] @relation("BlockedUsers")
   blockingUsers User[] @relation("BlockedUsers")

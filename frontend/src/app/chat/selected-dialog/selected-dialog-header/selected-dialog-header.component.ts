@@ -25,7 +25,7 @@ export class SelectedDialogHeaderComponent {
   sendAFriendRequest() {
     this.friendService.sendAFriendRequest(
         new Users([
-            new User(1, "Anahit", "assets/placeholderAvatar.jpeg"),
+            new User(1, "Anahit", "@akasaman","assets/placeholderAvatar.jpeg"),
             this.selectedPerson!
         ])
     ).subscribe(() => {
