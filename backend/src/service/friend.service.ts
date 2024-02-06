@@ -12,6 +12,10 @@ export class FriendService {
     return this.friendRepository.sendAFriendRequest(users);
   }
 
+  getFriends(userId: number) {
+    return from(this.friendRepository.getFriends(userId));
+  }
+
   initializeFriends() {
     return from(this.friendRepository.initializeFriends());
   }

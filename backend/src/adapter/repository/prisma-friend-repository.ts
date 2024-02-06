@@ -1,6 +1,7 @@
 import {PrismaService} from "../../service/prisma.service";
 import {Injectable} from "@nestjs/common";
 import {Users} from "../../domain/user";
+import {UserResponse, UsersResponse} from "../dto/users-response";
 
 @Injectable()
 export class PrismaFriendRepository {
@@ -16,6 +17,27 @@ export class PrismaFriendRepository {
                 status: "PENDING"
             }}
         );
+    }
+
+    async getFriends(userId: number) {
+        const userIdAsInteger = Number(userId);
+        const friends: Array<{id: number; name: string; picture: string}> = await this.prisma.$queryRaw`
+            SELECT u.id as id,
+                   u.name as name,
+                   u.picture as picture
+            FROM "User" u
+            JOIN "Friend" f ON u.id = CASE
+                                    WHEN f.sent_user_id = ${userIdAsInteger} THEN f.received_user_id
+                                    WHEN f.received_user_id = ${userIdAsInteger} THEN f.sent_user_id
+                                END
+            WHERE f.status = 'ACCEPTED' AND (f.sent_user_id = ${userIdAsInteger} OR f.received_user_id = ${userIdAsInteger})
+            `;
+        return new UsersResponse(friends.map((user) => {
+            return new UserResponse(
+                user.id,
+                user.name,
+                user.picture);
+        }));
     }
 
     async initializeFriends() {

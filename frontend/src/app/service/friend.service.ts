@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {Users} from "../domain/user";
-import {UsersRequest} from "./dto/users.dto";
+import {UsersRequest, UsersResponse} from "./dto/users.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,13 @@ export class FriendService {
     return this.httpClient.post<void>(
         "http://localhost:3000/friends",
         UsersRequest.fromDomain(users));
+  }
+
+  getFriends(userId: number): Observable<Users> {
+    return this.httpClient.get<UsersResponse>("http://localhost:3000/friends/" + userId).pipe(
+        map((response: UsersResponse) => {
+          return UsersResponse.toDomain(response);
+        }));
   }
 
   initializeFriends() {

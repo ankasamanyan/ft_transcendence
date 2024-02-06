@@ -1,4 +1,4 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post} from '@nestjs/common';
 import {UsersRequest} from "./dto/users-request";
 import {FriendService} from "../service/friend.service";
 
@@ -9,6 +9,11 @@ export class FriendController {
   @Post()
   sendAFriendRequest(@Body() request: UsersRequest) {
     return this.friendService.sendAFriendRequest(UsersRequest.toDomain(request));
+  }
+
+  @Get('/:userId')
+  getFriends(@Param('userId') userId: number) {
+    return this.friendService.getFriends(userId);
   }
 
   @Post("/mocks")
