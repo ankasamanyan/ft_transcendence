@@ -15,4 +15,8 @@ export class FriendService {
         "http://localhost:3000/friends",
         UsersRequest.fromDomain(users));
   }
+
+  initializeFriends() {
+    return this.httpClient.post<void>("http://localhost:3000/friends/mocks", {});
+  }
 }

@@ -10,4 +10,9 @@ export class FriendController {
   sendAFriendRequest(@Body() request: UsersRequest) {
     return this.friendService.sendAFriendRequest(UsersRequest.toDomain(request));
   }
+
+  @Post("/mocks")
+  initializeFriends() {
+    return this.friendService.initializeFriends();
+  }
 }

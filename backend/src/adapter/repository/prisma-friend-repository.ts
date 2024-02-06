@@ -17,4 +17,16 @@ export class PrismaFriendRepository {
             }}
         );
     }
+
+    async initializeFriends() {
+        if (await this.prisma.friend.count() === 0) {
+            await this.prisma.friend.createMany({
+                data: [
+                    {sent_user_id: 1, received_user_id: 2, status: "ACCEPTED"},
+                    {sent_user_id: 1, received_user_id: 3, status: "ACCEPTED"},
+                    {sent_user_id: 1, received_user_id: 4, status: "ACCEPTED"},
+                ]
+            });
+        }
+    }
 }
