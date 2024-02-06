@@ -22,12 +22,7 @@ export class DialogsComponent implements OnInit {
   selectedPersonChanged = new EventEmitter<User>();
 
   constructor(private dialogsService: DialogsService, usersService: UsersService) {
-    dialogsService.getDialogs(1).subscribe((value)  => {
-      this.dialogs = value.dialogs!;
-      this.changeSelectedPerson(this.dialogs[0].user);
-      this.displayedDialogs = this.dialogs;
-      this.dialogsLoaded = true;
-    });
+    this.getDialogs();
     usersService.getUsers(1).subscribe((value)  => {
       this.users = value;
     });
@@ -37,12 +32,7 @@ export class DialogsComponent implements OnInit {
     this.dialogsService.updateDialogs.next(false);
     this.dialogsService.updateDialogs.subscribe(value => {
       if (value) {
-        this.dialogsService.getDialogs(1).subscribe((value)  => {
-          this.dialogs = value.dialogs!;
-          this.changeSelectedPerson(this.dialogs[0].user);
-          this.displayedDialogs = this.dialogs;
-          this.dialogsLoaded = true;
-        });
+        this.getDialogs();
       }
     });
   }
@@ -63,5 +53,14 @@ export class DialogsComponent implements OnInit {
 
   noDialogs() {
     return this.dialogs.length === 0 && this.dialogsLoaded;
+  }
+
+  getDialogs() {
+    this.dialogsService.getDialogs(1).subscribe((value)  => {
+      this.dialogs = value.dialogs!;
+      this.changeSelectedPerson(this.dialogs[0].user);
+      this.displayedDialogs = this.dialogs;
+      this.dialogsLoaded = true;
+    });
   }
 }
