@@ -71,5 +71,5 @@ export class PrismaUsersRepository {
           });
         return userWithBlockedUsers?.blockedUsers;
       
+        }
     }
-}
