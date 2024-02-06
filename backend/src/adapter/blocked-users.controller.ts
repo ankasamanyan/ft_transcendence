@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Post, Param} from '@nestjs/common';
 import {UserRequest, UsersRequest} from "./dto/users-request";
 import {BlockedUsersService} from "../service/blocked-users.service";
 
@@ -8,16 +8,16 @@ export class BlockedUsersController {
 
   @Post()
   blockUser(@Body() request: UsersRequest) {
-    this.blockedUsersService.blockUser(UsersRequest.toDomain(request));
+    return this.blockedUsersService.blockUser(UsersRequest.toDomain(request));
   }
 
   @Delete()
   unblockUser(@Body() request: UsersRequest) {
-    this.blockedUsersService.unblockUser(UsersRequest.toDomain(request));
+    return this.blockedUsersService.unblockUser(UsersRequest.toDomain(request));
   }
 
-  @Get()
-    getBlockedUsers(@Body() request: UserRequest) {
-      this.blockedUsersService.getBlockedUsers(UserRequest.toDomain(request))
+  @Get('/:userId')
+    getBlockedUsers(@Param('userId') userId: number) {
+      return this.blockedUsersService.getBlockedUsers(userId)
     }
 }

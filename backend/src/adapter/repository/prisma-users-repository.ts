@@ -44,7 +44,6 @@ export class PrismaUsersRepository {
         return new UsersResponse(users);
     }
 
-    //maybe i need to use userid instead of user?
     async blockUser(users: Users) {
         const user = users.users[0];
         const blockedUser = users.users[1];
@@ -65,9 +64,9 @@ export class PrismaUsersRepository {
         });
     }
 
-    async getBlockedUsers(user: User) {
+    async getBlockedUsers(userId: number) {
         const userWithBlockedUsers = await this.prisma.user.findUnique({
-            where: { id: user.id },
+            where: { id: userId },
             include: { blockedUsers: true }
           });
         return userWithBlockedUsers?.blockedUsers;
