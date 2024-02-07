@@ -40,11 +40,4 @@ export class FriendsComponent implements OnInit {
     ];
   }
 
-  sendDirectMessage() {
-
-  }
-
-  sendGameRequest() {
-    
-  }
 }
