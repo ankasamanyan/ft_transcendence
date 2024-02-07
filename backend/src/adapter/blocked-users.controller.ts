@@ -11,4 +11,13 @@ export class BlockedUsersController {
     return this.blockedUsersService.blockUser(UsersRequest.toDomain(request));
   }
 
+  @Delete()
+  async unblockUser(@Param('blockerId') blockerId: number, @Param('blockedId') blockedId: number) {
+    return this.blockedUsersService.unblockUser(blockerId, blockedId);
+  }
+
+  @Get('/:userId')
+  getBlockedUsers(@Param('userId') userId: number) {
+    return this.blockedUsersService.getBlockedUsers(userId);
+  }
 }
