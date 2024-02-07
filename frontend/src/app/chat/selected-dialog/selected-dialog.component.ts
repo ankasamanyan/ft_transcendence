@@ -12,6 +12,7 @@ import {DialogService} from "../../service/dialog.service";
 import {MessageService} from "../../service/message.service";
 import {Message} from "../../domain/message";
 import {User} from "../../domain/user";
+import {DialogsService} from "../../service/dialogs.service";
 
 @Component({
   selector: 'app-selected-dialog',
@@ -22,13 +23,19 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
   @Input()
   selectedPerson: User | undefined;
 
+  @Input()
+  selectedPersonBefriendable: boolean | undefined;
+
   @ViewChild('wholeSelectedDialogContainer') private wholeSelectedDialogContainer!: ElementRef;
 
   selectedDialog: SelectedDialog | undefined;
   message: string | undefined;
 
-  constructor(public dialogService: DialogService, public messageService: MessageService) {
-  }
+  constructor(
+      private dialogService: DialogService,
+      private messageService: MessageService,
+      private dialogsService: DialogsService)
+  {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.selectedPerson) {
@@ -51,13 +58,17 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
     if (this.message!! && this.message !== '') {
       this.messageService.saveMessage(
           new Message(
-              0,
+              1,
               this.selectedPerson!.id!,
               this.message!,
               new Date())
       ).subscribe(() => {
         this.message = '';
         this.clearInputField();
+        this.dialogService.getDialog(1, this.selectedPerson!.id!).subscribe((value: SelectedDialog) => {
+          this.selectedDialog = value;
+        });
+        this.dialogsService.updateDialogs.next(true);
       });
     }
   }

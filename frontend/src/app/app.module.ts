@@ -18,7 +18,7 @@ import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.compo
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SelectedDialogHeaderComponent } from './chat/selected-dialog/selected-dialog-header/selected-dialog-header.component';
 import { BlockModalComponent } from './chat/selected-dialog/selected-dialog-header/block-modal/block-modal.component';
-import { InvitationReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-received-notification/invitation-received-notification.component';
+import { InvitationToPlayReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-to-play-received-notification/invitation-to-play-received-notification.component';
 import { CreateChannelModalComponent } from './chat/dialogs/create-channel-modal/create-channel-modal.component';
 import { SelectOptionComponent } from './chat/dialogs/create-channel-modal/select-option/select-option.component';
 import { FriendsComponent } from './my-profile/friends/friends.component';
@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule } from "@angular/forms";
 import { PieChartComponent } from './my-profile/statistics/pie-chart/pie-chart.component';
+import { InvitationToBeFriendsReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-to-be-friends-received-notification/invitation-to-be-friends-received-notification.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { PieChartComponent } from './my-profile/statistics/pie-chart/pie-chart.c
     ExitModalComponent,
     SelectedDialogHeaderComponent,
     BlockModalComponent,
-    InvitationReceivedNotificationComponent,
+    InvitationToPlayReceivedNotificationComponent,
     CreateChannelModalComponent,
     SelectOptionComponent,
     FriendsComponent,
@@ -53,6 +54,7 @@ import { PieChartComponent } from './my-profile/statistics/pie-chart/pie-chart.c
     AchievementsComponent,
     MatchHistoryComponent,
     PieChartComponent,
+    InvitationToBeFriendsReceivedNotificationComponent,
   ],
   imports: [
     BrowserModule,

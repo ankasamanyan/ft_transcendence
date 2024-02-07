@@ -9,13 +9,28 @@ export class UsersResponse {
 }
 
 export class UserResponse {
-  constructor(public id: number | undefined, public name: string, public picture: string) {}
+  constructor(
+      public id: number | undefined,
+      public name: string,
+      public intraLogin: string,
+      public picture: string)
+  {}
 
   static toDomain(response: UserResponse): User {
     return new User(
-      response.id,
-      response.name,
-      response.picture,
+        response.id,
+        response.name,
+        response.intraLogin,
+        response.picture,
+    );
+  }
+
+  static fromDomain(user: User): UserResponse {
+    return new UserResponse(
+        user.id,
+        user.name,
+        user.intraLogin,
+        user.picture,
     );
   }
 }
@@ -29,13 +44,28 @@ export class UsersRequest {
 }
 
 export class UserRequest {
-  constructor(public id: number | undefined, public name: string, public picture: string) {}
+  constructor(
+      public id: number | undefined,
+      public name: string,
+      public intraLogin: string,
+      public picture: string)
+  {}
 
-  static fromDomain(response: User): UserRequest {
+  static toDomain(request: UserRequest): User {
+    return new User(
+        request.id,
+        request.name,
+        request.intraLogin,
+        request.picture,
+    );
+  }
+
+  static fromDomain(user: User): UserRequest {
     return new UserRequest(
-        response.id,
-        response.name,
-        response.picture,
+        user.id,
+        user.name,
+        user.intraLogin,
+        user.picture,
     );
   }
 }

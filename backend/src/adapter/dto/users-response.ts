@@ -13,12 +13,18 @@ export class UsersResponse {
 }
 
 export class UserResponse {
-  constructor(public id: number | undefined, public name: string, public picture: string) {}
+  constructor(
+      public id: number | undefined,
+      public name: string,
+      public intraLogin: string,
+      public picture: string)
+  {}
 
   static toDomain(response: UserResponse): User {
     return new User(
       response.id,
       response.name,
+      response.intraLogin,
       response.picture,
     );
   }
@@ -27,6 +33,7 @@ export class UserResponse {
     return new UserResponse(
       user.id,
       user.name,
+      user.intraLogin,
       user.picture,
     );
   }

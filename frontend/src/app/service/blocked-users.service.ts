@@ -14,4 +14,10 @@ export class BlockedUsersService {
   blockUser(users: Users): Observable<void> {
     return this.httpClient.post<void>("http://localhost:3000/blocked-users", UsersRequest.fromDomain(users));
   }
+  
+  unblockUser(users: Users): Observable<void> {
+    const blockerId = users.users[0].id;
+    const blockedId = users.users[1].id;
+    return this.httpClient.delete<void>(`http://localhost:3000/blocked-users?blockerId=${blockerId}&blockedId=${blockedId}`);
+  }
 }

@@ -1,5 +1,8 @@
 <div #wholeSelectedDialogContainer id="whole-selected-dialog">
-    <app-selected-dialog-header [selectedPerson]="selectedPerson"></app-selected-dialog-header>
+    <app-selected-dialog-header
+            [selectedPerson]="selectedPerson"
+            [selectedPersonBefriendable]="selectedPersonBefriendable">
+    </app-selected-dialog-header>
     <div id="selected-dialog-body">
         <div class="message-history-parent">
             <div id="message-history" *ngFor="let message of selectedDialog?.messageHistory">

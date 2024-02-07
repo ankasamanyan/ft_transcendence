@@ -74,3 +74,8 @@ button {
 #create-button:hover {
     background-color: var(--color-orange-darker);
 }
+
+#create-button.deactivated {
+    background-color: lightgrey;
+    pointer-events: none;
+}
