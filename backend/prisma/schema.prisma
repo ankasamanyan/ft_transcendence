@@ -23,11 +23,9 @@ model User {
   name          String
   intra_login   String
   picture       String
-  blockedUsers  User[] @relation("BlockedUsers")
-  blockingUsers User[] @relation("BlockedUsers")
 }
 
-model BlockedUsers {
+model BlockedUser {
   id        Int @id @default(autoincrement())
   blockerId Int
   blockedId Int

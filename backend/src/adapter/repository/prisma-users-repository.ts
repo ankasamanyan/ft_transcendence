@@ -51,32 +51,4 @@ export class PrismaUsersRepository {
         }));
     }
 
-    async blockUser(users: Users) {
-        const user = users.users[0];
-        const blockedUser = users.users[1];
-
-        await this.prisma.user.update ({
-            where: {id: user.id },
-            data: { blockedUsers: { connect:  { id: blockedUser.id } } }
-        });
-    }
-
-    async unblockUser(users: Users) {
-        const user = users.users[0];
-        const unblockedUser = users.users[1];
-
-        await this.prisma.user.update ({
-            where: {id: user.id },
-            data: { blockedUsers: { disconnect:  { id: unblockedUser.id } } }
-        });
-    }
-
-    async getBlockedUsers(userId: number) {
-        const userWithBlockedUsers = await this.prisma.user.findUnique({
-            where: { id: userId },
-            include: { blockedUsers: true }
-          });
-        return userWithBlockedUsers?.blockedUsers;
-      
-        }
     }
