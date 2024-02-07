@@ -24,8 +24,12 @@ export class CreateChannelModalComponent {
     this.usersWithStatus.set(user, isSelected);
   }
 
+  selectedUsers() {
+    return Array.from(this.usersWithStatus.keys()).filter(user => this.usersWithStatus.get(user) === true);
+  }
+
   selectUsers() {
-    const onlySelected = Array.from(this.usersWithStatus.keys()).filter(user => this.usersWithStatus.get(user) === true);
+    const onlySelected = this.selectedUsers();
     this.channelService.createChannel(new Users(onlySelected)).subscribe(() => {
       this.modalClose.emit();
     });
