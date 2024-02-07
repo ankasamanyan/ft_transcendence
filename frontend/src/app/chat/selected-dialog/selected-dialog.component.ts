@@ -13,6 +13,7 @@ import {MessageService} from "../../service/message.service";
 import {Message} from "../../domain/message";
 import {User} from "../../domain/user";
 import {DialogsService} from "../../service/dialogs.service";
+import {FriendService} from "../../service/friend.service";
 
 @Component({
   selector: 'app-selected-dialog',
@@ -23,15 +24,19 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
   @Input()
   selectedPerson: User | undefined;
 
+  @Input()
+  selectedPersonBefriendable: boolean | undefined;
+
   @ViewChild('wholeSelectedDialogContainer') private wholeSelectedDialogContainer!: ElementRef;
 
   selectedDialog: SelectedDialog | undefined;
   message: string | undefined;
 
   constructor(
-      public dialogService: DialogService,
-      public messageService: MessageService,
-      public dialogsService: DialogsService) {
+      private dialogService: DialogService,
+      private messageService: MessageService,
+      private dialogsService: DialogsService,
+      private friendService: FriendService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {

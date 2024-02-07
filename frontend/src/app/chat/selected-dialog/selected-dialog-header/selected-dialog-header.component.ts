@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {User, Users} from "../../../domain/user";
 import {FriendService} from "../../../service/friend.service";
 
@@ -7,15 +7,26 @@ import {FriendService} from "../../../service/friend.service";
   templateUrl: './selected-dialog-header.component.html',
   styleUrls: ['./selected-dialog-header.component.css']
 })
-export class SelectedDialogHeaderComponent {
+export class SelectedDialogHeaderComponent implements OnChanges {
   @Input()
   selectedPerson: User | undefined;
+
+  @Input()
+  selectedPersonBefriendable: boolean | undefined;
 
   showBlockModal: boolean = false;
   showInvitedToPlayNotification: boolean = false;
   showInvitedToBeFriendsNotification: boolean = false;
 
   constructor(public friendService: FriendService) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.selectedPerson) {
+      this.friendService.befriendable(1, this.selectedPerson.id!).subscribe((value) => {
+        this.selectedPersonBefriendable = value;
+      })
+    }
   }
 
   sleep(ms: number) {
@@ -30,6 +41,9 @@ export class SelectedDialogHeaderComponent {
         ])
     ).subscribe(() => {
       this.showInvitedToBeFriendsNotificationForFewSeconds();
+      this.friendService.befriendable(1, this.selectedPerson!.id!).subscribe((value) => {
+        this.selectedPersonBefriendable = value;
+      });
     });
   }
 
@@ -42,6 +56,4 @@ export class SelectedDialogHeaderComponent {
     this.showInvitedToBeFriendsNotification = true;
     this.sleep(2000).then(() => { this.showInvitedToBeFriendsNotification = false; });
   }
-
-
 }
