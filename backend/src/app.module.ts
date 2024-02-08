@@ -22,6 +22,8 @@ import {PrismaMessagesRepository} from "./adapter/repository/prisma-messages-rep
 import {FriendController} from "./adapter/friend.controller";
 import {PrismaFriendRepository} from "./adapter/repository/prisma-friend-repository";
 import {FriendService} from "./service/friend.service";
+import {PrismaChannelAdminRepository} from "./adapter/repository/prisma-channel-admin-repository";
+import {PrismaChannelParticipantRepository} from "./adapter/repository/prisma-channel-participant-repository";
 
 @Module({
     imports: [],
@@ -49,7 +51,9 @@ import {FriendService} from "./service/friend.service";
         PrismaChannelRepository,
         PrismaBlockedUsersRepository,
         PrismaMessagesRepository,
-        PrismaFriendRepository],
+        PrismaFriendRepository,
+        PrismaChannelAdminRepository,
+        PrismaChannelParticipantRepository],
 })
 export class AppModule {
 }
