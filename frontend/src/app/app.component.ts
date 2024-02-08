@@ -19,6 +19,8 @@ export class AppComponent {
     this.usersService.initializeUsers().subscribe();
     this.messageService.initializeMessages().subscribe();
     this.friendService.initializeFriends().subscribe();
+
+    this.messageService.initializeChannelMessages().subscribe();
   }
 
   public open(modal: any): void {

@@ -51,7 +51,7 @@ model ChannelAdmin {
   user_id       Int
 }
 
-model ChannelMessages {
+model ChannelMessage {
   id          Int      @id @default(autoincrement())
   channel_id  Int
   sender_id   Int

@@ -1,7 +1,7 @@
 import {User} from "../../domain/user";
 import {Channel} from "../../domain/channel";
 
-export class ChannelRequest {
+export class ChannelDto {
   constructor(
       public name: string,
       public type: string,
@@ -14,7 +14,7 @@ export class ChannelRequest {
       public lastMessageCreatedAt?: Date)
   {}
 
-  static toDomain(request: ChannelRequest): Channel {
+  static toDomain(request: ChannelDto): Channel {
     return new Channel(
         request.name,
         request.type,
@@ -28,8 +28,8 @@ export class ChannelRequest {
     );
   }
 
-  static fromDomain(channel: Channel): ChannelRequest {
-    return new ChannelRequest(
+  static fromDomain(channel: Channel): ChannelDto {
+    return new ChannelDto(
         channel.name,
         channel.type,
         channel.participants,

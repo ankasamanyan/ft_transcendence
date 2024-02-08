@@ -13,6 +13,7 @@ import {MessageService} from "../../service/message.service";
 import {Message} from "../../domain/message";
 import {User} from "../../domain/user";
 import {DialogsService} from "../../service/dialogs.service";
+import {ChannelMessage} from "../../domain/channel-message";
 
 @Component({
   selector: 'app-selected-dialog',
@@ -56,6 +57,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
 
   sendMessage() {
     if (this.message!! && this.message !== '') {
+      this.sendChannelMessage();
       this.messageService.saveMessage(
           new Message(
               1,
@@ -69,6 +71,19 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
           this.selectedDialog = value;
         });
         this.dialogsService.updateDialogs.next(true);
+      });
+    }
+  }
+
+  sendChannelMessage() {
+    if (this.message!! && this.message !== '') {
+      this.messageService.saveChannelMessage(
+          new ChannelMessage(
+              0,
+              1,
+              this.message!,
+              new Date())
+      ).subscribe(() => {
       });
     }
   }
