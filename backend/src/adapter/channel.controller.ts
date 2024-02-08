@@ -1,13 +1,13 @@
 import {Body, Controller, Post} from '@nestjs/common';
-import {UsersRequest} from "./dto/users-request";
 import {ChannelService} from "../service/channel.service";
+import {ChannelRequest} from "./dto/channel-request";
 
 @Controller('/channels')
 export class ChannelController {
   constructor(private channelService: ChannelService) {}
 
   @Post()
-  createChannel(@Body() request: UsersRequest) {
-    this.channelService.createChannel(UsersRequest.toDomain(request));
+  addChannelInformation(@Body() request: ChannelRequest) {
+    this.channelService.addChannelInformation(ChannelRequest.toDomain(request));
   }
 }

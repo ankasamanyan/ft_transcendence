@@ -13,19 +13,18 @@ export class PrismaChannelRepository{
 
     }
 
-    createChannel(users: Users) {
-    }
-
     async addChannel(channel: Channel) {
         const createdChannel = await this.prisma.channel.create({
             data: {
                 name: channel.name,
                 type: channel.type,
-                channelOwnerId: Number(channel.owner.id),
-                password: channel.password
+                ...(channel.owner?.id ? {channelOwnerId: channel.owner.id} : {}),
+                ...(channel.password ? {password: channel.password} : {}),
             }}
         );
         await this.prismaChannelParticipantRepository.addChannelParticipants(createdChannel.id, channel.participants);
-        await this.prismaChannelAdminRepository.addChannelAdmins(createdChannel.id, channel.admins);
+        if (channel.type === "private") {
+            await this.prismaChannelAdminRepository.addChannelAdmin(createdChannel.id, channel.admins[0]);
+        }
     }
 }

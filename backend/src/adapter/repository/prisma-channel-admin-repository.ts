@@ -8,11 +8,12 @@ export class PrismaChannelAdminRepository{
 
     }
 
-    async addChannelAdmins(channelId: number, users: User[]) {
-        const admins = users.map(user => ({channel_id: channelId, user_id: user.id}));
-        await this.prisma.channelParticipant.createMany({
-                data: admins
-            }
+    async addChannelAdmin(channelId: number, user: User) {
+        await this.prisma.channelAdmin.create({
+            data: {
+                channel_id: Number(channelId),
+                user_id: Number(user.id),
+            }}
         );
     }
 }
