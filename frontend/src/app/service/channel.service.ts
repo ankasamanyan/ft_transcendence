@@ -14,4 +14,8 @@ export class ChannelService {
   addChannelInformation(channel: Channel): Observable<void> {
     return this.httpClient.post<void>("http://localhost:3000/channels", ChannelDto.fromDomain(channel));
   }
+
+  initializeChannels() {
+    return this.httpClient.post<void>("http://localhost:3000/channels/mocks", {});
+  }
 }

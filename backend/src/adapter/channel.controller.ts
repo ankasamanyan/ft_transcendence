@@ -10,4 +10,9 @@ export class ChannelController {
   addChannelInformation(@Body() request: ChannelRequest) {
     this.channelService.addChannelInformation(ChannelRequest.toDomain(request));
   }
+
+  @Post("/mocks")
+  initializeChannels() {
+    return this.channelService.initializeChannels();
+  }
 }

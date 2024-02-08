@@ -2,6 +2,7 @@ import {Injectable} from '@nestjs/common';
 import {Users, User} from "../domain/user";
 import {PrismaChannelRepository} from "../adapter/repository/prisma-channel-repository";
 import {Channel} from "../domain/channel";
+import {from} from "rxjs";
 
 @Injectable()
 export class ChannelService {
@@ -12,6 +13,10 @@ export class ChannelService {
 
   addChannelInformation(channel: Channel) {
     this.prismaChannelRepository.addChannel(channel);
+  }
+
+  initializeChannels() {
+    return from(this.prismaChannelRepository.initializeChannels());
   }
 
   setPassword(password: string) {}
