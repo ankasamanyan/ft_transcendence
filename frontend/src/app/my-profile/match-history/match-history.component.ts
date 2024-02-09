@@ -5,15 +5,9 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './match-history.component.html',
   styleUrls: ['./match-history.component.css']
 })
-export class MatchHistoryComponent implements OnInit{
+export class MatchHistoryComponent implements OnInit {
   public placeHolderMessage: string = "You will see something here, once you start playing << THE PONG >> 🎯✨";
   public historyList:any[] = [];
-  // public name: string = 'Anaaaaa';
-  // public username: string = '@akasaman';
-  // public myMatchResult: string = '3';
-  // public opponentMatchResult: string = '2';
-  // public opponentName: string = 'Cedrichek';
-  // public opponentUsername:string = '@cerdelen';
 
   ngOnInit(): void {
     this.historyList = [

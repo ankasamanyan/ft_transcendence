@@ -1,15 +1,14 @@
 <div class="tab-container">
     <h5>Match History</h5>
-    <!-- <div class="empty-list-container" *ngIf="historyList.length === 0" >
+    <div class="empty-list-container" *ngIf="historyList.length === 0" >
         <div class="empty-list">
           <p>{{placeHolderMessage}}</p>
         </div>
-    </div> -->
+    </div>
 
 <div class="match-card match-history-record" *ngFor="let match of historyList">
   <div class="header">
-    <!-- <img class="friend-picture" [src]="userProfilePicture" alt="User Picture"> -->
-    <img class="picture" alt="User Picture">
+    <img class="picture" [src]='match.profilePicture' alt="User Picture">
     <div class="info">
       <h3>{{ match.name }}</h3>
       <p class="username">{{ match.username }}</p>
@@ -25,8 +24,7 @@
       <h3>{{ match.opponentName }}</h3>
       <p class="username">{{ match.opponentUsername }}</p>
     </div>
-    <!-- <img class="friend-picture" [src]="opponentProfilePicture" alt="Opponent Picture"> -->
-    <img class="picture" alt="Opponent Picture">
+    <img class="picture" [src]='match.opponentProfilePicture' alt="Opponent Picture">
   </div>
 </div>
 
