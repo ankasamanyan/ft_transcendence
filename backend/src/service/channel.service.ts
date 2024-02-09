@@ -3,11 +3,13 @@ import {User} from "../domain/user";
 import {PrismaChannelRepository} from "../adapter/repository/prisma-channel-repository";
 import {Channel} from "../domain/channel";
 import {from} from "rxjs";
+import {PrismaChannelParticipantRepository} from "../adapter/repository/prisma-channel-participant-repository";
 
 @Injectable()
 export class ChannelService {
   constructor(
-      private prismaChannelRepository: PrismaChannelRepository) {
+      private prismaChannelRepository: PrismaChannelRepository,
+      private prismaChannelParticipantRepository: PrismaChannelParticipantRepository) {
 
   }
 
@@ -17,6 +19,14 @@ export class ChannelService {
 
   getChannels(userId: number) {
     return from(this.prismaChannelRepository.getChannels(userId));
+  }
+
+  getChannelDetailsById(channelId: number) {
+    return from(this.prismaChannelRepository.getChannelDetailsById(channelId));
+  }
+
+  getChannelParticipants(channelId: number) {
+    return from(this.prismaChannelParticipantRepository.getChannelParticipants(channelId));
   }
 
   initializeChannels() {

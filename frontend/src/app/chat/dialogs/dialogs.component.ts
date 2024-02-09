@@ -1,8 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Dialog} from "../../domain/dialog";
-import {DialogsService} from "../../service/dialogs.service";
 import {UsersService} from "../../service/users.service";
-import {User, Users} from "../../domain/user";
+import {Users} from "../../domain/user";
 import {Channel} from "../../domain/channel";
 import {ChannelService} from "../../service/channel.service";
 
@@ -12,62 +10,59 @@ import {ChannelService} from "../../service/channel.service";
   styleUrls: ['./dialogs.component.css']
 })
 export class DialogsComponent implements OnInit {
-  dialogs: Dialog[] = [];
-  displayedDialogs: Dialog[] = [];
-  selectedPerson: User | undefined;
+  channels: Channel[] = [];
+  displayedChannels: Channel[] = [];
+  selectedChannelId: number | undefined;
   users: Users | undefined;
 
   showCreateChannelModal: boolean = false;
-  dialogsLoaded: boolean = false;
+  channelsLoaded: boolean = false;
 
   @Output()
-  selectedPersonChanged = new EventEmitter<User>();
+  selectedChannelChanged = new EventEmitter<number>();
 
   constructor(
-      private dialogsService: DialogsService,
       private usersService: UsersService,
       private channelService: ChannelService) {
-    this.getDialogs();
+    this.getChannels();
     usersService.getUsers(1).subscribe((value)  => {
       this.users = value;
     });
   }
 
   ngOnInit(): void {
-    this.dialogsService.updateDialogs.next(false);
-    this.dialogsService.updateDialogs.subscribe(value => {
+    this.channelService.updateChannels.next(false);
+    this.channelService.updateChannels.subscribe(value => {
       if (value) {
-        this.getDialogs();
+        this.getChannels();
       }
     });
   }
 
-  find(dialogToSearchFor: string) {
-    if (dialogToSearchFor == "") {
-      this.displayedDialogs = this.dialogs;
+  find(channelToSearchFor: string) {
+    if (channelToSearchFor == "") {
+      this.displayedChannels = this.channels;
     } else {
-      this.displayedDialogs = this.dialogs
-        .filter((dialog) => dialog.user.name?.toUpperCase().startsWith(dialogToSearchFor.toUpperCase()));
+      this.displayedChannels = this.channels
+        .filter((channel) => channel.name?.toUpperCase().startsWith(channelToSearchFor.toUpperCase()));
     }
   }
 
-  changeSelectedPerson(selectedPerson: User) {
-    this.selectedPerson = selectedPerson;
-    this.selectedPersonChanged.emit(selectedPerson);
+  changeSelectedChannel(selectedChannelId: number) {
+    this.selectedChannelId = selectedChannelId;
+    this.selectedChannelChanged.emit(selectedChannelId);
   }
 
-  noDialogs() {
-    return this.dialogs.length === 0 && this.dialogsLoaded;
+  noChannels() {
+    return this.channels.length === 0 && this.channelsLoaded;
   }
 
-  getDialogs() {
-    this.dialogsService.getDialogs(1).subscribe((value)  => {
-      this.dialogs = value.dialogs!;
-      this.changeSelectedPerson(this.dialogs[0].user);
-      this.displayedDialogs = this.dialogs;
-      this.dialogsLoaded = true;
-    });
-    this.channelService.getChannels(1).subscribe((value) => {
+  getChannels() {
+    this.channelService.getChannels(1).subscribe((value)  => {
+      this.channels = value.channels!;
+      this.changeSelectedChannel(this.channels[0].id!);
+      this.displayedChannels = this.channels;
+      this.channelsLoaded = true;
     });
   }
 }

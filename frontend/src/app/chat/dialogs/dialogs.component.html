@@ -1,4 +1,4 @@
-<div id="dialogs">
+<div id="channels">
     <div id="search" [ngClass]="{'padding-right' : users == undefined}">
         <form>
             <input id="input-field-for-search"
@@ -11,13 +11,13 @@
         </form>
         <i class="bi bi-plus-lg" *ngIf="users" (click)="showCreateChannelModal=true"></i>
     </div>
-    <div id="all-available-dialogs" class="scrollable">
-        <div id="no-dialogs" *ngIf="noDialogs()">You don't have any open conversations yet</div>
-        <div class="dialog"
-             *ngFor="let dialog of displayedDialogs"
-             (click)="changeSelectedPerson(dialog.user)"
-             [ngClass]="{'selected-color': dialog.user === this.selectedPerson}">
-            <app-dialog [dialog]="dialog"></app-dialog>
+    <div id="all-available-channels" class="scrollable">
+        <div id="no-channels" *ngIf="noChannels()">You don't have any open conversations yet</div>
+        <div class="channel"
+             *ngFor="let channel of displayedChannels"
+             (click)="changeSelectedChannel(channel.id!)"
+             [ngClass]="{'selected-color': channel.id === this.selectedChannelId}">
+            <app-dialog [channel]="channel"></app-dialog>
         </div>
     </div>
 </div>

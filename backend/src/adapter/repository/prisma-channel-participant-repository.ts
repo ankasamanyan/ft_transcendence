@@ -8,6 +8,18 @@ export class PrismaChannelParticipantRepository {
 
     }
 
+    async getChannelParticipants(channelId: number) {
+        const participants = await this.prisma.channelParticipant.findMany({
+            where: {
+                channel_id: Number(channelId)
+            }
+        });
+
+        return participants.map((participant) => {
+            return participant.id;
+        });
+    }
+
     async addChannelParticipants(channelId: number, users: User[]) {
         const participants = users.map(user => ({channel_id: channelId, user_id: user.id}));
         await this.prisma.channelParticipant.createMany({

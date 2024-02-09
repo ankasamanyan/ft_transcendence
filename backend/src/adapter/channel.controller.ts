@@ -17,6 +17,16 @@ export class ChannelController {
     return this.channelService.getChannels(userId);
   }
 
+  @Get('/details/:channelId')
+  getChannelDetailsById(@Param('channelId') channelId: number) {
+    return this.channelService.getChannelDetailsById(channelId);
+  }
+
+  @Get('/participants/:channelId')
+  getChannelParticipants(@Param('channelId') channelId: number) {
+    return this.channelService.getChannelParticipants(channelId);
+  }
+
   @Post("/mocks")
   initializeChannels() {
     return this.channelService.initializeChannels();

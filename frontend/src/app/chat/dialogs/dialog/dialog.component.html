@@ -1,9 +1,9 @@
-<div class="dialog">
-  <div><img class="comrades-photo" [src]="dialog?.user?.picture" alt=""></div>
+<div class="channel">
+  <div><img class="channel-photo" [src]="channel?.picture" alt=""></div>
   <div class="name-time-message">
     <div class="name-time">
       <span class="name">
-        {{dialog?.user?.name}}
+        {{channel?.name}}
       </span>
       <span class="time">
         {{getTime()}}
@@ -11,7 +11,7 @@
     </div>
     <div class="message">
       <span>
-        {{dialog?.lastMessage}}
+        {{channel?.lastMessage}}
       </span>
     </div>
   </div>

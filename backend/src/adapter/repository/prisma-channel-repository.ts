@@ -4,6 +4,7 @@ import {Channel} from "../../domain/channel";
 import {PrismaChannelParticipantRepository} from "./prisma-channel-participant-repository";
 import {PrismaChannelAdminRepository} from "./prisma-channel-admin-repository";
 import {ChannelResponse, ChannelsResponse} from "../dto/channel.response";
+import {UserResponse} from "../dto/users-response";
 
 interface RawSql {
     channelname: string,
@@ -37,6 +38,15 @@ export class PrismaChannelRepository {
         }
     }
 
+    async getChannelDetailsById(channelId: number) {
+        const channel = await this.prisma.channel.findUnique({
+            where: {
+                id: Number(channelId)
+            }
+        });
+        return new ChannelResponse(channel.name, channel.picture, channelId, channel.type);
+
+    }
     async getChannels(userId: number) {
         const userIdAsInteger = Number(userId);
         const channels = await this.prisma.$queryRaw<RawSql[]>`

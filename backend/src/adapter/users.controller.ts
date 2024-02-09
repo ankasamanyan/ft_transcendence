@@ -18,6 +18,11 @@ export class UsersController {
     return this.usersService.addUser(UserRequest.toDomain(request));
   }
 
+  @Get('/details/:userId')
+  getUserById(@Param('userId') userId: number) {
+    return this.usersService.getUserById(userId);
+  }
+
   @Get('/:userId')
   getUsers(@Param('userId') userId: number) {
     return this.usersService.getUsers(userId);

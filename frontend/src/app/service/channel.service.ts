@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import {BehaviorSubject, map, Observable} from "rxjs";
 import {User, Users} from "../domain/user";
 import {UsersRequest} from "./dto/users.dto";
 import {Channels} from "../domain/channel";
-import {ChannelsResponse} from "./dto/channel.dto";
+import {ChannelResponse, ChannelsResponse} from "./dto/channel.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,8 @@ import {ChannelsResponse} from "./dto/channel.dto";
 export class ChannelService {
 
   constructor(private httpClient: HttpClient) { }
+
+  updateChannels: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   addChannelInformation(users: User[]): Observable<void> {
     return this.httpClient.post<void>("http://localhost:3000/channels", UsersRequest.fromDomain(new Users(users)));
@@ -22,6 +24,17 @@ export class ChannelService {
         map((response: ChannelsResponse) => {
           return ChannelsResponse.toDomain(response);
         }));
+  }
+
+  getChannelDetailsById(channelId: number) {
+    return this.httpClient.get<ChannelResponse>("http://localhost:3000/channels/details/" + channelId).pipe(
+        map((response: ChannelResponse) => {
+          return ChannelResponse.toDomain(response);
+        }));
+  }
+
+  getChannelParticipants(channelId: number): Observable<number[]> {
+    return this.httpClient.get<number[]>("http://localhost:3000/channels/participants/" + channelId);
   }
 
   initializeChannels() {

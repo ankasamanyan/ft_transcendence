@@ -1,6 +1,6 @@
 <div id="dialog-header">
-    <span id="selected-person">{{selectedPerson?.name}}</span>
-    <div class="dropdown" *ngIf="selectedPerson">
+    <span id="selected-person">{{channel?.name}}</span>
+    <div class="dropdown" *ngIf="selectedDialogPartner">
         <i class="bi bi-three-dots-vertical"></i>
         <div class="dropdown-content">
             <div id="invite-action" (click)="showInviteNotificationForFewSeconds()">
@@ -22,18 +22,18 @@
 
 <app-invitation-to-play-received-notification
     *ngIf="showInvitedToPlayNotification"
-    [selectedPerson]="selectedPerson"
+    [selectedPerson]="selectedDialogPartner"
     (notificationClose)="showInvitedToPlayNotification=false">
 </app-invitation-to-play-received-notification>
 
 <app-invitation-to-be-friends-received-notification
         *ngIf="showInvitedToBeFriendsNotification"
-        [selectedPerson]="selectedPerson"
+        [selectedPerson]="selectedDialogPartner"
         (notificationClose)="showInvitedToPlayNotification=false">
 </app-invitation-to-be-friends-received-notification>
 
 <app-block-modal
         *ngIf="showBlockModal"
-        [selectedPerson]="selectedPerson"
+        [selectedPerson]="selectedDialogPartner"
         (modalClose)="showBlockModal=false">
 </app-block-modal>

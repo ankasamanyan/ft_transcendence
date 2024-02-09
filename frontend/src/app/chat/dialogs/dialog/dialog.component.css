@@ -1,8 +1,8 @@
-.dialog {
+.channel {
   display: flex;
 }
 
-.comrades-photo {
+.channel-photo {
   width: 40px;
   height: 40px;
   border-radius: 25px;

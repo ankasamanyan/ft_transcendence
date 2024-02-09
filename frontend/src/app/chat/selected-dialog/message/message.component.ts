@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Message} from "../../../domain/message";
+import {ChannelMessage} from "../../../domain/channel-message";
 
 @Component({
   selector: 'app-message',
@@ -8,7 +9,7 @@ import {Message} from "../../../domain/message";
 })
 export class MessageComponent {
   @Input()
-  message: Message | undefined;
+  message: ChannelMessage | undefined;
 
   determineColorPosition() {
     if (this.message?.senderId == 1)
@@ -18,6 +19,6 @@ export class MessageComponent {
   }
 
   getTime() {
-    return new Date(this.message!.date).getHours()+ "." + new Date(this.message!.date).getMinutes().toString().padStart(2, "0");
+    return new Date(this.message!.created_at).getHours()+ "." + new Date(this.message!.created_at).getMinutes().toString().padStart(2, "0");
   }
 }

@@ -19,7 +19,6 @@ export class AppComponent {
       private channelService: ChannelService
   ) {
     this.usersService.initializeUsers().subscribe();
-    this.messageService.initializeMessages().subscribe();
     this.friendService.initializeFriends().subscribe();
 
     this.channelService.initializeChannels().subscribe();

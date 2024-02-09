@@ -1,11 +1,10 @@
 <div #wholeSelectedDialogContainer id="whole-selected-dialog">
     <app-selected-dialog-header
-            [selectedPerson]="selectedPerson"
-            [selectedPersonBefriendable]="selectedPersonBefriendable">
+            [selectedChannelId]="selectedChannelId">
     </app-selected-dialog-header>
     <div id="selected-dialog-body">
         <div class="message-history-parent">
-            <div id="message-history" *ngFor="let message of selectedDialog?.messageHistory">
+            <div id="message-history" *ngFor="let message of selectedDialog">
                 <app-message [message]="message"></app-message>
             </div>
         </div>
@@ -13,7 +12,7 @@
             <input  id="write-message-input"
                     placeholder="Write a message..."
                     [(ngModel)]="message"
-                    (keyup.enter)="sendMessage()">
+                    (keyup.enter)="sendChannelMessage()">
         </div>
     </div>
 </div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {User, Users} from "../domain/user";
-import {UserRequest, UsersResponse} from "./dto/users.dto";
+import {UserRequest, UserResponse, UsersResponse} from "./dto/users.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,13 @@ export class UsersService {
 
   addUser(user: User) {
     return this.httpClient.post<void>("http://localhost:3000/users", UserRequest.fromDomain(user));
+  }
+
+  getUserById(userId: number){
+    return this.httpClient.get<UserResponse>("http://localhost:3000/users/details/" + userId).pipe(
+        map((users: UserResponse) => {
+          return UserResponse.toDomain(users);
+        }));
   }
 
   getUsers(userId: number): Observable<Users> {
