@@ -4,7 +4,6 @@ import {Channel} from "../../domain/channel";
 import {PrismaChannelParticipantRepository} from "./prisma-channel-participant-repository";
 import {PrismaChannelAdminRepository} from "./prisma-channel-admin-repository";
 import {ChannelResponse, ChannelsResponse} from "../dto/channel.response";
-import {UserResponse} from "../dto/users-response";
 
 interface RawSql {
     channelname: string,
@@ -57,17 +56,19 @@ export class PrismaChannelRepository {
                                                  where user_id = ${userIdAsInteger})
                             GROUP BY (channel_id))
 
-            select m.channel_id    as channelId,
-                   m.text          as lastMessage,
-                   m.created_at    as lastMessageCreatedAt,
-                   channel.name    as channelName,
-                   channel.picture as channelPicture
+            select message.text       as lastMessage,
+                   message.created_at as lastMessageCreatedAt,
+                   channel.name       as channelName,
+                   channel.picture    as channelPicture,
+                   channel.id         as channelId
 
-            from "ChannelMessage" m
-                     LEFT JOIN "Channel" channel on channel.id = m.channel_id
+            from "Channel" channel
+                     LEFT JOIN "ChannelMessage" message on channel.id = message.channel_id
 
-            where m.id in (SELECT id from subres)
-            order by m.created_at desc
+            where channel.id in (SELECT DISTINCT channel_id from "ChannelParticipant" where user_id = ${userIdAsInteger})
+                AND message.text IS NULL
+               OR (message.text IS NOT NULL AND message.id in (SELECT id from subres))
+            order by message.created_at desc
         `;
 
         return new ChannelsResponse(channels.map((channel) => {

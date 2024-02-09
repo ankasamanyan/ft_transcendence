@@ -46,7 +46,7 @@ export class Channel {
         const authenticatedUser = participants[participants.length - 1];
         const isDialog = participants.length == 2;
         const name = isDialog ? participants[0].name : participants.map(user => user.name).join(', ');
-        const picture = isDialog ? participants[0].picture : `assets/placeholderChannelImage${pictureIndex}.jpg`;
+        const picture = isDialog ? participants[0].picture : `assets/placeholderChannelImage${pictureIndex}.jpeg`;
         const type = isDialog ? "dialog" : "private";
         const owner = isDialog ? undefined : authenticatedUser;
         const admins = isDialog ? undefined : [authenticatedUser];
