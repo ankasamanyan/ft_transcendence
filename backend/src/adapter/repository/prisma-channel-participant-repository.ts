@@ -16,7 +16,7 @@ export class PrismaChannelParticipantRepository {
         });
 
         return participants.map((participant) => {
-            return participant.id;
+            return participant.user_id;
         });
     }
 

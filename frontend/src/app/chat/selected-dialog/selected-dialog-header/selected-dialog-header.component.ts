@@ -32,7 +32,6 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.selectedChannelId) {
       this.getChannel();
-      this.getParticipants();
     }
   }
 
@@ -71,6 +70,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   getChannel() {
     this.channelService.getChannelDetailsById(this.selectedChannelId!).subscribe((value) => {
       this.channel = value;
+      this.getParticipants();
     });
   }
 
