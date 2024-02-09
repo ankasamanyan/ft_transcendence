@@ -3,6 +3,8 @@ import {Dialog} from "../../domain/dialog";
 import {DialogsService} from "../../service/dialogs.service";
 import {UsersService} from "../../service/users.service";
 import {User, Users} from "../../domain/user";
+import {Channel} from "../../domain/channel";
+import {ChannelService} from "../../service/channel.service";
 
 @Component({
   selector: 'app-dialogs',
@@ -21,7 +23,10 @@ export class DialogsComponent implements OnInit {
   @Output()
   selectedPersonChanged = new EventEmitter<User>();
 
-  constructor(private dialogsService: DialogsService, usersService: UsersService) {
+  constructor(
+      private dialogsService: DialogsService,
+      private usersService: UsersService,
+      private channelService: ChannelService) {
     this.getDialogs();
     usersService.getUsers(1).subscribe((value)  => {
       this.users = value;
@@ -61,6 +66,8 @@ export class DialogsComponent implements OnInit {
       this.changeSelectedPerson(this.dialogs[0].user);
       this.displayedDialogs = this.dialogs;
       this.dialogsLoaded = true;
+    });
+    this.channelService.getChannels(1).subscribe((value) => {
     });
   }
 }

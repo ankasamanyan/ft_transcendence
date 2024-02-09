@@ -33,10 +33,11 @@ model BlockedUser {
 
 model Channel {
   id             Int     @id @default(autoincrement())
+  name           String
+  picture        String
   type           String
   channelOwnerId Int?
   password       String?
-  name           String
 }
 
 model ChannelParticipant {

@@ -15,4 +15,24 @@ export class PrismaChannelParticipantRepository {
             }
         );
     }
+
+    async initialiseChannelParticipants() {
+        await this.prisma.channelParticipant.createMany({
+                data: [
+                    {channel_id: 1, user_id: 1},
+                    {channel_id: 1, user_id: 3},
+                    {channel_id: 2, user_id: 1},
+                    {channel_id: 2, user_id: 2},
+                    {channel_id: 3, user_id: 1},
+                    {channel_id: 3, user_id: 4},
+                    {channel_id: 4, user_id: 1},
+                    {channel_id: 4, user_id: 5},
+                    {channel_id: 5, user_id: 1},
+                    {channel_id: 5, user_id: 6},
+                    {channel_id: 6, user_id: 1},
+                    {channel_id: 6, user_id: 7},
+                ]
+            }
+        );
+    }
 }

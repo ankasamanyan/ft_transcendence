@@ -1,14 +1,20 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post} from '@nestjs/common';
 import {ChannelService} from "../service/channel.service";
-import {ChannelRequest} from "./dto/channel-request";
+import {UsersRequest} from "./dto/users-request";
+import {Channel} from "../domain/channel";
 
 @Controller('/channels')
 export class ChannelController {
   constructor(private channelService: ChannelService) {}
 
   @Post()
-  addChannelInformation(@Body() request: ChannelRequest) {
-    this.channelService.addChannelInformation(ChannelRequest.toDomain(request));
+  addChannelInformation(@Body() request: UsersRequest) {
+    this.channelService.addChannelInformation(Channel.aChannel(UsersRequest.toDomain(request).users));
+  }
+
+  @Get('/:userId')
+  getChannels(@Param('userId') userId: number) {
+    return this.channelService.getChannels(userId);
   }
 
   @Post("/mocks")

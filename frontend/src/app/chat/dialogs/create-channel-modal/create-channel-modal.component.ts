@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {User, Users} from "../../../domain/user";
 import {ChannelService} from "../../../service/channel.service";
-import {Channel} from "../../../domain/channel";
 
 @Component({
   selector: 'app-create-channel-modal',
@@ -30,22 +29,11 @@ export class CreateChannelModalComponent {
   }
 
   selectUsers() {
-    const newChannel = this.createChannel();
-    this.channelService.addChannelInformation(newChannel).subscribe(() => {
+    const onlySelected = this.selectedUsers();
+    const authenticatedUser = new User(1, "Anahit", "@akasaman","assets/placeholderAvatar.jpeg")
+    onlySelected.push(authenticatedUser);
+    this.channelService.addChannelInformation(onlySelected).subscribe(() => {
       this.modalClose.emit();
     });
   }
-
-  createChannel() {
-    const onlySelected = this.selectedUsers();
-    const isDialog = onlySelected.length == 1;
-    const channelName = isDialog ? onlySelected[0].name : onlySelected.map(user => user.name).join(', ');
-    const channelType = isDialog ? "dialog" : "private";
-    const authenticatedUser = new User(1, "Anahit", "@akasaman","assets/placeholderAvatar.jpeg")
-    const channelOwner = isDialog ? undefined : authenticatedUser;
-    const channelAdmin = isDialog ? undefined : [authenticatedUser];
-    onlySelected.push(authenticatedUser);
-    return new Channel(channelName, channelType, onlySelected, undefined, undefined, channelOwner, channelAdmin)
-  }
-
 }

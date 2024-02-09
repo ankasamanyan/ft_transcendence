@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common';
-import {Users, User} from "../domain/user";
+import {User} from "../domain/user";
 import {PrismaChannelRepository} from "../adapter/repository/prisma-channel-repository";
 import {Channel} from "../domain/channel";
 import {from} from "rxjs";
@@ -13,6 +13,10 @@ export class ChannelService {
 
   addChannelInformation(channel: Channel) {
     this.prismaChannelRepository.addChannel(channel);
+  }
+
+  getChannels(userId: number) {
+    return from(this.prismaChannelRepository.getChannels(userId));
   }
 
   initializeChannels() {
