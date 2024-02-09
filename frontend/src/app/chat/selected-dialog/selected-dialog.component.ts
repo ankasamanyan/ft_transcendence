@@ -7,12 +7,9 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {SelectedDialog} from "../../domain/selected-dialog";
-import {DialogService} from "../../service/dialog.service";
 import {MessageService} from "../../service/message.service";
-import {Message} from "../../domain/message";
-import {User} from "../../domain/user";
-import {DialogsService} from "../../service/dialogs.service";
+import {ChannelMessage} from "../../domain/channel-message";
+import {ChannelService} from "../../service/channel.service";
 
 @Component({
   selector: 'app-selected-dialog',
@@ -21,25 +18,22 @@ import {DialogsService} from "../../service/dialogs.service";
 })
 export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
   @Input()
-  selectedPerson: User | undefined;
-
-  @Input()
-  selectedPersonBefriendable: boolean | undefined;
+  selectedChannelId: number | undefined;
 
   @ViewChild('wholeSelectedDialogContainer') private wholeSelectedDialogContainer!: ElementRef;
 
-  selectedDialog: SelectedDialog | undefined;
+  selectedDialog: ChannelMessage[] | undefined;
   message: string | undefined;
 
   constructor(
-      private dialogService: DialogService,
       private messageService: MessageService,
-      private dialogsService: DialogsService)
-  {}
+      private channelService: ChannelService)
+  {
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.selectedPerson) {
-      this.dialogService.getDialog(1, this.selectedPerson.id!).subscribe((value: SelectedDialog) => {
+    if (this.selectedChannelId) {
+      this.messageService.getChannelMessages(this.selectedChannelId).subscribe((value) => {
         this.selectedDialog = value;
       });
     }
@@ -54,21 +48,21 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
     container.scrollTop = container.scrollHeight;
   }
 
-  sendMessage() {
+  sendChannelMessage() {
     if (this.message!! && this.message !== '') {
-      this.messageService.saveMessage(
-          new Message(
+      this.messageService.saveChannelMessage(
+          new ChannelMessage(
+              this.selectedChannelId!,
               1,
-              this.selectedPerson!.id!,
               this.message!,
               new Date())
       ).subscribe(() => {
         this.message = '';
         this.clearInputField();
-        this.dialogService.getDialog(1, this.selectedPerson!.id!).subscribe((value: SelectedDialog) => {
+        this.messageService.getChannelMessages(this.selectedChannelId!).subscribe((value) => {
           this.selectedDialog = value;
         });
-        this.dialogsService.updateDialogs.next(true);
+        this.channelService.updateChannels.next(true);
       });
     }
   }

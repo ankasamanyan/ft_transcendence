@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import {NavigationBarStatus} from "../domain/navigation-bar";
-import {User} from "../domain/user";
-import {FriendService} from "../service/friend.service";
 
 @Component({
   selector: 'app-chat',
@@ -11,16 +9,12 @@ import {FriendService} from "../service/friend.service";
 export class ChatComponent {
   protected readonly NavigationBarStatus = NavigationBarStatus;
 
-  selectedPerson: User | undefined;
-  selectedPersonBefriendable: boolean | undefined;
+  selectedChannelId: number | undefined;
 
-  constructor(private friendService: FriendService) {
+  constructor() {
   }
 
-  saveSelectedPerson(selectedPerson: User) {
-    this.selectedPerson = selectedPerson;
-    this.friendService.befriendable(1, selectedPerson.id!).subscribe((value) => {
-      this.selectedPersonBefriendable = value;
-    })
+  saveSelectedChannel(selectedChannelId: number) {
+    this.selectedChannelId = selectedChannelId;
   }
 }

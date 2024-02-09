@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Dialog} from "../../../domain/dialog";
+import {Channel} from "../../../domain/channel";
 
 @Component({
   selector: 'app-dialog',
@@ -8,9 +8,12 @@ import {Dialog} from "../../../domain/dialog";
 })
 export class DialogComponent {
   @Input()
-  dialog: Dialog | undefined;
+  channel: Channel | undefined;
 
   getTime() {
-    return new Date(this.dialog!.lastMessageDate).getHours()+ "." + new Date(this.dialog!.lastMessageDate).getMinutes().toString().padStart(2, "0");
+    if (this.channel!.lastMessageCreatedAt) {
+      return new Date(this.channel!.lastMessageCreatedAt!).getHours()+ "." + new Date(this.channel!.lastMessageCreatedAt!).getMinutes().toString().padStart(2, "0");
+    }
+    return "";
   }
 }

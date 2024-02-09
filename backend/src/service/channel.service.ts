@@ -1,11 +1,36 @@
 import {Injectable} from '@nestjs/common';
-import {Users, User} from "../domain/user";
+import {User} from "../domain/user";
+import {PrismaChannelRepository} from "../adapter/repository/prisma-channel-repository";
+import {Channel} from "../domain/channel";
+import {from} from "rxjs";
+import {PrismaChannelParticipantRepository} from "../adapter/repository/prisma-channel-participant-repository";
 
 @Injectable()
 export class ChannelService {
-  createChannel(users: Users) {
-   // the first user in the array is the owner and admin
-   //the channel is private by default
+  constructor(
+      private prismaChannelRepository: PrismaChannelRepository,
+      private prismaChannelParticipantRepository: PrismaChannelParticipantRepository) {
+
+  }
+
+  addChannelInformation(channel: Channel) {
+    this.prismaChannelRepository.addChannel(channel);
+  }
+
+  getChannels(userId: number) {
+    return from(this.prismaChannelRepository.getChannels(userId));
+  }
+
+  getChannelDetailsById(channelId: number) {
+    return from(this.prismaChannelRepository.getChannelDetailsById(channelId));
+  }
+
+  getChannelParticipants(channelId: number) {
+    return from(this.prismaChannelParticipantRepository.getChannelParticipants(channelId));
+  }
+
+  initializeChannels() {
+    return from(this.prismaChannelRepository.initializeChannels());
   }
 
   setPassword(password: string) {}

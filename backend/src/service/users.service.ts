@@ -16,6 +16,10 @@ export class UsersService {
     return from(this.usersRepository.addUser(user));
   }
 
+  getUserById(userId: number) {
+    return from(this.usersRepository.getUserById(userId));
+  }
+
   getUsers(userId: number) {
     return from(this.usersRepository.getUsers(userId));
   }

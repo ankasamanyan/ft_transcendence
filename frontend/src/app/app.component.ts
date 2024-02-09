@@ -3,6 +3,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {UsersService} from "./service/users.service";
 import {MessageService} from "./service/message.service";
 import {FriendService} from "./service/friend.service";
+import {ChannelService} from "./service/channel.service";
 
 @Component({
   selector: 'app-root',
@@ -14,11 +15,14 @@ export class AppComponent {
       private modalService: NgbModal,
       private usersService: UsersService,
       private messageService: MessageService,
-      private friendService: FriendService
+      private friendService: FriendService,
+      private channelService: ChannelService
   ) {
     this.usersService.initializeUsers().subscribe();
-    this.messageService.initializeMessages().subscribe();
     this.friendService.initializeFriends().subscribe();
+
+    this.channelService.initializeChannels().subscribe();
+    this.messageService.initializeChannelMessages().subscribe();
   }
 
   public open(modal: any): void {

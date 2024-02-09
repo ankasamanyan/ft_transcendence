@@ -30,9 +30,10 @@ export class CreateChannelModalComponent {
 
   selectUsers() {
     const onlySelected = this.selectedUsers();
-    this.channelService.createChannel(new Users(onlySelected)).subscribe(() => {
+    const authenticatedUser = new User(1, "Anahit", "@akasaman","assets/placeholderAvatar.jpeg")
+    onlySelected.push(authenticatedUser);
+    this.channelService.addChannelInformation(onlySelected).subscribe(() => {
       this.modalClose.emit();
     });
   }
-
 }

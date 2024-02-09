@@ -33,11 +33,32 @@ model BlockedUser {
 
 model Channel {
   id             Int     @id @default(autoincrement())
-  status         Int
-  channelOwnerId Int
+  name           String
+  picture        String
+  created_at     DateTime
+  type           String
+  channelOwnerId Int?
   password       String?
-  adminId        Int[]
-  userId         Int[]
+}
+
+model ChannelParticipant {
+  id            Int     @id @default(autoincrement())
+  channel_id    Int
+  user_id       Int
+}
+
+model ChannelAdmin {
+  id            Int     @id @default(autoincrement())
+  channel_id    Int
+  user_id       Int
+}
+
+model ChannelMessage {
+  id          Int      @id @default(autoincrement())
+  channel_id  Int
+  sender_id   Int
+  text        String
+  created_at  DateTime
 }
 
 model Friend {
