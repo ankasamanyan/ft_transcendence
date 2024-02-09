@@ -89,12 +89,12 @@ export class PrismaChannelRepository {
         if (await this.prisma.channel.count() === 0) {
             await this.prisma.channel.createMany({
                 data: [
-                    {id: 1, type: "dialog", name: "Cedric", picture: "assets/placeholderComrade2.jpeg"},
-                    {id: 2, type: "dialog", name: "Tania", picture: "assets/placeholderComrade.jpeg"},
-                    {id: 3, type: "dialog", name: "Krisi", picture: "assets/placeholderComrade3.jpeg"},
-                    {id: 4, type: "dialog", name: "Santiago", picture: "assets/placeholderComrade4.jpeg"},
-                    {id: 5, type: "dialog", name: "Fedia", picture: "assets/placeholderComrade5.jpeg"},
-                    {id: 6, type: "dialog", name: "Wolf", picture: "assets/placeholderComrade6.jpeg"},
+                    {type: "dialog", name: "Cedric", picture: "assets/placeholderComrade2.jpeg"},
+                    {type: "dialog", name: "Tania", picture: "assets/placeholderComrade.jpeg"},
+                    {type: "dialog", name: "Krisi", picture: "assets/placeholderComrade3.jpeg"},
+                    {type: "dialog", name: "Santiago", picture: "assets/placeholderComrade4.jpeg"},
+                    {type: "dialog", name: "Fedia", picture: "assets/placeholderComrade5.jpeg"},
+                    {type: "dialog", name: "Wolf", picture: "assets/placeholderComrade6.jpeg"},
                 ]
             });
             this.prismaChannelParticipantRepository.initialiseChannelParticipants();
