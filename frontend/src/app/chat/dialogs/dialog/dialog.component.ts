@@ -11,6 +11,9 @@ export class DialogComponent {
   channel: Channel | undefined;
 
   getTime() {
-    return new Date(this.channel!.lastMessageCreatedAt!).getHours()+ "." + new Date(this.channel!.lastMessageCreatedAt!).getMinutes().toString().padStart(2, "0");
+    if (this.channel!.lastMessageCreatedAt) {
+      return new Date(this.channel!.lastMessageCreatedAt!).getHours()+ "." + new Date(this.channel!.lastMessageCreatedAt!).getMinutes().toString().padStart(2, "0");
+    }
+    return "";
   }
 }
