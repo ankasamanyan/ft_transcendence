@@ -17,6 +17,7 @@ export class ChannelResponse {
   constructor(
       public name: string,
       public picture: string,
+      public createdAt: Date,
       public id?: number,
       public type?: string,
       public participants?: User[],
@@ -30,6 +31,7 @@ export class ChannelResponse {
     return new Channel(
         response.name,
         response.picture,
+        response.createdAt,
         response.id,
         response.type,
         response.participants,
@@ -44,6 +46,7 @@ export class ChannelResponse {
     return new ChannelResponse(
         channel.name,
         channel.picture,
+        channel.createdAt,
         channel.id,
         channel.type,
         channel.participants,

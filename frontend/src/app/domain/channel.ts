@@ -11,6 +11,7 @@ export class Channels {
 export class Channel {
     public name: string;
     public picture: string;
+    public createdAt: Date;
     public id: number | undefined;
     public type: string | undefined;
     public participants: User[] | undefined;
@@ -22,6 +23,7 @@ export class Channel {
     constructor(
         name: string,
         picture: string,
+        createdAt: Date,
         id?: number,
         type?: string,
         participants?: User[],
@@ -32,6 +34,7 @@ export class Channel {
     ) {
         this.name = name;
         this.picture = picture;
+        this.createdAt = createdAt;
         this.id = id;
         this.type = type;
         this.participants = participants;

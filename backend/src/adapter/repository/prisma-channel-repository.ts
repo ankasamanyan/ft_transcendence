@@ -8,6 +8,7 @@ import {ChannelResponse, ChannelsResponse} from "../dto/channel.response";
 interface RawSql {
     channelname: string,
     channelpicture: string,
+    createdat: Date,
     channelid: number,
     lastmessage: string,
     lastmessagecreatedat: Date
@@ -26,6 +27,7 @@ export class PrismaChannelRepository {
                 data: {
                     name: channel.name,
                     type: channel.type,
+                    created_at: channel.createdAt,
                     picture: channel.picture,
                     ...(channel.owner?.id ? {channelOwnerId: channel.owner.id} : {}),
                 }
@@ -43,7 +45,7 @@ export class PrismaChannelRepository {
                 id: Number(channelId)
             }
         });
-        return new ChannelResponse(channel.name, channel.picture, channelId, channel.type);
+        return new ChannelResponse(channel.name, channel.picture, channel.created_at, channelId, channel.type);
 
     }
     async getChannels(userId: number) {
@@ -60,21 +62,24 @@ export class PrismaChannelRepository {
                    message.created_at as lastMessageCreatedAt,
                    channel.name       as channelName,
                    channel.picture    as channelPicture,
-                   channel.id         as channelId
+                   channel.id         as channelId,
+                   channel.created_at as channelCreatedAt
 
             from "Channel" channel
                      LEFT JOIN "ChannelMessage" message on channel.id = message.channel_id
 
-            where channel.id in (SELECT DISTINCT channel_id from "ChannelParticipant" where user_id = ${userIdAsInteger})
+            where channel.id in
+                  (SELECT DISTINCT channel_id from "ChannelParticipant" where user_id = ${userIdAsInteger})
                 AND message.text IS NULL
                OR (message.text IS NOT NULL AND message.id in (SELECT id from subres))
-            order by message.created_at desc
+            order by COALESCE(message.created_at, channel.created_at) desc
         `;
 
         return new ChannelsResponse(channels.map((channel) => {
             return new ChannelResponse(
                 channel.channelname,
                 channel.channelpicture,
+                channel.createdat,
                 channel.channelid,
                 undefined,
                 undefined,
@@ -90,12 +95,12 @@ export class PrismaChannelRepository {
         if (await this.prisma.channel.count() === 0) {
             await this.prisma.channel.createMany({
                 data: [
-                    {type: "dialog", name: "Cedric", picture: "assets/placeholderComrade2.jpeg"},
-                    {type: "dialog", name: "Tania", picture: "assets/placeholderComrade.jpeg"},
-                    {type: "dialog", name: "Krisi", picture: "assets/placeholderComrade3.jpeg"},
-                    {type: "dialog", name: "Santiago", picture: "assets/placeholderComrade4.jpeg"},
-                    {type: "dialog", name: "Fedia", picture: "assets/placeholderComrade5.jpeg"},
-                    {type: "dialog", name: "Wolf", picture: "assets/placeholderComrade6.jpeg"},
+                    {type: "dialog", name: "Cedric", picture: "assets/placeholderComrade2.jpeg", created_at: new Date()},
+                    {type: "dialog", name: "Tania", picture: "assets/placeholderComrade.jpeg", created_at: new Date()},
+                    {type: "dialog", name: "Krisi", picture: "assets/placeholderComrade3.jpeg", created_at: new Date()},
+                    {type: "dialog", name: "Santiago", picture: "assets/placeholderComrade4.jpeg", created_at: new Date()},
+                    {type: "dialog", name: "Fedia", picture: "assets/placeholderComrade5.jpeg", created_at: new Date()},
+                    {type: "dialog", name: "Wolf", picture: "assets/placeholderComrade6.jpeg", created_at: new Date()},
                 ]
             });
             this.prismaChannelParticipantRepository.initialiseChannelParticipants();
