@@ -3,5 +3,11 @@
         <div class="exit-icon">
             <i class="bi bi-x-lg" (click)="modalClose.emit()"></i>
         </div>
+        <div class="container">
+            <input #name [(ngModel)]="channel!.name">
+        </div>
+        <div id="buttons" class="container">
+            <button id="apply-changes-button" (click)="modalClose.emit()">Apply changes</button>
+        </div>
     </div>
 </div>

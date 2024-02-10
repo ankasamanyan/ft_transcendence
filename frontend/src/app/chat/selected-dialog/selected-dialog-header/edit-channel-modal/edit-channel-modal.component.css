@@ -15,7 +15,7 @@
     margin: 10% auto;
     padding: 20px;
     border: none;
-    width: 350px;
+    max-width: 550px;
     border-radius: 10px;
     box-shadow: 0 1px 17px rgba(0,0,0,0.09);
     font-weight: 300;
@@ -29,4 +29,37 @@
 
 .exit-icon:hover {
     color: darkgrey;
+}
+
+#buttons {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    border: none;
+    border-radius: 7px;
+    height: 35px;
+    padding-right: 16px;
+    padding-left: 16px;
+    font-weight: 300;
+}
+
+#apply-changes-button {
+    background-color: var(--color-orange);
+    color: white;
+    margin-right: 7px;
+}
+
+input {
+    font-size: 15px;
+    height: 30px;
+    border: none;
+    border-bottom: solid 1px dimgray;
+    letter-spacing: 0.4px;
+}
+
+input:focus {
+    outline: none;
 }

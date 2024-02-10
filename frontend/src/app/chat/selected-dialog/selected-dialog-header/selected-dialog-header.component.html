@@ -41,5 +41,6 @@
 
 <app-edit-channel-modal
         *ngIf="showEditModal"
+        [channel]="channel"
         (modalClose)="showEditModal=false">
 </app-edit-channel-modal>
