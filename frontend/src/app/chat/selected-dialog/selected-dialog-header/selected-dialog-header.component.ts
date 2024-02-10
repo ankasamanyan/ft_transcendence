@@ -68,6 +68,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   }
 
   getChannel() {
+    this.selectedDialogPartner = undefined;
     this.channelService.getChannelDetailsById(this.selectedChannelId!).subscribe((value) => {
       this.channel = value;
       this.getParticipants();
