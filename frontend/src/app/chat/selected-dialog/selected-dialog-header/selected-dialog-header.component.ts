@@ -20,6 +20,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   selectedPersonBefriendable: boolean | undefined;
 
   showBlockModal: boolean = false;
+  showEditModal: boolean = false;
   showInvitedToPlayNotification: boolean = false;
   showInvitedToBeFriendsNotification: boolean = false;
 

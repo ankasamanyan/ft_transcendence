@@ -88,6 +88,10 @@
     color: grey;
 }
 
+.bi-pen:hover {
+    color: darkgrey;
+}
+
 @media (max-width: 800px) {
     #selected-person {
         position: absolute;
