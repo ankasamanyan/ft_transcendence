@@ -79,3 +79,21 @@
 #befriend-action:hover .befriend-icon {
     color: var(--color-orange);
 }
+
+.bi-pen {
+    float: right;
+    cursor: pointer;
+    padding: 0 6px;
+    border-radius: 6px;
+    color: grey;
+}
+
+@media (max-width: 800px) {
+    #selected-person {
+        position: absolute;
+        width: 80%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+}

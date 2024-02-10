@@ -100,4 +100,8 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       })
     }
   }
+
+  isDialog() {
+    return this.channel?.type === "dialog";
+  }
 }
