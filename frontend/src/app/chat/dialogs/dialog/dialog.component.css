@@ -14,12 +14,20 @@
   font-weight: bold;
   font-size: 15px;
   margin-right: auto;
+  width: 80%;
+  position: absolute;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .time {
   font-weight: lighter;
   font-size: 12px;
   color: grey;
+  position: absolute;
+  right: 0;
+  top: 3px;
 }
 
 .message {
