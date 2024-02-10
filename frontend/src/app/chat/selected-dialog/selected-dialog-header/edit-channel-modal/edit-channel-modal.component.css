@@ -15,7 +15,7 @@
     margin: 10% auto;
     padding: 20px;
     border: none;
-    max-width: 550px;
+    max-width: 400px;
     border-radius: 10px;
     box-shadow: 0 1px 17px rgba(0,0,0,0.09);
     font-weight: 300;
@@ -62,4 +62,16 @@ input {
 
 input:focus {
     outline: none;
+}
+
+.channel-photo {
+    width: 70px;
+    height: 70px;
+    border-radius: 25px;
+    margin-right: 19px;
+    object-fit: cover;
+}
+
+.container {
+    display: flex;
 }

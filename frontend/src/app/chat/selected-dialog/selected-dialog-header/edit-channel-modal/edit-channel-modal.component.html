@@ -4,6 +4,7 @@
             <i class="bi bi-x-lg" (click)="modalClose.emit()"></i>
         </div>
         <div class="container">
+            <div><img class="channel-photo" [src]="channel?.picture" alt=""></div>
             <input #name [(ngModel)]="channel!.name">
         </div>
         <div id="buttons" class="container">
