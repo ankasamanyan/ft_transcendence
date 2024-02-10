@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {User, Users} from "../../../domain/user";
 import {ChannelService} from "../../../service/channel.service";
+import {Channel} from "../../../domain/channel";
 
 @Component({
   selector: 'app-create-channel-modal',
@@ -32,8 +33,16 @@ export class CreateChannelModalComponent {
     const onlySelected = this.selectedUsers();
     const authenticatedUser = new User(1, "Anahit", "@akasaman","assets/placeholderAvatar.jpeg")
     onlySelected.push(authenticatedUser);
-    this.channelService.addChannelInformation(onlySelected).subscribe(() => {
-      this.modalClose.emit();
+    this.channelService.addChannelInformation(onlySelected).subscribe((value: any) => {
+      const channel = value as Channel;
+      this.channelService.addChannelParticipants(channel).subscribe(() => {
+        if (channel.type != "dialog") {
+          this.channelService.addChannelAdmin(channel).subscribe(() => {
+          });
+        }
+        this.channelService.updateChannels.next(true);
+        this.modalClose.emit();
+      })
     });
   }
 }
