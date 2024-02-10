@@ -38,7 +38,7 @@
 }
 
 .profile-container {
-  margin-top: 25px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,7 +56,7 @@
   margin: 20px;
   border-radius: 50%;
   width: 100px;
-  height: auto;
+  height: 100px;
   box-shadow: 0 2px 20px rgb(255, 255, 255);
 }
 
@@ -67,14 +67,16 @@
 
 .name {
   color: var(--color-dark-blue);
+  text-align: center;
 }
 
 .edit-icon {
-  position: absolute;
-  left: 300px;
-  top: 30px;
+  width: 100%;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
   color: rgb(102, 100, 147);
-
 }
 
 .menu:hover {
@@ -84,11 +86,6 @@
   text-align: center;
 }
 
-.gear-icon {
-  position: absolute;
-  left: 350px;
-  top: 30px;
-}
 .menu {
   margin: 10px;
   font-size: 25px;

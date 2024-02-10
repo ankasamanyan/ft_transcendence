@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+  }
+  
+  h5 {
+    margin: 20px auto 30px auto;
+    display: table;
+  }
+  
+  .settings-tab {
+    padding: 40px;
+    background-color: #ffffff;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+    color: #171e2d;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .profile-picture {
+    /* width: 100%; */
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+  }
+
+  .profile-picture img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    flex-direction: row;
+    justify-content: center;
+    overflow: hidden;
+    margin-right: 20px;
+    background-color: var(--color-light-blue);
+  }
+  
+  input {
+    width: 50%;
+    padding: 10px;
+    margin: 15px;
+    border-radius: 15px;
+    border: 2px solid #4d6495;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #4d6495;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.name-surname-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  .color-theme-container {
+    margin-top: 20px;
+  }
+  
+  .color-options {
+    display: flex;
+  }
+  
+  .color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  /* Define your color options */
+  .color-option.color1 { background-color: #ffcc00; }
+  .color-option.color2 { background-color: #33cc33; }
+  .color-option.color3 { background-color: #3366ff; }
+  .color-option.color4 { background-color: #cc33ff; }

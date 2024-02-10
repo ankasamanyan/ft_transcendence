@@ -27,9 +27,10 @@ import { AchievementsComponent } from './my-profile/achievements/achievements.co
 import { MatchHistoryComponent } from './my-profile/match-history/match-history.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PieChartComponent } from './my-profile/statistics/pie-chart/pie-chart.component';
 import { InvitationToBeFriendsReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-to-be-friends-received-notification/invitation-to-be-friends-received-notification.component';
+import { SettingsComponent } from './my-profile/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { InvitationToBeFriendsReceivedNotificationComponent } from './chat/selec
     MatchHistoryComponent,
     PieChartComponent,
     InvitationToBeFriendsReceivedNotificationComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +67,7 @@ import { InvitationToBeFriendsReceivedNotificationComponent } from './chat/selec
     BrowserAnimationsModule,
     MatTabsModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: ChatComponent },
       { path: 'my-profile', component: MyProfileComponent },
