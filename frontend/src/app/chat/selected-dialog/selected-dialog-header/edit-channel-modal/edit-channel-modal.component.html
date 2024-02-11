@@ -3,12 +3,12 @@
         <div class="exit-icon">
             <i class="bi bi-x-lg" (click)="modalClose.emit()"></i>
         </div>
-        <div class="container">
+        <div class="container channel-details">
             <div><img class="channel-photo" [src]="channel?.picture" alt=""></div>
-            <input #name [(ngModel)]="channel!.name">
+            <div><input #name [(ngModel)]="channel!.name"></div>
         </div>
         <div id="buttons" class="container">
-            <button id="apply-changes-button" (click)="modalClose.emit()">Apply changes</button>
+            <button id="apply-changes-button" (click)="modalClose.emit()">Save</button>
         </div>
     </div>
 </div>
