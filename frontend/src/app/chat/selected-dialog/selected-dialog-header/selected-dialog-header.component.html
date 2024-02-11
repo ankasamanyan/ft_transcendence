@@ -1,6 +1,6 @@
 <div id="dialog-header">
     <span id="selected-person">{{channel?.name}}</span>
-    <i class="bi bi-pen" *ngIf="!isDialog() && selectedDialogPartner" (click)="showEditModal=true"></i>
+    <i class="bi bi-pen" *ngIf="!isDialog() && channel" (click)="showEditModal=true"></i>
     <div class="dropdown" *ngIf="selectedDialogPartner">
         <i class="bi bi-three-dots-vertical"></i>
         <div class="dropdown-content">
