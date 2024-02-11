@@ -33,11 +33,11 @@
     font-weight: bold;
 }
 
-.exit-icon {
+.bi-x-lg {
     cursor: pointer;
 }
 
-.exit-icon:hover {
+.bi-x-lg:hover {
     color: darkgrey;
 }
 

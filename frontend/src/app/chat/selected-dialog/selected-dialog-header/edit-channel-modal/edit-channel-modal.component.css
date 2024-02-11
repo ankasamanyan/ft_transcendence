@@ -24,10 +24,13 @@
 .exit-icon {
     display: flex;
     justify-content: right;
+}
+
+.bi-x-lg {
     cursor: pointer;
 }
 
-.exit-icon:hover {
+.bi-x-lg:hover {
     color: darkgrey;
 }
 
@@ -50,6 +53,10 @@ button {
     background-color: var(--color-orange);
     color: white;
     margin-right: 7px;
+}
+
+#apply-changes-button:hover {
+    background-color: var(--color-orange-darker);
 }
 
 input {

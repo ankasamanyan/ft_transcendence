@@ -30,11 +30,14 @@ span {
 .exit-icon {
     display: flex;
     justify-content: right;
-    cursor: pointer;
     padding-top: 5px;
 }
 
-.exit-icon:hover {
+.bi-x-lg {
+    cursor: pointer;
+}
+
+.bi-x-lg:hover {
     color: darkgrey;
 }
 
