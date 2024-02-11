@@ -14,14 +14,23 @@ body {
     overflow: hidden;
     position: relative;
     color: #171e2d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
+  .settings-card {
+    border: 2px solid var(--color-light-blue);
+    background-color: var(--color-light-blue);
+    border-radius: 25px;
+    padding: 50px;
+  }
+
   .form-group {
     margin-bottom: 20px;
   }
 
   .profile-picture {
-    /* width: 100%; */
     display: flex;
     overflow: hidden;
     justify-content: center;
@@ -34,35 +43,36 @@ body {
     flex-direction: row;
     justify-content: center;
     overflow: hidden;
-    margin-right: 20px;
+    margin: 20px;
     background-color: var(--color-light-blue);
   }
   
   input {
-    width: 50%;
+    min-width: 500px;
     padding: 10px;
-    margin: 15px;
+    margin: 10px;
     border-radius: 15px;
-    border: 2px solid #4d6495;
+    border: 2px solid var(--color-light-blue);
+    text-align: center;
   }
-  
+
+  input::placeholder {
+    color: var(--color-dark-blue);
+  }
+
   button {
     padding: 10px 20px;
     background-color: #4d6495;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
+    margin-top: 20px;
   }
   
   form {
     display: flex;
     justify-content: center;
-    flex-direction: column;
-}
-
-.name-surname-container {
-    display: flex;
     flex-direction: column;
   }
   
@@ -77,23 +87,53 @@ body {
   }
   
   .color-theme-container {
-    margin-top: 20px;
-  }
-  
-  .color-options {
+    margin: 20px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.color-options {
+    margin-top: 20px;
+    display: flex;
+    justify-items: center;
   }
   
-  .color-option {
+  /* Define your color options */
+  .color-option1 { 
+    background-color: #ddcb82;
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
     cursor: pointer;
+
   }
-  
-  /* Define your color options */
-  .color-option.color1 { background-color: #ffcc00; }
-  .color-option.color2 { background-color: #33cc33; }
-  .color-option.color3 { background-color: #3366ff; }
-  .color-option.color4 { background-color: #cc33ff; }
+  .color-option2 { 
+    background-color: #d581bc;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+
+  }
+  .color-option3 { 
+    background-color: #556db4;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+
+  }
+  .color-option4 { 
+    background-color: #873ba1;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+
+  }

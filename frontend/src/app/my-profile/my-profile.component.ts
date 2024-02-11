@@ -15,6 +15,7 @@ import { OnInit } from '@angular/core';
   // public surname: string = 'Kasamanian';
   public username: string = '@akasaman';
   public selectedMenuItem: string = 'friends';
+  public profilePicture: any =  "../../../assets/placeholderAvatar.jpeg";
   
   
   ngOnInit(): void {

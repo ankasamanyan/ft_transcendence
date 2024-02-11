@@ -1,29 +1,33 @@
 <div class="settings-tab">
-    <h5>Settings</h5>
-    <div class="profile-picture">
-        <img src="{{profilePictureUrl}}" alt="Profile Picture">
-    </div>
-    <form [formGroup]="settingsForm">
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" formControlName="name" placeholder="Enter your name">
-      </div>
-  
-      <div class="form-group">
-        <label for="surname">Surname:</label>
-        <input type="text" id="surname" formControlName="surname" placeholder="Enter your surname">
-      </div>
-  
-      <div class="color-theme-container">
-        <label>Color Theme</label>
-        <div class="color-options">
-          <div class="color-option" (click)="selectColor('color1')"></div>
-          <div class="color-option" (click)="selectColor('color2')"></div>
-          <div class="color-option" (click)="selectColor('color3')"></div>
-          <div class="color-option" (click)="selectColor('color4')"></div>
+    <!-- <h5>✨ Settings ✨</h5> -->
+    <div class="settings-card">
+        <div class="profile-picture">
+            <img [src]='profilePicture' alt="Profile Picture">
         </div>
-      </div>
-      <button type="button" (click)="saveSettings()">Save Settings</button>
-    </form>
+        <form [formGroup]="settingsForm">
+
+        <div class="form-group">
+            <input type="text" id="name" formControlName="name" placeholder="{{name}}">
+        </div>
+    
+        <div class="form-group username">
+            <input type="text" id="username" 
+                formControlName="username" 
+                placeholder="{{username}}"
+                (focus)="prependAtSign()">
+        </div>
+    
+        <div class="color-theme-container">
+            <label>Color Theme</label>
+            <div class="color-options">
+            <div class="color-option1" (click)="selectColor('color1')"></div>
+            <div class="color-option2" (click)="selectColor('color2')"></div>
+            <div class="color-option3" (click)="selectColor('color3')"></div>
+            <div class="color-option4" (click)="selectColor('color4')"></div>
+            </div>
+        </div>
+        <button type="button" (click)="saveSettings()">Save Settings</button>
+        </form>
+    </div>
   </div>
   

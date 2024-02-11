@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -7,31 +7,36 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-profilePictureUrl: any;
-selectColor(arg0: string) {
-throw new Error('Method not implemented.');
-}
-  settingsForm!: FormGroup;
+    profilePictureUrl: any;
+    selectColor(arg0: string) {throw new Error('Method not implemented.');}
+  @Input() username: any;
+  @Input() name: any;
+  @Input() profilePicture: any;
+  settingsForm: FormGroup = new FormGroup ({});
   selectedColorTheme: string = '';
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    // Initialize the form with default values or values from user data
     this.settingsForm = this.formBuilder.group({
-      profilePicture: '',
+      profilePicture: '../../../assets/placeholderAvatar.jpeg',
       name: '',
-      surname: ''
+      username: ''
     });
   }
+
+    prependAtSign() {
+      this.username.patchValue('@$[username]')
+    }
+
 
   selectColorTheme(theme: string): void {
     this.selectedColorTheme = theme;
   }
 
   saveSettings(): void {
-    // Implement logic to save settings
-    console.log(this.settingsForm.value); // You can send this data to your backend or update it locally
+
+    console.log(this.settingsForm.value);
     console.log('Selected Color Theme:', this.selectedColorTheme);
   }
 }

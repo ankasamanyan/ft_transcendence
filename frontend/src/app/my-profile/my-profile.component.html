@@ -9,7 +9,7 @@
         </div>
 
         <div class="profile-icon">
-          <img src="../../assets/placeholderAvatar.jpeg" alt="Profile Picture">
+          <img [src]="profilePicture" alt="Profile Picture">
         </div>
 
         <div class="profile-info">
@@ -38,7 +38,11 @@
         <app-achievements *ngIf="selectedMenuItem === 'achievements'"></app-achievements>
         <app-match-history *ngIf="selectedMenuItem ===  'match-history'"></app-match-history>
         <app-statistics *ngIf="selectedMenuItem ===  'statistics'"></app-statistics>
-        <app-settings *ngIf="selectedMenuItem === 'settings'"></app-settings>
+        <app-settings *ngIf="selectedMenuItem === 'settings'"
+                      [name]="name" 
+                      [username]="username"
+                      [profilePicture]="profilePicture">
+         </app-settings>
       </div>
       <div></div>
     </div>

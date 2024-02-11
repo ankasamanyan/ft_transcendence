@@ -31,6 +31,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PieChartComponent } from './my-profile/statistics/pie-chart/pie-chart.component';
 import { InvitationToBeFriendsReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-to-be-friends-received-notification/invitation-to-be-friends-received-notification.component';
 import { SettingsComponent } from './my-profile/settings/settings.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { SettingsComponent } from './my-profile/settings/settings.component';
     MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDialogModule,
     RouterModule.forRoot([
       { path: '', component: ChatComponent },
       { path: 'my-profile', component: MyProfileComponent },
