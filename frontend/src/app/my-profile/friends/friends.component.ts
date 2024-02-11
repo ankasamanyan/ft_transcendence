@@ -9,35 +9,33 @@ import {User} from "../../domain/user";
 
 })
 export class FriendsComponent implements OnInit {
-  public friendsList: any[] = [];
+  public friendsList!: User[];
+  public pendingList!: any[];
+  public blockedList!: any[];
   public placeHolderMessage: string = 'This list is currently empty 🤷🏻‍♀️'
-  friends: User[] | undefined;
+
 
   constructor(private friendService: FriendService) {
     this.friendService.getFriends(1).subscribe((value)=> {
-      this.friends = value.users;
+      this.friendsList = value.users;
     })
   }
 
   ngOnInit(): void {
-    this.friendsList = [
+    this.pendingList = [
       { 
-        name: 'Cedric Erdelen', 
-        profilePicture: '../../../assets/placeholderComrade2.jpeg',
-        username: '@cerdelen',
+        name: 'Fedia', 
+        picture: '../../../assets/placeholderComrade5.jpeg',
+        intraLogin: '@fstaryk',
 
-      },
-      { 
-        name: 'Tetiana Fedorenko',
-        profilePicture: '../../../assets/placeholderComrade.jpeg',
-        username: '@tfedoren',
-      },
-      { 
-        name: 'Kristiyana Milcheva',
-        profilePicture: '../../../assets/placeholderComrade3.jpeg',
-        username: '@kmilchev',
-      },
-    ];
+      },];
+      this.blockedList = [
+        { 
+          name: 'Wolf', 
+          picture: '../../../assets/placeholderComrade6.jpeg',
+          intraLogin: '@wmardin',
+  
+        },];
   }
 
 }

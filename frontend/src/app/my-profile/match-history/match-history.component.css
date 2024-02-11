@@ -79,6 +79,7 @@ h5 {
   margin-right: 40px;
   margin-left: 40px;
   background-color: var(--color-light-blue-darker);
+  object-fit: cover;
 }
 
 .info {
@@ -90,5 +91,5 @@ h5 {
 
 .username {
   color: #4d6495;
-  margin-top: 5px; /* Adjust the margin as needed */
+  margin-top: 5px;
 }
