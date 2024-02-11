@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import { OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @Component({
@@ -12,11 +14,15 @@ import { OnInit } from '@angular/core';
   export class MyProfileComponent implements OnInit{
 
   public name: string = 'Anait';
-  // public surname: string = 'Kasamanian';
+
   public username: string = '@akasaman';
+
   public selectedMenuItem: string = 'friends';
+
   public profilePicture: any =  "../../../assets/placeholderAvatar.jpeg";
+
   
+  constructor() {}
   
   ngOnInit(): void {
   }

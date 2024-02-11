@@ -9,9 +9,9 @@ import { Component } from '@angular/core';
 export class StatisticsComponent {
 
   public placeHolderMessage: string = "You will see something here, once you start playing << THE PONG >> 🎯✨"
-  // public staticList: any[] = [];
 
   userWins: number = 25;
+
   userLosses: number = 40;
 
 }

@@ -1,5 +1,5 @@
 <div class="settings-tab">
-    <!-- <h5>✨ Settings ✨</h5> -->
+    <h5 >✨ Settings ✨</h5>
     <div class="settings-card">
         <div class="profile-picture">
             <img [src]='profilePicture' alt="Profile Picture">
@@ -11,14 +11,11 @@
         </div>
     
         <div class="form-group username">
-            <input type="text" id="username" 
-                formControlName="username" 
-                placeholder="{{username}}"
-                (focus)="prependAtSign()">
-        </div>
+            <span>{{username}}</span>
+        </div> 
     
         <div class="color-theme-container">
-            <label>Color Theme</label>
+            <label> Color Theme: </label>
             <div class="color-options">
             <div class="color-option1" (click)="selectColor('color1')"></div>
             <div class="color-option2" (click)="selectColor('color2')"></div>

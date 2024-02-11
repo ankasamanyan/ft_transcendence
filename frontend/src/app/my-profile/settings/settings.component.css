@@ -8,6 +8,7 @@ body {
   }
   
   .settings-tab {
+    top: 0;
     padding: 40px;
     background-color: #ffffff;
     min-height: 100vh;
@@ -81,9 +82,14 @@ body {
     display: flex;
     justify-content: center;
   }
+
+  .username {
+    color: #4d6495;
+    font-weight: 400;
+  }
   
   label {
-    font-weight: bold;
+    font-weight: 400;
   }
   
   .color-theme-container {
@@ -100,7 +106,6 @@ body {
     justify-items: center;
   }
   
-  /* Define your color options */
   .color-option1 { 
     background-color: #ddcb82;
     width: 40px;

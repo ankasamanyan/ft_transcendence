@@ -8,9 +8,11 @@ import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular
 })
 
 export class PieChartComponent implements AfterViewInit {
+  
   @ViewChild('pieChartCanvas', { static: false }) pieChartCanvas!: ElementRef;
 
   @Input() wins: any;
+
   @Input() losses: any;
 
   ngAfterViewInit(): void {
