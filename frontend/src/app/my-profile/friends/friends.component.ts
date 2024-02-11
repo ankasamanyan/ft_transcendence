@@ -23,18 +23,18 @@ export class FriendsComponent implements OnInit {
     this.friendsList = [
       { 
         name: 'Cedric Erdelen', 
-        profilePicture: '../../../../src/assets/placeholderComrade2.jpeg',
+        profilePicture: '../../../assets/placeholderComrade2.jpeg',
         username: '@cerdelen',
 
       },
       { 
         name: 'Tetiana Fedorenko',
-        profilePicture: '../../../../src/assets/placeholderComrade.jpeg',
+        profilePicture: '../../../assets/placeholderComrade.jpeg',
         username: '@tfedoren',
       },
       { 
         name: 'Kristiyana Milcheva',
-        profilePicture: '../../../../src/assets/placeholderComrade1.jpeg',
+        profilePicture: '../../../assets/placeholderComrade3.jpeg',
         username: '@kmilchev',
       },
     ];

@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+  }
+  
+  h5 {
+    margin: 20px auto 30px auto;
+    display: table;
+  }
+  
+  .settings-tab {
+    padding: 40px;
+    background-color: #ffffff;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+    color: #171e2d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .settings-card {
+    border: 2px solid var(--color-light-blue);
+    background-color: var(--color-light-blue);
+    border-radius: 25px;
+    padding: 50px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .profile-picture {
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+  }
+
+  .profile-picture img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    flex-direction: row;
+    justify-content: center;
+    overflow: hidden;
+    margin: 20px;
+    background-color: var(--color-light-blue);
+  }
+  
+  input {
+    min-width: 500px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 15px;
+    border: 2px solid var(--color-light-blue);
+    text-align: center;
+  }
+
+  input::placeholder {
+    color: var(--color-dark-blue);
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #4d6495;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  .color-theme-container {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.color-options {
+    margin-top: 20px;
+    display: flex;
+    justify-items: center;
+  }
+  
+  /* Define your color options */
+  .color-option1 { 
+    background-color: #ddcb82;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+
+  }
+  .color-option2 { 
+    background-color: #d581bc;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+
+  }
+  .color-option3 { 
+    background-color: #556db4;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+
+  }
+  .color-option4 { 
+    background-color: #873ba1;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+
+  }

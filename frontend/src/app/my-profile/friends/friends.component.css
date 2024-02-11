@@ -19,9 +19,9 @@ h5 {
   margin-bottom: 30px;
 }
 
-
 .friend-card {
   display: flex;
+  width: 100%;
   padding: 20px;
   padding-left: 40px;
   margin-top: 20px;
@@ -36,11 +36,16 @@ h5 {
 }
 
 .friend-picture {
-  max-width: 70px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   margin-right: 45px;
   background-color: var(--color-light-blue-darker);
 
+}
+.friend-picture img  {
+  width: 70px;
+  height: auto;
 }
 
 .friend-info {
@@ -89,4 +94,9 @@ h5 {
 
 .empty-list p {
   margin: 0;
+}
+
+button {
+  justify-content: flex-end;
+  display: flex;
 }

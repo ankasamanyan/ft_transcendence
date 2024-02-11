@@ -12,9 +12,10 @@ import { OnInit } from '@angular/core';
   export class MyProfileComponent implements OnInit{
 
   public name: string = 'Anait';
-  public surname: string = 'Kasamanian';
+  // public surname: string = 'Kasamanian';
   public username: string = '@akasaman';
   public selectedMenuItem: string = 'friends';
+  public profilePicture: any =  "../../../assets/placeholderAvatar.jpeg";
   
   
   ngOnInit(): void {

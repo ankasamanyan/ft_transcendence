@@ -27,10 +27,12 @@ import { AchievementsComponent } from './my-profile/achievements/achievements.co
 import { MatchHistoryComponent } from './my-profile/match-history/match-history.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PieChartComponent } from './my-profile/statistics/pie-chart/pie-chart.component';
 import { InvitationToBeFriendsReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-to-be-friends-received-notification/invitation-to-be-friends-received-notification.component';
 import { EditChannelModalComponent } from './chat/selected-dialog/selected-dialog-header/edit-channel-modal/edit-channel-modal.component';
+import { SettingsComponent } from './my-profile/settings/settings.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,7 @@ import { EditChannelModalComponent } from './chat/selected-dialog/selected-dialo
     PieChartComponent,
     InvitationToBeFriendsReceivedNotificationComponent,
     EditChannelModalComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +70,8 @@ import { EditChannelModalComponent } from './chat/selected-dialog/selected-dialo
     BrowserAnimationsModule,
     MatTabsModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
     RouterModule.forRoot([
       { path: '', component: ChatComponent },
       { path: 'my-profile', component: MyProfileComponent },
