@@ -8,7 +8,7 @@
                 <app-message [message]="message"></app-message>
             </div>
         </div>
-        <div id="write-message-form">
+        <div id="write-message-form" *ngIf="selectedChannelId">
             <input  id="write-message-input"
                     placeholder="Write a message..."
                     [(ngModel)]="message"
