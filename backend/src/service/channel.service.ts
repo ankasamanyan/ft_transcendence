@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, Param} from '@nestjs/common';
 import {User} from "../domain/user";
 import {PrismaChannelRepository} from "../adapter/repository/prisma-channel-repository";
 import {Channel} from "../domain/channel";
@@ -39,7 +39,10 @@ export class ChannelService {
     return from(this.prismaChannelAdminRepository.addChannelAdmin(channel.id, channel.admins[0]));
   }
 
-  initializeChannels() {
+  // renameChannel(@Param('channelId') channelId: number, @Param('renameTo') renameTo: string) {
+
+
+    initializeChannels() {
     return from(this.prismaChannelRepository.initializeChannels());
   }
 

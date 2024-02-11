@@ -45,6 +45,10 @@ export class ChannelService {
     return this.httpClient.post<void>("http://localhost:3000/channels/admins", ChannelRequest.fromDomain(channel));
   }
 
+  renameChannel(channelId: number, newChannelName: string){
+    return this.httpClient.put<void>("http://localhost:3000/channels/details/" + channelId + "/" + newChannelName, {});
+  }
+
   initializeChannels() {
     return this.httpClient.post<void>("http://localhost:3000/channels/mocks", {});
   }

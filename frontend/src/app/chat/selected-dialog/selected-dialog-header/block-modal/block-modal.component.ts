@@ -14,7 +14,7 @@ export class BlockModalComponent {
   @Input()
   selectedPerson: User | undefined;
 
-  constructor(public blockedUsersService: BlockedUsersService) {
+  constructor(private blockedUsersService: BlockedUsersService) {
   }
 
   blockUser() {

@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Put} from '@nestjs/common';
 import {ChannelService} from "../service/channel.service";
 import {UsersRequest} from "./dto/users-request";
 import {Channel} from "../domain/channel";
@@ -39,6 +39,11 @@ export class ChannelController {
   addChannelAdmin(@Body() request: ChannelRequest) {
     return this.channelService.addChannelAdmin(ChannelRequest.toDomain(request));
   }
+
+  // @Put('/details/:channelId/:renameTo')
+  // renameChannel(@Param('channelId') channelId: number, @Param('renameTo') renameTo: string) {
+  //   return this.channelService.renameChannel(channelId, renameTo);
+  // }
 
   @Post("/mocks")
   initializeChannels() {

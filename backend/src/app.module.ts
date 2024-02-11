@@ -19,9 +19,10 @@ import {PrismaFriendRepository} from "./adapter/repository/prisma-friend-reposit
 import {FriendService} from "./service/friend.service";
 import {PrismaChannelAdminRepository} from "./adapter/repository/prisma-channel-admin-repository";
 import {PrismaChannelParticipantRepository} from "./adapter/repository/prisma-channel-participant-repository";
+import { ChatGatewayModule } from './chat-gateway/chat-gateway.module';
 
 @Module({
-    imports: [],
+    imports: [ChatGatewayModule],
     controllers: [
         AppController,
         MessageController,
