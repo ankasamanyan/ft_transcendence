@@ -40,11 +40,6 @@ export class ChannelController {
     return this.channelService.addChannelAdmin(ChannelRequest.toDomain(request));
   }
 
-  // @Put('/details/:channelId/:renameTo')
-  // renameChannel(@Param('channelId') channelId: number, @Param('renameTo') renameTo: string) {
-  //   return this.channelService.renameChannel(channelId, renameTo);
-  // }
-
   @Post("/mocks")
   initializeChannels() {
     return this.channelService.initializeChannels();

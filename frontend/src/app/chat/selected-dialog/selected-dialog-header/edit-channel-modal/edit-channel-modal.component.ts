@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Channel} from "../../../../domain/channel";
 import {ChannelService} from "../../../../service/channel.service";
+import {OurSocket} from "../../../../socket/socket";
 
 @Component({
   selector: 'app-edit-channel-modal',
@@ -16,7 +17,13 @@ export class EditChannelModalComponent implements AfterViewInit {
 
   @ViewChild('name') channelName!: ElementRef;
 
-  constructor(private channelService: ChannelService) {
+  constructor(
+    private channelService: ChannelService,
+    private socket: OurSocket) {
+    socket.on("channelRenamed", () => {
+      this.channelService.updateChannels.next(true);
+    });
+
   }
 
   ngAfterViewInit() {
@@ -24,10 +31,7 @@ export class EditChannelModalComponent implements AfterViewInit {
   }
 
   changeChannelName() {
-    this.channelService.renameChannel(this.channel!.id!, this.channel!.name).subscribe(() => {
-        this.channelService.updateChannels.next(true);
-        this.modalClose.emit();
-      }
-    );
+    this.channelService.renameChannel(this.channel!);
+    this.modalClose.emit();
   }
 }

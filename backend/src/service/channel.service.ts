@@ -1,4 +1,4 @@
-import {Injectable, Param} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {User} from "../domain/user";
 import {PrismaChannelRepository} from "../adapter/repository/prisma-channel-repository";
 import {Channel} from "../domain/channel";
@@ -9,9 +9,9 @@ import {PrismaChannelAdminRepository} from "../adapter/repository/prisma-channel
 @Injectable()
 export class ChannelService {
   constructor(
-      private prismaChannelRepository: PrismaChannelRepository,
-      private prismaChannelParticipantRepository: PrismaChannelParticipantRepository,
-      private prismaChannelAdminRepository: PrismaChannelAdminRepository) {
+    private prismaChannelRepository: PrismaChannelRepository,
+    private prismaChannelParticipantRepository: PrismaChannelParticipantRepository,
+    private prismaChannelAdminRepository: PrismaChannelAdminRepository) {
 
   }
 
@@ -39,20 +39,25 @@ export class ChannelService {
     return from(this.prismaChannelAdminRepository.addChannelAdmin(channel.id, channel.admins[0]));
   }
 
-  // renameChannel(@Param('channelId') channelId: number, @Param('renameTo') renameTo: string) {
+  renameChannel(channel: Channel) {
+    return this.prismaChannelRepository.renameChannel(channel);
+  }
 
-
-    initializeChannels() {
+  initializeChannels() {
     return from(this.prismaChannelRepository.initializeChannels());
   }
 
-  setPassword(password: string) {}
-  
-  assignAdmin(user: User) {}
+  setPassword(password: string) {
+  }
 
-  leaveChannel() {}
+  assignAdmin(user: User) {
+  }
 
-  kickUser(user: User) {}
+  leaveChannel() {
+  }
+
+  kickUser(user: User) {
+  }
 
   muteUser(user: User) {
     //user cannot write messages

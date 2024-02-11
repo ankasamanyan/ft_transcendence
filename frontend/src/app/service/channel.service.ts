@@ -5,13 +5,16 @@ import {User, Users} from "../domain/user";
 import {UsersRequest} from "./dto/users.dto";
 import {Channel, Channels} from "../domain/channel";
 import {ChannelRequest, ChannelResponse, ChannelsResponse} from "./dto/channel.dto";
+import {OurSocket} from "../socket/socket";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChannelService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private socket: OurSocket) { }
 
   updateChannels: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -45,8 +48,8 @@ export class ChannelService {
     return this.httpClient.post<void>("http://localhost:3000/channels/admins", ChannelRequest.fromDomain(channel));
   }
 
-  renameChannel(channelId: number, newChannelName: string){
-    return this.httpClient.put<void>("http://localhost:3000/channels/details/" + channelId + "/" + newChannelName, {});
+  renameChannel(channel: Channel){
+    return this.socket.emit('channelRename', ChannelRequest.fromDomain(channel));
   }
 
   initializeChannels() {

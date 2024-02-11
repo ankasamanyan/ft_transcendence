@@ -16,9 +16,4 @@ export class MessageController {
   getChannelMessages(@Param('channelId') channelId: number) {
     return this.messageService.getChannelMessages(channelId);
   }
-
-  @Post("/channelMessage")
-  saveChannelMessage(@Body() request: ChannelMessageRequest) {
-    return this.messageService.saveChannelMessage(ChannelMessageRequest.toDomain(request));
-  }
 }
