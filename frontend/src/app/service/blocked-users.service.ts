@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, map} from "rxjs";
 import {Users} from "../domain/user";
-import {UsersRequest} from "./dto/users.dto";
+import {UsersRequest, UsersResponse} from "./dto/users.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +19,12 @@ export class BlockedUsersService {
     const blockerId = users.users[0].id;
     const blockedId = users.users[1].id;
     return this.httpClient.delete<void>(`http://localhost:3000/blocked-users?blockerId=${blockerId}&blockedId=${blockedId}`);
+  }
+
+  getBlockedUsers(userId: number) {
+    return this.httpClient.get<UsersResponse>("http://localhost:3000/blocked-users/"+ userId).pipe(
+      map((users: UsersResponse) => {
+        return UsersResponse.toDomain(users);
+      }));
   }
 }
