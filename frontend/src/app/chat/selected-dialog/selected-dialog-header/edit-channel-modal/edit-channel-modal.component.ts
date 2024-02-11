@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewC
 import {Channel} from "../../../../domain/channel";
 import {ChannelService} from "../../../../service/channel.service";
 import {OurSocket} from "../../../../socket/socket";
+import {User} from "../../../../domain/user";
 
 @Component({
   selector: 'app-edit-channel-modal',
@@ -15,6 +16,9 @@ export class EditChannelModalComponent implements AfterViewInit {
   @Input()
   channel: Channel | undefined;
 
+  @Input()
+  channelParticipants: User[] | undefined;
+
   @ViewChild('name') channelName!: ElementRef;
 
   constructor(
@@ -23,7 +27,11 @@ export class EditChannelModalComponent implements AfterViewInit {
     socket.on("channelRenamed", () => {
       this.channelService.updateChannels.next(true);
     });
-
+    // if (this.channel) {
+    //   channelService.getChannelParticipants(this.channel.id!).subscribe((value) => {
+    //     this.channelParticipants = value.users;
+    //   })
+    // }
   }
 
   ngAfterViewInit() {

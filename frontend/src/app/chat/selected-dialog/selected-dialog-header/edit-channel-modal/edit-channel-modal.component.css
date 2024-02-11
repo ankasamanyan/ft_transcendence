@@ -15,7 +15,7 @@
     margin: 10% auto;
     padding: 20px;
     border: none;
-    max-width: 400px;
+    max-width: 360px;
     border-radius: 10px;
     box-shadow: 0 1px 17px rgba(0,0,0,0.09);
     font-weight: 300;
@@ -36,7 +36,7 @@
 
 .channel-details {
     display: flex;
-    align-items:center
+    align-items: center
 }
 
 #buttons {
@@ -66,6 +66,7 @@ button {
 
 input {
     font-size: 16px;
+    width: 200px;
     height: 30px;
     border: none;
     border-bottom: solid 1px dimgray;
@@ -86,4 +87,33 @@ input:focus {
 
 .bi-check {
     font-size: 28px;
+}
+
+.participant {
+    padding: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.participant:hover {
+    background-color: var(--color-light-gray);
+    border-radius: 8px;
+}
+
+img {
+    width: 11%;
+    height: 30px;
+    border-radius: 25px;
+    margin-right: 9px;
+    object-fit: cover;
+}
+
+.all-participants {
+    display: block;
+    background-color: white;
+    width: 280px;
+    border-radius: 8px;
+    overflow: scroll;
+    max-height: 140px;
+    margin: 10px auto;
 }

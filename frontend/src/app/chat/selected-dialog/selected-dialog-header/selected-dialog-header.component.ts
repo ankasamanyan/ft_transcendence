@@ -15,7 +15,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   selectedChannelId: number | undefined;
 
   channel: Channel | undefined;
-  participants: number[] | undefined;
+  participants: User[] | undefined;
   selectedDialogPartner: User | undefined;
   selectedPersonBefriendable: boolean | undefined;
 
@@ -78,21 +78,20 @@ export class SelectedDialogHeaderComponent implements OnChanges {
 
   getParticipants() {
     this.channelService.getChannelParticipants(this.selectedChannelId!).subscribe((value) => {
-      this.participants = value;
+      this.participants = value.users;
       this.getDialogPartner()
     });
   }
 
   getDialogPartner() {
     if (this.participants!.length === 2) {
-      this.userService.getUserById(this.participants!.filter((value) => {
-        return value != 1
-      })[0]).subscribe((value) => {
-        this.selectedDialogPartner = value;
-        this.checkWhetherBefriendable();
-      });
+      this.selectedDialogPartner = this.participants!.filter((value) => {
+        return value.id != 1
+      })[0];
+      this.checkWhetherBefriendable();
     }
   }
+
 
   checkWhetherBefriendable() {
     if (this.selectedDialogPartner) {

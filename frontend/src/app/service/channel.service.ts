@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {User, Users} from "../domain/user";
-import {UsersRequest} from "./dto/users.dto";
+import {UserResponse, UsersRequest, UsersResponse} from "./dto/users.dto";
 import {Channel, Channels} from "../domain/channel";
 import {ChannelRequest, ChannelResponse, ChannelsResponse} from "./dto/channel.dto";
 import {OurSocket} from "../socket/socket";
@@ -40,8 +40,11 @@ export class ChannelService {
     return this.httpClient.post<void>("http://localhost:3000/channels/participants", ChannelRequest.fromDomain(channel));
   }
 
-  getChannelParticipants(channelId: number): Observable<number[]> {
-    return this.httpClient.get<number[]>("http://localhost:3000/channels/participants/" + channelId);
+  getChannelParticipants(channelId: number) {
+    return this.httpClient.get<UsersResponse>("http://localhost:3000/channels/participants/" + channelId).pipe(
+      map((users: UsersResponse) => {
+        return UsersResponse.toDomain(users);
+      }));
   }
 
   addChannelAdmin(channel: Channel) {

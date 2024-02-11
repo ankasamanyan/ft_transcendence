@@ -7,6 +7,12 @@
             <div><img class="channel-photo" [src]="channel?.picture" alt=""></div>
             <div><input #name [(ngModel)]="channel!.name"></div>
         </div>
+        <div class="all-participants">
+            <div class="participant" *ngFor="let participant of channelParticipants">
+                <img [src]="participant.picture">
+                <span>{{participant.name}}</span>
+            </div>
+        </div>
         <div id="buttons" class="container">
             <button id="apply-changes-button" (click)="changeChannelName()">Save</button>
         </div>
