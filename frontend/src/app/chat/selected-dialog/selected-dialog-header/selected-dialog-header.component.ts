@@ -20,6 +20,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   selectedPersonBefriendable: boolean | undefined;
 
   showBlockModal: boolean = false;
+  showEditModal: boolean = false;
   showInvitedToPlayNotification: boolean = false;
   showInvitedToBeFriendsNotification: boolean = false;
 
@@ -68,6 +69,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   }
 
   getChannel() {
+    this.selectedDialogPartner = undefined;
     this.channelService.getChannelDetailsById(this.selectedChannelId!).subscribe((value) => {
       this.channel = value;
       this.getParticipants();
@@ -98,5 +100,9 @@ export class SelectedDialogHeaderComponent implements OnChanges {
         this.selectedPersonBefriendable = value;
       })
     }
+  }
+
+  isDialog() {
+    return this.channel?.type === "dialog";
   }
 }

@@ -33,10 +33,17 @@ export class PrismaChannelRepository {
                 }
             }
         );
-        await this.prismaChannelParticipantRepository.addChannelParticipants(createdChannel.id, channel.participants);
-        if (channel.type === "private") {
-            await this.prismaChannelAdminRepository.addChannelAdmin(createdChannel.id, channel.admins[0]);
-        }
+
+        return new ChannelResponse(
+          createdChannel.name,
+          createdChannel.picture,
+          createdChannel.created_at,
+          createdChannel.id,
+          createdChannel.type,
+          channel.participants,
+          channel.owner,
+          channel.admins
+        );
     }
 
     async getChannelDetailsById(channelId: number) {

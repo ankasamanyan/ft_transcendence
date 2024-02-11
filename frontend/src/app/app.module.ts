@@ -30,6 +30,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PieChartComponent } from './my-profile/statistics/pie-chart/pie-chart.component';
 import { InvitationToBeFriendsReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-to-be-friends-received-notification/invitation-to-be-friends-received-notification.component';
+import { EditChannelModalComponent } from './chat/selected-dialog/selected-dialog-header/edit-channel-modal/edit-channel-modal.component';
 import { SettingsComponent } from './my-profile/settings/settings.component';
 import {MatDialogModule} from '@angular/material/dialog';
 
@@ -57,6 +58,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatchHistoryComponent,
     PieChartComponent,
     InvitationToBeFriendsReceivedNotificationComponent,
+    EditChannelModalComponent,
     SettingsComponent,
   ],
   imports: [

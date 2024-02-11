@@ -3,8 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {User, Users} from "../domain/user";
 import {UsersRequest} from "./dto/users.dto";
-import {Channels} from "../domain/channel";
-import {ChannelResponse, ChannelsResponse} from "./dto/channel.dto";
+import {Channel, Channels} from "../domain/channel";
+import {ChannelRequest, ChannelResponse, ChannelsResponse} from "./dto/channel.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class ChannelService {
 
   updateChannels: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  addChannelInformation(users: User[]): Observable<void> {
+  addChannelInformation(users: User[]) {
     return this.httpClient.post<void>("http://localhost:3000/channels", UsersRequest.fromDomain(new Users(users)));
   }
 
@@ -33,8 +33,16 @@ export class ChannelService {
         }));
   }
 
+  addChannelParticipants(channel: Channel) {
+    return this.httpClient.post<void>("http://localhost:3000/channels/participants", ChannelRequest.fromDomain(channel));
+  }
+
   getChannelParticipants(channelId: number): Observable<number[]> {
     return this.httpClient.get<number[]>("http://localhost:3000/channels/participants/" + channelId);
+  }
+
+  addChannelAdmin(channel: Channel) {
+    return this.httpClient.post<void>("http://localhost:3000/channels/admins", ChannelRequest.fromDomain(channel));
   }
 
   initializeChannels() {
