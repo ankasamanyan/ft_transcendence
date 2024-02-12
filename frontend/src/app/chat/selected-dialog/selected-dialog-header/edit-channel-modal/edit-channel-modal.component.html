@@ -15,6 +15,18 @@
                 <span class="admin" *ngIf="isAdmin(participant)">Admin</span>
             </div>
         </div>
+        <div class="channel-type" *ngIf="isAuthenticatedUserOwner()">
+            <i class="bi bi-people"></i>
+            <span class="channel-type-text">Channel type</span>
+            <span class="current-type" (click)="displayTypes=true">{{channel?.type! | titlecase}}</span>
+            <div class="dropdown" *ngIf="displayTypes">
+                <div class="dropdown-content">
+                    <div id="private" *ngIf="!isCurrentTypePrivate()" (click)="displayTypes=false">Private</div>
+                    <div id="public" *ngIf="!isCurrentTypePublic()" (click)="displayTypes=false">Public</div>
+                    <div id="password-protected" *ngIf="!isCurrentTypePasswordProtected()"  (click)="displayTypes=false">Password-protected</div>
+                </div>
+            </div>
+        </div>
         <div id="buttons" class="container">
             <button
                     id="apply-changes-button"

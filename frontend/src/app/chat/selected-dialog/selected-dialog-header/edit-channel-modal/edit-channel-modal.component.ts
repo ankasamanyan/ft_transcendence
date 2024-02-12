@@ -1,4 +1,13 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {Channel} from "../../../../domain/channel";
 import {ChannelService} from "../../../../service/channel.service";
 import {OurSocket} from "../../../../socket/socket";
@@ -25,6 +34,8 @@ export class EditChannelModalComponent implements AfterViewInit {
   @ViewChild('name') channelName!: ElementRef;
 
   nameOnInit: string | undefined;
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg");
+  displayTypes: boolean = false;
 
   constructor(
     private channelService: ChannelService,
@@ -54,5 +65,29 @@ export class EditChannelModalComponent implements AfterViewInit {
 
   isNameChanged() {
     return this.nameOnInit === this.channel?.name;
+  }
+
+  isAuthenticatedUserOwner() {
+    return this.authenticatedUser.id === this.channel?.owner!.id;
+  }
+
+  isCurrentTypePrivate() {
+    return this.channel?.type === "private";
+  }
+
+  isCurrentTypePublic() {
+    return this.channel?.type === "public";
+  }
+
+  isCurrentTypePasswordProtected() {
+    return this.channel?.type === "password-protected";
+  }
+
+  @HostListener('document:click', ['$event'])
+  hideTypes(event: MouseEvent) {
+    const isClickOnType = document.getElementsByClassName("current-type")[0].contains(event.target as HTMLElement)
+    if (this.displayTypes && !isClickOnType) {
+      this.displayTypes = false;
+    }
   }
 }
