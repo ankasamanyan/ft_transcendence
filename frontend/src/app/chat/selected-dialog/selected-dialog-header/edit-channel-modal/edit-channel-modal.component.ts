@@ -19,6 +19,9 @@ export class EditChannelModalComponent implements AfterViewInit {
   @Input()
   channelParticipants: User[] | undefined;
 
+  @Input()
+  admins: User[] | undefined;
+
   @ViewChild('name') channelName!: ElementRef;
 
   constructor(
@@ -36,5 +39,13 @@ export class EditChannelModalComponent implements AfterViewInit {
   changeChannelName() {
     this.channelService.renameChannel(this.channel!);
     this.modalClose.emit();
+  }
+
+  isOwner(user: User) {
+    return user.id === this.channel?.owner?.id;
+  }
+
+  isAdmin(user: User) {
+    return this.admins!.some((admin) => admin.id === user.id) && !this.isOwner(user);
   }
 }

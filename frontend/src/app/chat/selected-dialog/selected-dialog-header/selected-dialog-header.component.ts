@@ -16,6 +16,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
 
   channel: Channel | undefined;
   participants: User[] | undefined;
+  admins: User[] | undefined;
   selectedDialogPartner: User | undefined;
   selectedPersonBefriendable: boolean | undefined;
 
@@ -73,6 +74,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     this.channelService.getChannelDetailsById(this.selectedChannelId!).subscribe((value) => {
       this.channel = value;
       this.getParticipants();
+      this.getAdmins();
     });
   }
 
@@ -80,6 +82,12 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     this.channelService.getChannelParticipants(this.selectedChannelId!).subscribe((value) => {
       this.participants = value.users;
       this.getDialogPartner()
+    });
+  }
+
+  getAdmins() {
+    this.channelService.getChannelAdmins(this.selectedChannelId!).subscribe((value) => {
+      this.admins = value.users;
     });
   }
 

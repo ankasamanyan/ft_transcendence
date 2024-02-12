@@ -39,6 +39,10 @@ export class ChannelService {
     return from(this.prismaChannelAdminRepository.addChannelAdmin(channel.id, channel.admins[0]));
   }
 
+  getChannelAdmins(channelId: number) {
+    return from(this.prismaChannelAdminRepository.getChannelAdmins(channelId));
+  }
+
   renameChannel(channel: Channel) {
     return this.prismaChannelRepository.renameChannel(channel);
   }

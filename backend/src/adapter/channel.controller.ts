@@ -40,6 +40,11 @@ export class ChannelController {
     return this.channelService.addChannelAdmin(ChannelRequest.toDomain(request));
   }
 
+  @Get('/admins/:channelId')
+  getChannelAdmins(@Param('channelId') channelId: number) {
+    return this.channelService.getChannelAdmins(channelId);
+  }
+
   @Post("/mocks")
   initializeChannels() {
     return this.channelService.initializeChannels();

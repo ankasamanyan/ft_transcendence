@@ -51,6 +51,13 @@ export class ChannelService {
     return this.httpClient.post<void>("http://localhost:3000/channels/admins", ChannelRequest.fromDomain(channel));
   }
 
+  getChannelAdmins(channelId: number) {
+    return this.httpClient.get<UsersResponse>("http://localhost:3000/channels/admins/" + channelId).pipe(
+      map((users: UsersResponse) => {
+        return UsersResponse.toDomain(users);
+      }));
+  }
+
   renameChannel(channel: Channel){
     return this.socket.emit('channelRename', ChannelRequest.fromDomain(channel));
   }
