@@ -27,11 +27,6 @@ export class EditChannelModalComponent implements AfterViewInit {
     socket.on("channelRenamed", () => {
       this.channelService.updateChannels.next(true);
     });
-    // if (this.channel) {
-    //   channelService.getChannelParticipants(this.channel.id!).subscribe((value) => {
-    //     this.channelParticipants = value.users;
-    //   })
-    // }
   }
 
   ngAfterViewInit() {

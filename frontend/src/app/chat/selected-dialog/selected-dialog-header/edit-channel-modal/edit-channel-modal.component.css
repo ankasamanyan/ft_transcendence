@@ -36,7 +36,7 @@
 
 .channel-details {
     display: flex;
-    align-items: center
+    align-items: center;
 }
 
 #buttons {
@@ -116,4 +116,11 @@ img {
     overflow: scroll;
     max-height: 140px;
     margin: 10px auto;
+}
+
+.owner {
+    float: right;
+    font-weight: lighter;
+    color: var(--color-dark-blue);
+    font-size: 15px;
 }

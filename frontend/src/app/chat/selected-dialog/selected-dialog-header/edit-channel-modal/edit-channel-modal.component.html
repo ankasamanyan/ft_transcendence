@@ -11,6 +11,7 @@
             <div class="participant" *ngFor="let participant of channelParticipants">
                 <img [src]="participant.picture">
                 <span>{{participant.name}}</span>
+                <span class="owner" *ngIf="participant.id === channel?.owner?.id">Owner</span>
             </div>
         </div>
         <div id="buttons" class="container">

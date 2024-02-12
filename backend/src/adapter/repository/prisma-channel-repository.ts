@@ -4,6 +4,7 @@ import {Channel} from "../../domain/channel";
 import {PrismaChannelParticipantRepository} from "./prisma-channel-participant-repository";
 import {PrismaChannelAdminRepository} from "./prisma-channel-admin-repository";
 import {ChannelResponse, ChannelsResponse} from "../dto/channel.response";
+import {User} from "../../domain/user";
 
 interface RawSql {
   channelname: string,
@@ -12,6 +13,17 @@ interface RawSql {
   channelid: number,
   lastmessage: string,
   lastmessagecreatedat: Date
+}
+
+interface ChannelDetails {
+  name: string,
+  picture: string,
+  createdat: Date,
+  type: string,
+  ownerid: number,
+  ownername: string,
+  ownerpicture: string,
+  ownerintraLogin: string
 }
 
 @Injectable()
@@ -47,13 +59,32 @@ export class PrismaChannelRepository {
   }
 
   async getChannelDetailsById(channelId: number) {
-    const channel = await this.prisma.channel.findUnique({
-      where: {
-        id: Number(channelId)
-      }
-    });
-    return new ChannelResponse(channel.name, channel.picture, channel.created_at, channelId, channel.type);
-
+      const channelIdAsInteger = Number(channelId);
+      const channel = await this.prisma.$queryRaw<ChannelDetails>`
+          select c.name        as name,
+                 c.picture     as picture,
+                 c.created_at  as createdat,
+                 c.type        as type,
+                 u.id          as ownerid,
+                 u.name        as ownername,
+                 u.picture     as ownerpicture,
+                 u.intra_login as ownerintraLogin
+          from "Channel" c
+                   LEFT JOIN "User" u on c."channelOwnerId" = u.id
+          where c.id = ${channelIdAsInteger}
+      `;
+      return new ChannelResponse(
+        channel[0].name,
+        channel[0].picture,
+        channel[0].createdat,
+        channelId,
+        channel[0].type,
+        undefined,
+        new User(
+          channel[0].ownerid,
+          channel[0].ownername,
+          channel[0].ownerpicture,
+          channel[0].ownerintraLogin));
   }
 
   async getChannels(userId: number) {
