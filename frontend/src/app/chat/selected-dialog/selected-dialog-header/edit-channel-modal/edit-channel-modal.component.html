@@ -16,7 +16,10 @@
             </div>
         </div>
         <div id="buttons" class="container">
-            <button id="apply-changes-button" (click)="changeChannelName()">Save</button>
+            <button
+                    id="apply-changes-button"
+                    (click)="changeChannelName()"
+                    [ngClass]="{'deactivated' : isNameChanged()}">Save</button>
         </div>
     </div>
 </div>

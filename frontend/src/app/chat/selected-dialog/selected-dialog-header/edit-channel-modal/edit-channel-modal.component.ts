@@ -24,6 +24,8 @@ export class EditChannelModalComponent implements AfterViewInit {
 
   @ViewChild('name') channelName!: ElementRef;
 
+  nameOnInit: string | undefined;
+
   constructor(
     private channelService: ChannelService,
     private socket: OurSocket) {
@@ -34,6 +36,7 @@ export class EditChannelModalComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.channelName.nativeElement.focus();
+    this.nameOnInit = this.channel?.name;
   }
 
   changeChannelName() {
@@ -47,5 +50,9 @@ export class EditChannelModalComponent implements AfterViewInit {
 
   isAdmin(user: User) {
     return this.admins!.some((admin) => admin.id === user.id) && !this.isOwner(user);
+  }
+
+  isNameChanged() {
+    return this.nameOnInit === this.channel?.name;
   }
 }

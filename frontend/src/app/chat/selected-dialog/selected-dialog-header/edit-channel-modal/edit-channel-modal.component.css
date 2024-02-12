@@ -126,3 +126,8 @@ img {
     font-size: 15px;
     letter-spacing: 0.4px;
 }
+
+#apply-changes-button.deactivated {
+    background-color: lightgrey;
+    pointer-events: none;
+}
