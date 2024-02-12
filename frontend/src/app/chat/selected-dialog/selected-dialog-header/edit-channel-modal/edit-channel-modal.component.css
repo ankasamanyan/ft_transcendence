@@ -188,6 +188,7 @@ img {
     font-weight: lighter;
     margin-right: 7px;
     margin-left: auto;
+    max-width: 75px;
 }
 
 .channel-type-text {

@@ -34,6 +34,7 @@ export class EditChannelModalComponent implements AfterViewInit {
   @ViewChild('name') channelName!: ElementRef;
 
   nameOnInit: string | undefined;
+  typeOnInit: string | undefined;
   authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg");
   displayTypes: boolean = false;
 
@@ -48,9 +49,10 @@ export class EditChannelModalComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.channelName.nativeElement.focus();
     this.nameOnInit = this.channel?.name;
+    this.typeOnInit = this.channel?.type;
   }
 
-  changeChannelName() {
+  changeChannelDetails() {
     this.channelService.renameChannel(this.channel!);
     this.modalClose.emit();
   }
@@ -63,8 +65,16 @@ export class EditChannelModalComponent implements AfterViewInit {
     return this.admins!.some((admin) => admin.id === user.id) && !this.isOwner(user);
   }
 
+  channelDetailsChanged() {
+    return this.isNameChanged() || this.isTypeChanged();
+  }
+
   isNameChanged() {
-    return this.nameOnInit === this.channel?.name;
+    return this.nameOnInit != this.channel?.name;
+  }
+
+  isTypeChanged() {
+    return this.typeOnInit != this.channel?.type;
   }
 
   isAuthenticatedUserOwner() {
@@ -89,5 +99,20 @@ export class EditChannelModalComponent implements AfterViewInit {
     if (this.displayTypes && !isClickOnType) {
       this.displayTypes = false;
     }
+  }
+
+  changeTypeToPrivate() {
+    this.displayTypes = false;
+    this.channel!.type = "private";
+  }
+
+  changeTypeToPublic() {
+    this.displayTypes = false;
+    this.channel!.type = "public";
+  }
+
+  changeTypeToPasswordProtected() {
+    this.displayTypes = false;
+    this.channel!.type = "password-protected";
   }
 }

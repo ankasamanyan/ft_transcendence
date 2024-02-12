@@ -18,20 +18,20 @@
         <div class="channel-type" *ngIf="isAuthenticatedUserOwner()">
             <i class="bi bi-people"></i>
             <span class="channel-type-text">Channel type</span>
-            <span class="current-type" (click)="displayTypes=true">{{channel?.type! | titlecase}}</span>
+            <div class="current-type" (click)="displayTypes=true">{{channel?.type! | titlecase}}</div>
             <div class="dropdown" *ngIf="displayTypes">
                 <div class="dropdown-content">
-                    <div id="private" *ngIf="!isCurrentTypePrivate()" (click)="displayTypes=false">Private</div>
-                    <div id="public" *ngIf="!isCurrentTypePublic()" (click)="displayTypes=false">Public</div>
-                    <div id="password-protected" *ngIf="!isCurrentTypePasswordProtected()"  (click)="displayTypes=false">Password-protected</div>
+                    <div id="private" *ngIf="!isCurrentTypePrivate()" (click)="changeTypeToPrivate()">Private</div>
+                    <div id="public" *ngIf="!isCurrentTypePublic()" (click)="changeTypeToPublic()">Public</div>
+                    <div id="password-protected" *ngIf="!isCurrentTypePasswordProtected()" (click)="changeTypeToPasswordProtected()">Password-protected</div>
                 </div>
             </div>
         </div>
         <div id="buttons" class="container">
             <button
                     id="apply-changes-button"
-                    (click)="changeChannelName()"
-                    [ngClass]="{'deactivated' : isNameChanged()}">Save</button>
+                    (click)="changeChannelDetails()"
+                    [ngClass]="{'deactivated' : !channelDetailsChanged()}">Save</button>
         </div>
     </div>
 </div>
