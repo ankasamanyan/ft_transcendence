@@ -141,6 +141,17 @@ export class PrismaChannelRepository {
     });
   }
 
+  async changeChannelType(channel: Channel) {
+    await this.prisma.channel.update({
+      where: {
+        id: Number(channel.id)
+      },
+      data: {
+        type: channel.type,
+      },
+    });
+  }
+
   async initializeChannels() {
     if (await this.prisma.channel.count() === 0) {
       await this.prisma.channel.createMany({

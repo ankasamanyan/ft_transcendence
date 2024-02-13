@@ -58,8 +58,12 @@ export class ChannelService {
       }));
   }
 
-  renameChannel(channel: Channel){
+  renameChannel(channel: Channel) {
     return this.socket.emit('channelRename', ChannelRequest.fromDomain(channel));
+  }
+
+  changeChannelType(channel: Channel) {
+    return this.socket.emit('channelTypeChange', ChannelRequest.fromDomain(channel));
   }
 
   initializeChannels() {

@@ -44,6 +44,9 @@ export class EditChannelModalComponent implements AfterViewInit {
     socket.on("channelRenamed", () => {
       this.channelService.updateChannels.next(true);
     });
+    socket.on("channelTypeChanged", () => {
+      this.channelService.updateChannels.next(true);
+    });
   }
 
   ngAfterViewInit() {
@@ -53,7 +56,12 @@ export class EditChannelModalComponent implements AfterViewInit {
   }
 
   changeChannelDetails() {
-    this.channelService.renameChannel(this.channel!);
+    if (this.isNameChanged()) {
+      this.channelService.renameChannel(this.channel!);
+    }
+    if (this.isTypeChanged()) {
+      this.channelService.changeChannelType(this.channel!);
+    }
     this.modalClose.emit();
   }
 

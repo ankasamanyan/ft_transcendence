@@ -28,4 +28,9 @@ export class ChatGatewayGateway {
     this.server.emit("channelRenamed");
   }
 
+  @SubscribeMessage('channelTypeChange')
+  async changeChannelType(@MessageBody() request: ChannelRequest) {
+    await this.channelService.changeChannelType(ChannelRequest.toDomain(request));
+    this.server.emit("channelTypeChanged");
+  }
 }

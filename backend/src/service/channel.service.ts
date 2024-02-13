@@ -47,6 +47,10 @@ export class ChannelService {
     return this.prismaChannelRepository.renameChannel(channel);
   }
 
+  changeChannelType(channel: Channel) {
+    return this.prismaChannelRepository.changeChannelType(channel);
+  }
+
   initializeChannels() {
     return from(this.prismaChannelRepository.initializeChannels());
   }
