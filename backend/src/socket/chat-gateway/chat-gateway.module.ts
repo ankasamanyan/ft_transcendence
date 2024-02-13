@@ -7,6 +7,8 @@ import {ChannelService} from "../../service/channel.service";
 import {PrismaChannelRepository} from "../../adapter/repository/prisma-channel-repository";
 import {PrismaChannelParticipantRepository} from "../../adapter/repository/prisma-channel-participant-repository";
 import {PrismaChannelAdminRepository} from "../../adapter/repository/prisma-channel-admin-repository";
+import { PrismaBannedUsersRepository } from 'src/adapter/repository/prisma-banned-users-repository';
+import { PrismaMutedUsersRepository } from 'src/adapter/repository/prisma-muted-users-repository';
 
 @Module({
   providers: [
@@ -17,7 +19,10 @@ import {PrismaChannelAdminRepository} from "../../adapter/repository/prisma-chan
     ChannelService,
     PrismaChannelRepository,
     PrismaChannelParticipantRepository,
-    PrismaChannelAdminRepository ]
+    PrismaChannelAdminRepository,
+    PrismaBannedUsersRepository,
+    PrismaMutedUsersRepository
+     ]
 })
 export class ChatGatewayModule {
 }

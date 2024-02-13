@@ -68,13 +68,13 @@ model Friend {
   status           String
 }
 
-model MutedUsers {
+model MutedUser {
     id          Int      @id @default(autoincrement())
     channel_id  Int
     user_id     Int
 }
 
-model BannedUsers {
+model BannedUser {
     id          Int      @id @default(autoincrement())
     channel_id  Int
     user_id     Int

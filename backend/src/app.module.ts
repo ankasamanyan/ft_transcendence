@@ -19,7 +19,9 @@ import {PrismaFriendRepository} from "./adapter/repository/prisma-friend-reposit
 import {FriendService} from "./service/friend.service";
 import {PrismaChannelAdminRepository} from "./adapter/repository/prisma-channel-admin-repository";
 import {PrismaChannelParticipantRepository} from "./adapter/repository/prisma-channel-participant-repository";
-import { ChatGatewayModule } from './socket/chat-gateway/chat-gateway.module';
+import {PrismaMutedUsersRepository} from "./adapter/repository/prisma-muted-users-repository";
+import {PrismaBannedUsersRepository} from "./adapter/repository/prisma-banned-users-repository";
+import {ChatGatewayModule } from './socket/chat-gateway/chat-gateway.module';
 
 @Module({
     imports: [ChatGatewayModule],
@@ -44,7 +46,9 @@ import { ChatGatewayModule } from './socket/chat-gateway/chat-gateway.module';
         PrismaMessagesRepository,
         PrismaFriendRepository,
         PrismaChannelAdminRepository,
-        PrismaChannelParticipantRepository],
+        PrismaChannelParticipantRepository,
+        PrismaMutedUsersRepository,
+        PrismaBannedUsersRepository],
 })
 export class AppModule {
 }
