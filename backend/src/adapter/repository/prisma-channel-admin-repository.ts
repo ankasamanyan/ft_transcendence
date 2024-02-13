@@ -42,4 +42,8 @@ export class PrismaChannelAdminRepository{
         }));
     }
 
+    async assignAdmin(user: User) {
+        
+    }
+
 }

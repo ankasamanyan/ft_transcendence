@@ -59,6 +59,9 @@ export class ChannelController {
   deletePassword(@Param('channelId') channelId: number) {
     return this.channelService.deletePassword(channelId);
   }
+
+  @Delete("/kick-user/:channelId/:userId")
+  kickUser(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+    return this.channelService.kickUser(channelId, userId);
+  }
 }
-/*
-curl X POST -w "%{http_code}\n" -d '{"name": channel, "picture": cats, "createdAt": 024-02-11T14:30:00.000Z, "id": 1, "password": cats}' -H "Content-Type: application/json" http://localhost:3000/channels/set-password

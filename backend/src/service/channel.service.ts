@@ -65,7 +65,8 @@ export class ChannelService {
   leaveChannel() {
   }
 
-  kickUser(user: User) {
+  kickUser(channelId: number, userId: number) {
+    return from(this.prismaChannelParticipantRepository.kickUser(channelId, userId));
   }
 
   muteUser(user: User) {
