@@ -5,14 +5,17 @@ import {Channel} from "../domain/channel";
 import {from} from "rxjs";
 import {PrismaChannelParticipantRepository} from "../adapter/repository/prisma-channel-participant-repository";
 import {PrismaChannelAdminRepository} from "../adapter/repository/prisma-channel-admin-repository";
+import {PrismaBannedUsersRepository } from 'src/adapter/repository/prisma-banned-users-repository';
+import {PrismaMutedUsersRepository } from 'src/adapter/repository/prisma-muted-users-repository';
 
 @Injectable()
 export class ChannelService {
   constructor(
     private prismaChannelRepository: PrismaChannelRepository,
     private prismaChannelParticipantRepository: PrismaChannelParticipantRepository,
-    private prismaChannelAdminRepository: PrismaChannelAdminRepository) {
-
+    private prismaChannelAdminRepository: PrismaChannelAdminRepository,
+    private prismaMutedUsersRepository: PrismaMutedUsersRepository,
+    private prismaBannedUsersRepository: PrismaBannedUsersRepository){
   }
 
   addChannelInformation(channel: Channel) {
@@ -76,12 +79,20 @@ export class ChannelService {
     return from(this.prismaChannelParticipantRepository.kickUser(channelId, userId));
   }
 
-  muteUser(user: User) {
-    //user cannot write messages
+  muteUser(user: User, channelId: number) {
+    return from(this.prismaMutedUsersRepository.muteUser(user, channelId));
   }
 
-  banUser(user: User) {
-    //kicked and cannot rejoin
+  unmuteUser(channelId: number, userId: number) {
+    return from(this.prismaMutedUsersRepository.unmuteUser(channelId, userId));
+  }
+
+  banUser(user: User, channelId: number) {
+    return from(this.prismaBannedUsersRepository.banUser(user, channelId))
+  }
+
+  unbanUser(channelId: number, userId: number) {
+    return from(this.prismaBannedUsersRepository.unbanUser(channelId, userId))
   }
 
   changeStatus(status: number, password: string = "") {

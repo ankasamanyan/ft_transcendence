@@ -47,10 +47,10 @@ export class PrismaBlockedUsersRepository {
             where b."blockerId" = ${blockerIdAsInt}`
         return new UsersResponse(blockedUsers.map((user) => {
              return new UserResponse(
-                 user.id,
-                 user.name,
+                user.id,
+                user.name,
                 user.intra_login,
-                 user.picture);
+                user.picture);
          }));
          
     }
