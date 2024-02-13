@@ -67,3 +67,15 @@ model Friend {
   received_user_id Int
   status           String
 }
+
+model MutedUsers {
+    id          Int      @id @default(autoincrement())
+    channel_id  Int
+    user_id     Int
+}
+
+model BannedUsers {
+    id          Int      @id @default(autoincrement())
+    channel_id  Int
+    user_id     Int
+}
