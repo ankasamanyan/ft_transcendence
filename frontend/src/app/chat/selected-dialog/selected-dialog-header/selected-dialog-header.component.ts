@@ -4,6 +4,7 @@ import {FriendService} from "../../../service/friend.service";
 import {UsersService} from "../../../service/users.service";
 import {ChannelService} from "../../../service/channel.service";
 import {Channel} from "../../../domain/channel";
+import {OurSocket} from "../../../socket/socket";
 
 @Component({
   selector: 'app-selected-dialog-header',
@@ -28,7 +29,16 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   constructor(
     private friendService: FriendService,
     private userService: UsersService,
-    private channelService: ChannelService) {
+    private channelService: ChannelService,
+    private socket: OurSocket) {
+    socket.on("channelRenamed", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
+    socket.on("channelTypeChanged", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
