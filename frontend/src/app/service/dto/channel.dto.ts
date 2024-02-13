@@ -12,7 +12,8 @@ export class ChannelRequest {
     public owner?: User,
     public admins?: User[],
     public lastMessage?: string,
-    public lastMessageCreatedAt?: Date) {
+    public lastMessageCreatedAt?: Date,
+    public password?: string) {
   }
 
   static toDomain(request: ChannelRequest): Channel {
@@ -26,7 +27,8 @@ export class ChannelRequest {
       request.owner,
       request.admins,
       request.lastMessage,
-      request.lastMessageCreatedAt
+      request.lastMessageCreatedAt,
+      request.password
     );
   }
 
@@ -41,7 +43,8 @@ export class ChannelRequest {
       channel.owner,
       channel.admins,
       channel.lastMessage,
-      channel.lastMessageCreatedAt
+      channel.lastMessageCreatedAt,
+      channel.password
     );
   }
 }
@@ -70,7 +73,8 @@ export class ChannelResponse {
     public owner?: User,
     public admins?: User[],
     public lastMessage?: string,
-    public lastMessageCreatedAt?: Date) {
+    public lastMessageCreatedAt?: Date,
+    public password?: string) {
   }
 
   static toDomain(response: ChannelResponse): Channel {
@@ -84,7 +88,8 @@ export class ChannelResponse {
       response.owner,
       response.admins,
       response.lastMessage,
-      response.lastMessageCreatedAt
+      response.lastMessageCreatedAt,
+      response.password
     );
   }
 
@@ -99,7 +104,8 @@ export class ChannelResponse {
       channel.owner,
       channel.admins,
       channel.lastMessage,
-      channel.lastMessageCreatedAt
+      channel.lastMessageCreatedAt,
+      channel.password
     );
   }
 }

@@ -33,4 +33,16 @@ export class ChatGatewayGateway {
     await this.channelService.changeChannelType(ChannelRequest.toDomain(request));
     this.server.emit("channelTypeChanged");
   }
+
+  @SubscribeMessage('passwordRemoval')
+  async deletePassword(@MessageBody() channelId: number) {
+    await this.channelService.deletePassword(channelId);
+    this.server.emit("passwordDeleted");
+  }
+
+  @SubscribeMessage('passwordChange')
+  async setPassword(@MessageBody() request: ChannelRequest) {
+    await this.channelService.setPassword(ChannelRequest.toDomain(request));
+    this.server.emit("passwordSet");
+  }
 }

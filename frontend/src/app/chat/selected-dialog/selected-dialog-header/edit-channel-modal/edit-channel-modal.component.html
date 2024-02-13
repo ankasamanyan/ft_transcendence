@@ -1,11 +1,11 @@
 <div class="edit-channel-modal">
     <div class="edit-channel-inner-modal">
         <div class="exit-icon">
-            <i class="bi bi-x-lg" (click)="modalClose.emit()"></i>
+            <i class="bi bi-x-lg" (click)="setValuesToInitialOnes()"></i>
         </div>
         <div class="container channel-details">
             <div><img class="channel-photo" [src]="channel?.picture" alt=""></div>
-            <div><input #name [(ngModel)]="channel!.name"></div>
+            <div><input class="name-input"#name [(ngModel)]="channel!.name"></div>
         </div>
         <div class="all-participants">
             <div class="participant" *ngFor="let participant of channelParticipants">
@@ -26,6 +26,11 @@
                     <div id="password-protected" *ngIf="!isCurrentTypePasswordProtected()" (click)="changeTypeToPasswordProtected()">Password-protected</div>
                 </div>
             </div>
+        </div>
+        <div class="password" *ngIf="isCurrentTypePasswordProtected()">
+            <i class="bi bi-lock"></i>
+            <span>Password</span>
+            <div class="current-password"><input class="password-input" [(ngModel)]="channel!.password"></div>
         </div>
         <div id="buttons" class="container">
             <button

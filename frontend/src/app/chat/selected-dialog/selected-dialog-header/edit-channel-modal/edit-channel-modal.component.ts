@@ -35,6 +35,7 @@ export class EditChannelModalComponent implements AfterViewInit {
 
   nameOnInit: string | undefined;
   typeOnInit: string | undefined;
+  passwordOnInit: string | undefined;
   authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg");
   displayTypes: boolean = false;
 
@@ -47,12 +48,19 @@ export class EditChannelModalComponent implements AfterViewInit {
     socket.on("channelTypeChanged", () => {
       this.channelService.updateChannels.next(true);
     });
+    socket.on("passwordSet", () => {
+      this.channelService.updateChannels.next(true);
+    });
+    socket.on("passwordDeleted", () => {
+      this.channelService.updateChannels.next(true);
+    });
   }
 
   ngAfterViewInit() {
     this.channelName.nativeElement.focus();
     this.nameOnInit = this.channel?.name;
     this.typeOnInit = this.channel?.type;
+    this.passwordOnInit = this.channel?.password;
   }
 
   changeChannelDetails() {
@@ -60,7 +68,10 @@ export class EditChannelModalComponent implements AfterViewInit {
       this.channelService.renameChannel(this.channel!);
     }
     if (this.isTypeChanged()) {
-      this.channelService.changeChannelType(this.channel!);
+      this.processTypeChange();
+    }
+    if (this.isPasswordChanged()) {
+      this.channelService.setPassword(this.channel!);
     }
     this.modalClose.emit();
   }
@@ -74,7 +85,9 @@ export class EditChannelModalComponent implements AfterViewInit {
   }
 
   channelDetailsChanged() {
-    return this.isNameChanged() || this.isTypeChanged();
+    return this.isNameChanged()
+      || (this.isTypeChanged() && this.doesPasswordProtectedChannelHasPassword())
+      || (this.isPasswordChanged() && this.typeOnInit === "password-protected" && this.isCurrentTypePasswordProtected());
   }
 
   isNameChanged() {
@@ -83,6 +96,10 @@ export class EditChannelModalComponent implements AfterViewInit {
 
   isTypeChanged() {
     return this.typeOnInit != this.channel?.type;
+  }
+
+  isPasswordChanged() {
+    return this.passwordOnInit != this.channel?.password;
   }
 
   isAuthenticatedUserOwner() {
@@ -99,6 +116,13 @@ export class EditChannelModalComponent implements AfterViewInit {
 
   isCurrentTypePasswordProtected() {
     return this.channel?.type === "password-protected";
+  }
+
+  doesPasswordProtectedChannelHasPassword() {
+    if (this.isCurrentTypePasswordProtected()) {
+      return this.channel?.password != undefined && this.channel?.password != "";
+    }
+    return true;
   }
 
   @HostListener('document:click', ['$event'])
@@ -122,5 +146,19 @@ export class EditChannelModalComponent implements AfterViewInit {
   changeTypeToPasswordProtected() {
     this.displayTypes = false;
     this.channel!.type = "password-protected";
+  }
+
+  processTypeChange() {
+    this.channelService.changeChannelType(this.channel!);
+    if (this.typeOnInit === "password-protected" && (this.isCurrentTypePrivate() || this.isCurrentTypePublic())) {
+      this.channelService.deletePassword(this.channel!.id!);
+    }
+  }
+
+  setValuesToInitialOnes() {
+    this.channel!.password = this.passwordOnInit;
+    this.channel!.name = this.nameOnInit!;
+    this.channel!.type = this.typeOnInit;
+    this.modalClose.emit();
   }
 }

@@ -66,6 +66,14 @@ export class ChannelService {
     return this.socket.emit('channelTypeChange', ChannelRequest.fromDomain(channel));
   }
 
+  deletePassword(channelId: number) {
+    return this.socket.emit('passwordRemoval', channelId);
+  }
+
+  setPassword(channel: Channel) {
+    return this.socket.emit('passwordChange', ChannelRequest.fromDomain(channel));
+  }
+
   initializeChannels() {
     return this.httpClient.post<void>("http://localhost:3000/channels/mocks", {});
   }

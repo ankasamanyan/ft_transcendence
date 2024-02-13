@@ -65,6 +65,7 @@ export class PrismaChannelRepository {
                  c.picture     as picture,
                  c.created_at  as createdat,
                  c.type        as type,
+                 c.password    as password,
                  u.id          as ownerid,
                  u.name        as ownername,
                  u.picture     as ownerpicture,
@@ -84,7 +85,11 @@ export class PrismaChannelRepository {
           channel[0].ownerid,
           channel[0].ownername,
           channel[0].ownerpicture,
-          channel[0].ownerintraLogin));
+          channel[0].ownerintraLogin),
+        undefined,
+        undefined,
+        undefined,
+        channel[0].password);
   }
 
   async getChannels(userId: number) {

@@ -12,10 +12,10 @@
 
 .edit-channel-inner-modal {
     background-color: #fefefe;
-    margin: 10% auto;
+    margin: 7% auto;
     padding: 20px;
     border: none;
-    max-width: 360px;
+    max-width: 380px;
     border-radius: 10px;
     box-shadow: 0 1px 17px rgba(0,0,0,0.09);
     font-weight: 300;
@@ -41,7 +41,7 @@
 }
 
 #buttons {
-    margin-top: 14px;
+    margin-top: 18px;
     display: flex;
     justify-content: right;
 }
@@ -65,9 +65,9 @@ button {
     background-color: var(--color-orange-darker);
 }
 
-input {
+.name-input {
     font-size: 16px;
-    width: 200px;
+    width: 220px;
     height: 30px;
     border: none;
     border-bottom: solid 1px var(--color-dark-blue);
@@ -102,7 +102,7 @@ img {
 .all-participants {
     display: block;
     background-color: white;
-    width: 280px;
+    width: 300px;
     border-radius: 8px;
     overflow: scroll;
     max-height: 140px;
@@ -117,7 +117,7 @@ img {
 
 .participant {
     padding: 8px;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .participant:hover {
@@ -129,7 +129,7 @@ img {
     float: right;
     font-weight: lighter;
     color: var(--color-dark-blue);
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 0.4px;
 }
 
@@ -138,15 +138,15 @@ img {
     pointer-events: none;
 }
 
-.bi-people {
+.bi-people, .bi-lock {
     margin-right: 9px;
     margin-left: 9px;
 }
 
 .channel-type {
-    width: 280px;
-    margin: 0 auto 20px auto;
-    font-size: 15px;
+    width: 300px;
+    margin: 0 auto 14px auto;
+    font-size: 14px;
     display: flex;
     padding-top: 8px;
 }
@@ -168,7 +168,7 @@ img {
 
 .dropdown-content div {
     padding: 6px;
-    font-size: 15px;
+    font-size: 14px;
     cursor: pointer;
     color: var(--color-dark-blue);
     letter-spacing: 0.4px;
@@ -181,16 +181,38 @@ img {
 }
 
 .current-type {
-    font-size: 15px;
+    font-size: 14px;
     cursor: pointer;
     color: var(--color-dark-blue);
     letter-spacing: 0.4px;
     font-weight: lighter;
-    margin-right: 7px;
+    margin-right: 4px;
     margin-left: auto;
-    max-width: 75px;
 }
 
-.channel-type-text {
+.channel-type-text{
     letter-spacing: 0.4px;
+}
+
+.password {
+    width: 300px;
+    margin: 0 auto;
+    font-size: 14px;
+    display: flex;
+    letter-spacing: 0.4px;
+}
+
+.password-input {
+    width: 142px;
+    color: var(--color-dark-blue);
+    font-weight: lighter;
+    border: none;
+    border-bottom: solid 1px lightgrey;
+    text-align: right;
+    padding-right: 3px;
+}
+
+.current-password {
+    margin-right: 1px;
+    margin-left: auto;
 }
