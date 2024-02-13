@@ -64,4 +64,10 @@ export class ChannelController {
   kickUser(@Param('channelId') channelId: number, @Param('userId') userId: number) {
     return this.channelService.kickUser(channelId, userId);
   }
+
+  
+  @Delete("/leave-channel/:channelId/:userId")
+  leaveChannel(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+    return this.channelService.leaveChannel(channelId, userId);
+  }
 }

@@ -70,4 +70,14 @@ export class PrismaChannelParticipantRepository {
     })
     console.log(`user id is ${userId}, channel id is ${channelId}`);
   }
+
+  async leaveChannel(channelId: number, userId: number) {
+    await this.prisma.channelParticipant.deleteMany({
+      where: {
+        user_id: Number(userId),
+        channel_id: Number(channelId)
+      }
+    })
+    console.log(`user id is ${userId}, channel id is ${channelId}`);
+  }
 }
