@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post, Put} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Put, Delete} from '@nestjs/common';
 import {ChannelService} from "../service/channel.service";
 import {UsersRequest} from "./dto/users-request";
 import {Channel} from "../domain/channel";
@@ -49,4 +49,16 @@ export class ChannelController {
   initializeChannels() {
     return this.channelService.initializeChannels();
   }
+
+  @Post("/set-password")
+  setPassword(@Body() request: ChannelRequest) {
+    return this.channelService.setPassword(ChannelRequest.toDomain(request));
+  }
+
+  @Delete("/delete-password/:channelId")
+  deletePassword(@Param('channelId') channelId: number) {
+    return this.channelService.deletePassword(channelId);
+  }
 }
+/*
+curl X POST -w "%{http_code}\n" -d '{"name": channel, "picture": cats, "createdAt": 024-02-11T14:30:00.000Z, "id": 1, "password": cats}' -H "Content-Type: application/json" http://localhost:3000/channels/set-password
