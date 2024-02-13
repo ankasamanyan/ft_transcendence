@@ -18,14 +18,14 @@ export class PrismaMutedUsersRepository{
 	async muteUser(mutedUser: User, channelId: number) {
         await this.prisma.mutedUser.create({
             data: {
-                channel_id: channelId,
-                user_id: mutedUser.id,
+                channel_id: Number(channelId),
+                user_id: Number(mutedUser.id),
             }
         });
     }
 
-	async unmuteUser(channelId: number, mutedUserId: number, ) {
-		await this.prisma.bannedUser.deleteMany({
+	async unmuteUser(channelId: number, mutedUserId: number ) {
+		await this.prisma.mutedUser.deleteMany({
 		  where: {
 			  channel_id: Number(channelId),
 			  user_id: Number(mutedUserId),

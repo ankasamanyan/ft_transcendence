@@ -19,8 +19,8 @@ export class PrismaBannedUsersRepository{
 	async banUser(bannedUser: User, channelId: number) {
         await this.prisma.bannedUser.create({
             data: {
-                channel_id: channelId,
-                user_id: bannedUser.id,
+                channel_id: Number(channelId),
+                user_id: Number(bannedUser.id),
             }
         });
     }
