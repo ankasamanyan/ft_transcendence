@@ -68,7 +68,6 @@ export class PrismaChannelParticipantRepository {
         channel_id: Number(channelId)
       }
     })
-    console.log(`user id is ${userId}, channel id is ${channelId}`);
   }
 
   async leaveChannel(channelId: number, userId: number) {
@@ -78,15 +77,25 @@ export class PrismaChannelParticipantRepository {
         channel_id: Number(channelId)
       }
     })
-    console.log(`user id is ${userId}, channel id is ${channelId}`);
   }
 
   async enterChannel(user: User, channelId: number) {
-    await this.prisma.channelParticipant.create({
-      data: {
-        channel_id: Number(channelId),
-        user_id: Number(user.id)
+      const bannedUser = await this.prisma.bannedUser.findFirst({
+        where: {
+          user_id: Number(user.id),
+          channel_id: Number(channelId)
+        },
+      });
+      if (bannedUser) {
+        console.log('User is banned');
+      } else {
+        await this.prisma.channelParticipant.create({
+          data: {
+            channel_id: Number(channelId),
+            user_id: Number(user.id),
+          },
+        });
+        console.log('User added to ParticipantTable');
       }
-    })
-  }
+    }
 }
