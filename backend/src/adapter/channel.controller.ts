@@ -106,5 +106,13 @@ export class ChannelController {
     return this.channelService.assignAdmin(UserResponse.toDomain(request), channelId);
   } 
   
+  @Post("/status")
+  changeStatus(@Body() request: ChannelRequest) {
+    return this.channelService.changeStatus(ChannelResponse.toDomain(request));
+  }
 
+  @Get("/status/:channelId")
+  getStatus(@Param('channelId') channelId: number) {
+    return this.channelService.getStatus(channelId);
+  }
 }

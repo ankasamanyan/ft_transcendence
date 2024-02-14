@@ -194,4 +194,28 @@ export class PrismaChannelRepository {
         },
     });
   }
+
+  async changeStatus(channelId: number, status: string, password: string | null) {
+    await this.prisma.channel.update({
+      where: {
+        id: Number(channelId),
+      },
+      data: {
+        type: status,
+        password: password,
+      },
+    })
+  }
+
+  async getStatus(channelId: number) {
+    const channel = await this.prisma.channel.findFirst({
+      where: {
+          id: Number(channelId)
+      },
+      select: {
+          type: true
+      }
+    });
+    return channel.type;
+  }
 }

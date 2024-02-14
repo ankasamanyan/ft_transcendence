@@ -104,7 +104,12 @@ export class ChannelService {
     return from(this.prismaBannedUsersRepository.unbanUser(channelId, userId))
   }
 
-  changeStatus(status: number, password: string = "") {
+  changeStatus(channel: Channel) {
     //public, private or password-protected
+    return from(this.prismaChannelRepository.changeStatus(channel.id, channel.type, channel.password));
+  }
+
+  getStatus(channelId:number) {
+    return from(this.prismaChannelRepository.getStatus(channelId));
   }
 }
