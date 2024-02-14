@@ -61,6 +61,11 @@ export class ChannelController {
     return this.channelService.deletePassword(channelId);
   }
 
+  @Post("/participants/:channelId")
+  enterChannel(@Body() request: UserRequest, @Param('channelId') channelId: number) {
+    return this.channelService.enterChannel(UserResponse.toDomain(request), channelId);
+  }
+
   @Delete("/kick-user/:channelId/:userId")
   kickUser(@Param('channelId') channelId: number, @Param('userId') userId: number) {
     return this.channelService.kickUser(channelId, userId);

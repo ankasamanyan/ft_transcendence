@@ -70,6 +70,10 @@ export class ChannelService {
     return from(this.prismaChannelAdminRepository.assignAdmin(user, channelId));
   }
 
+  enterChannel(user: User, channelId: number) {
+    return from(this.prismaChannelParticipantRepository.enterChannel(user, channelId));
+  }
+
     //at the moment this is exactly like kickUser
   leaveChannel(channelId: number, userId: number) {
     return from(this.prismaChannelParticipantRepository.leaveChannel(channelId, userId));

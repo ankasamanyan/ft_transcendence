@@ -80,4 +80,13 @@ export class PrismaChannelParticipantRepository {
     })
     console.log(`user id is ${userId}, channel id is ${channelId}`);
   }
+
+  async enterChannel(user: User, channelId: number) {
+    await this.prisma.channelParticipant.create({
+      data: {
+        channel_id: Number(channelId),
+        user_id: Number(user.id)
+      }
+    })
+  }
 }
