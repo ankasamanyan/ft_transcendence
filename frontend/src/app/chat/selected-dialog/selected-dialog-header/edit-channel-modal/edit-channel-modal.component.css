@@ -138,7 +138,7 @@ input:focus {
     pointer-events: none;
 }
 
-.bi-people, .bi-lock {
+.bi-people, .bi-key {
     margin-right: 9px;
     margin-left: 9px;
 }
@@ -220,4 +220,12 @@ input:focus {
 .current-password {
     margin-right: 1px;
     margin-left: auto;
+}
+
+.three-dots-icon {
+    float: right;
+    cursor: pointer;
+    padding: 3px 0;
+    border-radius: 6px;
+    color: grey;
 }

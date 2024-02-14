@@ -113,6 +113,10 @@ export class EditChannelModalComponent implements AfterViewInit {
     return this.authenticatedUser.id === this.channel?.owner!.id;
   }
 
+  isAuthenticatedUserAdmin() {
+    return this.channel?.admins?.some((value) => value.id === this.authenticatedUser.id);
+  }
+
   isCurrentTypePrivate() {
     return this.channel?.type === "private";
   }
@@ -167,5 +171,9 @@ export class EditChannelModalComponent implements AfterViewInit {
     this.channel!.name = this.nameOnInit!;
     this.channel!.type = this.typeOnInit;
     this.modalClose.emit();
+  }
+
+  isAuthenticatedadminOrOwner() {
+    return this.isAuthenticatedUserOwner() || this.isAuthenticatedUserAdmin();
   }
 }

@@ -12,7 +12,8 @@
                 <img [src]="participant.picture">
                 <span>{{participant.name}}</span>
                 <span class="owner" *ngIf="isOwner(participant)">Owner</span>
-                <span class="admin" *ngIf="isAdmin(participant)">Admin</span>
+                <span class="admin" *ngIf="isAdmin(participant) && !isAuthenticatedadminOrOwner()">Admin</span>
+                <span class="three-dots-icon" *ngIf="isAuthenticatedadminOrOwner() && !isOwner(participant)"><i class="bi bi-three-dots-vertical"></i></span>
             </div>
         </div>
         <div class="channel-type" *ngIf="isAuthenticatedUserOwner()">
@@ -28,9 +29,9 @@
             </div>
         </div>
         <div class="password" *ngIf="isCurrentTypePasswordProtected() && isAuthenticatedUserOwner()">
-            <i class="bi bi-lock"></i>
+            <i class="bi bi-key"></i>
             <span>Password</span>
-            <div class="current-password"><input class="password-input" [(ngModel)]="channel!.password"></div>
+            <div class="current-password"><input type="password" class="password-input" [(ngModel)]="channel!.password"></div>
         </div>
         <div id="buttons" class="container">
             <button
