@@ -42,7 +42,13 @@ export class PrismaChannelAdminRepository{
         }));
     }
 
-    async assignAdmin(user: User) {
+    async assignAdmin(user: User, channelId: number) {
+        return this.prisma.channelAdmin.create({
+            data: {
+                channel_id: Number(channelId),
+                user_id: Number(user.id)
+            }
+        })
         
     }
 

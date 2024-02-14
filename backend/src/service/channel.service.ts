@@ -66,7 +66,8 @@ export class ChannelService {
     return from(this.prismaChannelRepository.deletePassword(channelId));
   }
 
-  assignAdmin(user: User) {
+  assignAdmin(user: User, channelId: number) {
+    return from(this.prismaChannelAdminRepository.assignAdmin(user, channelId));
   }
 
     //at the moment this is exactly like kickUser

@@ -96,4 +96,10 @@ export class ChannelController {
     return this.channelService.unbanUser(channelId, userId);
   }
 
+  @Post("/admins/:channelId")
+  assignAdmin(@Body() request: UserRequest, @Param('channelId') channelId: number) {
+    return this.channelService.assignAdmin(UserResponse.toDomain(request), channelId);
+  } 
+  
+
 }
