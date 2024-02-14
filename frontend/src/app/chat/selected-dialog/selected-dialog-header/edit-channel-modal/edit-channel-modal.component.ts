@@ -85,9 +85,10 @@ export class EditChannelModalComponent implements AfterViewInit {
   }
 
   channelDetailsChanged() {
-    return this.isNameChanged()
-      || (this.isTypeChanged() && this.doesPasswordProtectedChannelHasPassword())
-      || (this.isPasswordChanged() && this.typeOnInit === "password-protected" && this.isCurrentTypePasswordProtected());
+    return this.doesPasswordProtectedChannelHasPassword()
+      && (this.isNameChanged()
+      || this.isTypeChanged()
+      || this.passwordChangedTypeDidnt());
   }
 
   isNameChanged() {
@@ -100,6 +101,12 @@ export class EditChannelModalComponent implements AfterViewInit {
 
   isPasswordChanged() {
     return this.passwordOnInit != this.channel?.password;
+  }
+
+  passwordChangedTypeDidnt() {
+    return this.isPasswordChanged()
+      && this.typeOnInit === "password-protected"
+      && this.isCurrentTypePasswordProtected();
   }
 
   isAuthenticatedUserOwner() {

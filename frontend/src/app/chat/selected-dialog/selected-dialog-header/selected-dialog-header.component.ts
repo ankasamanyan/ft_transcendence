@@ -39,6 +39,14 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       this.channelService.updateChannels.next(true);
       this.getChannel();
     });
+    socket.on("passwordSet", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
+    socket.on("passwordDeleted", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
