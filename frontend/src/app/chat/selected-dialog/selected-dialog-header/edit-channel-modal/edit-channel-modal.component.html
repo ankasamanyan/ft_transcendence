@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="password" *ngIf="isCurrentTypePasswordProtected()">
+        <div class="password" *ngIf="isCurrentTypePasswordProtected() && isAuthenticatedUserOwner()">
             <i class="bi bi-lock"></i>
             <span>Password</span>
             <div class="current-password"><input class="password-input" [(ngModel)]="channel!.password"></div>
