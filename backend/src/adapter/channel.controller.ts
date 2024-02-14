@@ -104,7 +104,12 @@ export class ChannelController {
   @Post("/admins/:channelId")
   assignAdmin(@Body() request: UserRequest, @Param('channelId') channelId: number) {
     return this.channelService.assignAdmin(UserResponse.toDomain(request), channelId);
-  } 
+  }
+
+  @Delete("/admins/:channelId/:userId")
+  removeAdmin(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+    return this.channelService.removeAdmin(channelId, userId);
+  }
   
   @Post("/status")
   changeStatus(@Body() request: ChannelRequest) {

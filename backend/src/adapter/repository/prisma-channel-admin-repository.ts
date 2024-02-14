@@ -49,7 +49,15 @@ export class PrismaChannelAdminRepository{
                 user_id: Number(user.id)
             }
         })
-        
+    }
+
+    async removeAdmin(channelId: number, userId: number) {
+        return this.prisma.channelAdmin.deleteMany({
+            where: {
+                channel_id: Number(channelId),
+                user_id: Number(userId)
+            }
+        })
     }
 
 }

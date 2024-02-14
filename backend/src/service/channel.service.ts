@@ -70,6 +70,10 @@ export class ChannelService {
     return from(this.prismaChannelAdminRepository.assignAdmin(user, channelId));
   }
 
+  removeAdmin(channelId: number, userId: number) {
+    return from(this.prismaChannelAdminRepository.removeAdmin(channelId, userId));
+  }
+
   enterChannel(user: User, channelId: number) {
     return from(this.prismaChannelParticipantRepository.enterChannel(user, channelId));
   }
