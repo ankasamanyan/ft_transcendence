@@ -81,6 +81,11 @@ export class ChannelController {
     return this.channelService.unmuteUser(channelId, userId);
   }
 
+  @Get("/muted-users/:channelId/:userId")
+  isMuted(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+    return this.channelService.isMuted(channelId, userId);
+  }
+
   @Post("/ban-user/:channelId")
   banUser(@Body() request: UserRequest,  @Param('channelId') channelId: number) {
     return this.channelService.banUser(UserResponse.toDomain(request), channelId);

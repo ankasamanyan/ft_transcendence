@@ -51,4 +51,14 @@ export class PrismaMutedUsersRepository{
                 user.picture);
 		}));
 	}
+
+	async isMuted(channelId: number, userId: number) {
+		const mutedUser = await this.prisma.mutedUser.findFirst({
+			where: {
+			  channel_id: Number(channelId),
+			  user_id: Number(userId)
+			},
+		  });
+		  return mutedUser !== null;
+	}
 }

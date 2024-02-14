@@ -87,6 +87,10 @@ export class ChannelService {
     return from(this.prismaMutedUsersRepository.unmuteUser(channelId, userId));
   }
 
+  isMuted(channelId: number, userId: number) {
+    return from(this.prismaMutedUsersRepository.isMuted(channelId, userId));
+  }
+
   banUser(user: User, channelId: number) {
     return from(this.prismaBannedUsersRepository.banUser(user, channelId))
   }
