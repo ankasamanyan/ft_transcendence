@@ -15,7 +15,7 @@
     margin: 7% auto;
     padding: 20px;
     border: none;
-    max-width: 380px;
+    max-width: 390px;
     border-radius: 10px;
     box-shadow: 0 1px 17px rgba(0,0,0,0.09);
     font-weight: 300;
@@ -67,7 +67,7 @@ button {
 
 .name-input {
     font-size: 16px;
-    width: 220px;
+    width: 224px;
     height: 30px;
     border: none;
     border-bottom: solid 1px var(--color-dark-blue);
@@ -79,8 +79,8 @@ input:focus {
 }
 
 .channel-photo {
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     border-radius: 30px;
     margin-right: 12px;
     margin-left: 8px;
@@ -91,7 +91,7 @@ input:focus {
     font-size: 28px;
 }
 
-img {
+.participant img {
     width: 11%;
     height: 30px;
     border-radius: 25px;
@@ -102,10 +102,10 @@ img {
 .all-participants {
     display: block;
     background-color: white;
-    width: 300px;
+    width: 310px;
     border-radius: 8px;
     overflow: scroll;
-    max-height: 140px;
+    max-height: 134px;
     margin: 10px auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -116,7 +116,7 @@ img {
 }
 
 .participant {
-    padding: 8px;
+    padding: 7px;
     font-size: 14px;
 }
 
@@ -144,8 +144,8 @@ img {
 }
 
 .channel-type {
-    width: 300px;
-    margin: 0 auto 14px auto;
+    width: 310px;
+    margin: 0 auto 7px auto;
     font-size: 14px;
     display: flex;
     padding-top: 8px;
@@ -195,7 +195,7 @@ img {
 }
 
 .password {
-    width: 300px;
+    width: 310px;
     margin: 0 auto;
     font-size: 14px;
     display: flex;
