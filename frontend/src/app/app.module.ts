@@ -33,6 +33,7 @@ import { InvitationToBeFriendsReceivedNotificationComponent } from './chat/selec
 import { EditChannelModalComponent } from './chat/selected-dialog/selected-dialog-header/edit-channel-modal/edit-channel-modal.component';
 import { SettingsComponent } from './my-profile/settings/settings.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { ParticipantComponent } from './chat/selected-dialog/selected-dialog-header/edit-channel-modal/participant/participant.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     InvitationToBeFriendsReceivedNotificationComponent,
     EditChannelModalComponent,
     SettingsComponent,
+    ParticipantComponent,
   ],
   imports: [
     BrowserModule,

@@ -91,14 +91,6 @@ input:focus {
     font-size: 28px;
 }
 
-.participant img {
-    width: 11%;
-    height: 30px;
-    border-radius: 25px;
-    margin-right: 9px;
-    object-fit: cover;
-}
-
 .all-participants {
     display: block;
     background-color: white;
@@ -123,14 +115,6 @@ input:focus {
 .participant:hover {
     background-color: var(--color-light-gray);
     border-radius: 8px;
-}
-
-.owner, .admin {
-    float: right;
-    font-weight: lighter;
-    color: var(--color-dark-blue);
-    font-size: 14px;
-    letter-spacing: 0.4px;
 }
 
 #apply-changes-button.deactivated {
@@ -220,12 +204,4 @@ input:focus {
 .current-password {
     margin-right: 1px;
     margin-left: auto;
-}
-
-.three-dots-icon {
-    float: right;
-    cursor: pointer;
-    padding: 3px 0;
-    border-radius: 6px;
-    color: grey;
 }
