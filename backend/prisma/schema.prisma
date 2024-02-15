@@ -73,3 +73,10 @@ model BannedUser {
     channel_id  Int
     user_id     Int
 }
+
+model MutedUser {
+    id          Int      @id @default(autoincrement())
+    channel_id  Int
+    user_id     Int
+    created_at  DateTime
+}
