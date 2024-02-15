@@ -1,0 +1,9 @@
+<img [src]="participant?.picture">
+<span>{{participant?.name}}</span>
+<span class="owner" *ngIf="isOwner(participant!)">Owner</span>
+<span class="admin" *ngIf="isAdmin(participant!) && !isAuthenticatedadminOrOwner()">Admin</span>
+<span class="three-dots-icon"
+      *ngIf="isAuthenticatedadminOrOwner() && !isOwner(participant!)"
+      (click)="displayUserActions=true">
+    <i class="bi bi-three-dots-vertical"></i>
+</span>

@@ -5,15 +5,16 @@
         </div>
         <div class="container channel-details">
             <div><img class="channel-photo" [src]="channel?.picture" alt=""></div>
-            <div><input class="name-input"#name [(ngModel)]="channel!.name"></div>
+            <div><input class="name-input" #name [(ngModel)]="channel!.name"></div>
         </div>
         <div class="all-participants">
             <div class="participant" *ngFor="let participant of channelParticipants">
-                <img [src]="participant.picture">
-                <span>{{participant.name}}</span>
-                <span class="owner" *ngIf="isOwner(participant)">Owner</span>
-                <span class="admin" *ngIf="isAdmin(participant) && !isAuthenticatedadminOrOwner()">Admin</span>
-                <span class="three-dots-icon" *ngIf="isAuthenticatedadminOrOwner() && !isOwner(participant)"><i class="bi bi-three-dots-vertical"></i></span>
+                <app-participant
+                        [participant]="participant"
+                        [channel]="channel"
+                        [admins]="admins"
+                        [authenticatedUser]="authenticatedUser">
+                </app-participant>
             </div>
         </div>
         <div class="channel-type" *ngIf="isAuthenticatedUserOwner()">
@@ -24,20 +25,24 @@
                 <div class="dropdown-content">
                     <div id="private" *ngIf="!isCurrentTypePrivate()" (click)="changeTypeToPrivate()">Private</div>
                     <div id="public" *ngIf="!isCurrentTypePublic()" (click)="changeTypeToPublic()">Public</div>
-                    <div id="password-protected" *ngIf="!isCurrentTypePasswordProtected()" (click)="changeTypeToPasswordProtected()">Password-protected</div>
+                    <div id="password-protected" *ngIf="!isCurrentTypePasswordProtected()"
+                         (click)="changeTypeToPasswordProtected()">Password-protected
+                    </div>
                 </div>
             </div>
         </div>
         <div class="password" *ngIf="isCurrentTypePasswordProtected() && isAuthenticatedUserOwner()">
             <i class="bi bi-key"></i>
             <span>Password</span>
-            <div class="current-password"><input type="password" class="password-input" [(ngModel)]="channel!.password"></div>
+            <div class="current-password"><input type="password" class="password-input" [(ngModel)]="channel!.password">
+            </div>
         </div>
         <div id="buttons" class="container">
             <button
                     id="apply-changes-button"
                     (click)="changeChannelDetails()"
-                    [ngClass]="{'deactivated' : !channelDetailsChanged()}">Save</button>
+                    [ngClass]="{'deactivated' : !channelDetailsChanged()}">Save
+            </button>
         </div>
     </div>
 </div>
