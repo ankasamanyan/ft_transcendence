@@ -51,6 +51,11 @@ export class ChannelController {
     return this.channelService.initializeChannels();
   }
 
+  @Delete("/channels/:channelId")
+  removeChannel(@Param('channelId') channelId: number) {
+    return this.channelService.removeChannel(channelId);
+  }
+
   @Post("/set-password")
   setPassword(@Body() request: ChannelRequest) {
     return this.channelService.setPassword(ChannelRequest.toDomain(request));

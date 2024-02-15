@@ -58,6 +58,10 @@ export class ChannelService {
     return from(this.prismaChannelRepository.initializeChannels());
   }
 
+  removeChannel(channelId: number) {
+    return from(this.prismaChannelRepository.removeChannel(channelId))
+  }
+
   setPassword(channel: Channel) {
     return from(this.prismaChannelRepository.setPassword(channel));
   }

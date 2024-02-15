@@ -58,6 +58,14 @@ export class PrismaChannelRepository {
     );
   }
 
+  async removeChannel(channelId: number) {
+    await this.prisma.channel.delete({
+      where: {
+        id: Number(channelId)
+      }
+    })
+  }
+
   async getChannelDetailsById(channelId: number) {
       const channelIdAsInteger = Number(channelId);
       const channel = await this.prisma.$queryRaw<ChannelDetails>`
