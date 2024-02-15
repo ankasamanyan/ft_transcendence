@@ -7,3 +7,12 @@
       (click)="displayUserActions=true">
     <i class="bi bi-three-dots-vertical"></i>
 </span>
+<div class="dropdown-three-dots" *ngIf="displayUserActions">
+    <div class="dropdown-content-three-dots">
+        <div class="make-admin" *ngIf="isAuthenticatedUserOwner()"><i class="bi bi-magic"></i>Make admin</div>
+        <div class="remove-admin-rights" *ngIf="isAuthenticatedUserOwner() && isAdmin(participant!)"><i class="bi bi-magic"></i>Remove admin rights</div>
+        <div class="mute"><i class="bi bi-mic-mute"></i>Mute for 15 minutes</div>
+        <div class="kick"><i class="bi bi-dash-circle-dotted"></i>Kick out</div>
+        <div class="ban"><i class="bi bi-dash-circle"></i>Ban</div>
+    </div>
+</div>

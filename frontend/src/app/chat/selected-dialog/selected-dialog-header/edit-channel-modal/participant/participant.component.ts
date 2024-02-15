@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, ViewChild} from '@angular/core';
 import {User} from "../../../../../domain/user";
 import {Channel} from "../../../../../domain/channel";
 
@@ -40,5 +40,13 @@ export class ParticipantComponent {
 
   isAuthenticatedadminOrOwner() {
     return this.isAuthenticatedUserOwner() || this.isAuthenticatedUserAdmin();
+  }
+
+  @HostListener('document:click', ['$event'])
+  hideUserActions(event: MouseEvent) {
+    const isClickOnDots = (event.target as HTMLElement).classList.contains('bi-three-dots-vertical')
+    if (this.displayUserActions && !isClickOnDots) {
+      this.displayUserActions = false;
+    }
   }
 }
