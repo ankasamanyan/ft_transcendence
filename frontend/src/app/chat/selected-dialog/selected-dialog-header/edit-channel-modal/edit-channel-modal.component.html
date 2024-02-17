@@ -15,7 +15,9 @@
                         [admins]="admins"
                         [authenticatedUser]="authenticatedUser"
                         (adminAdded)="addAdmin($event)"
-                        (adminRemoved)="removeAdminRights($event)">
+                        (adminRemoved)="removeAdminRights($event)"
+                        (userBanned)="banUser($event)"
+                        (userKickedOut)="kickUser($event)">
                 </app-participant>
             </div>
         </div>

@@ -38,6 +38,7 @@ export class EditChannelModalComponent implements AfterViewInit {
   typeOnInit: string | undefined;
   passwordOnInit: string | undefined;
   newAdmins = new Map<User, boolean>();
+  byeByeUsers = new Map<User, string>();
   authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg");
   displayTypes: boolean = false;
 
@@ -63,14 +64,10 @@ export class EditChannelModalComponent implements AfterViewInit {
       this.channelService.setPassword(this.channel!);
     }
     if (this.adminsChanged()) {
-      let adminsToAdd = Array.from(this.newAdmins.keys()).filter(user => this.newAdmins.get(user) === true);
-      let adminsToRemove = Array.from(this.newAdmins.keys()).filter(user => this.newAdmins.get(user) === false);
-      if (adminsToAdd.length != 0) {
-        this.channelService.assignAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
-      }
-      if (adminsToRemove.length != 0) {
-        this.channelService.removeAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
-      }
+      this.processAdminChange();
+    }
+    if (this.someUsersShouldGo()) {
+      this.processLeavingUsers();
     }
     this.modalClose.emit();
   }
@@ -80,7 +77,8 @@ export class EditChannelModalComponent implements AfterViewInit {
       && (this.isNameChanged()
         || this.isTypeChanged()
         || this.passwordChangedTypeDidnt()
-        || this.adminsChanged());
+        || this.adminsChanged()
+        || this.someUsersShouldGo());
   }
 
   isNameChanged() {
@@ -97,6 +95,10 @@ export class EditChannelModalComponent implements AfterViewInit {
 
   adminsChanged() {
     return this.newAdmins.size !== 0;
+  }
+
+  someUsersShouldGo() {
+    return this.byeByeUsers.size !== 0;
   }
 
   passwordChangedTypeDidnt() {
@@ -158,6 +160,28 @@ export class EditChannelModalComponent implements AfterViewInit {
     }
   }
 
+  processAdminChange() {
+    let adminsToAdd = Array.from(this.newAdmins.keys()).filter(user => this.newAdmins.get(user) === true);
+    let adminsToRemove = Array.from(this.newAdmins.keys()).filter(user => this.newAdmins.get(user) === false);
+    if (adminsToAdd.length != 0) {
+      this.channelService.assignAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
+    }
+    if (adminsToRemove.length != 0) {
+      this.channelService.removeAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
+    }
+  }
+
+  processLeavingUsers() {
+    let leavingForSomeTime = Array.from(this.byeByeUsers.keys()).filter(user => this.byeByeUsers.get(user) === "kick");
+    let leavingForGood = Array.from(this.byeByeUsers.keys()).filter(user => this.byeByeUsers.get(user) === "ban");
+    if (leavingForSomeTime.length != 0) {
+      this.channelService.kickUsers(new ChannelUpdate(this.channel!.id!, leavingForSomeTime));
+    }
+    if (leavingForGood.length != 0) {
+      this.channelService.banUsers(new ChannelUpdate(this.channel!.id!, leavingForGood));
+    }
+  }
+
   setValuesToInitialOnes() {
     this.channel!.password = this.passwordOnInit;
     this.channel!.name = this.nameOnInit!;
@@ -179,5 +203,13 @@ export class EditChannelModalComponent implements AfterViewInit {
     } else {
       this.newAdmins.set(user, false);
     }
+  }
+
+  kickUser(user: User) {
+    this.byeByeUsers.set(user, "kick");
+  }
+
+  banUser(user: User) {
+    this.byeByeUsers.set(user, "ban");
   }
 }

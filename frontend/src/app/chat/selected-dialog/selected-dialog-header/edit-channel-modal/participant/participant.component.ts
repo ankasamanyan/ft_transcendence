@@ -26,9 +26,16 @@ export class ParticipantComponent {
   @Output()
   adminRemoved = new EventEmitter<User>();
 
+  @Output()
+  userKickedOut = new EventEmitter<User>();
+
+  @Output()
+  userBanned = new EventEmitter<User>();
+
   displayUserActions: boolean = false;
   tempAdminStatus: boolean = false;
-
+  tempKickedOut: boolean = false;
+  tempBanned: boolean = false;
 
   isOwner(user: User) {
     return user.id === this.channel?.owner?.id;
@@ -69,5 +76,17 @@ export class ParticipantComponent {
   removeAdminRights() {
     this.tempAdminStatus = false;
     this.adminRemoved.emit(this.participant);
+  }
+
+  kickOut() {
+    this.tempKickedOut = true;
+    this.tempBanned = false;
+    this.userKickedOut.emit();
+  }
+
+  ban() {
+    this.tempKickedOut = false;
+    this.tempBanned = true;
+    this.userBanned.emit();
   }
 }

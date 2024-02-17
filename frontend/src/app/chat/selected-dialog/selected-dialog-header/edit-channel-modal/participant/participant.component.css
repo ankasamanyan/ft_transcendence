@@ -75,3 +75,13 @@ img {
 .dropdown-content-three-dots div:hover .bi-dash-circle {
     color: var(--color-orange-darker);
 }
+
+.to-be-kicked-out {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.to-be-banned {
+    opacity: 0.5;
+    pointer-events: none;
+}
