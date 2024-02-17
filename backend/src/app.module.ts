@@ -22,6 +22,7 @@ import {PrismaChannelParticipantRepository} from "./adapter/repository/prisma-ch
 import {PrismaMutedUsersRepository} from "./adapter/repository/prisma-muted-users-repository";
 import {PrismaBannedUsersRepository} from "./adapter/repository/prisma-banned-users-repository";
 import {ChatGatewayModule } from './socket/chat-gateway/chat-gateway.module';
+import { MuteTimer } from './cron/timer';
 
 @Module({
     imports: [ChatGatewayModule],
@@ -33,6 +34,7 @@ import {ChatGatewayModule } from './socket/chat-gateway/chat-gateway.module';
         ChannelController,
         FriendController],
     providers: [
+        MuteTimer,
         AppService,
         MessageService,
         UsersService,

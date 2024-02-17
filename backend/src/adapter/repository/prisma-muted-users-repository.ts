@@ -20,7 +20,6 @@ export class PrismaMutedUsersRepository {
       data: {
         channel_id: Number(channelId),
         user_id: Number(mutedUser.id),
-        created_at: Date()
       }
     });
   }

@@ -9,6 +9,7 @@ import {PrismaChannelParticipantRepository} from "../../adapter/repository/prism
 import {PrismaChannelAdminRepository} from "../../adapter/repository/prisma-channel-admin-repository";
 import { PrismaBannedUsersRepository } from 'src/adapter/repository/prisma-banned-users-repository';
 import { PrismaMutedUsersRepository } from 'src/adapter/repository/prisma-muted-users-repository';
+import { MuteTimer } from 'src/cron/timer';
 
 @Module({
   providers: [
@@ -21,7 +22,8 @@ import { PrismaMutedUsersRepository } from 'src/adapter/repository/prisma-muted-
     PrismaChannelParticipantRepository,
     PrismaChannelAdminRepository,
     PrismaBannedUsersRepository,
-    PrismaMutedUsersRepository
+    PrismaMutedUsersRepository,
+    MuteTimer,
      ]
 })
 export class ChatGatewayModule {

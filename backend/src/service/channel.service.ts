@@ -7,6 +7,7 @@ import {PrismaChannelParticipantRepository} from "../adapter/repository/prisma-c
 import {PrismaChannelAdminRepository} from "../adapter/repository/prisma-channel-admin-repository";
 import {PrismaBannedUsersRepository } from 'src/adapter/repository/prisma-banned-users-repository';
 import {PrismaMutedUsersRepository } from 'src/adapter/repository/prisma-muted-users-repository';
+import { MuteTimer } from 'src/cron/timer';
 
 @Injectable()
 export class ChannelService {
@@ -15,7 +16,8 @@ export class ChannelService {
     private prismaChannelParticipantRepository: PrismaChannelParticipantRepository,
     private prismaChannelAdminRepository: PrismaChannelAdminRepository,
     private prismaMutedUsersRepository: PrismaMutedUsersRepository,
-    private prismaBannedUsersRepository: PrismaBannedUsersRepository){
+    private prismaBannedUsersRepository: PrismaBannedUsersRepository,
+    private muteTimer: MuteTimer){
   }
 
   addChannelInformation(channel: Channel) {
@@ -93,6 +95,7 @@ export class ChannelService {
   }
 
   muteUser(user: User, channelId: number) {
+    this.muteTimer.setTimer(channelId, user.id);
     return from(this.prismaMutedUsersRepository.muteUser(user, channelId));
   }
 
