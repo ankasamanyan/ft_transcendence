@@ -4,6 +4,7 @@ import {MessageService} from "../../service/message.service";
 import {Server} from "socket.io";
 import {ChannelService} from "../../service/channel.service";
 import {ChannelRequest} from "../../adapter/dto/channel.request";
+import {ChannelUpdateRequest} from "../../adapter/dto/channel-update.request";
 
 @WebSocketGateway({cors: {origin: '*'}})
 export class ChatGatewayGateway {
@@ -44,5 +45,11 @@ export class ChatGatewayGateway {
   async setPassword(@MessageBody() request: ChannelRequest) {
     await this.channelService.setPassword(ChannelRequest.toDomain(request));
     this.server.emit("passwordSet");
+  }
+
+  @SubscribeMessage('newAdmins')
+  async assignAdmins(@MessageBody() request: ChannelUpdateRequest) {
+    // await this.channelService.assignAdmins(ChannelUpdateRequest.toDomain(request));
+    this.server.emit("adminsAdded");
   }
 }

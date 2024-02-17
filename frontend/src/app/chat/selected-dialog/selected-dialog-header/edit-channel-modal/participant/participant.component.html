@@ -1,7 +1,7 @@
 <img [src]="participant?.picture">
 <span>{{participant?.name}}</span>
 <span class="owner" *ngIf="isOwner(participant!)">Owner</span>
-<span class="admin" *ngIf="isAdmin(participant!) && !isAuthenticatedadminOrOwner()">Admin</span>
+<span class="admin" *ngIf="(isAdmin(participant!) || this.tempAdminStatus) && !isAuthenticatedadminOrOwner()">Admin</span>
 <span class="three-dots-icon"
       *ngIf="isAuthenticatedadminOrOwner() && !isOwner(participant!)"
       (click)="displayUserActions=true">
@@ -9,8 +9,8 @@
 </span>
 <div class="dropdown-three-dots" *ngIf="displayUserActions">
     <div class="dropdown-content-three-dots">
-        <div class="make-admin" *ngIf="isAuthenticatedUserOwner()"><i class="bi bi-magic"></i>Make admin</div>
-        <div class="remove-admin-rights" *ngIf="isAuthenticatedUserOwner() && isAdmin(participant!)"><i class="bi bi-magic"></i>Remove admin rights</div>
+        <div class="make-admin" *ngIf="isAuthenticatedUserOwner() && (!isAdmin(participant!) && !this.tempAdminStatus)" (click)="makeAdmin()"><i class="bi bi-magic"></i>Make admin</div>
+        <div class="remove-admin-rights" *ngIf="isAuthenticatedUserOwner() && (isAdmin(participant!) || this.tempAdminStatus)"><i class="bi bi-magic"></i>Remove admin rights</div>
         <div class="mute"><i class="bi bi-mic-mute"></i>Mute</div>
         <div class="kick"><i class="bi bi-dash-circle-dotted"></i>Kick out</div>
         <div class="ban"><i class="bi bi-dash-circle"></i>Ban</div>

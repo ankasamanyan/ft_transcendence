@@ -47,6 +47,10 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       this.channelService.updateChannels.next(true);
       this.getChannel();
     });
+    socket.on("adminsAdded", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

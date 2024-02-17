@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {User, Users} from "../domain/user";
-import {UserResponse, UsersRequest, UsersResponse} from "./dto/users.dto";
+import {UsersRequest, UsersResponse} from "./dto/users.dto";
 import {Channel, Channels} from "../domain/channel";
 import {ChannelRequest, ChannelResponse, ChannelsResponse} from "./dto/channel.dto";
 import {OurSocket} from "../socket/socket";
+import {ChannelUpdate} from "../domain/channel-update";
+import {ChannelUpdateRequest} from "./dto/channel-update.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +74,10 @@ export class ChannelService {
 
   setPassword(channel: Channel) {
     return this.socket.emit('passwordChange', ChannelRequest.fromDomain(channel));
+  }
+
+  assignAdmins(channelUpdate: ChannelUpdate) {
+    return this.socket.emit('newAdmins', ChannelUpdateRequest.fromDomain(channelUpdate));
   }
 
   initializeChannels() {

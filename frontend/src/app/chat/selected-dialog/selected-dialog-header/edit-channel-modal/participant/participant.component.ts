@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, Input, ViewChild} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {User} from "../../../../../domain/user";
 import {Channel} from "../../../../../domain/channel";
 
@@ -20,14 +20,22 @@ export class ParticipantComponent {
   @Input()
   admins: User[] | undefined
 
+  @Output()
+  adminAdded = new EventEmitter<User>();
+
   displayUserActions: boolean = false;
+  tempAdminStatus: boolean = false;
+
 
   isOwner(user: User) {
     return user.id === this.channel?.owner?.id;
   }
 
   isAdmin(user: User) {
-    return this.admins!.some((admin) => admin.id === user.id) && !this.isOwner(user);
+    if (this.admins) {
+      return this.admins.some((admin) => admin.id === user.id) && !this.isOwner(user);
+    }
+    return false;
   }
 
   isAuthenticatedUserOwner() {
@@ -35,7 +43,7 @@ export class ParticipantComponent {
   }
 
   isAuthenticatedUserAdmin() {
-    return this.channel?.admins?.some((value) => value.id === this.authenticatedUser?.id);
+    return this.admins?.some((value) => value.id === this.authenticatedUser?.id);
   }
 
   isAuthenticatedadminOrOwner() {
@@ -48,5 +56,10 @@ export class ParticipantComponent {
     if (this.displayUserActions && !isClickOnDots) {
       this.displayUserActions = false;
     }
+  }
+
+  makeAdmin() {
+    this.tempAdminStatus = true;
+    this.adminAdded.emit(this.participant);
   }
 }
