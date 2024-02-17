@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-statistics',
@@ -7,11 +7,13 @@ import { Component } from '@angular/core';
 })
 
 export class StatisticsComponent {
-
-  public placeHolderMessage: string = "You will see something here, once you start playing << THE PONG >> 🎯✨"
+  
+  @Input() userId!: number;
 
   userWins: number = 25;
-
+  
   userLosses: number = 40;
+  
+  public placeHolderMessage: string = "You will see something here, once you start playing << THE PONG >> 🎯✨"
 
 }

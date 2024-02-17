@@ -9,12 +9,12 @@
         </div>
 
         <div class="profile-icon">
-          <img [src]="profilePicture" alt="Profile Picture">
+          <img [src]="user.picture" alt="Profile Picture">
         </div>
 
         <div class="profile-info">
-          <h5 class="name">{{name}}</h5>
-          <h6 class="username">{{username}}</h6>
+          <h5 class="name">{{user.name}}</h5>
+          <h6 class="username">{{user.intraLogin}}</h6>
         </div>
 
         <div class="icon-set">
@@ -34,14 +34,14 @@
 
       </div>
       <div class="content">
-        <app-friends *ngIf="selectedMenuItem === 'friends'"></app-friends>
-        <app-achievements *ngIf="selectedMenuItem === 'achievements'"></app-achievements>
-        <app-match-history *ngIf="selectedMenuItem ===  'match-history'"></app-match-history>
+        <app-friends  *ngIf="selectedMenuItem === 'friends'"></app-friends>
+        <app-achievements  *ngIf="selectedMenuItem === 'achievements'"></app-achievements>
+        <app-match-history  *ngIf="selectedMenuItem ===  'match-history'"></app-match-history>
         <app-statistics *ngIf="selectedMenuItem ===  'statistics'"></app-statistics>
-        <app-settings *ngIf="selectedMenuItem === 'settings'"
-                      [name]="name" 
-                      [username]="username"
-                      [profilePicture]="profilePicture">
+        <app-settings  *ngIf="selectedMenuItem === 'settings'"
+                      [name]="user.name" 
+                      [username]="user.intraLogin"
+                      [profilePicture]="user.picture">
          </app-settings>
   </div>
 </div>

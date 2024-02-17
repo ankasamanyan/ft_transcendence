@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -32,7 +31,8 @@ import { PieChartComponent } from './my-profile/statistics/pie-chart/pie-chart.c
 import { InvitationToBeFriendsReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-to-be-friends-received-notification/invitation-to-be-friends-received-notification.component';
 import { EditChannelModalComponent } from './chat/selected-dialog/selected-dialog-header/edit-channel-modal/edit-channel-modal.component';
 import { SettingsComponent } from './my-profile/settings/settings.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { SharedDataService } from './service/shared-data.service';
+import { MatBadge, MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -71,7 +71,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDialogModule,
+    MatBadgeModule,
     RouterModule.forRoot([
       { path: '', component: ChatComponent },
       { path: 'my-profile', component: MyProfileComponent },
@@ -80,10 +80,12 @@ import {MatDialogModule} from '@angular/material/dialog';
       { path: 'authorization', component: AuthorizationPageComponent },
     ]),
   ],
-  providers: [
-
-  ],
+  providers: [SharedDataService],
   bootstrap: [AppComponent],
+  exports: [
+    MatBadgeModule,
+    MatBadge,
+  ]
 })
 export class AppModule {
 }
