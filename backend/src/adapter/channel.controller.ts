@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {ChannelResponse} from "./dto/channel.response";
 import {ChannelRequest} from "./dto/channel.request";
 import { UserResponse, UsersResponse } from './dto/users-response';
+import { ChannelUpdate } from 'src/domain/channel-update';
 
 @Controller('/channels')
 export class ChannelController {
@@ -126,7 +127,7 @@ export class ChannelController {
     return this.channelService.removeAdmin(channelId, userId);
   }
   
-  @Post("/status")
+  @Put("/status")
   changeStatus(@Body() request: ChannelRequest) {
     return this.channelService.changeStatus(ChannelResponse.toDomain(request));
   }
@@ -134,5 +135,10 @@ export class ChannelController {
   @Get("/status/:channelId")
   getStatus(@Param('channelId') channelId: number) {
     return this.channelService.getStatus(channelId);
+  }
+
+  @Get('/joined-public-protected-channels/:userId')
+  getJoinedPublicandProtectedChannels(@Param('userId') userId: number) {
+    return this.channelService.getJoinedPublicandProtectedChannels(userId);
   }
 }

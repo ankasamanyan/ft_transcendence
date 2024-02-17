@@ -226,4 +226,27 @@ export class PrismaChannelRepository {
     });
     return channel.type;
   }
+
+  async getJoinedPublicandProtectedChannels(userId: number) {
+    const userParticipantChannels = await this.prisma.channelParticipant.findMany({
+      where: {
+        user_id: Number(userId),
+      },
+      select: {
+        channel_id: true,
+      },
+    });
+
+    const userParticipantChannelIds = userParticipantChannels.map(channel => channel.channel_id);
+
+    return this.prisma.channel.findMany({
+      where: {
+        OR: [
+          { type: { notIn: ['private', 'dialog'] } },
+          { id: { in: userParticipantChannelIds } },
+        ],
+      },
+    });
+  }
+
 }

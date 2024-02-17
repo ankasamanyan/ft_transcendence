@@ -76,8 +76,18 @@ export class ChannelService {
     return from(this.prismaChannelAdminRepository.assignAdmin(user, channelId));
   }
 
+  assignAdmins(users: Users, channelId: number) {
+    const admins = users.users.map(user => this.assignAdmin(user, channelId));
+    return admins;
+  }
+
   removeAdmin(channelId: number, userId: number) {
     return from(this.prismaChannelAdminRepository.removeAdmin(channelId, userId));
+  }
+
+  removeAdmins(userIds: number[], channelId: number) {
+    const admins = userIds.forEach(user => this.removeAdmin(channelId, user));
+    return admins;
   }
 
   enterChannel(user: User, channelId: number) {
@@ -92,6 +102,11 @@ export class ChannelService {
   //this could be a separate method from leaveChannel in case we want to add a time limit later
   kickUser(channelId: number, userId: number) {
     return from(this.prismaChannelParticipantRepository.kickUser(channelId, userId));
+  }
+
+  kickUsers(users: Users, channelId: number) {
+    const kickedUsers = users.users.map(user => this.kickUser(channelId, user.id));
+    return kickedUsers;
   }
 
   muteUser(user: User, channelId: number) {
@@ -137,5 +152,8 @@ export class ChannelService {
     return from(this.prismaChannelRepository.getStatus(channelId));
   }
 
+  getJoinedPublicandProtectedChannels(userId: number) {
+    return from(this.prismaChannelRepository.getJoinedPublicandProtectedChannels(userId));
+  }
 
 }
