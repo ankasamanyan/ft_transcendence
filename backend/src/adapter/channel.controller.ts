@@ -5,7 +5,7 @@ import {Channel} from "../domain/channel";
 import {Observable} from "rxjs";
 import {ChannelResponse} from "./dto/channel.response";
 import {ChannelRequest} from "./dto/channel.request";
-import { UserResponse } from './dto/users-response';
+import { UserResponse, UsersResponse } from './dto/users-response';
 
 @Controller('/channels')
 export class ChannelController {
@@ -86,6 +86,11 @@ export class ChannelController {
     return this.channelService.muteUser(UserResponse.toDomain(request), channelId);
   }
 
+  @Post('/mute-users/:channelId')
+  muteUsers(@Body() request: UsersRequest, @Param('channelId') channelId: number) {
+    return this.channelService.muteUsers(UsersResponse.toDomain(request), channelId);
+  }
+
   @Delete("unmute-user/:channelId/:userId")
   unmuteUser(@Param('channelId') channelId: number, @Param('userId') userId: number) {
     return this.channelService.unmuteUser(channelId, userId);
@@ -99,6 +104,11 @@ export class ChannelController {
   @Post("/ban-user/:channelId")
   banUser(@Body() request: UserRequest,  @Param('channelId') channelId: number) {
     return this.channelService.banUser(UserResponse.toDomain(request), channelId);
+  }
+
+  @Post('/ban-users/:channelId')
+  banUsers(@Body() request: UsersRequest, @Param('channelId') channelId: number) {
+    return this.channelService.banUsers(UsersResponse.toDomain(request), channelId);
   }
 
   @Delete("unban-user/:channelId/:userId")

@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common';
-import {User} from "../domain/user";
+import {User, Users} from "../domain/user";
 import {PrismaChannelRepository} from "../adapter/repository/prisma-channel-repository";
 import {Channel} from "../domain/channel";
 import {from} from "rxjs";
@@ -99,6 +99,12 @@ export class ChannelService {
     return from(this.prismaMutedUsersRepository.muteUser(user, channelId));
   }
 
+  muteUsers(users: Users, channelId: number) {
+    users.users.forEach(user => this.muteTimer.setTimer(channelId, user.id));
+    const mutedUsers = users.users.map(user => this.muteUser(user, channelId));
+    return mutedUsers;
+  }
+
   unmuteUser(channelId: number, userId: number) {
     return from(this.prismaMutedUsersRepository.unmuteUser(channelId, userId));
   }
@@ -109,6 +115,11 @@ export class ChannelService {
 
   banUser(user: User, channelId: number) {
     return from(this.prismaBannedUsersRepository.banUser(user, channelId))
+  }
+
+  banUsers(users: Users, channelId: number) {
+    const bannedUsers = users.users.map(user => this.banUser(user, channelId));
+    return bannedUsers;
   }
 
   unbanUser(channelId: number, userId: number) {
@@ -123,4 +134,6 @@ export class ChannelService {
   getStatus(channelId:number) {
     return from(this.prismaChannelRepository.getStatus(channelId));
   }
+
+
 }
