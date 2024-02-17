@@ -7,6 +7,7 @@ import {ChannelResponse} from "./dto/channel.response";
 import {ChannelRequest} from "./dto/channel.request";
 import { UserResponse, UsersResponse } from './dto/users-response';
 import { ChannelUpdate } from 'src/domain/channel-update';
+import { ChannelUpdateRequest } from './dto/channel-update.request';
 
 @Controller('/channels')
 export class ChannelController {

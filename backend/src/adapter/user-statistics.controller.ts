@@ -1,5 +1,6 @@
-import {Controller, Get, Param, Post, Put} from '@nestjs/common';
+import {Controller, Get, Param, Post, Put, Body} from '@nestjs/common';
 import { UserStatisticsService } from 'src/service/user-statistics.service';
+import { UserRequest } from './dto/users-request';
 
 @Controller('/user-statistics')
 export class UserStatisticsController {
@@ -15,9 +16,9 @@ export class UserStatisticsController {
 		return this.userStatisticsService.getLosses(userId);
 	}
 
-	@Get('/:userId')
-	getUserStatistics(@Param('userId') userId: number) {
-		return this.userStatisticsService.getUserStatistics(userId);
+	@Get('/stats')
+	getUserStatistics(@Body() request: UserRequest) {
+		return this.userStatisticsService.getUserStatistics(UserRequest.toDomain(request).id);
 	}
 
 	@Put('/add-win/:userId') 
@@ -33,5 +34,10 @@ export class UserStatisticsController {
 	@Post('/:userId')
 	initScore(@Param('userId') userId: number) {
 		return this.userStatisticsService.initScore(userId);
+	}
+
+	@Get('/ranking')
+	getRanking() {
+		return this.userStatisticsService.getRanking();
 	}
 }

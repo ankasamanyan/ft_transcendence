@@ -1,5 +1,8 @@
 import {PrismaService} from "../../service/prisma.service";
 import {Injectable} from "@nestjs/common";
+import { UserResponse, UsersResponse } from "../dto/users-response";
+import {User} from "../../domain/user";
+
 
 @Injectable()
 export class PrismaUserStatisticsRespository {
@@ -58,9 +61,39 @@ export class PrismaUserStatisticsRespository {
 	}
 
 	async getUserStatistics(userId: number) {
-		const userStatistics = await this.prisma.userStatistics.findUnique({
+		const statisticsById = await this.prisma.userStatistics.findUnique({
 			where: { userId: Number(userId) }
 		});
-		return userStatistics;
+		return statisticsById;
+	}
+
+	async getAllUsersRankedByWins() {
+		
+		const rankedUserStatistics = await this.prisma.userStatistics.findMany({
+		  orderBy: {
+			wins: 'desc',
+		  },
+		  select: {
+			userId: true,
+		  },
+		});
+		const userIds = rankedUserStatistics.map(statistics => Number(statistics.userId));
+		const rankedUsers = await this.prisma.user.findMany({
+			where: {
+			  id: {
+				in: userIds,
+			  },
+			},
+		  });
+		  const sortedUsers = userIds.map(id => rankedUsers.find(user => user.id === id));
+		  return new UsersResponse(sortedUsers.map((user) => {
+            return new UserResponse(
+                user.id,
+                user.name,
+                user.intra_login,
+                user.picture);
+        }));
+	
+	
 	}
 }
