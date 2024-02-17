@@ -60,7 +60,6 @@ export class DialogsComponent implements OnInit {
   getChannels() {
     this.channelService.getChannels(1).subscribe((value)  => {
       this.channels = value.channels!;
-      this.changeSelectedChannel(this.channels[0].id!);
       this.displayedChannels = this.channels;
       this.channelsLoaded = true;
     });

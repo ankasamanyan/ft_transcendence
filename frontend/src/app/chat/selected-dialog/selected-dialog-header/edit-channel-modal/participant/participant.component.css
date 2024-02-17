@@ -1,0 +1,87 @@
+img {
+    width: 11%;
+    height: 30px;
+    border-radius: 25px;
+    margin-right: 9px;
+    object-fit: cover;
+}
+
+.owner, .admin {
+    float: right;
+    font-weight: lighter;
+    color: var(--color-dark-blue);
+    font-size: 14px;
+    letter-spacing: 0.4px;
+}
+
+.three-dots-icon {
+    float: right;
+    cursor: pointer;
+    padding: 3px 0;
+    border-radius: 6px;
+    color: grey;
+}
+
+.bi-three-dots-vertical:hover {
+    color: darkgrey;
+}
+
+.dropdown-three-dots {
+    position: relative;
+    display: inline-block;
+    float: right;
+}
+
+.dropdown-content-three-dots {
+    position: absolute;
+    right: -31px;
+    top: 26px;
+    background-color: white;
+    min-width: 125px;
+    box-shadow: 0px 4px 8px 2px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.dropdown-content-three-dots div {
+    padding: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--color-dark-blue);
+    letter-spacing: 0.4px;
+    font-weight: 250;
+}
+
+.dropdown-content-three-dots div:hover {
+    background-color: var(--color-light-gray);
+    border-radius: 8px;
+}
+
+.bi {
+    margin-right: 9px;
+}
+
+.dropdown-content-three-dots div:hover .bi-magic {
+    color: var(--color-orange);
+}
+
+.dropdown-content-three-dots div:hover .bi-mic-mute {
+    color: dimgray;
+}
+
+.dropdown-content-three-dots div:hover .bi-dash-circle-dotted {
+    color: var(--color-orange-darker);
+}
+
+.dropdown-content-three-dots div:hover .bi-dash-circle {
+    color: var(--color-orange-darker);
+}
+
+.to-be-kicked-out {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.to-be-banned {
+    opacity: 0.5;
+    pointer-events: none;
+}

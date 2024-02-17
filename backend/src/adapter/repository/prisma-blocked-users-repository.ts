@@ -4,6 +4,13 @@ import {Users, User} from "../../domain/user";
 import { UserResponse, UsersResponse } from "../dto/users-response";
 
 
+interface RawSql {
+    id: number,
+    name: string,
+    intra_login: string,
+    picture: string
+}
+
 @Injectable()
 export class PrismaBlockedUsersRepository {
     constructor(private prisma: PrismaService) {
@@ -28,24 +35,23 @@ export class PrismaBlockedUsersRepository {
          });
     }
 
-    async getBlockedUsers(userId: number) {
-        await this.prisma.$transaction(async (prisma) => {
-            const blockedUserEntries = await this.prisma.blockedUser.findMany({
-                where: { blockerId: userId }
-            });
-            const blockedUserIds = blockedUserEntries.map(entry => entry.blockedId );
-            const users = await this.prisma.user.findMany({
-                where: {
-                    id: { in: blockedUserIds },
-                    }
-            });
-            return new UsersResponse(users.map((user) => {
-                return new UserResponse(
-                    user.id,
-                    user.name,
-                    user.intra_login,
-                    user.picture);
-            }));
-        });
+    async getBlockedUsers(blockerId: number) {
+        const blockerIdAsInt = Number(blockerId);
+        const blockedUsers = await this.prisma.$queryRaw<RawSql[]>`
+            SELECT b."blockedId" as id,
+                u.name as name,
+                u.intra_login as intra_login,
+                u.picture as picture
+            from "BlockedUser" b
+                LEFT JOIN  "User" u on b."blockedId" = u.id
+            where b."blockerId" = ${blockerIdAsInt}`
+        return new UsersResponse(blockedUsers.map((user) => {
+             return new UserResponse(
+                user.id,
+                user.name,
+                user.intra_login,
+                user.picture);
+         }));
+         
     }
 }

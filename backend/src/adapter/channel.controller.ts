@@ -1,10 +1,12 @@
-import {Body, Controller, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Put, Delete} from '@nestjs/common';
 import {ChannelService} from "../service/channel.service";
-import {UsersRequest} from "./dto/users-request";
+import {UserRequest, UsersRequest} from "./dto/users-request";
 import {Channel} from "../domain/channel";
 import {Observable} from "rxjs";
 import {ChannelResponse} from "./dto/channel.response";
 import {ChannelRequest} from "./dto/channel.request";
+import { UserResponse, UsersResponse } from './dto/users-response';
+import { ChannelUpdate } from 'src/domain/channel-update';
 
 @Controller('/channels')
 export class ChannelController {
@@ -40,8 +42,103 @@ export class ChannelController {
     return this.channelService.addChannelAdmin(ChannelRequest.toDomain(request));
   }
 
+  @Get('/admins/:channelId')
+  getChannelAdmins(@Param('channelId') channelId: number) {
+    return this.channelService.getChannelAdmins(channelId);
+  }
+
   @Post("/mocks")
   initializeChannels() {
     return this.channelService.initializeChannels();
+  }
+
+  @Delete("/channels/:channelId")
+  removeChannel(@Param('channelId') channelId: number) {
+    return this.channelService.removeChannel(channelId);
+  }
+
+  @Post("/set-password")
+  setPassword(@Body() request: ChannelRequest) {
+    return this.channelService.setPassword(ChannelRequest.toDomain(request));
+  }
+
+  @Delete("/delete-password/:channelId")
+  deletePassword(@Param('channelId') channelId: number) {
+    return this.channelService.deletePassword(channelId);
+  }
+
+  @Post("/participants/:channelId")
+  enterChannel(@Body() request: UserRequest, @Param('channelId') channelId: number) {
+    return this.channelService.enterChannel(UserResponse.toDomain(request), channelId);
+  }
+
+  @Delete("/kick-user/:channelId/:userId")
+  kickUser(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+    return this.channelService.kickUser(channelId, userId);
+  }
+
+  @Delete("/leave-channel/:channelId/:userId")
+  leaveChannel(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+    return this.channelService.leaveChannel(channelId, userId);
+  }
+
+  @Post("/mute-user/:channelId")
+  muteUser(@Body() request: UserRequest, @Param('channelId') channelId: number) {
+    return this.channelService.muteUser(UserResponse.toDomain(request), channelId);
+  }
+
+  @Post('/mute-users/:channelId')
+  muteUsers(@Body() request: UsersRequest, @Param('channelId') channelId: number) {
+    return this.channelService.muteUsers(UsersResponse.toDomain(request), channelId);
+  }
+
+  @Delete("unmute-user/:channelId/:userId")
+  unmuteUser(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+    return this.channelService.unmuteUser(channelId, userId);
+  }
+
+  @Get("/muted-users/:channelId/:userId")
+  isMuted(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+    return this.channelService.isMuted(channelId, userId);
+  }
+
+  @Post("/ban-user/:channelId")
+  banUser(@Body() request: UserRequest,  @Param('channelId') channelId: number) {
+    return this.channelService.banUser(UserResponse.toDomain(request), channelId);
+  }
+
+  @Post('/ban-users/:channelId')
+  banUsers(@Body() request: UsersRequest, @Param('channelId') channelId: number) {
+    return this.channelService.banUsers(UsersResponse.toDomain(request), channelId);
+  }
+
+  @Delete("unban-user/:channelId/:userId")
+  unbanUser(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+    return this.channelService.unbanUser(channelId, userId);
+  }
+
+  @Post("/admins/:channelId")
+  assignAdmin(@Body() request: UserRequest, @Param('channelId') channelId: number) {
+    return this.channelService.assignAdmin(UserResponse.toDomain(request), channelId);
+  }
+
+  @Delete("/admins/:channelId/:userId")
+  removeAdmin(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+    return this.channelService.removeAdmin(channelId, userId);
+  }
+  
+  @Put("/status")
+  changeStatus(@Body() request: ChannelRequest) {
+    return this.channelService.changeStatus(ChannelResponse.toDomain(request));
+  }
+
+  @Get("/status/:channelId")
+  getStatus(@Param('channelId') channelId: number) {
+    return this.channelService.getStatus(channelId);
+  }
+
+  @Get('/joined-public-protected-channels/:userId')
+  getJoinedPublicandProtectedChannels(@Param('userId') userId: number) {
+    return this.channelService.getJoinedPublicandProtectedChannels(userId);
   }
 }

@@ -1,15 +1,8 @@
-import {
-  AfterViewChecked,
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  ViewChild
-} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {MessageService} from "../../service/message.service";
 import {ChannelMessage} from "../../domain/channel-message";
 import {ChannelService} from "../../service/channel.service";
+import {OurSocket} from "../../socket/socket";
 
 @Component({
   selector: 'app-selected-dialog',
@@ -26,9 +19,17 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
   message: string | undefined;
 
   constructor(
-      private messageService: MessageService,
-      private channelService: ChannelService)
-  {
+    private messageService: MessageService,
+    private channelService: ChannelService,
+    private socket: OurSocket) {
+    socket.on("NewMessage", () => {
+      if (this.selectedChannelId) {
+        this.messageService.getChannelMessages(this.selectedChannelId).subscribe((value) => {
+          this.selectedDialog = value;
+        });
+      }
+      this.channelService.updateChannels.next(true);
+    })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -51,21 +52,15 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
   sendChannelMessage() {
     if (this.message!! && this.message !== '') {
       this.messageService.saveChannelMessage(
-          new ChannelMessage(
-              this.selectedChannelId!,
-              1,
-              this.message!,
-              new Date())
-      ).subscribe(() => {
-        this.message = '';
-        this.clearInputField();
-        this.messageService.getChannelMessages(this.selectedChannelId!).subscribe((value) => {
-          this.selectedDialog = value;
-        });
-        this.channelService.updateChannels.next(true);
-      });
-    }
+        new ChannelMessage(
+          this.selectedChannelId!,
+          1,
+          this.message!,
+          new Date()))};
+    this.message = '';
+    this.clearInputField();
   }
+
   clearInputField() {
     const inputElement = document.getElementById("write-message-input") as HTMLInputElement;
     inputElement.value = '';

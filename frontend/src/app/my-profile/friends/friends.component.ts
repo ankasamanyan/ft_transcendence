@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FriendService } from "../../service/friend.service";
-import { User } from "../../domain/user";
+import {FriendService} from "../../service/friend.service";
+import {User} from "../../domain/user";
+import { BlockedUsersService } from 'src/app/service/blocked-users.service';
 
 @Component({
   selector: 'app-friends',
@@ -20,14 +21,21 @@ export class FriendsComponent implements OnInit {
 
   public placeHolderMessage: string = 'This list is currently empty 🤷🏻‍♀️'
 
-
-  constructor(private friendService: FriendService) { }
+  constructor ( private friendService: FriendService,
+                private blockedUsersService: BlockedUsersService) { }
   
   ngOnInit(): void {
+
     this.friendService.getFriends(this.userId)
-      .subscribe((friends)=> {
+      .subscribe((friends) => {
         this.friendsList = friends.users;
       });
+
+    this.blockedUsersService.getBlockedUsers(0)
+      .subscribe((value) => {
+        this.blockedList = value.users;
+      });
+
     this.pendingList = [
     { 
       id: 2,
@@ -36,14 +44,16 @@ export class FriendsComponent implements OnInit {
       intraLogin: '@fstaryk',
       
     },];
-    this.blockedList = [
-    { 
-      id: 3,
-      name: 'Wolf', 
-      picture: '../../../assets/placeholderComrade6.jpeg',
-      intraLogin: '@wmardin',
 
-    },];
+    // this.blockedList = [
+    // { 
+    //   id: 3,
+    //   name: 'Wolf', 
+    //   picture: '../../../assets/placeholderComrade6.jpeg',
+    //   intraLogin: '@wmardin',
+
+    // },];
   }
+
 
 }

@@ -19,6 +19,7 @@ export class Channel {
     public admins: User[] | undefined;
     public lastMessage: string | undefined;
     public lastMessageCreatedAt: Date | undefined;
+    public password: string | undefined;
 
     constructor(
         name: string,
@@ -30,7 +31,8 @@ export class Channel {
         owner?: User,
         admins?: User[],
         lastMessage?: string,
-        lastMessageCreatedAt?: Date
+        lastMessageCreatedAt?: Date,
+        password?: string
     ) {
         this.name = name;
         this.picture = picture;
@@ -42,5 +44,6 @@ export class Channel {
         this.admins = admins;
         this.lastMessage = lastMessage;
         this.lastMessageCreatedAt = lastMessageCreatedAt;
+        this.password = password;
     }
 }

@@ -2,16 +2,21 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {User, Users} from "../domain/user";
-import {UsersRequest} from "./dto/users.dto";
+import {UsersRequest, UsersResponse} from "./dto/users.dto";
 import {Channel, Channels} from "../domain/channel";
 import {ChannelRequest, ChannelResponse, ChannelsResponse} from "./dto/channel.dto";
+import {OurSocket} from "../socket/socket";
+import {ChannelUpdate} from "../domain/channel-update";
+import {ChannelUpdateRequest} from "./dto/channel-update.dto";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChannelService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private socket: OurSocket) { }
 
   updateChannels: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -37,12 +42,54 @@ export class ChannelService {
     return this.httpClient.post<void>("http://localhost:3000/channels/participants", ChannelRequest.fromDomain(channel));
   }
 
-  getChannelParticipants(channelId: number): Observable<number[]> {
-    return this.httpClient.get<number[]>("http://localhost:3000/channels/participants/" + channelId);
+  getChannelParticipants(channelId: number) {
+    return this.httpClient.get<UsersResponse>("http://localhost:3000/channels/participants/" + channelId).pipe(
+      map((users: UsersResponse) => {
+        return UsersResponse.toDomain(users);
+      }));
   }
 
   addChannelAdmin(channel: Channel) {
     return this.httpClient.post<void>("http://localhost:3000/channels/admins", ChannelRequest.fromDomain(channel));
+  }
+
+  getChannelAdmins(channelId: number) {
+    return this.httpClient.get<UsersResponse>("http://localhost:3000/channels/admins/" + channelId).pipe(
+      map((users: UsersResponse) => {
+        return UsersResponse.toDomain(users);
+      }));
+  }
+
+  renameChannel(channel: Channel) {
+    return this.socket.emit('channelRename', ChannelRequest.fromDomain(channel));
+  }
+
+  changeChannelType(channel: Channel) {
+    return this.socket.emit('channelTypeChange', ChannelRequest.fromDomain(channel));
+  }
+
+  deletePassword(channelId: number) {
+    return this.socket.emit('passwordRemoval', channelId);
+  }
+
+  setPassword(channel: Channel) {
+    return this.socket.emit('passwordChange', ChannelRequest.fromDomain(channel));
+  }
+
+  assignAdmins(channelUpdate: ChannelUpdate) {
+    return this.socket.emit('newAdmins', ChannelUpdateRequest.fromDomain(channelUpdate));
+  }
+
+  removeAdmins(channelUpdate: ChannelUpdate) {
+    return this.socket.emit('adminsNoMore', ChannelUpdateRequest.fromDomain(channelUpdate));
+  }
+
+  kickUsers(channelUpdate: ChannelUpdate) {
+    return this.socket.emit('participantsNoMore', ChannelUpdateRequest.fromDomain(channelUpdate));
+  }
+
+  banUsers(channelUpdate: ChannelUpdate) {
+    return this.socket.emit('participantsNeverAgain', ChannelUpdateRequest.fromDomain(channelUpdate));
   }
 
   initializeChannels() {

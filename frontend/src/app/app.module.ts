@@ -33,6 +33,7 @@ import { EditChannelModalComponent } from './chat/selected-dialog/selected-dialo
 import { SettingsComponent } from './my-profile/settings/settings.component';
 import { SharedDataService } from './service/shared-data.service';
 import { MatBadge, MatBadgeModule } from '@angular/material/badge';
+import { ParticipantComponent } from './chat/selected-dialog/selected-dialog-header/edit-channel-modal/participant/participant.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { MatBadge, MatBadgeModule } from '@angular/material/badge';
     InvitationToBeFriendsReceivedNotificationComponent,
     EditChannelModalComponent,
     SettingsComponent,
+    ParticipantComponent,
   ],
   imports: [
     BrowserModule,

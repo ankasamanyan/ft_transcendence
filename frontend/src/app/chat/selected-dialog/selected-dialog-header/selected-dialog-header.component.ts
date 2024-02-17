@@ -4,6 +4,7 @@ import {FriendService} from "../../../service/friend.service";
 import {UsersService} from "../../../service/users.service";
 import {ChannelService} from "../../../service/channel.service";
 import {Channel} from "../../../domain/channel";
+import {OurSocket} from "../../../socket/socket";
 
 @Component({
   selector: 'app-selected-dialog-header',
@@ -15,7 +16,8 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   selectedChannelId: number | undefined;
 
   channel: Channel | undefined;
-  participants: number[] | undefined;
+  participants: User[] | undefined;
+  admins: User[] | undefined;
   selectedDialogPartner: User | undefined;
   selectedPersonBefriendable: boolean | undefined;
 
@@ -27,7 +29,32 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   constructor(
     private friendService: FriendService,
     private userService: UsersService,
-    private channelService: ChannelService) {
+    private channelService: ChannelService,
+    private socket: OurSocket) {
+    socket.on("channelRenamed", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
+    socket.on("channelTypeChanged", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
+    socket.on("passwordSet", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
+    socket.on("passwordDeleted", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
+    socket.on("adminsAdded", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
+    socket.on("adminsNoMore", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -73,26 +100,32 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     this.channelService.getChannelDetailsById(this.selectedChannelId!).subscribe((value) => {
       this.channel = value;
       this.getParticipants();
+      this.getAdmins();
     });
   }
 
   getParticipants() {
     this.channelService.getChannelParticipants(this.selectedChannelId!).subscribe((value) => {
-      this.participants = value;
+      this.participants = value.users;
       this.getDialogPartner()
+    });
+  }
+
+  getAdmins() {
+    this.channelService.getChannelAdmins(this.selectedChannelId!).subscribe((value) => {
+      this.admins = value.users;
     });
   }
 
   getDialogPartner() {
     if (this.participants!.length === 2) {
-      this.userService.getUserById(this.participants!.filter((value) => {
-        return value != 1
-      })[0]).subscribe((value) => {
-        this.selectedDialogPartner = value;
-        this.checkWhetherBefriendable();
-      });
+      this.selectedDialogPartner = this.participants!.filter((value) => {
+        return value.id != 1
+      })[0];
+      this.checkWhetherBefriendable();
     }
   }
+
 
   checkWhetherBefriendable() {
     if (this.selectedDialogPartner) {

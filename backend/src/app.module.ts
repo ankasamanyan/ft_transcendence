@@ -19,17 +19,26 @@ import {PrismaFriendRepository} from "./adapter/repository/prisma-friend-reposit
 import {FriendService} from "./service/friend.service";
 import {PrismaChannelAdminRepository} from "./adapter/repository/prisma-channel-admin-repository";
 import {PrismaChannelParticipantRepository} from "./adapter/repository/prisma-channel-participant-repository";
+import {PrismaMutedUsersRepository} from "./adapter/repository/prisma-muted-users-repository";
+import {PrismaBannedUsersRepository} from "./adapter/repository/prisma-banned-users-repository";
+import {ChatGatewayModule } from './socket/chat-gateway/chat-gateway.module';
+import { MuteTimer } from './cron/timer';
+import { PrismaUserStatisticsRespository } from './adapter/repository/prisma-user-statistics-respository';
+import { UserStatisticsController } from './adapter/user-statistics.controller';
+import { UserStatisticsService } from './service/user-statistics.service';
 
 @Module({
-    imports: [],
+    imports: [ChatGatewayModule],
     controllers: [
         AppController,
         MessageController,
         UsersController,
         BlockedUsersController,
         ChannelController,
-        FriendController],
+        FriendController,
+        UserStatisticsController],
     providers: [
+        MuteTimer,
         AppService,
         MessageService,
         UsersService,
@@ -43,7 +52,11 @@ import {PrismaChannelParticipantRepository} from "./adapter/repository/prisma-ch
         PrismaMessagesRepository,
         PrismaFriendRepository,
         PrismaChannelAdminRepository,
-        PrismaChannelParticipantRepository],
+        PrismaChannelParticipantRepository,
+        PrismaMutedUsersRepository,
+        PrismaBannedUsersRepository,
+        PrismaUserStatisticsRespository,
+        UserStatisticsService ],
 })
 export class AppModule {
 }

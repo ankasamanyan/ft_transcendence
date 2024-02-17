@@ -12,10 +12,10 @@
 
 .edit-channel-inner-modal {
     background-color: #fefefe;
-    margin: 10% auto;
+    margin: 7% auto;
     padding: 20px;
     border: none;
-    max-width: 400px;
+    max-width: 390px;
     border-radius: 10px;
     box-shadow: 0 1px 17px rgba(0,0,0,0.09);
     font-weight: 300;
@@ -24,25 +24,34 @@
 .exit-icon {
     display: flex;
     justify-content: right;
+}
+
+.bi-x-lg {
     cursor: pointer;
 }
 
-.exit-icon:hover {
+.bi-x-lg:hover {
     color: darkgrey;
 }
 
-#buttons {
-    margin-top: 14px;
+.channel-details {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+#buttons {
+    margin-top: 18px;
+    display: flex;
+    justify-content: right;
 }
 
 button {
     border: none;
     border-radius: 7px;
     height: 35px;
-    padding-right: 16px;
-    padding-left: 16px;
+    padding-right: 13px;
+    padding-left: 13px;
     font-weight: 300;
 }
 
@@ -52,11 +61,16 @@ button {
     margin-right: 7px;
 }
 
-input {
-    font-size: 15px;
+#apply-changes-button:hover {
+    background-color: var(--color-orange-darker);
+}
+
+.name-input {
+    font-size: 16px;
+    width: 224px;
     height: 30px;
     border: none;
-    border-bottom: solid 1px dimgray;
+    border-bottom: solid 1px var(--color-dark-blue);
     letter-spacing: 0.4px;
 }
 
@@ -65,13 +79,127 @@ input:focus {
 }
 
 .channel-photo {
-    width: 70px;
-    height: 70px;
-    border-radius: 25px;
-    margin-right: 19px;
+    width: 65px;
+    height: 65px;
+    border-radius: 30px;
+    margin-right: 12px;
+    margin-left: 8px;
     object-fit: cover;
 }
 
-.container {
+.bi-check {
+    font-size: 28px;
+}
+
+.all-participants {
+    display: block;
+    background-color: white;
+    width: 310px;
+    border-radius: 8px;
+    margin: 10px auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.all-participants::-webkit-scrollbar {
+    display: none;
+}
+
+.participant {
+    padding: 7px;
+    font-size: 14px;
+}
+
+.participant:hover {
+    background-color: var(--color-light-gray);
+    border-radius: 8px;
+}
+
+#apply-changes-button.deactivated {
+    background-color: lightgrey;
+    pointer-events: none;
+}
+
+.bi-people, .bi-key {
+    margin-right: 9px;
+    margin-left: 9px;
+}
+
+.channel-type {
+    width: 310px;
+    margin: 0 auto 7px auto;
+    font-size: 14px;
     display: flex;
+    padding-top: 8px;
+}
+
+.dropdown {
+    display: inline-block;
+    float: right;
+}
+
+.dropdown-content {
+    position: absolute;
+    right: -1px;
+    top: 30px;
+    background-color: white;
+    min-width: 85px;
+    box-shadow: 0px 8px 16px 2px rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+
+.dropdown-content div {
+    padding: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--color-dark-blue);
+    letter-spacing: 0.4px;
+    font-weight: lighter;
+    text-align: right;
+}
+
+#password-protected {
+    text-align: left;
+}
+
+.dropdown-content div:hover {
+    background-color: var(--color-light-gray);
+    border-radius: 8px;
+}
+
+.current-type {
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--color-dark-blue);
+    letter-spacing: 0.4px;
+    font-weight: lighter;
+    margin-right: 4px;
+    margin-left: auto;
+}
+
+.channel-type-text{
+    letter-spacing: 0.4px;
+}
+
+.password {
+    width: 310px;
+    margin: 0 auto;
+    font-size: 14px;
+    display: flex;
+    letter-spacing: 0.4px;
+}
+
+.password-input {
+    width: 142px;
+    color: var(--color-dark-blue);
+    font-weight: lighter;
+    border: none;
+    border-bottom: solid 1px lightgrey;
+    text-align: right;
+    padding-right: 3px;
+}
+
+.current-password {
+    margin-right: 1px;
+    margin-left: auto;
 }
