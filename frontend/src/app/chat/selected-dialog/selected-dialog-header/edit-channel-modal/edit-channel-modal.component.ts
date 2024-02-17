@@ -12,6 +12,7 @@ import {Channel} from "../../../../domain/channel";
 import {ChannelService} from "../../../../service/channel.service";
 import {OurSocket} from "../../../../socket/socket";
 import {User} from "../../../../domain/user";
+import {ChannelUpdate} from "../../../../domain/channel-update";
 
 @Component({
   selector: 'app-edit-channel-modal',
@@ -36,6 +37,7 @@ export class EditChannelModalComponent implements AfterViewInit {
   nameOnInit: string | undefined;
   typeOnInit: string | undefined;
   passwordOnInit: string | undefined;
+  newAdmins = new Map<User, boolean>();
   authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg");
   displayTypes: boolean = false;
 
@@ -52,6 +54,9 @@ export class EditChannelModalComponent implements AfterViewInit {
       this.channelService.updateChannels.next(true);
     });
     socket.on("passwordDeleted", () => {
+      this.channelService.updateChannels.next(true);
+    });
+    socket.on("adminsAdded", () => {
       this.channelService.updateChannels.next(true);
     });
   }
@@ -73,14 +78,21 @@ export class EditChannelModalComponent implements AfterViewInit {
     if (this.isPasswordChanged()) {
       this.channelService.setPassword(this.channel!);
     }
+    if (this.adminsChanged()) {
+      let adminsToAdd = Array.from(this.newAdmins.keys()).filter(user => this.newAdmins.get(user) === true);
+      if (adminsToAdd.length != 0) {
+        this.channelService.assignAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
+      }
+    }
     this.modalClose.emit();
   }
 
   channelDetailsChanged() {
     return this.doesPasswordProtectedChannelHasPassword()
       && (this.isNameChanged()
-      || this.isTypeChanged()
-      || this.passwordChangedTypeDidnt());
+        || this.isTypeChanged()
+        || this.passwordChangedTypeDidnt()
+        || this.adminsChanged());
   }
 
   isNameChanged() {
@@ -93,6 +105,10 @@ export class EditChannelModalComponent implements AfterViewInit {
 
   isPasswordChanged() {
     return this.passwordOnInit != this.channel?.password;
+  }
+
+  adminsChanged() {
+    return this.newAdmins.size !== 0;
   }
 
   passwordChangedTypeDidnt() {
@@ -159,5 +175,13 @@ export class EditChannelModalComponent implements AfterViewInit {
     this.channel!.name = this.nameOnInit!;
     this.channel!.type = this.typeOnInit;
     this.modalClose.emit();
+  }
+
+  addAdmin(user: User) {
+    if (this.newAdmins.get(user)) {
+      this.newAdmins.delete(user);
+    } else {
+      this.newAdmins.set(user, true);
+    }
   }
 }
