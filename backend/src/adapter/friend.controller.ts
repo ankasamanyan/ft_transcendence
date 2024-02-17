@@ -25,4 +25,11 @@ export class FriendController {
   initializeFriends() {
     return this.friendService.initializeFriends();
   }
+
+      //gets the pending requests that the user needs to answer
+  @Get("/pending/:userId")
+  getPendingRequests(@Param('userId') userId: number) {
+    return this.friendService.getPendingRequests(userId);
+  }
+
 }

@@ -2,6 +2,7 @@ import {PrismaService} from "../../service/prisma.service";
 import {Injectable} from "@nestjs/common";
 import {Users} from "../../domain/user";
 import {UserResponse, UsersResponse} from "../dto/users-response";
+import { receiveMessageOnPort } from "worker_threads";
 
 @Injectable()
 export class PrismaFriendRepository {
@@ -68,5 +69,39 @@ export class PrismaFriendRepository {
                 ]
             });
         }
+    }
+
+    //gets the pending requests that the user needs to answer
+    async getPendingRequests(userId: number) {
+        const pendingRequests = await this.prisma.friend.findMany({
+            where: {
+                received_user_id: Number(userId),
+                status: "PENDING"
+            },
+            select: {sent_user_id: true}
+        });
+        const pendingIds = pendingRequests.map(friend => friend.sent_user_id);
+        const pendingUsers = await this.prisma.user.findMany({
+            where: {
+                id: { in: pendingIds }
+            }
+        });
+        return new UsersResponse(pendingUsers.map((user) => {
+            return new UserResponse(
+                user.id,
+                user.name,
+                user.intra_login,
+                user.picture);
+        }));
+    }
+
+    async makeFriendRequest(senderId: number, recieverId: number) {
+        this.prisma.friend.create({
+            data: {
+                sent_user_id: senderId,
+                received_user_id: recieverId,
+                status: "PENDING"
+            }
+        })
     }
 }

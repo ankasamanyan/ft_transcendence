@@ -23,4 +23,12 @@ export class FriendService {
   initializeFriends() {
     return from(this.friendRepository.initializeFriends());
   }
+
+  getPendingRequests(userId: number) {
+    return from(this.friendRepository.getPendingRequests(userId));
+  }
+
+  makeFriendRequest(senderId: number, recieverId: number) {
+    return from(this.friendRepository.makeFriendRequest(senderId, recieverId));
+  }
 }
