@@ -23,6 +23,9 @@ export class ParticipantComponent {
   @Output()
   adminAdded = new EventEmitter<User>();
 
+  @Output()
+  adminRemoved = new EventEmitter<User>();
+
   displayUserActions: boolean = false;
   tempAdminStatus: boolean = false;
 
@@ -61,5 +64,10 @@ export class ParticipantComponent {
   makeAdmin() {
     this.tempAdminStatus = true;
     this.adminAdded.emit(this.participant);
+  }
+
+  removeAdminRights() {
+    this.tempAdminStatus = false;
+    this.adminRemoved.emit(this.participant);
   }
 }

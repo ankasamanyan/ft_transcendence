@@ -10,7 +10,7 @@
 <div class="dropdown-three-dots" *ngIf="displayUserActions">
     <div class="dropdown-content-three-dots">
         <div class="make-admin" *ngIf="isAuthenticatedUserOwner() && (!isAdmin(participant!) && !this.tempAdminStatus)" (click)="makeAdmin()"><i class="bi bi-magic"></i>Make admin</div>
-        <div class="remove-admin-rights" *ngIf="isAuthenticatedUserOwner() && (isAdmin(participant!) || this.tempAdminStatus)"><i class="bi bi-magic"></i>Remove admin rights</div>
+        <div class="remove-admin-rights" *ngIf="isAuthenticatedUserOwner() && (isAdmin(participant!) || this.tempAdminStatus)" (click)="removeAdminRights()"><i class="bi bi-magic"></i>Remove admin rights</div>
         <div class="mute"><i class="bi bi-mic-mute"></i>Mute</div>
         <div class="kick"><i class="bi bi-dash-circle-dotted"></i>Kick out</div>
         <div class="ban"><i class="bi bi-dash-circle"></i>Ban</div>
