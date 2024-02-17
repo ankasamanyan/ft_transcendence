@@ -12,7 +12,7 @@
     margin-bottom: 20px;
 }
 h5 {
-    color: #4d6495;
+    color: var(--color-secondary);
 }
 
   .color-samples {
@@ -36,7 +36,7 @@ h5 {
   }
   
   .wins .sample {
-      background-color: #4d6495;
+      background-color: var(--color-secondary);
     }
     
     .losses .sample {
@@ -49,7 +49,7 @@ h5 {
   
   .explanation {
     font-size: 16px;
-    color: #4d6495;
+    color: var(--color-secondary);
   }
   
   

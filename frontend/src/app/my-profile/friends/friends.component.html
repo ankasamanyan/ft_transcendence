@@ -1,38 +1,67 @@
 <div class="tab-container">
   <h5> ✨ My Friends ✨ </h5>
-  <div class="empty-list-container" *ngIf="friendsList.length === 0" >
-    <div class="empty-list">
-      <p>{{placeHolderMessage}}</p>
-    </div>
-  </div>
 
   <mat-tab-group>
 
     <mat-tab label="Friends"> 
+      <div class="empty-list-container" *ngIf="friendsList.length === 0" >
+        <div class="empty-list">
+          <p>{{placeHolderMessage}}</p>
+        </div>
+      </div>
       <div class="friend-card"  *ngFor="let friend of friendsList">
         <div class="friend-header">
-          <img class="friend-picture" [src]='friend.profilePicture' alt="Friend Picture">
-          <div class="friend-info">
-            <h3>{{ friend.name }}</h3>
-            <p class="username">{{ friend.username }}</p>
-            <button class="action-button">View Profile</button>
+          <div><img class="friend-picture" [src]='friend.picture' alt="Friend Picture"></div>
+          <div class="friend-form">
+            <div class="friend-info">
+              <h3>{{ friend.name }}</h3>
+              <p class="username">{{ friend.intraLogin }}</p>
+            </div>
+            <button class="action-button play">Play<i class="bi bi-dice-2 icon-item"></i></button>
+            <button class="action-button block">Block<i class="bi bi-ban icon-item"></i></button>
           </div>
         </div>
       </div>
     </mat-tab>
 
-    <mat-tab label="Pending"> 
-      <div class="empty-list-container" >
+    <mat-tab label="Pending" matBadge="{{pendingList.length}}" matBadgeOverlap="true" matBadgeColor="warn"> 
+      <div class="empty-list-container" *ngIf="pendingList.length === 0">
         <div class="empty-list">
           <p>{{placeHolderMessage}}</p>
+        </div>
+      </div>
+      <div class="friend-card"  *ngFor="let user of pendingList">
+        <div class="friend-header">
+          <div><img class="friend-picture" [src]='user.picture' alt="Friend Picture"></div>
+          <div class="friend-form">
+            <div class="friend-info">
+              <h3>{{ user.name }}</h3>
+              <p class="username">{{ user.intraLogin }} wants to be your friend </p>
+            </div>
+            <button class="action-button accept">Accept<i class="bi bi-check-circle icon-item"></i></button>
+            <button class="action-button decline">Decline<i class="bi bi-x-circle icon-item"></i></button>
+          </div>
         </div>
       </div>
     </mat-tab>
 
     <mat-tab label="Blocked">
-      <div class="empty-list-container" >
+      <div class="empty-list-container" *ngIf="blockedList.length === 0">
         <div class="empty-list">
           <p>{{placeHolderMessage}}</p>
+        </div>
+      </div>
+      <div class="friend-card"  *ngFor="let user of blockedList">
+        <div class="friend-header">
+          <div><img class="friend-picture" [src]='user.picture' alt="Friend Picture"></div>
+          <div class="friend-form">
+            <div class="friend-info">
+              <h3>{{ user.name }}</h3>
+              <p class="username">{{ user.intraLogin }}</p>
+            </div>
+            <!-- <button class="action-button">Play</button> -->
+            <button class="action-button">Unblock</button>
+          </div>
         </div>
       </div>
     </mat-tab>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-match-history',
@@ -6,8 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./match-history.component.css']
 })
 export class MatchHistoryComponent implements OnInit {
-  public placeHolderMessage: string = "You will see something here, once you start playing << THE PONG >> 🎯✨";
+
+  @Input() userId!: number;
+  
   public historyList:any[] = [];
+  
+  public placeHolderMessage: string = "You will see something here, once you start playing << THE PONG >> 🎯✨";
+
 
   ngOnInit(): void {
     this.historyList = [

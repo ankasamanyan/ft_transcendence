@@ -1,16 +1,26 @@
-import {Component, Input} from '@angular/core';
-import {NavigationBarStatus} from "../domain/navigation-bar";
+import { Component, Input, OnInit } from '@angular/core';
+import { NavigationBarStatus } from "../domain/navigation-bar";
+import { SharedDataService } from '../service/shared-data.service';
+import { UsersService } from '../service/users.service';
+import { User } from '../domain/user';
 
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['./navigation-bar.component.css']
 })
-export class NavigationBarComponent {
+export class NavigationBarComponent implements OnInit{
   @Input()
   navigationStatus: NavigationBarStatus | undefined;
 
   showExitModal: boolean = false;
+
+  currentUserId!: number;
+
+  user!: User;
+
+  constructor (private sharedDataService: SharedDataService,
+                private usersService: UsersService, ){}
 
   isGameSelected() {
     return this.navigationStatus == NavigationBarStatus.GAME;
@@ -22,5 +32,17 @@ export class NavigationBarComponent {
 
   isLogoutSelected() {
     return this.navigationStatus == NavigationBarStatus.LOGOUT;
+  }
+
+  ngOnInit(): void {
+    this.sharedDataService.getData$()
+      .subscribe((data) => {
+        this.currentUserId = data;
+      })
+    
+    this.usersService.getUserById(this.currentUserId)
+    .subscribe((user) => {
+      this.user = user;
+    });
   }
 }

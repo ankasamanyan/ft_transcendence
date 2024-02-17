@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import { OnInit } from '@angular/core';
+import { SettingsComponent } from './settings/settings.component';
+import { SharedDataService } from '../service/shared-data.service';
+import { User } from '../domain/user';
+import { UsersService } from '../service/users.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -11,14 +16,27 @@ import { OnInit } from '@angular/core';
 
   export class MyProfileComponent implements OnInit{
 
-  public name: string = 'Anait';
-  // public surname: string = 'Kasamanian';
-  public username: string = '@akasaman';
-  public selectedMenuItem: string = 'friends';
-  public profilePicture: any =  "../../../assets/placeholderAvatar.jpeg";
+  public user!: User;
+
+  public userId!: number;
   
+  public selectedMenuItem: string = 'friends';
+  
+  
+  constructor(private sharedDataService: SharedDataService, private usersService: UsersService) {}
   
   ngOnInit(): void {
+
+    this.sharedDataService.getData$()
+      .subscribe((data) => {
+        this.userId = data
+      });
+    console.log("this is the userId: " + this.userId);
+      
+    this.usersService.getUserById(this.userId)
+      .subscribe((user) => {
+        this.user = user;
+      });
   }
 
   selectMenuItem(menuItem: string) {

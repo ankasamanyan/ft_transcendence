@@ -7,7 +7,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-    profilePictureUrl: any;
     selectColor(arg0: string) {throw new Error('Method not implemented.');}
   @Input() username: any;
   @Input() name: any;

@@ -48,20 +48,18 @@
 }
 
 .profile-icon {
-  overflow: hidden;
-  justify-content: center;
-}
-
-.profile-icon img {
   margin: 20px;
-  border-radius: 50%;
   width: 100px;
   height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  justify-content: center;
+  object-fit: cover;
   box-shadow: 0 2px 20px rgb(255, 255, 255);
 }
 
 .username {
-  color: #4d6495;
+  color: var(--color-secondary);
   text-align: center;
 }
 
@@ -89,7 +87,7 @@
 .menu {
   margin: 10px;
   font-size: 25px;
-  color:#4d6495;
+  color:var(--color-secondary);
 }
 
 .icon-set {
