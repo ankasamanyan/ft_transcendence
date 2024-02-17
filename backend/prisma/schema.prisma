@@ -79,3 +79,10 @@ model MutedUser {
     channel_id  Int
     user_id     Int
 }
+
+model UserStatistics {
+    id          Int      @id @default(autoincrement())
+    userId      Int      @unique
+    wins        Int
+    losses       Int
+}

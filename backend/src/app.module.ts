@@ -23,6 +23,9 @@ import {PrismaMutedUsersRepository} from "./adapter/repository/prisma-muted-user
 import {PrismaBannedUsersRepository} from "./adapter/repository/prisma-banned-users-repository";
 import {ChatGatewayModule } from './socket/chat-gateway/chat-gateway.module';
 import { MuteTimer } from './cron/timer';
+import { PrismaUserStatisticsRespository } from './adapter/repository/prisma-user-statistics-respository';
+import { UserStatisticsController } from './adapter/user-statistics.controller';
+import { UserStatisticsService } from './service/user-statistics.service';
 
 @Module({
     imports: [ChatGatewayModule],
@@ -32,7 +35,8 @@ import { MuteTimer } from './cron/timer';
         UsersController,
         BlockedUsersController,
         ChannelController,
-        FriendController],
+        FriendController,
+        UserStatisticsController],
     providers: [
         MuteTimer,
         AppService,
@@ -50,7 +54,9 @@ import { MuteTimer } from './cron/timer';
         PrismaChannelAdminRepository,
         PrismaChannelParticipantRepository,
         PrismaMutedUsersRepository,
-        PrismaBannedUsersRepository],
+        PrismaBannedUsersRepository,
+        PrismaUserStatisticsRespository,
+        UserStatisticsService ],
 })
 export class AppModule {
 }

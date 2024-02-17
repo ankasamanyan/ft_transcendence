@@ -10,6 +10,7 @@ import {PrismaChannelAdminRepository} from "../../adapter/repository/prisma-chan
 import { PrismaBannedUsersRepository } from 'src/adapter/repository/prisma-banned-users-repository';
 import { PrismaMutedUsersRepository } from 'src/adapter/repository/prisma-muted-users-repository';
 import { MuteTimer } from 'src/cron/timer';
+import { PrismaUserStatisticsRespository } from 'src/adapter/repository/prisma-user-statistics-respository';
 
 @Module({
   providers: [
@@ -23,6 +24,7 @@ import { MuteTimer } from 'src/cron/timer';
     PrismaChannelAdminRepository,
     PrismaBannedUsersRepository,
     PrismaMutedUsersRepository,
+    PrismaUserStatisticsRespository,
     MuteTimer,
      ]
 })
