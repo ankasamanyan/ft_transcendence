@@ -76,12 +76,7 @@ img {
     color: var(--color-orange-darker);
 }
 
-.to-be-kicked-out {
-    opacity: 0.5;
-    pointer-events: none;
-}
-
-.to-be-banned {
+.to-be-out {
     opacity: 0.5;
     pointer-events: none;
 }
