@@ -33,7 +33,7 @@ import { Observable } from 'rxjs';
       });
     console.log("this is the userId: " + this.userId);
       
-    this.usersService.getUserById(1)
+    this.usersService.getUserById(this.userId)
       .subscribe((user) => {
         this.user = user;
       });

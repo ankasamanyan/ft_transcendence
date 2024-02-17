@@ -1,9 +1,11 @@
 <div class="settings-tab">
     <h5 >✨ Settings ✨</h5>
     <div class="settings-card">
-        <div class="profile-picture">
-            <img [src]='profilePicture' alt="Profile Picture">
+
+        <div class="picture-container">
+            <img class="profile-picture" [src]='profilePicture' alt="Profile Picture">
         </div>
+
         <form [formGroup]="settingsForm">
 
         <div class="form-group">

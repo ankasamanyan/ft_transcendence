@@ -7,6 +7,10 @@
     --color-light-blue-darker: #d5e0e6;
     --color-light-gray: #eff1f1;
     --color-dark-blue: #171e2d;
+    --color-secondary: #4d6495;
 }
 
-html, body { height: 100%; }
+html,
+body {
+    height: 100%;
+}

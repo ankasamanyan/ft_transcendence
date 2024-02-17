@@ -18,12 +18,15 @@ export class AppComponent {
       private messageService: MessageService,
       private friendService: FriendService,
       private channelService: ChannelService,
+      private sharedDataService: SharedDataService,
   ) {
     this.usersService.initializeUsers().subscribe();
     this.friendService.initializeFriends().subscribe();
 
     this.channelService.initializeChannels().subscribe();
     this.messageService.initializeChannelMessages().subscribe();
+    //get the current userId here
+    this.sharedDataService.setData(1);
   }
 
   public open(modal: any): void {

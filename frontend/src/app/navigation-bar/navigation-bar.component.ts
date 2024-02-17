@@ -1,6 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NavigationBarStatus} from "../domain/navigation-bar";
+import { Component, Input, OnInit } from '@angular/core';
+import { NavigationBarStatus } from "../domain/navigation-bar";
 import { SharedDataService } from '../service/shared-data.service';
+import { UsersService } from '../service/users.service';
+import { User } from '../domain/user';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -13,7 +15,12 @@ export class NavigationBarComponent implements OnInit{
 
   showExitModal: boolean = false;
 
-  constructor (private sharedDataService: SharedDataService){}
+  currentUserId!: number;
+
+  user!: User;
+
+  constructor (private sharedDataService: SharedDataService,
+                private usersService: UsersService, ){}
 
   isGameSelected() {
     return this.navigationStatus == NavigationBarStatus.GAME;
@@ -28,8 +35,14 @@ export class NavigationBarComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.sharedDataService.getData$()
+      .subscribe((data) => {
+        this.currentUserId = data;
+      })
     
-    const userId:number = 1;
-    this.sharedDataService.setData(userId);
+    this.usersService.getUserById(this.currentUserId)
+    .subscribe((user) => {
+      this.user = user;
+    });
   }
 }

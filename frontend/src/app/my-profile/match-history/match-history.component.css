@@ -22,7 +22,7 @@ h5 {
   min-height: 100vh;
   overflow: hidden;
   position: relative;
-  color: #4d6495;
+  color: var(--color-secondary);
   font-size: large;
 }
 
@@ -90,6 +90,6 @@ h5 {
 }
 
 .username {
-  color: #4d6495;
+  color: var(--color-secondary);
   margin-top: 5px;
 }

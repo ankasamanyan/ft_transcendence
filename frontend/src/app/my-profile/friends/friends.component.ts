@@ -21,14 +21,13 @@ export class FriendsComponent implements OnInit {
   public placeHolderMessage: string = 'This list is currently empty 🤷🏻‍♀️'
 
 
-  constructor(private friendService: FriendService) {
-    this.friendService.getFriends(1)
+  constructor(private friendService: FriendService) { }
+  
+  ngOnInit(): void {
+    this.friendService.getFriends(this.userId)
       .subscribe((friends)=> {
         this.friendsList = friends.users;
       });
-  }
-
-  ngOnInit(): void {
     this.pendingList = [
     { 
       id: 2,
