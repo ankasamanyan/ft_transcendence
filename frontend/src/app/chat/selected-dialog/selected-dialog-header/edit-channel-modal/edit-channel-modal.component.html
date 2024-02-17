@@ -14,7 +14,8 @@
                         [channel]="channel"
                         [admins]="admins"
                         [authenticatedUser]="authenticatedUser"
-                        (adminAdded)="addAdmin($event)">
+                        (adminAdded)="addAdmin($event)"
+                        (adminRemoved)="removeAdminRights($event)">
                 </app-participant>
             </div>
         </div>

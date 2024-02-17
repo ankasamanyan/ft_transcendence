@@ -80,6 +80,10 @@ export class ChannelService {
     return this.socket.emit('newAdmins', ChannelUpdateRequest.fromDomain(channelUpdate));
   }
 
+  removeAdmins(channelUpdate: ChannelUpdate) {
+    return this.socket.emit('adminsNoMore', ChannelUpdateRequest.fromDomain(channelUpdate));
+  }
+
   initializeChannels() {
     return this.httpClient.post<void>("http://localhost:3000/channels/mocks", {});
   }

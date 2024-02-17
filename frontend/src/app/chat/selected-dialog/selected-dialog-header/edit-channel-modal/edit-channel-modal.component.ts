@@ -42,23 +42,7 @@ export class EditChannelModalComponent implements AfterViewInit {
   displayTypes: boolean = false;
 
   constructor(
-    private channelService: ChannelService,
-    private socket: OurSocket) {
-    socket.on("channelRenamed", () => {
-      this.channelService.updateChannels.next(true);
-    });
-    socket.on("channelTypeChanged", () => {
-      this.channelService.updateChannels.next(true);
-    });
-    socket.on("passwordSet", () => {
-      this.channelService.updateChannels.next(true);
-    });
-    socket.on("passwordDeleted", () => {
-      this.channelService.updateChannels.next(true);
-    });
-    socket.on("adminsAdded", () => {
-      this.channelService.updateChannels.next(true);
-    });
+    private channelService: ChannelService) {
   }
 
   ngAfterViewInit() {
@@ -80,8 +64,12 @@ export class EditChannelModalComponent implements AfterViewInit {
     }
     if (this.adminsChanged()) {
       let adminsToAdd = Array.from(this.newAdmins.keys()).filter(user => this.newAdmins.get(user) === true);
+      let adminsToRemove = Array.from(this.newAdmins.keys()).filter(user => this.newAdmins.get(user) === false);
       if (adminsToAdd.length != 0) {
         this.channelService.assignAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
+      }
+      if (adminsToRemove.length != 0) {
+        this.channelService.removeAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
       }
     }
     this.modalClose.emit();
@@ -182,6 +170,14 @@ export class EditChannelModalComponent implements AfterViewInit {
       this.newAdmins.delete(user);
     } else {
       this.newAdmins.set(user, true);
+    }
+  }
+
+  removeAdminRights(user: User) {
+    if (this.newAdmins.get(user)) {
+      this.newAdmins.delete(user);
+    } else {
+      this.newAdmins.set(user, false);
     }
   }
 }
