@@ -26,9 +26,20 @@ export class ParticipantComponent {
   @Output()
   adminRemoved = new EventEmitter<User>();
 
+  @Output()
+  userKickedOut = new EventEmitter<User>();
+
+  @Output()
+  userBanned = new EventEmitter<User>();
+
+  @Output()
+  userMuted = new EventEmitter<User>();
+
   displayUserActions: boolean = false;
   tempAdminStatus: boolean = false;
-
+  tempKickedOut: boolean = false;
+  tempBanned: boolean = false;
+  tempMuted: boolean = false;
 
   isOwner(user: User) {
     return user.id === this.channel?.owner?.id;
@@ -63,11 +74,41 @@ export class ParticipantComponent {
 
   makeAdmin() {
     this.tempAdminStatus = true;
+    this.tempKickedOut = false;
+    this.tempMuted = false;
+    this.tempBanned = false;
     this.adminAdded.emit(this.participant);
   }
 
   removeAdminRights() {
     this.tempAdminStatus = false;
+    this.tempKickedOut = false;
+    this.tempMuted = false;
+    this.tempBanned = false;
     this.adminRemoved.emit(this.participant);
+  }
+
+  kickOut() {
+    this.tempKickedOut = true;
+    this.tempMuted = false;
+    this.tempBanned = false;
+    this.tempAdminStatus = false;
+    this.userKickedOut.emit(this.participant);
+  }
+
+  ban() {
+    this.tempBanned = true;
+    this.tempKickedOut = false;
+    this.tempMuted = false;
+    this.tempAdminStatus = false;
+    this.userBanned.emit(this.participant);
+  }
+
+  mute() {
+    this.tempMuted = true;
+    this.tempKickedOut = false;
+    this.tempBanned = false;
+    this.tempAdminStatus = false;
+    this.userMuted.emit(this.participant);
   }
 }

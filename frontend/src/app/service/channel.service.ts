@@ -84,6 +84,18 @@ export class ChannelService {
     return this.socket.emit('adminsNoMore', ChannelUpdateRequest.fromDomain(channelUpdate));
   }
 
+  kickUsers(channelUpdate: ChannelUpdate) {
+    return this.socket.emit('participantsNoMore', ChannelUpdateRequest.fromDomain(channelUpdate));
+  }
+
+  banUsers(channelUpdate: ChannelUpdate) {
+    return this.socket.emit('participantsNeverAgain', ChannelUpdateRequest.fromDomain(channelUpdate));
+  }
+
+  muteUsers(channelUpdate: ChannelUpdate) {
+    return this.socket.emit('participantHush', ChannelUpdateRequest.fromDomain(channelUpdate));
+  }
+
   initializeChannels() {
     return this.httpClient.post<void>("http://localhost:3000/channels/mocks", {});
   }

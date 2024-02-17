@@ -8,7 +8,7 @@
 
 <div class="match-card match-history-record" *ngFor="let match of historyList">
   <div class="header">
-    <img class="picture" [src]='match.profilePicture' alt="User Picture">
+    <div><img class="picture" [src]='match.profilePicture' alt="User Picture"></div>
     <div class="info">
       <h3>{{ match.name }}</h3>
       <p class="username">{{ match.username }}</p>
@@ -24,7 +24,7 @@
       <h3>{{ match.opponentName }}</h3>
       <p class="username">{{ match.opponentUsername }}</p>
     </div>
-    <img class="picture" [src]='match.opponentProfilePicture' alt="Opponent Picture">
+    <div><img class="picture" [src]='match.opponentProfilePicture' alt="Opponent Picture"></div>
   </div>
 </div>
 

@@ -8,6 +8,7 @@ body {
   }
   
   .settings-tab {
+    top: 0;
     padding: 40px;
     background-color: #ffffff;
     min-height: 100vh;
@@ -29,24 +30,20 @@ body {
   .form-group {
     margin-bottom: 20px;
   }
-
+  
   .profile-picture {
     display: flex;
     overflow: hidden;
-    justify-content: center;
-  }
-
-  .profile-picture img {
-    border-radius: 50%;
     width: 200px;
     height: 200px;
-    flex-direction: row;
+    border-radius: 50%;
     justify-content: center;
-    overflow: hidden;
-    margin: 20px;
+    align-items: center;
+    margin: 20px auto;
+    object-fit: cover;
     background-color: var(--color-light-blue);
   }
-  
+
   input {
     min-width: 500px;
     padding: 10px;
@@ -62,7 +59,7 @@ body {
 
   button {
     padding: 10px 20px;
-    background-color: #4d6495;
+    background-color: var(--color-secondary);
     color: #fff;
     border: none;
     border-radius: 10px;
@@ -81,9 +78,14 @@ body {
     display: flex;
     justify-content: center;
   }
+
+  .username {
+    color: var(--color-secondary);
+    font-weight: 400;
+  }
   
   label {
-    font-weight: bold;
+    font-weight: 400;
   }
   
   .color-theme-container {
@@ -91,8 +93,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
-}
+  }
 
 .color-options {
     margin-top: 20px;
@@ -100,7 +101,6 @@ body {
     justify-items: center;
   }
   
-  /* Define your color options */
   .color-option1 { 
     background-color: #ddcb82;
     width: 40px;
@@ -110,6 +110,7 @@ body {
     cursor: pointer;
 
   }
+  
   .color-option2 { 
     background-color: #d581bc;
     width: 40px;
@@ -119,6 +120,7 @@ body {
     cursor: pointer;
 
   }
+
   .color-option3 { 
     background-color: #556db4;
     width: 40px;
@@ -128,6 +130,7 @@ body {
     cursor: pointer;
 
   }
+
   .color-option4 { 
     background-color: #873ba1;
     width: 40px;

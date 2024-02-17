@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -15,7 +14,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { GameComponent } from './game/game.component';
 import { AuthorizationPageComponent } from './authorization-page/authorization-page.component';
 import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { SelectedDialogHeaderComponent } from './chat/selected-dialog/selected-dialog-header/selected-dialog-header.component';
 import { BlockModalComponent } from './chat/selected-dialog/selected-dialog-header/block-modal/block-modal.component';
 import { InvitationToPlayReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-to-play-received-notification/invitation-to-play-received-notification.component';
@@ -32,7 +31,8 @@ import { PieChartComponent } from './my-profile/statistics/pie-chart/pie-chart.c
 import { InvitationToBeFriendsReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-to-be-friends-received-notification/invitation-to-be-friends-received-notification.component';
 import { EditChannelModalComponent } from './chat/selected-dialog/selected-dialog-header/edit-channel-modal/edit-channel-modal.component';
 import { SettingsComponent } from './my-profile/settings/settings.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { SharedDataService } from './service/shared-data.service';
+import { MatBadge, MatBadgeModule } from '@angular/material/badge';
 import { ParticipantComponent } from './chat/selected-dialog/selected-dialog-header/edit-channel-modal/participant/participant.component';
 
 @NgModule({
@@ -73,7 +73,7 @@ import { ParticipantComponent } from './chat/selected-dialog/selected-dialog-hea
     MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDialogModule,
+    MatBadgeModule,
     RouterModule.forRoot([
       { path: '', component: ChatComponent },
       { path: 'my-profile', component: MyProfileComponent },
@@ -82,10 +82,12 @@ import { ParticipantComponent } from './chat/selected-dialog/selected-dialog-hea
       { path: 'authorization', component: AuthorizationPageComponent },
     ]),
   ],
-  providers: [
-
-  ],
+  providers: [SharedDataService],
   bootstrap: [AppComponent],
+  exports: [
+    MatBadgeModule,
+    MatBadge,
+  ]
 })
 export class AppModule {
 }

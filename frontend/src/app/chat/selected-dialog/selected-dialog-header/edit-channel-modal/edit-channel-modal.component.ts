@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import {Channel} from "../../../../domain/channel";
 import {ChannelService} from "../../../../service/channel.service";
-import {OurSocket} from "../../../../socket/socket";
 import {User} from "../../../../domain/user";
 import {ChannelUpdate} from "../../../../domain/channel-update";
 
@@ -37,7 +36,7 @@ export class EditChannelModalComponent implements AfterViewInit {
   nameOnInit: string | undefined;
   typeOnInit: string | undefined;
   passwordOnInit: string | undefined;
-  newAdmins = new Map<User, boolean>();
+  updatedUsers = new Map<User, string>();
   authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg");
   displayTypes: boolean = false;
 
@@ -63,24 +62,25 @@ export class EditChannelModalComponent implements AfterViewInit {
       this.channelService.setPassword(this.channel!);
     }
     if (this.adminsChanged()) {
-      let adminsToAdd = Array.from(this.newAdmins.keys()).filter(user => this.newAdmins.get(user) === true);
-      let adminsToRemove = Array.from(this.newAdmins.keys()).filter(user => this.newAdmins.get(user) === false);
-      if (adminsToAdd.length != 0) {
-        this.channelService.assignAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
-      }
-      if (adminsToRemove.length != 0) {
-        this.channelService.removeAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
-      }
+      this.processAdminChange();
+    }
+    if (this.areUsersLeaving()) {
+      this.processLeavingUsers();
+    }
+    if (this.isAnyoneMuted()) {
+      this.processHushUsers();
     }
     this.modalClose.emit();
   }
 
   channelDetailsChanged() {
+    console.log(this.updatedUsers);
     return this.doesPasswordProtectedChannelHasPassword()
       && (this.isNameChanged()
         || this.isTypeChanged()
         || this.passwordChangedTypeDidnt()
-        || this.adminsChanged());
+        || this.adminsChanged()
+        || this.areThereUserUpdates());
   }
 
   isNameChanged() {
@@ -96,7 +96,27 @@ export class EditChannelModalComponent implements AfterViewInit {
   }
 
   adminsChanged() {
-    return this.newAdmins.size !== 0;
+    const adminChanges = Array.from(this.updatedUsers.keys()).filter(user =>
+      this.updatedUsers.get(user) === "makeAdmin"
+      || this.updatedUsers.get(user) === "removeAdminRights");
+    return adminChanges.length != 0;
+  }
+
+  areUsersLeaving() {
+    const participantsCountChange = Array.from(this.updatedUsers.keys()).filter(user =>
+      this.updatedUsers.get(user) === "kick"
+      || this.updatedUsers.get(user) === "ban");
+    return participantsCountChange.length != 0;
+  }
+
+  areThereUserUpdates() {
+    return this.updatedUsers.size !== 0;
+  }
+
+  isAnyoneMuted() {
+    const participantsToBeMuted = Array.from(this.updatedUsers.keys()).filter(user =>
+      this.updatedUsers.get(user) === "mute");
+    return participantsToBeMuted.length != 0;
   }
 
   passwordChangedTypeDidnt() {
@@ -158,6 +178,35 @@ export class EditChannelModalComponent implements AfterViewInit {
     }
   }
 
+  processAdminChange() {
+    let adminsToAdd = Array.from(this.updatedUsers.keys()).filter(user => this.updatedUsers.get(user) === "makeAdmin");
+    let adminsToRemove = Array.from(this.updatedUsers.keys()).filter(user => this.updatedUsers.get(user) === "removeAdminRights");
+    if (adminsToAdd.length != 0) {
+      this.channelService.assignAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
+    }
+    if (adminsToRemove.length != 0) {
+      this.channelService.removeAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
+    }
+  }
+
+  processLeavingUsers() {
+    let leavingForSomeTime = Array.from(this.updatedUsers.keys()).filter(user => this.updatedUsers.get(user) === "kick");
+    let leavingForGood = Array.from(this.updatedUsers.keys()).filter(user => this.updatedUsers.get(user) === "ban");
+    if (leavingForSomeTime.length != 0) {
+      this.channelService.kickUsers(new ChannelUpdate(this.channel!.id!, leavingForSomeTime));
+    }
+    if (leavingForGood.length != 0) {
+      this.channelService.banUsers(new ChannelUpdate(this.channel!.id!, leavingForGood));
+    }
+  }
+
+  processHushUsers() {
+    let hushUsers = Array.from(this.updatedUsers.keys()).filter(user => this.updatedUsers.get(user) === "mute");
+    if (hushUsers.length != 0) {
+      this.channelService.muteUsers(new ChannelUpdate(this.channel!.id!, hushUsers));
+    }
+  }
+
   setValuesToInitialOnes() {
     this.channel!.password = this.passwordOnInit;
     this.channel!.name = this.nameOnInit!;
@@ -166,18 +215,30 @@ export class EditChannelModalComponent implements AfterViewInit {
   }
 
   addAdmin(user: User) {
-    if (this.newAdmins.get(user)) {
-      this.newAdmins.delete(user);
+    if (this.updatedUsers.get(user) === "removeAdminRights") {
+      this.updatedUsers.delete(user);
     } else {
-      this.newAdmins.set(user, true);
+      this.updatedUsers.set(user, "makeAdmin");
     }
   }
 
   removeAdminRights(user: User) {
-    if (this.newAdmins.get(user)) {
-      this.newAdmins.delete(user);
+    if (this.updatedUsers.get(user) === "makeAdmin") {
+      this.updatedUsers.delete(user);
     } else {
-      this.newAdmins.set(user, false);
+      this.updatedUsers.set(user, "removeAdminRights");
     }
+  }
+
+  kickUser(user: User) {
+    this.updatedUsers.set(user, "kick");
+  }
+
+  banUser(user: User) {
+    this.updatedUsers.set(user, "ban");
+  }
+
+  muteUser(user: User) {
+    this.updatedUsers.set(user, "mute");
   }
 }

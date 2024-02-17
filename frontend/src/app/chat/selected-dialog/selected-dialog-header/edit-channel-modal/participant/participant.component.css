@@ -75,3 +75,8 @@ img {
 .dropdown-content-three-dots div:hover .bi-dash-circle {
     color: var(--color-orange-darker);
 }
+
+.to-be-out {
+    opacity: 0.5;
+    pointer-events: none;
+}

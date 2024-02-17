@@ -1,4 +1,4 @@
-body {
+cbody {
   margin: 0;
 }
 
@@ -8,7 +8,7 @@ body {
   min-height: 100vh;
   overflow: hidden;
   position: relative;
-  color: #171e2d;
+  color: var(--color-dark-blue);
 }
 
 h5 {
@@ -21,7 +21,6 @@ h5 {
 
 .friend-card {
   display: flex;
-  width: 100%;
   padding: 20px;
   padding-left: 40px;
   margin-top: 20px;
@@ -33,6 +32,14 @@ h5 {
 .friend-header {
   display: flex;
   align-items: center;
+  width: 100%;
+}
+
+.friend-form {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding-right: 25px;
 }
 
 .friend-picture {
@@ -41,37 +48,33 @@ h5 {
   border-radius: 50%;
   margin-right: 45px;
   background-color: var(--color-light-blue-darker);
-
-}
-.friend-picture img  {
-  width: 70px;
-  height: auto;
+  object-fit: cover;
 }
 
 .friend-info {
+  width: 100%;
+  display: flex;
   text-align: left;
+  flex-direction: column;
 }
 
 .username {
-  color: #4d6495;
+  color: var(--color-secondary);
 }
 
 .action-button {
-  border: 2px solid #4d6495;
+  border: 2px solid var(--color-secondary);
   background-color: transparent;
-  color: #4d6495;
-  padding: 8px 16px;
-  text-align: center;
-  display: inline-block;
+  color: var(--color-secondary);
+  padding: 10px 20px;
   font-size: 14px;
-  margin: 4px 2px;
+  margin: 20px 5px;
   cursor: pointer;
   border-radius: 4px;
-  justify-content: flex-end;
 }
 
 .action-button:hover {
-  background-color: #4d6495;
+  background-color: var(--color-secondary);
   color: white;
 }
 
@@ -81,7 +84,7 @@ h5 {
   min-height: 100vh;
   overflow: hidden;
   position: relative;
-  color: #4d6495;
+  color: var(--color-secondary);
   font-size: large;
 }
 
@@ -97,6 +100,56 @@ h5 {
 }
 
 button {
-  justify-content: flex-end;
-  display: flex;
+  width: 100px;
+}
+
+.icon-item {
+  font-size: 15px;
+  padding: 5 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.block {
+  border-color: rgb(180, 60, 60);
+  color: rgb(180, 60, 60);
+}
+
+.block:hover {
+  color: white;
+  background-color: rgb(180, 60, 60);
+}
+
+.decline {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(180, 60, 60);
+  border: 2px solid rgb(180, 60, 60);
+  /* border-color: transparent; */
+}
+
+.decline:hover {
+  background-color: rgb(180, 60, 60);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.accept {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(80, 120, 80);
+  border: 2px solid rgb(80, 120, 80);
+  /* border-color: transparent; */
+}
+
+.accept:hover {
+  background-color: rgb(80, 120, 80);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.action-button i {
+  margin-left: 5px;
 }
