@@ -114,10 +114,12 @@ export class ChannelService {
   }
 
   banUser(user: User, channelId: number) {
+    this.kickUser(channelId, user.id);
     return from(this.prismaBannedUsersRepository.banUser(user, channelId))
   }
 
   banUsers(users: Users, channelId: number) {
+    users.users.forEach(user => this.kickUser(channelId, user.id));
     const bannedUsers = users.users.map(user => this.banUser(user, channelId));
     return bannedUsers;
   }
