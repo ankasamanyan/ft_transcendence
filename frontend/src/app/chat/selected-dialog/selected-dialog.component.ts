@@ -3,6 +3,7 @@ import {MessageService} from "../../service/message.service";
 import {ChannelMessage} from "../../domain/channel-message";
 import {ChannelService} from "../../service/channel.service";
 import {OurSocket} from "../../socket/socket";
+import {User, Users} from "../../domain/user";
 
 @Component({
   selector: 'app-selected-dialog',
@@ -17,6 +18,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
 
   selectedDialog: ChannelMessage[] | undefined;
   message: string | undefined;
+  isMuted: boolean = false;
 
   constructor(
     private messageService: MessageService,
@@ -29,7 +31,22 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
         });
       }
       this.channelService.updateChannels.next(true);
-    })
+    });
+    socket.on("participantMuted", () => {
+      if (this.selectedChannelId) {
+        this.channelService.isMuted(5, this.selectedChannelId).subscribe((value) => {
+          this.isMuted = value;
+          this.sleep(30001).then(() => {
+            this.channelService.isMuted(5, this.selectedChannelId!).subscribe((value) => {
+              this.isMuted = value;
+          });
+        })
+      })
+    }});
+  }
+
+  sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
