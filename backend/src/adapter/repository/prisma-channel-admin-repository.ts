@@ -2,6 +2,7 @@ import {PrismaService} from "../../service/prisma.service";
 import {Injectable} from "@nestjs/common";
 import {User} from "../../domain/user";
 import {UserResponse, UsersResponse} from "../dto/users-response";
+import { ChannelUpdate } from "src/domain/channel-update";
 
 @Injectable()
 export class PrismaChannelAdminRepository{

@@ -6,7 +6,6 @@ import {Observable} from "rxjs";
 import {ChannelResponse} from "./dto/channel.response";
 import {ChannelRequest} from "./dto/channel.request";
 import { UserResponse, UsersResponse } from './dto/users-response';
-import { ChannelUpdate } from 'src/domain/channel-update';
 import { ChannelUpdateRequest } from './dto/channel-update.request';
 
 @Controller('/channels')
@@ -53,6 +52,11 @@ export class ChannelController {
     return this.channelService.initializeChannels();
   }
 
+  @Put('/name')
+  renameChannel(@Body() request: ChannelRequest) {
+    return this.channelService.renameChannel(ChannelRequest.toDomain(request));
+  }
+
   @Delete("/channels/:channelId")
   removeChannel(@Param('channelId') channelId: number) {
     return this.channelService.removeChannel(channelId);
@@ -93,9 +97,9 @@ export class ChannelController {
     return this.channelService.muteUser(UserResponse.toDomain(request), channelId);
   }
 
-  @Post('/mute-users/:channelId')
-  muteUsers(@Body() request: UsersRequest, @Param('channelId') channelId: number) {
-    return this.channelService.muteUsers(UsersResponse.toDomain(request), channelId);
+  @Post('/mute-users')
+  muteUsers(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.muteUsers(ChannelUpdateRequest.toDomain(request));
   }
 
   @Delete("unmute-user/:channelId/:userId")
@@ -123,15 +127,16 @@ export class ChannelController {
     return this.channelService.unbanUser(channelId, userId);
   }
 
-  @Post("/admins/:channelId")
-  assignAdmin(@Body() request: UserRequest, @Param('channelId') channelId: number) {
-    return this.channelService.assignAdmin(UserResponse.toDomain(request), channelId);
-  }
+  // @Post("/admins")
+  // assignAdmins(@Body() request: ChannelUpdateRequest) {
+  //   return this.channelService.assignAdmins(ChannelUpdateRequest.toDomain(request));
+  // }
 
   @Delete("/admins/:channelId/:userId")
   removeAdmin(@Param('channelId') channelId: number, @Param('userId') userId: number) {
     return this.channelService.removeAdmin(channelId, userId);
   }
+
   
   @Put("/status")
   changeStatus(@Body() request: ChannelRequest) {

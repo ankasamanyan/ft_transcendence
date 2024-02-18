@@ -77,11 +77,6 @@ export class ChannelService {
     return from(this.prismaChannelAdminRepository.assignAdmin(user, channelId));
   }
 
-  assignAdmins(users: Users, channelId: number) {
-    const admins = users.users.map(user => this.assignAdmin(user, channelId));
-    return admins;
-  }
-
   removeAdmin(channelId: number, userId: number) {
     return from(this.prismaChannelAdminRepository.removeAdmin(channelId, userId));
   }
@@ -114,10 +109,9 @@ export class ChannelService {
     return from(this.prismaMutedUsersRepository.muteUser(user, channelId));
   }
 
-  muteUsers(users: Users, channelId: number) {
-    users.users.forEach(user => this.muteTimer.setTimer(channelId, user.id));
-    const mutedUsers = users.users.map(user => this.muteUser(user, channelId));
-    return mutedUsers;
+  muteUsers(channelUpdate: ChannelUpdate) {
+    channelUpdate.users.forEach(user => this.muteTimer.setTimer(channelUpdate.channelId, user.id));
+    return from(this.prismaMutedUsersRepository.muteUsers(channelUpdate));
   }
 
   unmuteUser(channelId: number, userId: number) {

@@ -2,6 +2,7 @@ import {PrismaService} from "../../service/prisma.service";
 import {Injectable} from "@nestjs/common";
 import {UserResponse, UsersResponse} from "../dto/users-response";
 import {User} from "../../domain/user";
+import { ChannelUpdate } from "src/domain/channel-update";
 
 interface RawSql {
   id: number,
@@ -22,6 +23,18 @@ export class PrismaMutedUsersRepository {
         user_id: Number(mutedUser.id),
       }
     });
+  }
+
+  async muteUsers(channelUpdate: ChannelUpdate) {
+    const userIds = channelUpdate.users.map(user => user.id);
+    const mutedUsersData = userIds.map(userId => ({
+      channel_id: Number(channelUpdate.channelId),
+      user_id: userId
+  }));
+
+  await this.prisma.mutedUser.createMany({
+      data: mutedUsersData
+  });
   }
 
   async unmuteUser(channelId: number, mutedUserId: number) {
