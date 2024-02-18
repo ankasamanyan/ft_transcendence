@@ -1,7 +1,7 @@
 <div id="dialog-header">
     <span id="selected-person">{{channel?.name}}</span>
     <i class="bi bi-pen" *ngIf="!isDialog() && channel" (click)="showEditModal=true"></i>
-    <div class="dropdown" *ngIf="selectedDialogPartner">
+    <div class="dropdown" *ngIf="selectedDialogPartner && isDialog()">
         <i class="bi bi-three-dots-vertical"></i>
         <div class="dropdown-content">
             <div id="invite-action" (click)="showInviteNotificationForFewSeconds()">
