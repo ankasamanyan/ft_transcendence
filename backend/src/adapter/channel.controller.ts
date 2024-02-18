@@ -73,9 +73,14 @@ export class ChannelController {
     return this.channelService.enterChannel(UserResponse.toDomain(request), channelId);
   }
 
-  @Delete("/kick-user/:channelId/:userId")
-  kickUser(@Param('channelId') channelId: number, @Param('userId') userId: number) {
-    return this.channelService.kickUser(channelId, userId);
+  // @Delete("/kick-user/:channelId/:userId")
+  // kickUser(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+  //   return this.channelService.kickUser(channelId, userId);
+  // }
+
+  @Delete('kick-users')
+  kickUsers(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.kickUsers(ChannelUpdateRequest.toDomain(request));
   }
 
   @Delete("/leave-channel/:channelId/:userId")

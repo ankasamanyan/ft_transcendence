@@ -8,6 +8,7 @@ import {PrismaChannelAdminRepository} from "../adapter/repository/prisma-channel
 import {PrismaBannedUsersRepository } from 'src/adapter/repository/prisma-banned-users-repository';
 import {PrismaMutedUsersRepository } from 'src/adapter/repository/prisma-muted-users-repository';
 import { MuteTimer } from 'src/cron/timer';
+import { ChannelUpdate } from 'src/domain/channel-update';
 
 @Injectable()
 export class ChannelService {
@@ -104,9 +105,8 @@ export class ChannelService {
     return from(this.prismaChannelParticipantRepository.kickUser(channelId, userId));
   }
 
-  kickUsers(users: Users, channelId: number) {
-    const kickedUsers = users.users.map(user => this.kickUser(channelId, user.id));
-    return kickedUsers;
+  kickUsers(channelUpdate: ChannelUpdate) {
+    return from(this.prismaChannelParticipantRepository.kickUsers(channelUpdate));
   }
 
   muteUser(user: User, channelId: number) {
