@@ -106,14 +106,14 @@ export class PrismaFriendRepository {
         })
     }
 
-    async rejectFriendRequest(users: Users) {
+    async declineFriendRequest(users: Users) {
         await this.prisma.friend.updateMany({
             where: {
                 sent_user_id: Number(users.users[0].id),
                 received_user_id: Number(users.users[1].id)
             },
             data: {
-                status: "REJECTED"
+                status: "DECLINED"
             }
         })
     }

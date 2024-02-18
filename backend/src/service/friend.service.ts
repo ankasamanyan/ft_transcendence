@@ -35,8 +35,8 @@ export class FriendService {
     return from(this.prismaFriendRepository.acceptFriendRequest(users));
   }
 
-  rejectFriendRequest(users: Users) {
-    return from(this.prismaFriendRepository.rejectFriendRequest(users))
+  declineFriendRequest(users: Users) {
+    return from(this.prismaFriendRepository.declineFriendRequest(users))
   }
 
 }

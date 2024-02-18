@@ -41,8 +41,8 @@ export class FriendController {
   }
 
   @Put('/reject')
-  rejectFriendReuqest(@Body() request: UsersRequest) {
-    return this.friendService.rejectFriendRequest(UsersRequest.toDomain(request));
+  declineFriendReuqest(@Body() request: UsersRequest) {
+    return this.friendService.declineFriendRequest(UsersRequest.toDomain(request));
   }
 
 }
