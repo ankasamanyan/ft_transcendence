@@ -11,6 +11,7 @@ import {ChannelService} from "../../service/channel.service";
 })
 export class DialogsComponent implements OnInit {
   channels: Channel[] = [];
+  searchedForChannels: Channel[] = [];
   displayedChannels: Channel[] = [];
   selectedChannelId: number | undefined;
   users: Users | undefined;
@@ -59,9 +60,12 @@ export class DialogsComponent implements OnInit {
 
   getChannels() {
     this.channelService.getChannels(1).subscribe((value)  => {
-      this.channels = value.channels!;
+      this.channels = value.channels;
       this.displayedChannels = this.channels;
-      this.channelsLoaded = true;
+      this.channelService.getChannelsAvailableWhenSearching(1).subscribe((value) => {
+        this.searchedForChannels = value.channels;
+        this.channelsLoaded = true;
+      });
     });
   }
 }
