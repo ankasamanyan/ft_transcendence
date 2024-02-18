@@ -51,7 +51,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       this.channelService.updateChannels.next(true);
       this.getChannel();
     });
-    socket.on("adminsNoMore", () => {
+    socket.on("adminsRemoved", () => {
       this.channelService.updateChannels.next(true);
       this.getChannel();
     });

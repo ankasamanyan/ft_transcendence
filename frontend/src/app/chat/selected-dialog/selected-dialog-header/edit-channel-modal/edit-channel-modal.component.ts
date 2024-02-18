@@ -185,7 +185,7 @@ export class EditChannelModalComponent implements AfterViewInit {
       this.channelService.assignAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
     }
     if (adminsToRemove.length != 0) {
-      this.channelService.removeAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
+      this.channelService.removeAdmins(new ChannelUpdate(this.channel!.id!, adminsToRemove));
     }
   }
 

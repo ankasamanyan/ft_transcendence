@@ -49,7 +49,13 @@ export class ChatGatewayGateway {
 
   @SubscribeMessage('newAdmins')
   async assignAdmins(@MessageBody() request: ChannelUpdateRequest) {
-    // await this.channelService.assignAdmins(ChannelUpdateRequest.toDomain(request));
+    await this.channelService.addChannelAdmins(ChannelUpdateRequest.toDomain(request));
     this.server.emit("adminsAdded");
+  }
+
+  @SubscribeMessage('adminsNoMore')
+  async removeAdmins(@MessageBody() request: ChannelUpdateRequest) {
+    await this.channelService.removeChannelAdmins(ChannelUpdateRequest.toDomain(request));
+    this.server.emit("adminsRemoved");
   }
 }
