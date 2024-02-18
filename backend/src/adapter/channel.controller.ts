@@ -137,6 +137,11 @@ export class ChannelController {
     return this.channelService.removeAdmin(channelId, userId);
   }
 
+  @Delete('remove-admins')
+  removeChannelAdmins(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.removeChannelAdmins(ChannelUpdateRequest.toDomain(request));
+  }
+
   
   @Put("/status")
   changeStatus(@Body() request: ChannelRequest) {

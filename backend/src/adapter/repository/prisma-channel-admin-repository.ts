@@ -73,4 +73,17 @@ export class PrismaChannelAdminRepository{
         })
     }
 
+    async removeChannelAdmins(channelUpdate: ChannelUpdate) {
+        const userIds = channelUpdate.users.map(user => user.id);
+        await this.prisma.channelAdmin.deleteMany({
+            where: { 
+                channel_id: Number(channelUpdate.channelId),
+                user_id: {
+                    in: 
+                        userIds
+                }
+            }
+        })
+    }
+
 }

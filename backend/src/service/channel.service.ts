@@ -85,9 +85,8 @@ export class ChannelService {
     return from(this.prismaChannelAdminRepository.removeAdmin(channelId, userId));
   }
 
-  removeAdmins(userIds: number[], channelId: number) {
-    const admins = userIds.forEach(user => this.removeAdmin(channelId, user));
-    return admins;
+  removeChannelAdmins(channelUpdate: ChannelUpdate) {
+    return from(this.prismaChannelAdminRepository.removeChannelAdmins(channelUpdate));
   }
 
   enterChannel(user: User, channelId: number) {
