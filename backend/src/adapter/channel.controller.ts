@@ -127,10 +127,10 @@ export class ChannelController {
     return this.channelService.unbanUser(channelId, userId);
   }
 
-  // @Post("/admins")
-  // assignAdmins(@Body() request: ChannelUpdateRequest) {
-  //   return this.channelService.assignAdmins(ChannelUpdateRequest.toDomain(request));
-  // }
+  @Post("/add-admins")
+  addChannelAdmins(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.addChannelAdmins(ChannelUpdateRequest.toDomain(request));
+  }
 
   @Delete("/admins/:channelId/:userId")
   removeAdmin(@Param('channelId') channelId: number, @Param('userId') userId: number) {
