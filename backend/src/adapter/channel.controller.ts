@@ -62,7 +62,7 @@ export class ChannelController {
     return this.channelService.removeChannel(channelId);
   }
 
-  @Post("/set-password")
+  @Put("/set-password")
   setPassword(@Body() request: ChannelRequest) {
     return this.channelService.setPassword(ChannelRequest.toDomain(request));
   }
@@ -128,14 +128,14 @@ export class ChannelController {
   }
 
   @Post("/add-admins")
-  addChannelAdmins(@Body() request: ChannelUpdateRequest) {
+  assignAdmins(@Body() request: ChannelUpdateRequest) {
     return this.channelService.addChannelAdmins(ChannelUpdateRequest.toDomain(request));
   }
 
-  @Delete("/admins/:channelId/:userId")
-  removeAdmin(@Param('channelId') channelId: number, @Param('userId') userId: number) {
-    return this.channelService.removeAdmin(channelId, userId);
-  }
+  // @Delete("/admins/:channelId/:userId")
+  // removeAdmin(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+  //   return this.channelService.removeAdmin(channelId, userId);
+  // }
 
   @Delete('remove-admins')
   removeChannelAdmins(@Body() request: ChannelUpdateRequest) {
