@@ -2,6 +2,7 @@ import {PrismaService} from "../../service/prisma.service";
 import {Injectable} from "@nestjs/common";
 import { UserResponse, UsersResponse } from "../dto/users-response";
 import {Users, User} from "../../domain/user";
+import { ChannelUpdate } from "src/domain/channel-update";
 
 interface RawSql {
     id: number,
@@ -22,6 +23,28 @@ export class PrismaBannedUsersRepository{
                 channel_id: Number(channelId),
                 user_id: Number(bannedUser.id),
             }
+        });
+    }
+
+    async banUsers(channelUpdate: ChannelUpdate) {
+        const userIds = channelUpdate.users.map(user => user.id);
+        // kick the users
+        await this.prisma.channelParticipant.deleteMany({
+            where: {
+              channel_id: Number(channelUpdate.channelId),
+              user_id: {
+                in: userIds 
+            }
+          }
+          });
+        //ban the users
+        const bannedUsersData = userIds.map(userId => ({
+            channel_id: Number(channelUpdate.channelId),
+            user_id: userId
+        }));
+      
+        await this.prisma.bannedUser.createMany({
+            data: bannedUsersData
         });
     }
 

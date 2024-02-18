@@ -127,10 +127,8 @@ export class ChannelService {
     return from(this.prismaBannedUsersRepository.banUser(user, channelId))
   }
 
-  banUsers(users: Users, channelId: number) {
-    users.users.forEach(user => this.kickUser(channelId, user.id));
-    const bannedUsers = users.users.map(user => this.banUser(user, channelId));
-    return bannedUsers;
+  banUsers(channelUpdate: ChannelUpdate) {
+    return from(this.prismaBannedUsersRepository.banUsers(channelUpdate));
   }
 
   unbanUser(channelId: number, userId: number) {

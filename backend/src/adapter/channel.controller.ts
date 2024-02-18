@@ -92,10 +92,10 @@ export class ChannelController {
     return this.channelService.leaveChannel(channelId, userId);
   }
 
-  @Post("/mute-user/:channelId")
-  muteUser(@Body() request: UserRequest, @Param('channelId') channelId: number) {
-    return this.channelService.muteUser(UserResponse.toDomain(request), channelId);
-  }
+  // @Post("/mute-user/:channelId")
+  // muteUser(@Body() request: UserRequest, @Param('channelId') channelId: number) {
+  //   return this.channelService.muteUser(UserResponse.toDomain(request), channelId);
+  // }
 
   @Post('/mute-users')
   muteUsers(@Body() request: ChannelUpdateRequest) {
@@ -112,14 +112,14 @@ export class ChannelController {
     return this.channelService.isMuted(channelId, userId);
   }
 
-  @Post("/ban-user/:channelId")
-  banUser(@Body() request: UserRequest,  @Param('channelId') channelId: number) {
-    return this.channelService.banUser(UserResponse.toDomain(request), channelId);
-  }
+  // @Post("/ban-user/:channelId")
+  // banUser(@Body() request: UserRequest,  @Param('channelId') channelId: number) {
+  //   return this.channelService.banUser(UserResponse.toDomain(request), channelId);
+  // }
 
-  @Post('/ban-users/:channelId')
-  banUsers(@Body() request: UsersRequest, @Param('channelId') channelId: number) {
-    return this.channelService.banUsers(UsersResponse.toDomain(request), channelId);
+  @Post('/ban-users')
+  banUsers(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.banUsers(ChannelUpdateRequest.toDomain(request));
   }
 
   @Delete("unban-user/:channelId/:userId")
