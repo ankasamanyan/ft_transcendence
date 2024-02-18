@@ -44,7 +44,7 @@ export class DialogsComponent implements OnInit {
     if (channelToSearchFor == "") {
       this.displayedChannels = this.channels;
     } else {
-      this.displayedChannels = this.channels
+      this.displayedChannels = this.searchedForChannels
         .filter((channel) => channel.name?.toUpperCase().startsWith(channelToSearchFor.toUpperCase()));
     }
   }

@@ -34,10 +34,10 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
     });
     socket.on("participantMuted", () => {
       if (this.selectedChannelId) {
-        this.channelService.isMuted(5, this.selectedChannelId).subscribe((value) => {
+        this.channelService.isMuted(1, this.selectedChannelId).subscribe((value) => {
           this.isMuted = value;
           this.sleep(30001).then(() => {
-            this.channelService.isMuted(5, this.selectedChannelId!).subscribe((value) => {
+            this.channelService.isMuted(1, this.selectedChannelId!).subscribe((value) => {
               this.isMuted = value;
           });
         })
