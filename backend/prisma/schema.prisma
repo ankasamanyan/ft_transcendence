@@ -86,3 +86,10 @@ model UserStatistics {
     wins        Int
     losses       Int
 }
+
+model GameInvitation {
+    id          Int      @id @default(autoincrement())
+    initiatorId   Int
+    recipientId   Int
+    status        String
+}

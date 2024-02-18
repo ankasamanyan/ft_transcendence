@@ -26,6 +26,9 @@ import { MuteTimer } from './cron/timer';
 import { PrismaUserStatisticsRespository } from './adapter/repository/prisma-user-statistics-respository';
 import { UserStatisticsController } from './adapter/user-statistics.controller';
 import { UserStatisticsService } from './service/user-statistics.service';
+import { GameController } from './adapter/game-controller';
+import { GameService } from './service/game-service';
+import { PrismaGameInvitationRepository } from './adapter/repository/prisma-game-invitation-repository';
 
 @Module({
     imports: [ChatGatewayModule],
@@ -36,7 +39,8 @@ import { UserStatisticsService } from './service/user-statistics.service';
         BlockedUsersController,
         ChannelController,
         FriendController,
-        UserStatisticsController],
+        UserStatisticsController,
+        GameController],
     providers: [
         MuteTimer,
         AppService,
@@ -46,6 +50,7 @@ import { UserStatisticsService } from './service/user-statistics.service';
         ChannelService,
         FriendService,
         PrismaService,
+        GameService,
         PrismaUsersRepository,
         PrismaChannelRepository,
         PrismaBlockedUsersRepository,
@@ -56,6 +61,7 @@ import { UserStatisticsService } from './service/user-statistics.service';
         PrismaMutedUsersRepository,
         PrismaBannedUsersRepository,
         PrismaUserStatisticsRespository,
+        PrismaGameInvitationRepository,
         UserStatisticsService ],
 })
 export class AppModule {

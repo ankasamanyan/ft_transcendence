@@ -5,7 +5,6 @@ import {PrismaChannelParticipantRepository} from "./prisma-channel-participant-r
 import {PrismaChannelAdminRepository} from "./prisma-channel-admin-repository";
 import {ChannelResponse, ChannelsResponse} from "../dto/channel.response";
 import {User} from "../../domain/user";
-import { join } from "path";
 
 interface RawSql {
   channelname: string,
