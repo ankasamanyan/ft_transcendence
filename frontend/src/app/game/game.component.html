@@ -1,4 +1,17 @@
+<app-navigation-bar [navigationStatus]="NavigationBarStatus.GAME"></app-navigation-bar>
 <div id="whole-game">
-    <app-navigation-bar [navigationStatus]="NavigationBarStatus.GAME"></app-navigation-bar>
-    <p>Once the game component is done, we'll see some pretty things here:)</p>
+    <!-- pong-game.component.html -->
+    <div class="canvas">
+    <!-- Your Pong game canvas goes here -->
+    <div id="pongCanvas">
+        <div class='ball' [style.top]="ballTop" [style.left]="ballLeft"></div>
+        <div class="paddle_1 paddle" [style.top]="paddle1Top" [style.left]="paddle1Left"></div>
+        <div class="paddle_2 paddle" [style.top]="paddle2Top" [style.right]="paddle2Right"></div>
+        <h1 class="player_1_score">{{ score1 }}</h1>
+        <h1 class="player_2_score">{{ score2 }}</h1>
+        <h1 class="message">{{ gameMessage }}</h1>
+    </div>
+      
+  </div>
+  
 </div>
