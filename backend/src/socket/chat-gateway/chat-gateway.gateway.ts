@@ -70,4 +70,10 @@ export class ChatGatewayGateway {
     await this.channelService.banUsers(ChannelUpdateRequest.toDomain(request));
     this.server.emit("participantBanned");
   }
+
+  @SubscribeMessage('participantHush')
+  async muteUsers(@MessageBody() request: ChannelUpdateRequest) {
+    await this.channelService.muteUsers(ChannelUpdateRequest.toDomain(request));
+    this.server.emit("participantMuted");
+  }
 }

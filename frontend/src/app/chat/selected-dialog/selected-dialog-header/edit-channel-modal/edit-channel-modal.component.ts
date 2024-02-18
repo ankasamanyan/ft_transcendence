@@ -206,7 +206,6 @@ export class EditChannelModalComponent implements AfterViewInit {
       this.channelService.muteUsers(new ChannelUpdate(this.channel!.id!, hushUsers));
     }
   }
-
   setValuesToInitialOnes() {
     this.channel!.password = this.passwordOnInit;
     this.channel!.name = this.nameOnInit!;
