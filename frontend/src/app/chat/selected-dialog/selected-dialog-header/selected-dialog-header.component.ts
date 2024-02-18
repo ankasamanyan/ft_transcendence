@@ -55,6 +55,14 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       this.channelService.updateChannels.next(true);
       this.getChannel();
     });
+    socket.on("participantKicked", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
+    socket.on("participantBanned", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -58,4 +58,16 @@ export class ChatGatewayGateway {
     await this.channelService.removeChannelAdmins(ChannelUpdateRequest.toDomain(request));
     this.server.emit("adminsRemoved");
   }
+
+  @SubscribeMessage('participantsNoMore')
+  async kickUsers(@MessageBody() request: ChannelUpdateRequest) {
+    await this.channelService.kickUsers(ChannelUpdateRequest.toDomain(request));
+    this.server.emit("participantKicked");
+  }
+
+  @SubscribeMessage('participantsNeverAgain')
+  async banUsers(@MessageBody() request: ChannelUpdateRequest) {
+    await this.channelService.banUsers(ChannelUpdateRequest.toDomain(request));
+    this.server.emit("participantBanned");
+  }
 }
