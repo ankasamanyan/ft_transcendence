@@ -43,16 +43,15 @@ export class PrismaFriendRepository {
         }));
     }
 
-    async befriendable(sentUserId: number, receivedUserId: number) {
+    async befriendable(users: Users) {
         const friendRequest = await this.prisma.friend.findFirst({
             where: {
                 OR: [
-                    {sent_user_id: Number(sentUserId), received_user_id: Number(receivedUserId)},
-                    {sent_user_id: Number(receivedUserId), received_user_id: Number(sentUserId)}
+                    {sent_user_id: Number(users.users[0].id), received_user_id: Number(users.users[1].id)},
+                    {sent_user_id: Number(users.users[1].id), received_user_id: Number(users.users[0].id)}
                 ]
             }
         });
-
         if (!friendRequest || friendRequest.status === "DECLINED") {
             return true;
         }

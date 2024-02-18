@@ -16,8 +16,11 @@ export class FriendService {
     return from(this.friendRepository.getFriends(userId));
   }
 
-  befriendable(sentUserId: number, receivedUserId: number) {
-    return from(this.friendRepository.befriendable(sentUserId, receivedUserId));
+  //befriendable(sentUserId: number, receivedUserId: number) {
+  befriendable(users: Users) {
+    return from(this.friendRepository.befriendable(users));
+    
+    //return from(this.friendRepository.befriendable(sentUserId, receivedUserId));
   }
 
   initializeFriends() {

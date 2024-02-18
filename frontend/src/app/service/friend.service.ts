@@ -23,8 +23,9 @@ export class FriendService {
         }));
   }
 
-  befriendable(sentUserId: number, receivedUserId: number) {
-    return this.httpClient.get<boolean>("http://localhost:3000/friends/" + sentUserId + "/" + receivedUserId);
+  //befriendable(sentUserId: number, receivedUserId: number) {
+    befriendable(users: Users) {
+    return this.httpClient.get<boolean>("http://localhost:3000/friends/" + users.users[0].id + "/" + users.users[1].id);
   }
 
   initializeFriends() {
