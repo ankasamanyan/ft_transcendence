@@ -37,7 +37,7 @@ export class PrismaUsersRepository {
     }
 
     async getUserById(userId: number) {
-        const user = await this.prisma.user.findUnique({
+        const user = await this.prisma.user.findFirst({
             where: {
                 id: Number(userId)
             }
