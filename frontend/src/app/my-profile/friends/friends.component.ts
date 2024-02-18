@@ -31,11 +31,12 @@ export class FriendsComponent implements OnInit {
         this.friendsList = friends.users;
       });
 
-    this.blockedUsersService.getBlockedUsers(0)
+    this.blockedUsersService.getBlockedUsers(this.userId)
       .subscribe((value) => {
         this.blockedList = value.users;
       });
 
+      
     this.pendingList = [
     { 
       id: 2,
@@ -44,15 +45,6 @@ export class FriendsComponent implements OnInit {
       intraLogin: '@fstaryk',
       
     },];
-
-    // this.blockedList = [
-    // { 
-    //   id: 3,
-    //   name: 'Wolf', 
-    //   picture: '../../../assets/placeholderComrade6.jpeg',
-    //   intraLogin: '@wmardin',
-
-    // },];
   }
 
 

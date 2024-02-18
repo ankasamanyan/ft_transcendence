@@ -2,14 +2,15 @@
     <h5 >✨ Settings ✨</h5>
     <div class="settings-card">
 
-        <div class="picture-container">
+        <div class="pictute-container">
+            <i class="bi bi-camera "></i>
             <img class="profile-picture" [src]='profilePicture' alt="Profile Picture">
         </div>
 
-        <form [formGroup]="settingsForm">
+        <form >
 
         <div class="form-group">
-            <input type="text" id="name" formControlName="name" placeholder="{{name}}">
+            <input type="text" id="name" placeholder="{{name}}">
         </div>
     
         <div class="form-group username">
@@ -19,13 +20,13 @@
         <div class="color-theme-container">
             <label> Color Theme: </label>
             <div class="color-options">
-            <div class="color-option1" (click)="selectColor('color1')"></div>
-            <div class="color-option2" (click)="selectColor('color2')"></div>
-            <div class="color-option3" (click)="selectColor('color3')"></div>
-            <div class="color-option4" (click)="selectColor('color4')"></div>
+            <div class="color-option1" (click)="selectColorTheme1()"></div>
+            <div class="color-option2" (click)="selectColorTheme2()"></div>
+            <div class="color-option3" (click)="selectColorTheme3()"></div>
+            <div class="color-option4" (click)="selectColorTheme4()"></div>
             </div>
         </div>
-        <button type="button" (click)="saveSettings()">Save Settings</button>
+        <button type="button" class="action-button" (click)="saveSettings()">Save Settings</button>
         </form>
     </div>
   </div>
