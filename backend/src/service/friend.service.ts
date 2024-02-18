@@ -5,33 +5,38 @@ import {from} from "rxjs";
 
 @Injectable()
 export class FriendService {
-  constructor(public friendRepository: PrismaFriendRepository) {
+  constructor(public prismaFriendRepository: PrismaFriendRepository) {
   }
 
   sendAFriendRequest(users: Users) {
-    return this.friendRepository.sendAFriendRequest(users);
+    return this.prismaFriendRepository.sendAFriendRequest(users);
   }
 
   getFriends(userId: number) {
-    return from(this.friendRepository.getFriends(userId));
+    return from(this.prismaFriendRepository.getFriends(userId));
   }
 
   //befriendable(sentUserId: number, receivedUserId: number) {
   befriendable(users: Users) {
-    return from(this.friendRepository.befriendable(users));
+    return from(this.prismaFriendRepository.befriendable(users));
     
     //return from(this.friendRepository.befriendable(sentUserId, receivedUserId));
   }
 
   initializeFriends() {
-    return from(this.friendRepository.initializeFriends());
+    return from(this.prismaFriendRepository.initializeFriends());
   }
 
   getPendingRequests(userId: number) {
-    return from(this.friendRepository.getPendingRequests(userId));
+    return from(this.prismaFriendRepository.getPendingRequests(userId));
   }
 
-  makeFriendRequest(senderId: number, recieverId: number) {
-    return from(this.friendRepository.makeFriendRequest(senderId, recieverId));
+  acceptFriendRequest(users: Users) {
+    return from(this.prismaFriendRepository.acceptFriendRequest(users));
   }
+
+  rejectFriendRequest(users: Users) {
+    return from(this.prismaFriendRepository.rejectFriendRequest(users))
+  }
+
 }

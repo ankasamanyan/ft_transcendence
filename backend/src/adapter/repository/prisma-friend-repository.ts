@@ -94,13 +94,29 @@ export class PrismaFriendRepository {
         }));
     }
 
-    async makeFriendRequest(senderId: number, recieverId: number) {
-        this.prisma.friend.create({
+    async acceptFriendRequest(users: Users) {
+        await this.prisma.friend.updateMany({
+            where: {
+                sent_user_id: Number(users.users[0].id),
+                received_user_id: Number(users.users[1].id)
+            },
             data: {
-                sent_user_id: senderId,
-                received_user_id: recieverId,
-                status: "PENDING"
+                status: "ACCEPTED"
             }
         })
     }
+
+    async rejectFriendRequest(users: Users) {
+        await this.prisma.friend.updateMany({
+            where: {
+                sent_user_id: Number(users.users[0].id),
+                received_user_id: Number(users.users[1].id)
+            },
+            data: {
+                status: "REJECTED"
+            }
+        })
+    }
+
+   
 }
