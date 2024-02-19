@@ -98,10 +98,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       ])
     ).subscribe(() => {
       this.showInvitedToBeFriendsNotificationForFewSeconds();
-      this.friendService.befriendable(new Users([
-        new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg"),
-        this.selectedDialogPartner!
-      ])).subscribe((value) => {
+      this.friendService.befriendable(1, this.selectedDialogPartner?.id!).subscribe((value) => {
         this.selectedPersonBefriendable = value;
       });
     });
@@ -162,10 +159,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
 
   checkWhetherBefriendable() {
     if (this.selectedDialogPartner) {
-      this.friendService.befriendable(new Users([
-        new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg"),
-        this.selectedDialogPartner!
-      ])).subscribe((value) => {
+      this.friendService.befriendable(1, this.selectedDialogPartner.id!).subscribe((value) => {
         this.selectedPersonBefriendable = value;
       })
     }

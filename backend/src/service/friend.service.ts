@@ -16,8 +16,8 @@ export class FriendService {
     return from(this.prismaFriendRepository.getFriends(userId));
   }
 
-  befriendable(users: Users) {
-    return from(this.prismaFriendRepository.befriendable(users));
+  befriendable(sentUserId: number, receivedUserId: number) {
+    return from(this.prismaFriendRepository.befriendable(sentUserId, receivedUserId));
   }
 
   initializeFriends() {
