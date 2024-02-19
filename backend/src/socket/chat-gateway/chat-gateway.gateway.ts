@@ -76,4 +76,10 @@ export class ChatGatewayGateway {
     await this.channelService.muteUsers(ChannelUpdateRequest.toDomain(request));
     this.server.emit("participantMuted");
   }
+
+  @SubscribeMessage('participantLeaving')
+  async leaveChannel(@MessageBody() request: ChannelUpdateRequest) {
+    await this.channelService.leaveChannel(ChannelUpdateRequest.toDomain(request));
+    this.server.emit("participantLeft");
+  }
 }

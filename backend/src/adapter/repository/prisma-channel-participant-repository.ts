@@ -83,11 +83,11 @@ export class PrismaChannelParticipantRepository {
     });
   }
 
-  async leaveChannel(channelId: number, userId: number) {
+  async leaveChannel(channelUpdate: ChannelUpdate) {
     await this.prisma.channelParticipant.deleteMany({
       where: {
-        user_id: Number(userId),
-        channel_id: Number(channelId)
+        user_id: Number(channelUpdate.users[0].id),
+        channel_id: Number(channelUpdate.channelId)
       }
     })
   }

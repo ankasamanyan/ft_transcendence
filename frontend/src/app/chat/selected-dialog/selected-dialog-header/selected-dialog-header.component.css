@@ -88,6 +88,14 @@
     color: grey;
 }
 
+.bi-box-arrow-right {
+    float: right;
+    cursor: pointer;
+    padding: 0 6px;
+    border-radius: 6px;
+    color: rgb(180, 60, 60);
+}
+
 .bi-pen:hover {
     color: darkgrey;
 }

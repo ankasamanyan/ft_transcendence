@@ -87,9 +87,9 @@ export class ChannelController {
     return this.channelService.kickUsers(ChannelUpdateRequest.toDomain(request));
   }
 
-  @Delete("/leave-channel/:channelId/:userId")
-  leaveChannel(@Param('channelId') channelId: number, @Param('userId') userId: number) {
-    return this.channelService.leaveChannel(channelId, userId);
+  @Delete("/leave-channel")
+  leaveChannel(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.leaveChannel(ChannelUpdateRequest.toDomain(request));
   }
 
   // @Post("/mute-user/:channelId")

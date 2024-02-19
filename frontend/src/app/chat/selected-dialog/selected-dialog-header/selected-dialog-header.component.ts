@@ -6,6 +6,7 @@ import {ChannelService} from "../../../service/channel.service";
 import {Channel} from "../../../domain/channel";
 import {OurSocket} from "../../../socket/socket";
 import {GameService} from "../../../service/game.service";
+import {ChannelUpdate} from "../../../domain/channel-update";
 
 @Component({
   selector: 'app-selected-dialog-header',
@@ -24,6 +25,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
 
   showBlockModal: boolean = false;
   showEditModal: boolean = false;
+  showLeaveModal: boolean = false;
   showInvitedToPlayNotification: boolean = false;
   showInvitedToBeFriendsNotification: boolean = false;
 
@@ -66,6 +68,10 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       this.getChannel();
     });
     socket.on("participantMuted", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
+    socket.on("participantLeft", () => {
       this.channelService.updateChannels.next(true);
       this.getChannel();
     });
@@ -167,5 +173,17 @@ export class SelectedDialogHeaderComponent implements OnChanges {
 
   isDialog() {
     return this.channel?.type === "dialog";
+  }
+
+  makeDecisionToLeaveOrStay(event: boolean) {
+    if (!event) {
+      this.showLeaveModal = false;
+    } else {
+      this.channelService.leaveChannel(new ChannelUpdate(
+        this.channel?.id!,
+        [new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg")]
+      ));
+      this.showLeaveModal = false;
+    }
   }
 }

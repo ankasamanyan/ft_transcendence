@@ -37,6 +37,9 @@ export class DialogsComponent implements OnInit {
     socket.on("participantBanned", () => {
       this.getChannels();
     });
+    socket.on("participantLeft", () => {
+      this.getChannels();
+    });
     socket.on("channelRenamed", () => {
       this.getChannels();
     });

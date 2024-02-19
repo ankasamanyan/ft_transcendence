@@ -94,8 +94,8 @@ export class ChannelService {
   }
 
     //at the moment this is exactly like kickUser
-  leaveChannel(channelId: number, userId: number) {
-    return from(this.prismaChannelParticipantRepository.leaveChannel(channelId, userId));
+  leaveChannel(channelUpdate: ChannelUpdate) {
+    return from(this.prismaChannelParticipantRepository.leaveChannel(channelUpdate));
   }
 
   //this could be a separate method from leaveChannel in case we want to add a time limit later
