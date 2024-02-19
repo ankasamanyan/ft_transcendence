@@ -74,7 +74,6 @@ export class EditChannelModalComponent implements AfterViewInit {
   }
 
   channelDetailsChanged() {
-    console.log(this.updatedUsers);
     return this.doesPasswordProtectedChannelHasPassword()
       && (this.isNameChanged()
         || this.isTypeChanged()
