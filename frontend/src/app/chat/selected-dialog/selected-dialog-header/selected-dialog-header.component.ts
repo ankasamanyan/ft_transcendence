@@ -5,6 +5,7 @@ import {UsersService} from "../../../service/users.service";
 import {ChannelService} from "../../../service/channel.service";
 import {Channel} from "../../../domain/channel";
 import {OurSocket} from "../../../socket/socket";
+import {GameService} from "../../../service/game.service";
 
 @Component({
   selector: 'app-selected-dialog-header',
@@ -30,6 +31,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     private friendService: FriendService,
     private userService: UsersService,
     private channelService: ChannelService,
+    private gameService: GameService,
     private socket: OurSocket) {
     socket.on("channelRenamed", () => {
       this.channelService.updateChannels.next(true);
@@ -67,6 +69,9 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       this.channelService.updateChannels.next(true);
       this.getChannel();
     });
+    socket.on("invitationSent", () => {
+      this.showInviteNotificationForFewSeconds();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -94,6 +99,13 @@ export class SelectedDialogHeaderComponent implements OnChanges {
         this.selectedPersonBefriendable = value;
       });
     });
+  }
+
+  inviteUserToPlay() {
+    this.gameService.invite(new Users([
+      new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg"),
+      this.selectedDialogPartner!
+    ]));
   }
 
   showInviteNotificationForFewSeconds() {

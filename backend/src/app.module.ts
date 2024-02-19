@@ -29,9 +29,10 @@ import { UserStatisticsService } from './service/user-statistics.service';
 import { GameController } from './adapter/game-controller';
 import { GameService } from './service/game-service';
 import { PrismaGameInvitationRepository } from './adapter/repository/prisma-game-invitation-repository';
+import {GameModule} from "./socket/game/game.module";
 
 @Module({
-    imports: [ChatGatewayModule],
+    imports: [ChatGatewayModule, GameModule],
     controllers: [
         AppController,
         MessageController,
