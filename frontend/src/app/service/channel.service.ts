@@ -31,6 +31,13 @@ export class ChannelService {
         }));
   }
 
+  getChannelsAvailableWhenSearching(userId: number): Observable<Channels> {
+    return this.httpClient.get<ChannelsResponse>("http://localhost:3000/channels/joined-public-protected-channels/" + userId).pipe(
+      map((response: ChannelsResponse) => {
+        return ChannelsResponse.toDomain(response);
+      }));
+  }
+
   getChannelDetailsById(channelId: number) {
     return this.httpClient.get<ChannelResponse>("http://localhost:3000/channels/details/" + channelId).pipe(
         map((response: ChannelResponse) => {
@@ -94,6 +101,14 @@ export class ChannelService {
 
   muteUsers(channelUpdate: ChannelUpdate) {
     return this.socket.emit('participantHush', ChannelUpdateRequest.fromDomain(channelUpdate));
+  }
+
+  leaveChannel(channelUpdate: ChannelUpdate) {
+    return this.socket.emit('participantLeaving', ChannelUpdateRequest.fromDomain(channelUpdate));
+  }
+
+  isMuted(userId: number, channelId: number) {
+    return this.httpClient.get<boolean>("http://localhost:3000/channels/muted-users/" + channelId + "/" + userId);
   }
 
   initializeChannels() {

@@ -74,7 +74,6 @@ export class EditChannelModalComponent implements AfterViewInit {
   }
 
   channelDetailsChanged() {
-    console.log(this.updatedUsers);
     return this.doesPasswordProtectedChannelHasPassword()
       && (this.isNameChanged()
         || this.isTypeChanged()
@@ -185,7 +184,7 @@ export class EditChannelModalComponent implements AfterViewInit {
       this.channelService.assignAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
     }
     if (adminsToRemove.length != 0) {
-      this.channelService.removeAdmins(new ChannelUpdate(this.channel!.id!, adminsToAdd));
+      this.channelService.removeAdmins(new ChannelUpdate(this.channel!.id!, adminsToRemove));
     }
   }
 
@@ -206,7 +205,6 @@ export class EditChannelModalComponent implements AfterViewInit {
       this.channelService.muteUsers(new ChannelUpdate(this.channel!.id!, hushUsers));
     }
   }
-
   setValuesToInitialOnes() {
     this.channel!.password = this.passwordOnInit;
     this.channel!.name = this.nameOnInit!;

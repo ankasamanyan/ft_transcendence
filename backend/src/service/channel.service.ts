@@ -8,6 +8,7 @@ import {PrismaChannelAdminRepository} from "../adapter/repository/prisma-channel
 import {PrismaBannedUsersRepository } from 'src/adapter/repository/prisma-banned-users-repository';
 import {PrismaMutedUsersRepository } from 'src/adapter/repository/prisma-muted-users-repository';
 import { MuteTimer } from 'src/cron/timer';
+import { ChannelUpdate } from 'src/domain/channel-update';
 
 @Injectable()
 export class ChannelService {
@@ -44,6 +45,10 @@ export class ChannelService {
     return from(this.prismaChannelAdminRepository.addChannelAdmin(channel.id, channel.admins[0]));
   }
 
+  addChannelAdmins(channelUpdate: ChannelUpdate) {
+    return from(this.prismaChannelAdminRepository.addChannelAdmins(channelUpdate));
+  }
+
   getChannelAdmins(channelId: number) {
     return from(this.prismaChannelAdminRepository.getChannelAdmins(channelId));
   }
@@ -76,18 +81,12 @@ export class ChannelService {
     return from(this.prismaChannelAdminRepository.assignAdmin(user, channelId));
   }
 
-  assignAdmins(users: Users, channelId: number) {
-    const admins = users.users.map(user => this.assignAdmin(user, channelId));
-    return admins;
-  }
-
   removeAdmin(channelId: number, userId: number) {
     return from(this.prismaChannelAdminRepository.removeAdmin(channelId, userId));
   }
 
-  removeAdmins(userIds: number[], channelId: number) {
-    const admins = userIds.forEach(user => this.removeAdmin(channelId, user));
-    return admins;
+  removeChannelAdmins(channelUpdate: ChannelUpdate) {
+    return from(this.prismaChannelAdminRepository.removeChannelAdmins(channelUpdate));
   }
 
   enterChannel(user: User, channelId: number) {
@@ -95,8 +94,8 @@ export class ChannelService {
   }
 
     //at the moment this is exactly like kickUser
-  leaveChannel(channelId: number, userId: number) {
-    return from(this.prismaChannelParticipantRepository.leaveChannel(channelId, userId));
+  leaveChannel(channelUpdate: ChannelUpdate) {
+    return from(this.prismaChannelParticipantRepository.leaveChannel(channelUpdate));
   }
 
   //this could be a separate method from leaveChannel in case we want to add a time limit later
@@ -104,9 +103,8 @@ export class ChannelService {
     return from(this.prismaChannelParticipantRepository.kickUser(channelId, userId));
   }
 
-  kickUsers(users: Users, channelId: number) {
-    const kickedUsers = users.users.map(user => this.kickUser(channelId, user.id));
-    return kickedUsers;
+  kickUsers(channelUpdate: ChannelUpdate) {
+    return from(this.prismaChannelParticipantRepository.kickUsers(channelUpdate));
   }
 
   muteUser(user: User, channelId: number) {
@@ -114,10 +112,9 @@ export class ChannelService {
     return from(this.prismaMutedUsersRepository.muteUser(user, channelId));
   }
 
-  muteUsers(users: Users, channelId: number) {
-    users.users.forEach(user => this.muteTimer.setTimer(channelId, user.id));
-    const mutedUsers = users.users.map(user => this.muteUser(user, channelId));
-    return mutedUsers;
+  muteUsers(channelUpdate: ChannelUpdate) {
+    channelUpdate.users.forEach(user => this.muteTimer.setTimer(channelUpdate.channelId, user.id));
+    return from(this.prismaMutedUsersRepository.muteUsers(channelUpdate));
   }
 
   unmuteUser(channelId: number, userId: number) {
@@ -133,10 +130,8 @@ export class ChannelService {
     return from(this.prismaBannedUsersRepository.banUser(user, channelId))
   }
 
-  banUsers(users: Users, channelId: number) {
-    users.users.forEach(user => this.kickUser(channelId, user.id));
-    const bannedUsers = users.users.map(user => this.banUser(user, channelId));
-    return bannedUsers;
+  banUsers(channelUpdate: ChannelUpdate) {
+    return from(this.prismaBannedUsersRepository.banUsers(channelUpdate));
   }
 
   unbanUser(channelId: number, userId: number) {

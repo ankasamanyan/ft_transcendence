@@ -1,6 +1,7 @@
-import {Body, Controller, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Put} from '@nestjs/common';
 import {UsersRequest} from "./dto/users-request";
 import {FriendService} from "../service/friend.service";
+import { brotliDecompressSync } from 'zlib';
 
 @Controller('/friends')
 export class FriendController {
@@ -16,6 +17,7 @@ export class FriendController {
     return this.friendService.getFriends(userId);
   }
 
+  //first user is sender, second user is receiver
   @Get('/:sentUserId/:receivedUserId')
   befriendable(@Param('sentUserId') sentUserId: number, @Param('receivedUserId') receivedUserId: number) {
     return this.friendService.befriendable(sentUserId, receivedUserId);
@@ -25,4 +27,22 @@ export class FriendController {
   initializeFriends() {
     return this.friendService.initializeFriends();
   }
+
+      //gets the pending requests that the user needs to answer
+  @Get("/pending/:userId")
+  getPendingRequests(@Param('userId') userId: number) {
+    return this.friendService.getPendingRequests(userId);
+  }
+
+    //first user is sender, second user is receiver
+  @Put('/accept')
+  acceptFriendRequest(@Body() request: UsersRequest) {
+    return this.friendService.acceptFriendRequest(UsersRequest.toDomain(request));
+  }
+
+  @Put('/reject')
+  declineFriendReuqest(@Body() request: UsersRequest) {
+    return this.friendService.declineFriendRequest(UsersRequest.toDomain(request));
+  }
+
 }

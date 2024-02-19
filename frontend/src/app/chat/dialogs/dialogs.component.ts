@@ -3,6 +3,7 @@ import {UsersService} from "../../service/users.service";
 import {Users} from "../../domain/user";
 import {Channel} from "../../domain/channel";
 import {ChannelService} from "../../service/channel.service";
+import {OurSocket} from "../../socket/socket";
 
 @Component({
   selector: 'app-dialogs',
@@ -11,6 +12,7 @@ import {ChannelService} from "../../service/channel.service";
 })
 export class DialogsComponent implements OnInit {
   channels: Channel[] = [];
+  searchedForChannels: Channel[] = [];
   displayedChannels: Channel[] = [];
   selectedChannelId: number | undefined;
   users: Users | undefined;
@@ -23,10 +25,32 @@ export class DialogsComponent implements OnInit {
 
   constructor(
       private usersService: UsersService,
-      private channelService: ChannelService) {
+      private channelService: ChannelService,
+      private socket: OurSocket) {
     this.getChannels();
     usersService.getUsers(1).subscribe((value)  => {
       this.users = value;
+    });
+    socket.on("participantKicked", () => {
+      this.getChannels();
+    });
+    socket.on("participantBanned", () => {
+      this.getChannels();
+    });
+    socket.on("participantLeft", () => {
+      this.getChannels();
+    });
+    socket.on("channelRenamed", () => {
+      this.getChannels();
+    });
+    socket.on("channelTypeChanged", () => {
+      this.getChannels();
+    });
+    socket.on("passwordSet", () => {
+      this.getChannels();
+    });
+    socket.on("passwordDeleted", () => {
+      this.getChannels();
     });
   }
 
@@ -43,7 +67,7 @@ export class DialogsComponent implements OnInit {
     if (channelToSearchFor == "") {
       this.displayedChannels = this.channels;
     } else {
-      this.displayedChannels = this.channels
+      this.displayedChannels = this.searchedForChannels
         .filter((channel) => channel.name?.toUpperCase().startsWith(channelToSearchFor.toUpperCase()));
     }
   }
@@ -59,9 +83,12 @@ export class DialogsComponent implements OnInit {
 
   getChannels() {
     this.channelService.getChannels(1).subscribe((value)  => {
-      this.channels = value.channels!;
+      this.channels = value.channels;
       this.displayedChannels = this.channels;
-      this.channelsLoaded = true;
+      this.channelService.getChannelsAvailableWhenSearching(1).subscribe((value) => {
+        this.searchedForChannels = value.channels;
+        this.channelsLoaded = true;
+      });
     });
   }
 }

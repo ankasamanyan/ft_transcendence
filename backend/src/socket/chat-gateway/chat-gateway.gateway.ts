@@ -49,7 +49,37 @@ export class ChatGatewayGateway {
 
   @SubscribeMessage('newAdmins')
   async assignAdmins(@MessageBody() request: ChannelUpdateRequest) {
-    // await this.channelService.assignAdmins(ChannelUpdateRequest.toDomain(request));
+    await this.channelService.addChannelAdmins(ChannelUpdateRequest.toDomain(request));
     this.server.emit("adminsAdded");
+  }
+
+  @SubscribeMessage('adminsNoMore')
+  async removeAdmins(@MessageBody() request: ChannelUpdateRequest) {
+    await this.channelService.removeChannelAdmins(ChannelUpdateRequest.toDomain(request));
+    this.server.emit("adminsRemoved");
+  }
+
+  @SubscribeMessage('participantsNoMore')
+  async kickUsers(@MessageBody() request: ChannelUpdateRequest) {
+    await this.channelService.kickUsers(ChannelUpdateRequest.toDomain(request));
+    this.server.emit("participantKicked");
+  }
+
+  @SubscribeMessage('participantsNeverAgain')
+  async banUsers(@MessageBody() request: ChannelUpdateRequest) {
+    await this.channelService.banUsers(ChannelUpdateRequest.toDomain(request));
+    this.server.emit("participantBanned");
+  }
+
+  @SubscribeMessage('participantHush')
+  async muteUsers(@MessageBody() request: ChannelUpdateRequest) {
+    await this.channelService.muteUsers(ChannelUpdateRequest.toDomain(request));
+    this.server.emit("participantMuted");
+  }
+
+  @SubscribeMessage('participantLeaving')
+  async leaveChannel(@MessageBody() request: ChannelUpdateRequest) {
+    await this.channelService.leaveChannel(ChannelUpdateRequest.toDomain(request));
+    this.server.emit("participantLeft");
   }
 }

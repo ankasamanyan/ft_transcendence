@@ -6,7 +6,6 @@ import {Observable} from "rxjs";
 import {ChannelResponse} from "./dto/channel.response";
 import {ChannelRequest} from "./dto/channel.request";
 import { UserResponse, UsersResponse } from './dto/users-response';
-import { ChannelUpdate } from 'src/domain/channel-update';
 import { ChannelUpdateRequest } from './dto/channel-update.request';
 
 @Controller('/channels')
@@ -53,12 +52,17 @@ export class ChannelController {
     return this.channelService.initializeChannels();
   }
 
+  @Put('/name')
+  renameChannel(@Body() request: ChannelRequest) {
+    return this.channelService.renameChannel(ChannelRequest.toDomain(request));
+  }
+
   @Delete("/channels/:channelId")
   removeChannel(@Param('channelId') channelId: number) {
     return this.channelService.removeChannel(channelId);
   }
 
-  @Post("/set-password")
+  @Put("/set-password")
   setPassword(@Body() request: ChannelRequest) {
     return this.channelService.setPassword(ChannelRequest.toDomain(request));
   }
@@ -73,24 +77,29 @@ export class ChannelController {
     return this.channelService.enterChannel(UserResponse.toDomain(request), channelId);
   }
 
-  @Delete("/kick-user/:channelId/:userId")
-  kickUser(@Param('channelId') channelId: number, @Param('userId') userId: number) {
-    return this.channelService.kickUser(channelId, userId);
+  // @Delete("/kick-user/:channelId/:userId")
+  // kickUser(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+  //   return this.channelService.kickUser(channelId, userId);
+  // }
+
+  @Delete('kick-users')
+  kickUsers(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.kickUsers(ChannelUpdateRequest.toDomain(request));
   }
 
-  @Delete("/leave-channel/:channelId/:userId")
-  leaveChannel(@Param('channelId') channelId: number, @Param('userId') userId: number) {
-    return this.channelService.leaveChannel(channelId, userId);
+  @Delete("/leave-channel")
+  leaveChannel(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.leaveChannel(ChannelUpdateRequest.toDomain(request));
   }
 
-  @Post("/mute-user/:channelId")
-  muteUser(@Body() request: UserRequest, @Param('channelId') channelId: number) {
-    return this.channelService.muteUser(UserResponse.toDomain(request), channelId);
-  }
+  // @Post("/mute-user/:channelId")
+  // muteUser(@Body() request: UserRequest, @Param('channelId') channelId: number) {
+  //   return this.channelService.muteUser(UserResponse.toDomain(request), channelId);
+  // }
 
-  @Post('/mute-users/:channelId')
-  muteUsers(@Body() request: UsersRequest, @Param('channelId') channelId: number) {
-    return this.channelService.muteUsers(UsersResponse.toDomain(request), channelId);
+  @Post('/mute-users')
+  muteUsers(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.muteUsers(ChannelUpdateRequest.toDomain(request));
   }
 
   @Delete("unmute-user/:channelId/:userId")
@@ -103,14 +112,14 @@ export class ChannelController {
     return this.channelService.isMuted(channelId, userId);
   }
 
-  @Post("/ban-user/:channelId")
-  banUser(@Body() request: UserRequest,  @Param('channelId') channelId: number) {
-    return this.channelService.banUser(UserResponse.toDomain(request), channelId);
-  }
+  // @Post("/ban-user/:channelId")
+  // banUser(@Body() request: UserRequest,  @Param('channelId') channelId: number) {
+  //   return this.channelService.banUser(UserResponse.toDomain(request), channelId);
+  // }
 
-  @Post('/ban-users/:channelId')
-  banUsers(@Body() request: UsersRequest, @Param('channelId') channelId: number) {
-    return this.channelService.banUsers(UsersResponse.toDomain(request), channelId);
+  @Post('/ban-users')
+  banUsers(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.banUsers(ChannelUpdateRequest.toDomain(request));
   }
 
   @Delete("unban-user/:channelId/:userId")
@@ -118,15 +127,21 @@ export class ChannelController {
     return this.channelService.unbanUser(channelId, userId);
   }
 
-  @Post("/admins/:channelId")
-  assignAdmin(@Body() request: UserRequest, @Param('channelId') channelId: number) {
-    return this.channelService.assignAdmin(UserResponse.toDomain(request), channelId);
+  @Post("/add-admins")
+  assignAdmins(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.addChannelAdmins(ChannelUpdateRequest.toDomain(request));
   }
 
-  @Delete("/admins/:channelId/:userId")
-  removeAdmin(@Param('channelId') channelId: number, @Param('userId') userId: number) {
-    return this.channelService.removeAdmin(channelId, userId);
+  // @Delete("/admins/:channelId/:userId")
+  // removeAdmin(@Param('channelId') channelId: number, @Param('userId') userId: number) {
+  //   return this.channelService.removeAdmin(channelId, userId);
+  // }
+
+  @Delete('remove-admins')
+  removeChannelAdmins(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.removeChannelAdmins(ChannelUpdateRequest.toDomain(request));
   }
+
   
   @Put("/status")
   changeStatus(@Body() request: ChannelRequest) {

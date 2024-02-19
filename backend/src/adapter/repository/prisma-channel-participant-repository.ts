@@ -2,6 +2,7 @@ import {User} from "../../domain/user";
 import {PrismaService} from "../../service/prisma.service";
 import {Injectable} from "@nestjs/common";
 import {UserResponse, UsersResponse} from "../dto/users-response";
+import { ChannelUpdate } from "src/domain/channel-update";
 
 @Injectable()
 export class PrismaChannelParticipantRepository {
@@ -70,11 +71,23 @@ export class PrismaChannelParticipantRepository {
     })
   }
 
-  async leaveChannel(channelId: number, userId: number) {
+  async kickUsers(channelUpdate: ChannelUpdate) {
+    const userIds = channelUpdate.users.map(user => user.id);
     await this.prisma.channelParticipant.deleteMany({
       where: {
-        user_id: Number(userId),
-        channel_id: Number(channelId)
+        channel_id: Number(channelUpdate.channelId),
+        user_id: {
+          in: userIds 
+      }
+    }
+    });
+  }
+
+  async leaveChannel(channelUpdate: ChannelUpdate) {
+    await this.prisma.channelParticipant.deleteMany({
+      where: {
+        user_id: Number(channelUpdate.users[0].id),
+        channel_id: Number(channelUpdate.channelId)
       }
     })
   }

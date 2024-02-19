@@ -1,0 +1,14 @@
+<div class="wish-to-leave-modal">
+    <div class="wish-to-leave-inner-modal">
+        <div class="exit-icon">
+            <i class="bi bi-x-lg" (click)="modalClose.emit(false)"></i>
+        </div>
+        <div class="container">
+            <span>Are you sure you wish to leave this channel?</span>
+        </div>
+        <div id="buttons">
+            <button (click)="modalClose.emit(false)" id="no-button">Nope</button>
+            <button id="yes-button" (click)="modalClose.emit(true)">Yes</button>
+        </div>
+    </div>
+</div>

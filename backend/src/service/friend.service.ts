@@ -5,22 +5,35 @@ import {from} from "rxjs";
 
 @Injectable()
 export class FriendService {
-  constructor(public friendRepository: PrismaFriendRepository) {
+  constructor(public prismaFriendRepository: PrismaFriendRepository) {
   }
 
   sendAFriendRequest(users: Users) {
-    return this.friendRepository.sendAFriendRequest(users);
+    return this.prismaFriendRepository.sendAFriendRequest(users);
   }
 
   getFriends(userId: number) {
-    return from(this.friendRepository.getFriends(userId));
+    return from(this.prismaFriendRepository.getFriends(userId));
   }
 
   befriendable(sentUserId: number, receivedUserId: number) {
-    return from(this.friendRepository.befriendable(sentUserId, receivedUserId));
+    return from(this.prismaFriendRepository.befriendable(sentUserId, receivedUserId));
   }
 
   initializeFriends() {
-    return from(this.friendRepository.initializeFriends());
+    return from(this.prismaFriendRepository.initializeFriends());
   }
+
+  getPendingRequests(userId: number) {
+    return from(this.prismaFriendRepository.getPendingRequests(userId));
+  }
+
+  acceptFriendRequest(users: Users) {
+    return from(this.prismaFriendRepository.acceptFriendRequest(users));
+  }
+
+  declineFriendRequest(users: Users) {
+    return from(this.prismaFriendRepository.declineFriendRequest(users))
+  }
+
 }
