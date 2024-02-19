@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {async} from "@angular/core/testing";
+import {ActivatedRoute} from "@angular/router";
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-authorization-page',
@@ -6,7 +10,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./authorization-page.component.css']
 })
 export class AuthorizationPageComponent {
-  //test
-  //test2
+
+  constructor(
+              @Inject(DOCUMENT) private document: Document
+              ) {
+  }
+
+  handleRedirectTo42Login (){
+      if(document){
+          // @ts-ignore
+          document.getElementById("toapi").classList.add("is-loading")
+      }
+      window.history.replaceState({}, document.title, "/" + "");
+
+  }
+
+
+
+
+
+
+
+
 
 }
