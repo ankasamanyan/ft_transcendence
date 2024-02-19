@@ -5,6 +5,8 @@ import {UsersService} from "../../../service/users.service";
 import {ChannelService} from "../../../service/channel.service";
 import {Channel} from "../../../domain/channel";
 import {OurSocket} from "../../../socket/socket";
+import {GameService} from "../../../service/game.service";
+import {ChannelUpdate} from "../../../domain/channel-update";
 
 @Component({
   selector: 'app-selected-dialog-header',
@@ -23,6 +25,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
 
   showBlockModal: boolean = false;
   showEditModal: boolean = false;
+  showLeaveModal: boolean = false;
   showInvitedToPlayNotification: boolean = false;
   showInvitedToBeFriendsNotification: boolean = false;
 
@@ -30,6 +33,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     private friendService: FriendService,
     private userService: UsersService,
     private channelService: ChannelService,
+    private gameService: GameService,
     private socket: OurSocket) {
     socket.on("channelRenamed", () => {
       this.channelService.updateChannels.next(true);
@@ -67,6 +71,13 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       this.channelService.updateChannels.next(true);
       this.getChannel();
     });
+    socket.on("participantLeft", () => {
+      this.channelService.updateChannels.next(true);
+      this.getChannel();
+    });
+    socket.on("invitationSent", () => {
+      this.showInviteNotificationForFewSeconds();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -87,13 +98,17 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       ])
     ).subscribe(() => {
       this.showInvitedToBeFriendsNotificationForFewSeconds();
-      this.friendService.befriendable(new Users([
-        new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg"),
-        this.selectedDialogPartner!
-      ])).subscribe((value) => {
+      this.friendService.befriendable(1, this.selectedDialogPartner?.id!).subscribe((value) => {
         this.selectedPersonBefriendable = value;
       });
     });
+  }
+
+  inviteUserToPlay() {
+    this.gameService.invite(new Users([
+      new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg"),
+      this.selectedDialogPartner!
+    ]));
   }
 
   showInviteNotificationForFewSeconds() {
@@ -144,10 +159,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
 
   checkWhetherBefriendable() {
     if (this.selectedDialogPartner) {
-      this.friendService.befriendable(new Users([
-        new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg"),
-        this.selectedDialogPartner!
-      ])).subscribe((value) => {
+      this.friendService.befriendable(1, this.selectedDialogPartner.id!).subscribe((value) => {
         this.selectedPersonBefriendable = value;
       })
     }
@@ -155,5 +167,17 @@ export class SelectedDialogHeaderComponent implements OnChanges {
 
   isDialog() {
     return this.channel?.type === "dialog";
+  }
+
+  makeDecisionToLeaveOrStay(event: boolean) {
+    if (!event) {
+      this.showLeaveModal = false;
+    } else {
+      this.channelService.leaveChannel(new ChannelUpdate(
+        this.channel?.id!,
+        [new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg")]
+      ));
+      this.showLeaveModal = false;
+    }
   }
 }

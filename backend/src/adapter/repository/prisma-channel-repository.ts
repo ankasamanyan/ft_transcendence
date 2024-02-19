@@ -228,25 +228,74 @@ export class PrismaChannelRepository {
   }
 
   async getJoinedPublicandProtectedChannels(userId: number) {
-    const userParticipantChannels = await this.prisma.channelParticipant.findMany({
-      where: {
-        user_id: Number(userId),
-      },
-      select: {
-        channel_id: true,
-      },
-    });
+   
+    const userIdAsInteger = Number(userId);
+    const channels = await this.prisma.$queryRaw<RawSql[]>`
+        with subres as (select max(id) as id
+                        from "ChannelMessage"
+                        where channel_id in (SELECT DISTINCT channel_id
+                                             from "ChannelParticipant"
+                                             where user_id = ${userIdAsInteger})
+                        GROUP BY (channel_id))
 
-    const userParticipantChannelIds = userParticipantChannels.map(channel => channel.channel_id);
+        select message.text       as lastMessage,
+               message.created_at as lastMessageCreatedAt,
+               channel.name       as channelName,
+               channel.picture    as channelPicture,
+               channel.id         as channelId,
+               channel.created_at as channelCreatedAt
 
-    return this.prisma.channel.findMany({
-      where: {
-        OR: [
-          { type: { notIn: ['private', 'dialog'] } },
-          { id: { in: userParticipantChannelIds } },
-        ],
-      },
-    });
-  }
+        from "Channel" channel
+                 LEFT JOIN "ChannelMessage" message on channel.id = message.channel_id
+
+        where channel.id in
+              (SELECT DISTINCT channel_id from "ChannelParticipant" where user_id = ${userIdAsInteger}
+                or channel.type in ('public', 'password-protected'))
+            AND message.text IS NULL
+           OR (message.text IS NOT NULL AND message.id in (SELECT id from subres))
+        order by COALESCE(message.created_at, channel.created_at) desc
+    `;
+
+    return new ChannelsResponse(channels.map((channel) => {
+      return new ChannelResponse(
+        channel.channelname,
+        channel.channelpicture,
+        channel.createdat,
+        channel.channelid,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        channel.lastmessage,
+        channel.lastmessagecreatedat
+      );
+    }));
+    }
+
+   
+
+  // async getJoinedPublicandProtectedChannels(userId: number) {
+  //   const userParticipantChannels = await this.prisma.channelParticipant.findMany({
+  //     where: {
+  //       user_id: Number(userId),
+  //     },
+  //     select: {
+  //       channel_id: true,
+  //     },
+  //   });
+
+  //   const userParticipantChannelIds = userParticipantChannels.map(channel => channel.channel_id);
+  //   const joinedPublicandProtectedChannels =  await this.prisma.channel.findMany({
+  //     where: {
+  //       OR: [
+  //         { type: { notIn: ['private', 'dialog'] } },
+  //         { id: { in: 
+  //           userParticipantChannelIds }}
+  //       ],
+  //     },
+  //   });
+
+  //   return joinedPublicandProtectedChannels;
+  // }
 
 }

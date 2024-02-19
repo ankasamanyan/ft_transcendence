@@ -34,6 +34,7 @@ import { SettingsComponent } from './my-profile/settings/settings.component';
 import { SharedDataService } from './service/shared-data.service';
 import { MatBadge, MatBadgeModule } from '@angular/material/badge';
 import { ParticipantComponent } from './chat/selected-dialog/selected-dialog-header/edit-channel-modal/participant/participant.component';
+import { LeaveChannelModalComponent } from './chat/selected-dialog/selected-dialog-header/leave-channel-modal/leave-channel-modal.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { ParticipantComponent } from './chat/selected-dialog/selected-dialog-hea
     EditChannelModalComponent,
     SettingsComponent,
     ParticipantComponent,
+    LeaveChannelModalComponent,
   ],
   imports: [
     BrowserModule,

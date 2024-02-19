@@ -26,37 +26,58 @@ import { MuteTimer } from './cron/timer';
 import { PrismaUserStatisticsRespository } from './adapter/repository/prisma-user-statistics-respository';
 import { UserStatisticsController } from './adapter/user-statistics.controller';
 import { UserStatisticsService } from './service/user-statistics.service';
+import { GameController } from './adapter/game-controller';
+import { GameService } from './service/game-service';
+import { PrismaGameInvitationRepository } from './adapter/repository/prisma-game-invitation-repository';
+import { GameModule } from './socket/game/game.module';
+import { ConfigModule } from '@nestjs/config';
+import {AuthController} from "./auth/auth.controller";
+import {FTStrategy} from "./auth/42.strategy";
+import {AuthService} from "./auth/auth.service";
+import {FTAuthGuard} from "./guards/auth.42.guard";
 
 @Module({
-    imports: [ChatGatewayModule],
-    controllers: [
-        AppController,
-        MessageController,
-        UsersController,
-        BlockedUsersController,
-        ChannelController,
-        FriendController,
-        UserStatisticsController],
-    providers: [
-        MuteTimer,
-        AppService,
-        MessageService,
-        UsersService,
-        BlockedUsersService,
-        ChannelService,
-        FriendService,
-        PrismaService,
-        PrismaUsersRepository,
-        PrismaChannelRepository,
-        PrismaBlockedUsersRepository,
-        PrismaMessagesRepository,
-        PrismaFriendRepository,
-        PrismaChannelAdminRepository,
-        PrismaChannelParticipantRepository,
-        PrismaMutedUsersRepository,
-        PrismaBannedUsersRepository,
-        PrismaUserStatisticsRespository,
-        UserStatisticsService ],
+  imports: [
+    ChatGatewayModule,
+    GameModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+  ],
+  controllers: [
+    AppController,
+    MessageController,
+    UsersController,
+    BlockedUsersController,
+    ChannelController,
+    FriendController,
+    UserStatisticsController,
+    GameController,
+    AuthController,
+  ],
+  providers: [
+    MuteTimer,
+    AppService,
+    MessageService,
+    UsersService,
+    BlockedUsersService,
+    ChannelService,
+    FriendService,
+    PrismaService,
+    GameService,
+    PrismaUsersRepository,
+    PrismaChannelRepository,
+    PrismaBlockedUsersRepository,
+    PrismaMessagesRepository,
+    PrismaFriendRepository,
+    PrismaChannelAdminRepository,
+    PrismaChannelParticipantRepository,
+    PrismaMutedUsersRepository,
+    PrismaBannedUsersRepository,
+    PrismaUserStatisticsRespository,
+    PrismaGameInvitationRepository,
+    UserStatisticsService,
+    AuthService,
+    FTAuthGuard,
+    FTStrategy,
+  ],
 })
-export class AppModule {
-}
+export class AppModule {}

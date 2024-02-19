@@ -18,9 +18,9 @@ export class FriendController {
   }
 
   //first user is sender, second user is receiver
-  @Get()
-  befriendable(@Body() request: UsersRequest) {
-    return this.friendService.befriendable(UsersRequest.toDomain(request));
+  @Get('/:sentUserId/:receivedUserId')
+  befriendable(@Param('sentUserId') sentUserId: number, @Param('receivedUserId') receivedUserId: number) {
+    return this.friendService.befriendable(sentUserId, receivedUserId);
   }
 
   @Post("/mocks")

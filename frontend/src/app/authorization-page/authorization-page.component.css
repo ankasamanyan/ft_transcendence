@@ -6,3 +6,42 @@ ul {
     margin: auto;
     width: 300px;
 }
+
+.container{
+    width: 900px;
+    height: 300px;
+    border-radius: 10px;
+    position: relative;
+    top: 30%;
+    background-color: var(--color-light-blue);
+    color: #4d6495;
+    padding-top: 50px;
+}
+
+.button-container{
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.sign-in-button {
+    border: 2px solid #4d6495;
+    background-color: transparent;
+    color: #4d6495;
+    padding: 8px 16px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.sign-in-button:hover {
+    background-color: #4d6495;
+    color: white;
+}
+
+.header-container{
+    text-align: center;
+}

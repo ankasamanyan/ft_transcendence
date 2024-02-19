@@ -1,10 +1,11 @@
 <div id="dialog-header">
     <span id="selected-person">{{channel?.name}}</span>
+    <i class="bi bi-box-arrow-right" *ngIf="!isDialog() && channel" (click)="showLeaveModal=true"></i>
     <i class="bi bi-pen" *ngIf="!isDialog() && channel" (click)="showEditModal=true"></i>
     <div class="dropdown" *ngIf="selectedDialogPartner && isDialog()">
         <i class="bi bi-three-dots-vertical"></i>
         <div class="dropdown-content">
-            <div id="invite-action" (click)="showInviteNotificationForFewSeconds()">
+            <div id="invite-action" (click)="inviteUserToPlay()">
                 <i class="bi bi-dice-2 game-icon"></i>
                 <i class="bi bi-dice-2-fill game-icon-hidden">
                 </i>Invite to play
@@ -46,3 +47,8 @@
         [admins]="admins"
         (modalClose)="showEditModal=false">
 </app-edit-channel-modal>
+
+<app-leave-channel-modal
+        *ngIf="showLeaveModal"
+        (modalClose)="makeDecisionToLeaveOrStay($event)">
+</app-leave-channel-modal>
