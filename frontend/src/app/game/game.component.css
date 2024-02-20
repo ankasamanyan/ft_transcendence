@@ -15,7 +15,7 @@
     height: 85vh; 
     width: 80vw; 
     background-image: linear-gradient( 
-            to right, #5c6e91, #839b97); 
+            to right, var(--color-light-blue), var(--color-light-blue-darker)); 
     border-radius: 14px; 
 } 
   
@@ -83,16 +83,16 @@
 .player_1_score { 
     height: 50px; 
     width: 50px; 
-    color: chartreuse; 
+    color: var(--color-dark-blue); 
     position: fixed; 
     left: 30vw; 
     margin-top: 30px; 
 } 
-  
+
 .player_2_score { 
     height: 50px; 
     width: 50px; 
-    color: chartreuse; 
+    color: var(--color-dark-blue); 
     position: fixed; 
     left: 70vw; 
     margin-top: 30px; 

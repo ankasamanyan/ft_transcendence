@@ -47,25 +47,25 @@ export class GameComponent implements OnInit {
       .subscribe((userId) => {
         this.userId = userId;
       });
-
       this.socket.on("GameUpdate", (gameResponsetDto: GameResponsetDto) => {
         console.log(gameResponsetDto);
       });
     document.addEventListener('keydown', (e) => this.handleKeyDown(e));
-    console.log(this.userId);
-    this.moveBall();
   }
 
   private handleKeyDown(e: KeyboardEvent): void {
     if (this.gameState === 'play') {
       if (e.key === 'ArrowUp') {
-        this.socket.emit("paddleArrowUp", this.gameId, this.userId, this.paddleMoveSize);
+        this.socket.emit("paddleUpdate", this.gameId, this.userId, this.paddleMoveSize * -1);
+        console.log("pressed arrow up");
       } else if (e.key === 'ArrowDown') {
-        this.socket.emit("paddleArrowDown", this.gameId, this.userId, (this.paddleMoveSize) * -1);
-        this.updatePaddle1Position('down');
-      }
+        this.socket.emit("paddleUpdate", this.gameId, this.userId, this.paddleMoveSize);
+        console.log("pressed arrow down");
+      } else if (e.key === 'ArrowLeft') {
+      this.socket.emit("startGame", {user1: 1, user2: 2});
+      console.log("pressed arrow left");
     }
-
+  }
     if (e.key === 'Enter') {
       this.gameState = this.gameState === 'start' ? 'play' : 'start';
       if (this.gameState === 'play') {
