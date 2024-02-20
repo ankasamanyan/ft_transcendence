@@ -18,6 +18,10 @@ export class BlockedUsersService {
   
   getBlockedUsers(userId: number) {
     return from(this.blockedUsersRepository.getBlockedUsers(userId));
-  }    
+  }   
+  
+  isBlocked(blockerId: number, blockedId: number) {
+    return from(this.blockedUsersRepository.isBlocked(blockerId, blockedId));
+  }
 
 }
