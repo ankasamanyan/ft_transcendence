@@ -20,6 +20,7 @@ export class DialogsComponent implements OnInit {
 
   showCreateChannelModal: boolean = false;
   channelsLoaded: boolean = false;
+  searchModeOn: boolean = false;
 
   @Output()
   selectedChannelChanged = new EventEmitter<number>();
@@ -70,15 +71,22 @@ export class DialogsComponent implements OnInit {
   find(channelToSearchFor: string) {
     if (channelToSearchFor == "") {
       this.displayedChannels = this.channels;
+      this.searchModeOn = false;
     } else {
       this.displayedChannels = this.searchedForChannels
         .filter((channel) => channel.name?.toUpperCase().startsWith(channelToSearchFor.toUpperCase()));
+      this.searchModeOn = true;
     }
   }
 
   changeSelectedChannel(selectedChannelId: number) {
-    this.selectedChannelId = selectedChannelId;
-    this.selectedChannelChanged.emit(selectedChannelId);
+    if (this.channels.some((channel) => channel.id === selectedChannelId)) {
+      this.selectedChannelId = selectedChannelId;
+      this.selectedChannelChanged.emit(selectedChannelId);
+    }
+    else {
+
+    }
   }
 
   noChannels() {
