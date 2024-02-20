@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UserStatisticsService } from 'src/app/service/user-statistics.service';
+import { UsersService } from 'src/app/service/users.service';
 
 @Component({
   selector: 'app-statistics',
@@ -6,14 +8,28 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./statistics.component.css']
 })
 
-export class StatisticsComponent {
+export class StatisticsComponent implements OnInit{
   
   @Input() userId!: number;
 
-  userWins: number = 25;
+  public userWins!: number;
   
-  userLosses: number = 40;
+  public userLosses!: number;
   
   public placeHolderMessage: string = "You will see something here, once you start playing << THE PONG >> 🎯✨"
+
+  constructor(private userStatisticsService: UserStatisticsService) {}
+
+  ngOnInit(): void {
+    this.userStatisticsService.getWins(this.userId)
+      .subscribe(userWins => {
+        this.userWins = userWins;
+      });
+
+    this.userStatisticsService.getLosses(this.userId)
+      .subscribe(userLosses => {
+        this.userLosses = userLosses;
+      });
+  }
 
 }

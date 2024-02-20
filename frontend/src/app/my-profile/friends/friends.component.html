@@ -4,7 +4,7 @@
   <mat-tab-group>
 
     <mat-tab label="Friends"> 
-      <div class="empty-list-container" *ngIf="friendsList.length === 0" >
+      <div class="empty-list-container" *ngIf="!friendsList" >
         <div class="empty-list">
           <p>{{placeHolderMessage}}</p>
         </div>
@@ -25,7 +25,7 @@
     </mat-tab>
 
     <mat-tab label="Pending" matBadge="{{pendingList.length}}" matBadgeOverlap="true" matBadgeColor="warn"> 
-      <div class="empty-list-container" *ngIf="pendingList.length === 0">
+      <div class="empty-list-container" *ngIf="!pendingList">
         <div class="empty-list">
           <p>{{placeHolderMessage}}</p>
         </div>
@@ -46,7 +46,7 @@
     </mat-tab>
 
     <mat-tab label="Blocked">
-      <div class="empty-list-container" *ngIf="blockedList.length === 0">
+      <div class="empty-list-container" *ngIf="!blockedList">
         <div class="empty-list">
           <p>{{placeHolderMessage}}</p>
         </div>
@@ -59,7 +59,6 @@
               <h3>{{ user.name }}</h3>
               <p class="username">{{ user.intraLogin }}</p>
             </div>
-            <!-- <button class="action-button">Play</button> -->
             <button class="action-button">Unblock</button>
           </div>
         </div>

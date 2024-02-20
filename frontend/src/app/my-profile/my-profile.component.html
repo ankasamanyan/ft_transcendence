@@ -35,7 +35,7 @@
         <app-friends *ngIf="selectedMenuItem === 'friends'" [userId]="userId"></app-friends>
         <app-achievements  *ngIf="selectedMenuItem === 'achievements'" [userId]="userId"></app-achievements>
         <app-match-history  *ngIf="selectedMenuItem ===  'match-history'" [userId]="userId"></app-match-history>
-        <app-statistics *ngIf="selectedMenuItem ===  'statistics'"></app-statistics>
+        <app-statistics *ngIf="selectedMenuItem ===  'statistics'" [userId]="userId"></app-statistics>
         <app-settings  *ngIf="selectedMenuItem === 'settings'"
                       [name]="user.name" 
                       [username]="user.intraLogin"
