@@ -7,6 +7,7 @@ import {ChannelResponse} from "./dto/channel.response";
 import {ChannelRequest} from "./dto/channel.request";
 import { UserResponse, UsersResponse } from './dto/users-response';
 import { ChannelUpdateRequest } from './dto/channel-update.request';
+import { ChannelUpdate } from 'src/domain/channel-update';
 
 @Controller('/channels')
 export class ChannelController {
@@ -72,9 +73,9 @@ export class ChannelController {
     return this.channelService.deletePassword(channelId);
   }
 
-  @Post("/participants/:channelId")
-  enterChannel(@Body() request: UserRequest, @Param('channelId') channelId: number) {
-    return this.channelService.enterChannel(UserResponse.toDomain(request), channelId);
+  @Post("/enter-channel")
+  enterChannel(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.enterChannel(ChannelUpdateRequest.toDomain(request));
   }
 
   // @Delete("/kick-user/:channelId/:userId")
@@ -82,7 +83,7 @@ export class ChannelController {
   //   return this.channelService.kickUser(channelId, userId);
   // }
 
-  @Delete('kick-users')
+  @Delete('/kick-users')
   kickUsers(@Body() request: ChannelUpdateRequest) {
     return this.channelService.kickUsers(ChannelUpdateRequest.toDomain(request));
   }
@@ -102,7 +103,7 @@ export class ChannelController {
     return this.channelService.muteUsers(ChannelUpdateRequest.toDomain(request));
   }
 
-  @Delete("unmute-user/:channelId/:userId")
+  @Delete("/unmute-user/:channelId/:userId")
   unmuteUser(@Param('channelId') channelId: number, @Param('userId') userId: number) {
     return this.channelService.unmuteUser(channelId, userId);
   }
@@ -122,9 +123,14 @@ export class ChannelController {
     return this.channelService.banUsers(ChannelUpdateRequest.toDomain(request));
   }
 
-  @Delete("unban-user/:channelId/:userId")
+  @Delete("/unban-user/:channelId/:userId")
   unbanUser(@Param('channelId') channelId: number, @Param('userId') userId: number) {
     return this.channelService.unbanUser(channelId, userId);
+  }
+
+  @Get('/is-banned/boolean')
+  isBanned(@Body() request: ChannelUpdateRequest) {
+    return this.channelService.isBanned(ChannelUpdateRequest.toDomain(request));
   }
 
   @Post("/add-admins")
@@ -137,7 +143,7 @@ export class ChannelController {
   //   return this.channelService.removeAdmin(channelId, userId);
   // }
 
-  @Delete('remove-admins')
+  @Delete('/remove-admins')
   removeChannelAdmins(@Body() request: ChannelUpdateRequest) {
     return this.channelService.removeChannelAdmins(ChannelUpdateRequest.toDomain(request));
   }
