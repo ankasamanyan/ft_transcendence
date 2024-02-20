@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UsersService} from "../../service/users.service";
-import {Users} from "../../domain/user";
+import {User, Users} from "../../domain/user";
 import {Channel} from "../../domain/channel";
 import {ChannelService} from "../../service/channel.service";
 import {OurSocket} from "../../socket/socket";
@@ -16,6 +16,7 @@ export class DialogsComponent implements OnInit {
   displayedChannels: Channel[] = [];
   selectedChannelId: number | undefined;
   users: Users | undefined;
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg");
 
   showCreateChannelModal: boolean = false;
   channelsLoaded: boolean = false;
@@ -37,7 +38,10 @@ export class DialogsComponent implements OnInit {
     socket.on("participantBanned", () => {
       this.getChannels();
     });
-    socket.on("participantLeft", () => {
+    socket.on("participantLeft", ({userId}: {userId: number}) => {
+      if (userId === this.authenticatedUser.id) {
+        this.selectedChannelId = undefined;
+      }
       this.getChannels();
     });
     socket.on("channelRenamed", () => {
