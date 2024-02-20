@@ -54,4 +54,14 @@ export class PrismaBlockedUsersRepository {
          }));
          
     }
+
+    async isBlocked(blockerId: number, blockedId: number) {
+        const isBlocked = await this.prisma.blockedUser.findFirst({
+            where: {
+                blockedId: Number(blockedId),
+                blockerId: Number(blockerId)
+            }
+        });
+        return isBlocked !== null;
+    }
 }
