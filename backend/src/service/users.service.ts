@@ -24,4 +24,8 @@ export class UsersService {
     return from(this.usersRepository.getUsers(userId));
   }
 
+  getAllUsers() {
+    return from(this.usersRepository.getAllUsers());
+  }
+
 }

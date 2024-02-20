@@ -57,6 +57,16 @@ export class PrismaBannedUsersRepository{
          });
     }
 
+    async isBanned(channelUpdate: ChannelUpdate) {
+        const isBanned = await this.prisma.bannedUser.findFirst({
+            where: {
+                channel_id: Number(channelUpdate.channelId),
+                user_id: Number(channelUpdate.users[0].id)
+            }
+        });
+        return isBanned !== null;
+    }
+
 	async getBannedUsers(channelId: number) {
 		const channelIdasInt = Number(channelId);
 		const bannedUsers = await this.prisma.$queryRaw<RawSql[]>`
@@ -75,4 +85,5 @@ export class PrismaBannedUsersRepository{
                 user.picture);
 		}));
 	}
+
 }

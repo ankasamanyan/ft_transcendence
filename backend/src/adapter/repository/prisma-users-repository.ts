@@ -62,5 +62,17 @@ export class PrismaUsersRepository {
         }));
     }
 
+    async getAllUsers() {
+        const users = await this.prisma.user.findMany({
+        });
+        return new UsersResponse(users.map((user) => {
+            return new UserResponse(
+                user.id,
+                user.name,
+                user.intra_login,
+                user.picture);
+        }));    
+    }
+
 
 }
