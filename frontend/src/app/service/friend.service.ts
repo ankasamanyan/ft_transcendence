@@ -10,6 +10,8 @@ import {UsersRequest, UsersResponse} from "./dto/users.dto";
 export class FriendService {
   constructor(private httpClient: HttpClient) { }
 
+  private backendUrl = 'http://localhost:3000';
+
   sendAFriendRequest(users: Users): Observable<void> {
     return this.httpClient.post<void>(
         "http://localhost:3000/friends",
@@ -29,5 +31,12 @@ export class FriendService {
 
   initializeFriends() {
     return this.httpClient.post<void>("http://localhost:3000/friends/mocks", {});
+  }
+
+  getPendingFriendRequests(userId: number): Observable<Users> {
+    return this.httpClient.get<UsersResponse>(`${this.backendUrl}/friends/pending/` + userId).pipe(
+      map((response: UsersResponse) => {
+        return UsersResponse.toDomain(response);
+      }));
   }
 }

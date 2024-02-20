@@ -12,9 +12,27 @@ export class FriendController {
     return this.friendService.sendAFriendRequest(UsersRequest.toDomain(request));
   }
 
-  @Get('/:userId')
-  getFriends(@Param('userId') userId: number) {
-    return this.friendService.getFriends(userId);
+  @Post("/mocks")
+  initializeFriends() {
+    return this.friendService.initializeFriends();
+  }
+  
+  //gets the pending requests that the user needs to answer
+  @Get("/pending/:userId")
+  getPendingRequests(@Param('userId') userId: number) {
+    console.log("i got here");
+    return this.friendService.getPendingRequests(userId);
+  }
+  
+  //first user is sender, second user is receiver
+  @Put('/accept')
+  acceptFriendRequest(@Body() request: UsersRequest) {
+    return this.friendService.acceptFriendRequest(UsersRequest.toDomain(request));
+  }
+  
+  @Put('/reject')
+  declineFriendReuqest(@Body() request: UsersRequest) {
+    return this.friendService.declineFriendRequest(UsersRequest.toDomain(request));
   }
 
   //first user is sender, second user is receiver
@@ -23,26 +41,9 @@ export class FriendController {
     return this.friendService.befriendable(sentUserId, receivedUserId);
   }
 
-  @Post("/mocks")
-  initializeFriends() {
-    return this.friendService.initializeFriends();
+  @Get('/:userId')
+  getFriends(@Param('userId') userId: number) {
+    return this.friendService.getFriends(userId);
   }
-
-      //gets the pending requests that the user needs to answer
-  @Get("/pending/:userId")
-  getPendingRequests(@Param('userId') userId: number) {
-    return this.friendService.getPendingRequests(userId);
-  }
-
-    //first user is sender, second user is receiver
-  @Put('/accept')
-  acceptFriendRequest(@Body() request: UsersRequest) {
-    return this.friendService.acceptFriendRequest(UsersRequest.toDomain(request));
-  }
-
-  @Put('/reject')
-  declineFriendReuqest(@Body() request: UsersRequest) {
-    return this.friendService.declineFriendRequest(UsersRequest.toDomain(request));
-  }
-
+  
 }
