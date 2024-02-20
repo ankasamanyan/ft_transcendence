@@ -13,11 +13,11 @@ export class FriendsComponent implements OnInit {
 
   @Input() userId!: number;
 
-  public friendsList!: User[] | undefined;
+  public friendsList!: User[];
 
-  public pendingList!: User[] | undefined;
+  public pendingList!: User[];
 
-  public blockedList!: User[] | undefined;
+  public blockedList!: User[];
 
   public placeHolderMessage: string = 'This list is currently empty 🤷🏻‍♀️'
 
@@ -28,19 +28,23 @@ export class FriendsComponent implements OnInit {
 
     this.friendService.getFriends(this.userId)
       .subscribe((friends) => {
-        this.friendsList = friends.users;
-      });
-
-    this.blockedUsersService.getBlockedUsers(this.userId)
-      .subscribe((blocked) => {
-        this.blockedList = blocked.users;
+        if (friends.users.length) {
+          this.friendsList = friends.users;
+        } else {this.friendsList = [];}
       });
 
     this.friendService.getPendingFriendRequests(this.userId)
       .subscribe((pending) => {
-        this.pendingList = pending.users;
+        if (pending.users.length) {
+          this.pendingList = pending.users;
+        } else {this.pendingList = [];}
+      });
+
+    this.blockedUsersService.getBlockedUsers(this.userId)
+      .subscribe((blocked) => {
+        if (blocked.users.length) {
+          this.blockedList = blocked.users;
+        } else {this.blockedList = [];}
       });
   }
-
-
 }

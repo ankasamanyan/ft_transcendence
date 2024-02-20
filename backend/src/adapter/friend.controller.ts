@@ -20,7 +20,6 @@ export class FriendController {
   //gets the pending requests that the user needs to answer
   @Get("/pending/:userId")
   getPendingRequests(@Param('userId') userId: number) {
-    console.log("i got here");
     return this.friendService.getPendingRequests(userId);
   }
   

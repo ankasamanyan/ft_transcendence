@@ -1,5 +1,5 @@
 <div id="navigation-bar">
-    <img [routerLink]="['/my-profile']" id="avatar" [src]="user.picture" alt="avatar">
+    <img [routerLink]="['/my-profile']" id="avatar" src="{{user.picture}}" alt="avatar">
     <i [routerLink]="['/game']" id="game-icon" class="bi bi-dice-2 our-icons" [ngClass]="{'selectedColor': isGameSelected()}"></i>
     <i [routerLink]="['/chat']"id="chat-icon" class="bi bi-chat-right-text our-icons" [ngClass]="{'selectedColor': isChatSelected()}"></i>
     <i (click)="showExitModal=true" id="logout-icon" class="bi bi-box-arrow-in-right our-icons" [ngClass]="{'selectedColor': isLogoutSelected()}"></i>
