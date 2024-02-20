@@ -17,6 +17,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   @Input()
   selectedChannelId: number | undefined;
 
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg");
   channel: Channel | undefined;
   participants: User[] | undefined;
   admins: User[] | undefined;
@@ -71,9 +72,16 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       this.channelService.updateChannels.next(true);
       this.getChannel();
     });
-    socket.on("participantLeft", () => {
+    socket.on("participantLeft", ({userId}: {userId: number}) => {
       this.channelService.updateChannels.next(true);
-      this.getChannel();
+      if (userId === this.authenticatedUser.id) {
+        this.channel = undefined;
+        this.selectedDialogPartner = undefined;
+        this.selectedChannelId = undefined;
+      }
+      else {
+        this.getChannel();
+      }
     });
     socket.on("invitationSent", () => {
       this.showInviteNotificationForFewSeconds();

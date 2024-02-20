@@ -16,6 +16,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
 
   @ViewChild('wholeSelectedDialogContainer') private wholeSelectedDialogContainer!: ElementRef;
 
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg");
   selectedDialog: ChannelMessage[] | undefined;
   message: string | undefined;
   isMuted: boolean = false;
@@ -43,6 +44,12 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
         })
       })
     }});
+    socket.on("participantLeft", ({userId}: {userId: number}) => {
+      if (userId === this.authenticatedUser.id) {
+        this.selectedDialog = undefined;
+        this.selectedChannelId = undefined;
+      }
+    });
   }
 
   sleep(ms: number) {

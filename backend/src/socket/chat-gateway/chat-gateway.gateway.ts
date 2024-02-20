@@ -80,6 +80,6 @@ export class ChatGatewayGateway {
   @SubscribeMessage('participantLeaving')
   async leaveChannel(@MessageBody() request: ChannelUpdateRequest) {
     await this.channelService.leaveChannel(ChannelUpdateRequest.toDomain(request));
-    this.server.emit("participantLeft");
+    this.server.emit("participantLeft", {userId: request.users[0].id});
   }
 }
