@@ -16,7 +16,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
 
   @ViewChild('wholeSelectedDialogContainer') private wholeSelectedDialogContainer!: ElementRef;
 
-  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg");
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true);
   selectedDialog: ChannelMessage[] | undefined;
   message: string | undefined;
   isMuted: boolean = false;

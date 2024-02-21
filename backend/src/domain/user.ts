@@ -10,11 +10,22 @@ export class User {
   public name: string;
   public intraLogin: string;
   public picture: string;
+  public email: string | undefined;
+  public isAuthenticated: boolean | undefined;
 
-  constructor(id: number | undefined, name: string, intraLogin: string, picture: string) {
+  constructor(
+    id: number | undefined,
+    name: string,
+    intraLogin: string,
+    picture: string,
+    email: string | undefined,
+    isAuthenticated: boolean | undefined
+  ) {
     this.id = id;
     this.name = name;
     this.intraLogin = intraLogin;
     this.picture = picture;
+    this.email = email;
+    this.isAuthenticated = isAuthenticated;
   }
 }

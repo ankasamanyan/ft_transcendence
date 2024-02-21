@@ -21,7 +21,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   @Output()
   userBlocked = new EventEmitter<boolean>();
 
-  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg");
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true);
   channel: Channel | undefined;
   participants: User[] | undefined;
   admins: User[] | undefined;
@@ -111,7 +111,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   sendAFriendRequest() {
     this.friendService.sendAFriendRequest(
       new Users([
-        new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg"),
+        new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true),
         this.selectedDialogPartner!
       ])
     ).subscribe(() => {
@@ -124,7 +124,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
 
   inviteUserToPlay() {
     this.gameService.invite(new Users([
-      new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg"),
+      new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true),
       this.selectedDialogPartner!
     ]));
   }
@@ -194,7 +194,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     } else {
       this.channelService.leaveChannel(new ChannelUpdate(
         this.channel?.id!,
-        [new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg")]
+        [new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true)]
       ));
       this.showLeaveModal = false;
     }

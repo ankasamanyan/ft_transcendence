@@ -23,7 +23,9 @@ interface ChannelDetails {
   ownerid: number,
   ownername: string,
   ownerpicture: string,
-  ownerintraLogin: string
+  ownerintraLogin: string,
+  owneremail: string,
+  ownerisauthenticated: boolean
 }
 
 @Injectable()
@@ -67,37 +69,41 @@ export class PrismaChannelRepository {
   }
 
   async getChannelDetailsById(channelId: number) {
-      const channelIdAsInteger = Number(channelId);
-      const channel = await this.prisma.$queryRaw<ChannelDetails>`
-          select c.name        as name,
-                 c.picture     as picture,
-                 c.created_at  as createdat,
-                 c.type        as type,
-                 c.password    as password,
-                 u.id          as ownerid,
-                 u.name        as ownername,
-                 u.picture     as ownerpicture,
-                 u.intra_login as ownerintraLogin
-          from "Channel" c
-                   LEFT JOIN "User" u on c."channelOwnerId" = u.id
-          where c.id = ${channelIdAsInteger}
-      `;
-      return new ChannelResponse(
-        channel[0].name,
-        channel[0].picture,
-        channel[0].createdat,
-        channelId,
-        channel[0].type,
-        undefined,
-        new User(
-          channel[0].ownerid,
-          channel[0].ownername,
-          channel[0].ownerpicture,
-          channel[0].ownerintraLogin),
-        undefined,
-        undefined,
-        undefined,
-        channel[0].password);
+    const channelIdAsInteger = Number(channelId);
+    const channel = await this.prisma.$queryRaw<ChannelDetails>`
+        select c.name             as name,
+               c.picture          as picture,
+               c.created_at       as createdat,
+               c.type             as type,
+               c.password         as password,
+               u.id               as ownerid,
+               u.name             as ownername,
+               u.picture          as ownerpicture,
+               u.intra_login      as ownerintraLogin,
+               u.email            as owneremail,
+               u.is_authenticated as ownerisauthenticated
+        from "Channel" c
+                 LEFT JOIN "User" u on c."channelOwnerId" = u.id
+        where c.id = ${channelIdAsInteger}
+    `;
+    return new ChannelResponse(
+      channel[0].name,
+      channel[0].picture,
+      channel[0].createdat,
+      channelId,
+      channel[0].type,
+      undefined,
+      new User(
+        channel[0].ownerid,
+        channel[0].ownername,
+        channel[0].ownerpicture,
+        channel[0].ownerintraLogin,
+        channel[0].owneremail,
+        channel[0].ownerisauthenticated),
+      undefined,
+      undefined,
+      undefined,
+      channel[0].password);
   }
 
   async getChannels(userId: number) {
@@ -183,23 +189,23 @@ export class PrismaChannelRepository {
 
   async setPassword(channel: Channel) {
     await this.prisma.channel.update({
-        where: {
-          id: Number(channel.id),
-        },
-        data: {
-          password: channel.password,
-        },
-      });
+      where: {
+        id: Number(channel.id),
+      },
+      data: {
+        password: channel.password,
+      },
+    });
   }
 
   async deletePassword(channelId: number) {
     await this.prisma.channel.update({
-        where: {
-          id: Number(channelId),
-        },
-        data: {
-          password: null,
-        },
+      where: {
+        id: Number(channelId),
+      },
+      data: {
+        password: null,
+      },
     });
   }
 
@@ -218,17 +224,17 @@ export class PrismaChannelRepository {
   async getStatus(channelId: number) {
     const channel = await this.prisma.channel.findFirst({
       where: {
-          id: Number(channelId)
+        id: Number(channelId)
       },
       select: {
-          type: true
+        type: true
       }
     });
     return channel.type;
   }
 
   async getJoinedPublicandProtectedChannels(userId: number) {
-   
+
     const userIdAsInteger = Number(userId);
     const channels = await this.prisma.$queryRaw<RawSql[]>`
         with subres as (select max(id) as id
@@ -249,8 +255,10 @@ export class PrismaChannelRepository {
                  LEFT JOIN "ChannelMessage" message on channel.id = message.channel_id
 
         where channel.id in
-              (SELECT DISTINCT channel_id from "ChannelParticipant" where user_id = ${userIdAsInteger}
-                or channel.type in ('public', 'password-protected'))
+              (SELECT DISTINCT channel_id
+               from "ChannelParticipant"
+               where user_id = ${userIdAsInteger}
+                  or channel.type in ('public', 'password-protected'))
             AND message.text IS NULL
            OR (message.text IS NOT NULL AND message.id in (SELECT id from subres))
         order by COALESCE(message.created_at, channel.created_at) desc
@@ -270,9 +278,8 @@ export class PrismaChannelRepository {
         channel.lastmessagecreatedat
       );
     }));
-    }
+  }
 
-   
 
   // async getJoinedPublicandProtectedChannels(userId: number) {
   //   const userParticipantChannels = await this.prisma.channelParticipant.findMany({
