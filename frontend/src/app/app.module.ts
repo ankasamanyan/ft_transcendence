@@ -14,7 +14,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { GameComponent } from './game/game.component';
 import { AuthorizationPageComponent } from './authorization-page/authorization-page.component';
 import { ExitModalComponent } from './navigation-bar/exit-modal/exit-modal.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { SelectedDialogHeaderComponent } from './chat/selected-dialog/selected-dialog-header/selected-dialog-header.component';
 import { BlockModalComponent } from './chat/selected-dialog/selected-dialog-header/block-modal/block-modal.component';
 import { InvitationToPlayReceivedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/invitation-to-play-received-notification/invitation-to-play-received-notification.component';
@@ -35,6 +35,7 @@ import { SharedDataService } from './service/shared-data.service';
 import { MatBadge, MatBadgeModule } from '@angular/material/badge';
 import { ParticipantComponent } from './chat/selected-dialog/selected-dialog-header/edit-channel-modal/participant/participant.component';
 import { LeaveChannelModalComponent } from './chat/selected-dialog/selected-dialog-header/leave-channel-modal/leave-channel-modal.component';
+import {TokenInterceptor} from "./token.interceptor";
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { LeaveChannelModalComponent } from './chat/selected-dialog/selected-dial
       { path: 'authorization', component: AuthorizationPageComponent },
     ]),
   ],
-  providers: [SharedDataService],
+  providers: [SharedDataService,
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},],
   bootstrap: [AppComponent],
   exports: [
     MatBadgeModule,

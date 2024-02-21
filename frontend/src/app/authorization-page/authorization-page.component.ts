@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {DOCUMENT} from "@angular/common";
 import {UsersService} from "../service/users.service";
-import {resolve} from "@angular/compiler-cli";
+// import {resolve} from "@angular/compiler-cli";
 
 @Component({
   selector: 'app-authorization-page',
@@ -29,15 +29,5 @@ export class AuthorizationPageComponent
           document.getElementById("toapi").classList.add("is-loading")
       }
       window.history.replaceState({}, document.title, "/" + "");
-
   }
-
-
-
-
-
-
-
-
-
 }

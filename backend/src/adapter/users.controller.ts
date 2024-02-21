@@ -1,27 +1,35 @@
-import {Body, Controller, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, UseGuards} from '@nestjs/common';
+import {from, of} from "rxjs";
+import { UsersResponse } from 'src/adapter/dto/users-response';
 import {UsersService} from "../service/users.service";
 import {UserRequest} from "./dto/users-request";
+import {FTAuthGuard} from "../auth/guards/auth.42.guard";
+import {JWTAuthGuard} from "../auth/guards/auth.jwt.guard";
 
 @Controller('/users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @Post("/mocks")
+  // @UseGuards(JWTAuthGuard)
+  @Post()
   initializeUsers() {
     return this.usersService.initializeUsers();
   }
 
-  @Post("/new-user")
+  // @UseGuards(JWTAuthGuard)
+  @Post()
   addUser(@Body() request: UserRequest) {
     return this.usersService.addUser(UserRequest.toDomain(request));
   }
 
+  // @UseGuards(JWTAuthGuard)
   @Get('/details/:userId')
   getUserById(@Param('userId') userId: number) {
     return this.usersService.getUserById(userId);
   }
 
-  @Get('/all-except-for/:userId')
+  // @UseGuards(JWTAuthGuard)
+  @Get('/:userId')
   getUsers(@Param('userId') userId: number) {
     return this.usersService.getUsers(userId);
   }
