@@ -12,11 +12,11 @@ export class UsersService {
   constructor(private httpClient: HttpClient) { }
 
   initializeUsers() {
-    return this.httpClient.post<void>("http://localhost:3000/users", {});
+    return this.httpClient.post<void>("http://localhost:3000/users/mocks", {});
   }
 
   addUser(user: User) {
-    return this.httpClient.post<void>("http://localhost:3000/users", UserRequest.fromDomain(user));
+    return this.httpClient.post<void>("http://localhost:3000/users/new-user", UserRequest.fromDomain(user));
   }
 
   getUserById(userId: number){
@@ -27,7 +27,14 @@ export class UsersService {
   }
 
   getUsers(userId: number): Observable<Users> {
-    return this.httpClient.get<UsersResponse>("http://localhost:3000/users/" + userId).pipe(
+    return this.httpClient.get<UsersResponse>("http://localhost:3000/users/all-except-for/" + userId).pipe(
+      map((users: UsersResponse) => {
+        return UsersResponse.toDomain(users);
+      }));
+  }
+
+  getAllUsers(): Observable<Users> {
+    return this.httpClient.get<UsersResponse>("http://localhost:3000/users/all/users").pipe(
       map((users: UsersResponse) => {
         return UsersResponse.toDomain(users);
       }));
