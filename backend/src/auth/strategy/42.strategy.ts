@@ -4,8 +4,9 @@ import { PassportStrategy } from '@nestjs/passport';
 // @ts-ignore
 // import { Strategy } from 'passport-42';
 import { Strategy, Profile } from 'passport-42';
-import { AuthService } from './auth.service';
-import { PrismaService } from '../service/prisma.service';
+import { AuthService } from '../auth.service';
+import { PrismaService } from '../../service/prisma.service';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class FTStrategy extends PassportStrategy(Strategy, '42') {
@@ -22,26 +23,21 @@ export class FTStrategy extends PassportStrategy(Strategy, '42') {
     });
   }
 
-  async validate(accessToken: string, refreshToken: string, profile: Profile) {
-    console.log('i am in validate 42 strategy');
-    let user = await this.prisma.user.findFirst({
+  async validate(accessToken: string, refreshToken: string, profile: Profile): Promise<User> {
+    let user = await this.prisma.user.findUnique({
       where: {
-        name: profile.username,
+				id: Number(profile.id),
       },
     });
     if (!user) {
-      await this.prisma.user.create({
+      user = await this.prisma.user.create({
         data: {
-          // email: user.email,
-          name: user.name,
-          intra_login: user.intra_login,
-          // hash: hash,
-          picture: user.picture,
-          // isAuthenticated: false,
+          name: profile.displayName,
+          id: Number(profile.id),
+          intra_login: profile.username,
         },
       });
-      user = await this.authService.findUser(profile.emails[0].value);
     }
-    return user || null;
+    return user;
   }
 }

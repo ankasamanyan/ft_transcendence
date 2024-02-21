@@ -5,6 +5,7 @@ import {MessageService} from "./service/message.service";
 import {FriendService} from "./service/friend.service";
 import {ChannelService} from "./service/channel.service";
 import { SharedDataService } from './service/shared-data.service';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,13 @@ export class AppComponent {
     this.channelService.initializeChannels().subscribe();
     this.messageService.initializeChannelMessages().subscribe();
     //get the current userId here
-    this.sharedDataService.setData(1);
+    const trToken = Cookie.get('accessToken')
+    localStorage.setItem('tr_access_token', trToken)
+    let id = Number(Cookie.get('id'))
+    // if(id){
+      this.sharedDataService.setData(id);
+    // }
+
   }
 
   public open(modal: any): void {
