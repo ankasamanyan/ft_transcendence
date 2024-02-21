@@ -11,6 +11,8 @@ import { PrismaBannedUsersRepository } from 'src/adapter/repository/prisma-banne
 import { PrismaMutedUsersRepository } from 'src/adapter/repository/prisma-muted-users-repository';
 import { MuteTimer } from 'src/cron/timer';
 import { PrismaUserStatisticsRespository } from 'src/adapter/repository/prisma-user-statistics-respository';
+import {BlockedUsersService} from "../../service/blocked-users.service";
+import {PrismaBlockedUsersRepository} from "../../adapter/repository/prisma-blocked-users-repository";
 
 @Module({
   providers: [
@@ -26,7 +28,9 @@ import { PrismaUserStatisticsRespository } from 'src/adapter/repository/prisma-u
     PrismaMutedUsersRepository,
     PrismaUserStatisticsRespository,
     MuteTimer,
-     ]
+    BlockedUsersService,
+    PrismaBlockedUsersRepository,
+  ]
 })
 export class ChatGatewayModule {
 }

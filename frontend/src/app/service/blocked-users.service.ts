@@ -27,4 +27,8 @@ export class BlockedUsersService {
         return UsersResponse.toDomain(users);
       }));
   }
+
+  isBlocked(blockerId: number, blockedId: number) {
+    return this.httpClient.get<boolean>("http://localhost:3000/blocked-users/is-blocked/"+ blockerId + "/" + blockedId);
+  }
 }

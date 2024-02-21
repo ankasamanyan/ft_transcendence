@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {User, Users} from "../../../domain/user";
 import {FriendService} from "../../../service/friend.service";
 import {UsersService} from "../../../service/users.service";
@@ -7,6 +7,7 @@ import {Channel} from "../../../domain/channel";
 import {OurSocket} from "../../../socket/socket";
 import {GameService} from "../../../service/game.service";
 import {ChannelUpdate} from "../../../domain/channel-update";
+import {BlockedUsersService} from "../../../service/blocked-users.service";
 
 @Component({
   selector: 'app-selected-dialog-header',
@@ -16,6 +17,9 @@ import {ChannelUpdate} from "../../../domain/channel-update";
 export class SelectedDialogHeaderComponent implements OnChanges {
   @Input()
   selectedChannelId: number | undefined;
+
+  @Output()
+  userBlocked = new EventEmitter<boolean>();
 
   authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg");
   channel: Channel | undefined;
@@ -35,6 +39,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     private userService: UsersService,
     private channelService: ChannelService,
     private gameService: GameService,
+    private blockedUserService: BlockedUsersService,
     private socket: OurSocket) {
     socket.on("channelRenamed", () => {
       this.channelService.updateChannels.next(true);
@@ -85,6 +90,11 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     });
     socket.on("invitationSent", () => {
       this.showInviteNotificationForFewSeconds();
+    });
+    socket.on("userBlocked", ({blockerId, blockeeId}: { blockerId: number, blockeeId: number }) => {
+      if (this.authenticatedUser.id === blockeeId && this.selectedDialogPartner?.id === blockerId) {
+        this.updateBlockedStatus();
+      }
     });
   }
 
@@ -161,6 +171,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
         return value.id != 1
       })[0];
       this.checkWhetherBefriendable();
+      this.updateBlockedStatus()
     }
   }
 
@@ -186,6 +197,14 @@ export class SelectedDialogHeaderComponent implements OnChanges {
         [new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg")]
       ));
       this.showLeaveModal = false;
+    }
+  }
+
+  updateBlockedStatus() {
+    if (this.selectedDialogPartner) {
+      this.blockedUserService.isBlocked(this.selectedDialogPartner.id!, this.authenticatedUser.id!).subscribe((value) => {
+        this.userBlocked.emit(value);
+      })
     }
   }
 }

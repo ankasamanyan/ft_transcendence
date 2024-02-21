@@ -1,7 +1,6 @@
 import {Injectable} from '@nestjs/common';
-import {Users, User} from "../domain/user";
+import {Users} from "../domain/user";
 import {from} from "rxjs";
-import { PrismaUsersRepository } from 'src/adapter/repository/prisma-users-repository';
 import { PrismaBlockedUsersRepository } from 'src/adapter/repository/prisma-blocked-users-repository';
 
 @Injectable()
