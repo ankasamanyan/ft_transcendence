@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
-import {Users} from "../domain/user";
+import {User, Users} from "../domain/user";
 import {UsersRequest, UsersResponse} from "./dto/users.dto";
 
 @Injectable({
@@ -38,5 +38,13 @@ export class FriendService {
       map((response: UsersResponse) => {
         return UsersResponse.toDomain(response);
       }));
+  }
+
+  acceptFriendRequest(users: Users):Observable<void> {
+    return this.httpClient.put<void>(`${this.backendUrl}/friends/accept`, UsersRequest.fromDomain(users));
+  }
+
+  declineFriendRequest(users: Users):Observable<void> {
+    return this.httpClient.put<void>(`${this.backendUrl}/friends/reject`, UsersRequest.fromDomain(users));
   }
 }
