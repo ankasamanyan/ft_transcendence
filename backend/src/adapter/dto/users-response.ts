@@ -17,7 +17,10 @@ export class UserResponse {
       public id: number | undefined,
       public name: string,
       public intraLogin: string,
-      public picture: string)
+      public picture: string,
+      public email: string | undefined,
+      public isAuthenticated: boolean | undefined
+  )
   {}
 
   static toDomain(response: UserResponse): User {
@@ -26,6 +29,8 @@ export class UserResponse {
       response.name,
       response.intraLogin,
       response.picture,
+      response.email,
+      response.isAuthenticated
     );
   }
 
@@ -35,6 +40,8 @@ export class UserResponse {
       user.name,
       user.intraLogin,
       user.picture,
+      user.email,
+      user.isAuthenticated
     );
   }
 }

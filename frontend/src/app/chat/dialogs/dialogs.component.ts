@@ -16,7 +16,7 @@ export class DialogsComponent implements OnInit {
   displayedChannels: Channel[] = [];
   selectedChannelId: number | undefined;
   users: Users | undefined;
-  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg");
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true);
 
   showCreateChannelModal: boolean = false;
   channelsLoaded: boolean = false;

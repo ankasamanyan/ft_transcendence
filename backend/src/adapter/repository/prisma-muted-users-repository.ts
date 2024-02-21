@@ -2,13 +2,15 @@ import {PrismaService} from "../../service/prisma.service";
 import {Injectable} from "@nestjs/common";
 import {UserResponse, UsersResponse} from "../dto/users-response";
 import {User} from "../../domain/user";
-import { ChannelUpdate } from "src/domain/channel-update";
+import {ChannelUpdate} from "src/domain/channel-update";
 
 interface RawSql {
   id: number,
   name: string,
   intra_login: string,
-  picture: string
+  picture: string,
+  email: string,
+  is_authenticated: boolean
 }
 
 @Injectable()
@@ -30,11 +32,11 @@ export class PrismaMutedUsersRepository {
     const mutedUsersData = userIds.map(userId => ({
       channel_id: Number(channelUpdate.channelId),
       user_id: userId
-  }));
+    }));
 
-  await this.prisma.mutedUser.createMany({
+    await this.prisma.mutedUser.createMany({
       data: mutedUsersData
-  });
+    });
   }
 
   async unmuteUser(channelId: number, mutedUserId: number) {
@@ -49,10 +51,12 @@ export class PrismaMutedUsersRepository {
   async getMutedUsers(channelId: number) {
     const channelIdasInt = Number(channelId);
     const mutedUsers = await this.prisma.$queryRaw<RawSql[]>`
-        SELECT m."user_id"   as id,
-               u.name        as name,
-               u.intra_login as intra_login,
-               u.picture     as picture
+        SELECT m."user_id"        as id,
+               u.name             as name,
+               u.intra_login      as intra_login,
+               u.picture          as picture,
+               u.email            as email,
+               u.is_authenticated as is_authenticated
         from "MutedUser" m
                  LEFT JOIN "User" u on m."user_id" = u.id
         where b."channel_id" = ${channelIdasInt}`
@@ -61,7 +65,9 @@ export class PrismaMutedUsersRepository {
         user.id,
         user.name,
         user.intra_login,
-        user.picture);
+        user.picture,
+        user.email,
+        user.is_authenticated);
     }));
   }
 
