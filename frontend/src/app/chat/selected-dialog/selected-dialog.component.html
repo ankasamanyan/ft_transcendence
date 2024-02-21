@@ -1,6 +1,7 @@
 <div #wholeSelectedDialogContainer id="whole-selected-dialog">
     <app-selected-dialog-header
-            [selectedChannelId]="selectedChannelId">
+            [selectedChannelId]="selectedChannelId"
+            (userBlocked)="isBlocked=$event">
     </app-selected-dialog-header>
     <div id="selected-dialog-body">
         <div class="message-history-parent">
@@ -8,11 +9,11 @@
                 <app-message [message]="message"></app-message>
             </div>
         </div>
-        <div id="write-message-form" *ngIf="selectedChannelId && !isMuted">
-            <input  id="write-message-input"
-                    placeholder="Write a message..."
-                    [(ngModel)]="message"
-                    (keyup.enter)="sendChannelMessage()">
+        <div id="write-message-form" *ngIf="selectedChannelId && !isMuted && !isBlocked">
+            <input id="write-message-input"
+                   placeholder="Write a message..."
+                   [(ngModel)]="message"
+                   (keyup.enter)="sendChannelMessage()">
         </div>
     </div>
 </div>
