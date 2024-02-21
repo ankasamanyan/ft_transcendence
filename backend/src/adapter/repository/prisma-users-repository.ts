@@ -27,12 +27,14 @@ export class PrismaUsersRepository {
 
   async addUser(user: User) {
     await this.prisma.user.create({
-        data: {
-          name: user.name,
-          intra_login: user.intraLogin,
-          picture: user.picture
+          data: {
+            name: user.name,
+            intra_login: user.intraLogin,
+            picture: user.picture,
+            email: user.email,
+            is_authenticated: user.isAuthenticated
+          }
         }
-      }
     );
   }
 
@@ -43,12 +45,12 @@ export class PrismaUsersRepository {
       }
     });
     return new UserResponse(
-      user.id,
-      user.name,
-      user.intra_login,
-      user.picture,
-      user.email,
-      user.is_authenticated);
+        user.id,
+        user.name,
+        user.intra_login,
+        user.picture,
+        user.email,
+        user.is_authenticated);
   }
 
   async getUsers(userId: number) {
@@ -61,12 +63,12 @@ export class PrismaUsersRepository {
     });
     return new UsersResponse(users.map((user) => {
       return new UserResponse(
-        user.id,
-        user.name,
-        user.intra_login,
-        user.picture,
-        user.email,
-        user.is_authenticated);
+          user.id,
+          user.name,
+          user.intra_login,
+          user.picture,
+          user.email,
+          user.is_authenticated);
     }));
   }
 
@@ -74,14 +76,12 @@ export class PrismaUsersRepository {
     const users = await this.prisma.user.findMany({});
     return new UsersResponse(users.map((user) => {
       return new UserResponse(
-        user.id,
-        user.name,
-        user.intra_login,
-        user.picture,
-        user.email,
-        user.is_authenticated);
+          user.id,
+          user.name,
+          user.intra_login,
+          user.picture,
+          user.email,
+          user.is_authenticated);
     }));
   }
-
-
 }
