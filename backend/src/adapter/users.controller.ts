@@ -11,13 +11,13 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   // @UseGuards(JWTAuthGuard)
-  @Post()
+  @Post("/mocks")
   initializeUsers() {
     return this.usersService.initializeUsers();
   }
 
   // @UseGuards(JWTAuthGuard)
-  @Post()
+  @Post("/new-user")
   addUser(@Body() request: UserRequest) {
     return this.usersService.addUser(UserRequest.toDomain(request));
   }
@@ -29,7 +29,7 @@ export class UsersController {
   }
 
   // @UseGuards(JWTAuthGuard)
-  @Get('/:userId')
+  @Get('/all-except-for/:userId')
   getUsers(@Param('userId') userId: number) {
     return this.usersService.getUsers(userId);
   }
