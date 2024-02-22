@@ -4,7 +4,7 @@
             <i class="bi bi-x-lg" (click)="modalClose.emit()"></i>
         </div>
         <div class="container">
-            <span>Are you certain you wish to block {{selectedPerson?.name}}? You won't be able to see any messages from this account anymore</span>
+            <span>Are you certain you wish to block {{selectedPerson?.name}}? You won't be able to receive new messages from this account anymore</span>
         </div>
         <div id="buttons" class="container">
             <button (click)="modalClose.emit()" id="no-button">I changed my mind</button>
