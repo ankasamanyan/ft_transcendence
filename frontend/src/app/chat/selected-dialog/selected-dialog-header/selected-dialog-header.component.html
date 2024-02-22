@@ -38,6 +38,12 @@
         (notificationClose)="showInvitedToPlayNotification=false">
 </app-invitation-to-be-friends-received-notification>
 
+<app-user-unblocked-notification
+        *ngIf="showUserUnblockedNotification"
+        [selectedPerson]="selectedDialogPartner"
+        (notificationClose)="showUserUnblockedNotification=false">
+</app-user-unblocked-notification>
+
 <app-block-modal
         *ngIf="showBlockModal"
         [selectedPerson]="selectedDialogPartner"

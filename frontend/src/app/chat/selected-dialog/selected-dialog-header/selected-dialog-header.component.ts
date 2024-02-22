@@ -33,6 +33,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   showLeaveModal: boolean = false;
   showInvitedToPlayNotification: boolean = false;
   showInvitedToBeFriendsNotification: boolean = false;
+  showUserUnblockedNotification: boolean = false;
   isBlocking: boolean = false;
 
   constructor(
@@ -155,6 +156,13 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     });
   }
 
+  showUserUnblockedForFewSeconds() {
+    this.showUserUnblockedNotification = true;
+    this.sleep(2000).then(() => {
+      this.showUserUnblockedNotification = false;
+    });
+  }
+
   getChannel() {
     this.selectedDialogPartner = undefined;
     this.channelService.getChannelDetailsById(this.selectedChannelId!).subscribe((value) => {
@@ -234,5 +242,6 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true),
       this.selectedDialogPartner!
     ]));
+    this.showUserUnblockedForFewSeconds();
   }
 }

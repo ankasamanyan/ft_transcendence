@@ -36,6 +36,7 @@ import { MatBadge, MatBadgeModule } from '@angular/material/badge';
 import { ParticipantComponent } from './chat/selected-dialog/selected-dialog-header/edit-channel-modal/participant/participant.component';
 import { LeaveChannelModalComponent } from './chat/selected-dialog/selected-dialog-header/leave-channel-modal/leave-channel-modal.component';
 import {TokenInterceptor} from "./token.interceptor";
+import { UserUnblockedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/user-unblocked-notification/user-unblocked-notification.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import {TokenInterceptor} from "./token.interceptor";
     SettingsComponent,
     ParticipantComponent,
     LeaveChannelModalComponent,
+    UserUnblockedNotificationComponent,
   ],
   imports: [
     BrowserModule,
