@@ -100,6 +100,14 @@ export class SelectedDialogHeaderComponent implements OnChanges {
         this.updateBlockingStatus();
       }
     });
+    socket.on("userUnblocked", ({blockerId, blockeeId}: { blockerId: number, blockeeId: number }) => {
+      if (this.authenticatedUser.id === blockeeId && this.selectedDialogPartner?.id === blockerId) {
+        this.updateBlockedStatus();
+      }
+      else if (this.authenticatedUser.id === blockerId && this.selectedDialogPartner?.id === blockeeId) {
+        this.updateBlockingStatus();
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -219,5 +227,12 @@ export class SelectedDialogHeaderComponent implements OnChanges {
         this.isBlocking = value;
       })
     }
+  }
+
+  unblock() {
+    this.blockedUserService.unblockUser(new Users([
+      new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true),
+      this.selectedDialogPartner!
+    ]));
   }
 }
