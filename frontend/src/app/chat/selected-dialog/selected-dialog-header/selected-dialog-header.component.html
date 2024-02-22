@@ -14,7 +14,7 @@
                 <i class="bi bi-people befriend-icon">
                 </i>Add to friends
             </div>
-            <div id="block-action" (click)="showBlockModal=true">
+            <div id="block-action" *ngIf="!isBlocking" (click)="showBlockModal=true">
                 <i class="bi bi-person-slash block-icon">
                 </i>Block
             </div>

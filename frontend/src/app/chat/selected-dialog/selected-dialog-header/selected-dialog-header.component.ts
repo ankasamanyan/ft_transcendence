@@ -33,6 +33,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   showLeaveModal: boolean = false;
   showInvitedToPlayNotification: boolean = false;
   showInvitedToBeFriendsNotification: boolean = false;
+  isBlocking: boolean = false;
 
   constructor(
     private friendService: FriendService,
@@ -94,6 +95,9 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     socket.on("userBlocked", ({blockerId, blockeeId}: { blockerId: number, blockeeId: number }) => {
       if (this.authenticatedUser.id === blockeeId && this.selectedDialogPartner?.id === blockerId) {
         this.updateBlockedStatus();
+      }
+      else if (this.authenticatedUser.id === blockerId && this.selectedDialogPartner?.id === blockeeId) {
+        this.updateBlockingStatus();
       }
     });
   }
@@ -171,7 +175,8 @@ export class SelectedDialogHeaderComponent implements OnChanges {
         return value.id != 1
       })[0];
       this.checkWhetherBefriendable();
-      this.updateBlockedStatus()
+      this.updateBlockedStatus();
+      this.updateBlockingStatus();
     }
   }
 
@@ -204,6 +209,14 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     if (this.selectedDialogPartner) {
       this.blockedUserService.isBlocked(this.selectedDialogPartner.id!, this.authenticatedUser.id!).subscribe((value) => {
         this.userBlocked.emit(value);
+      })
+    }
+  }
+
+  updateBlockingStatus() {
+    if (this.selectedDialogPartner) {
+      this.blockedUserService.isBlocked(this.authenticatedUser.id!, this.selectedDialogPartner.id!).subscribe((value) => {
+        this.isBlocking = value;
       })
     }
   }

@@ -3,16 +3,17 @@ import {HttpClient} from "@angular/common/http";
 import {Observable, map} from "rxjs";
 import {Users} from "../domain/user";
 import {UsersRequest, UsersResponse} from "./dto/users.dto";
+import {OurSocket} from "../socket/socket";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlockedUsersService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private socket: OurSocket) { }
 
-  blockUser(users: Users): Observable<void> {
-    return this.httpClient.post<void>("http://localhost:3000/blocked-users", UsersRequest.fromDomain(users));
+  blockUser(users: Users) {
+    return this.socket.emit('userBlocking', UsersRequest.fromDomain(users));
   }
   
   unblockUser(users: Users): Observable<void> {
