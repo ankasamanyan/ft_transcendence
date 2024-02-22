@@ -91,4 +91,12 @@ export class ChatGatewayGateway {
     await this.blockedUsersService.blockUser(UsersRequest.toDomain(request));
     this.server.emit("userBlocked", {blockerId: request.users[0].id, blockeeId: request.users[1].id});
   }
+
+  @SubscribeMessage('userUnblocking')
+  async unblockUser(@MessageBody() request: UsersRequest) {
+    const blockerId = UsersRequest.toDomain(request).users[0].id
+    const blockeeId = UsersRequest.toDomain(request).users[1].id
+    await this.blockedUsersService.unblockUser(blockerId, blockeeId);
+    this.server.emit("userUnblocked", {blockerId: blockerId, blockeeId: blockeeId});
+  }
 }
