@@ -240,8 +240,7 @@ export class PrismaChannelRepository {
         with subres as (select max(id) as id
                         from "ChannelMessage"
                         where channel_id in (SELECT DISTINCT channel_id
-                                             from "ChannelParticipant"
-                                             where user_id = ${userIdAsInteger})
+                                             from "ChannelParticipant")
                         GROUP BY (channel_id))
 
         select message.text       as lastMessage,
