@@ -24,6 +24,7 @@ export class FTStrategy extends PassportStrategy(Strategy, '42') {
   }
 
   async validate(accessToken: string, refreshToken: string, profile: Profile): Promise<User> {
+    const pictureIndex = Math.floor(Math.random() * 7);
     let user = await this.prisma.user.findUnique({
       where: {
 				id: Number(profile.id),
@@ -35,6 +36,7 @@ export class FTStrategy extends PassportStrategy(Strategy, '42') {
           name: profile.displayName,
           id: Number(profile.id),
           intra_login: profile.username,
+          picture: `assets/defaultAvatar${pictureIndex}.jpeg`
         },
       });
     }
