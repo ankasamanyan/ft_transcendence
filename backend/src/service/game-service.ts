@@ -11,8 +11,8 @@ export class GameService {
 		return from(this.prismaGameInvitationRepository.invite(users));
 	}
 
-	deleteOrDecline(invitationId: number) {
-		return from(this.prismaGameInvitationRepository.deleteOrDecline(invitationId));
+	deleteOrDecline(users: Users) {
+		return from(this.prismaGameInvitationRepository.deleteOrDecline(users));
 	}
 
 	getInvitations(userId: number) {
@@ -23,8 +23,8 @@ export class GameService {
 		return from(this.prismaGameInvitationRepository.getFutureMatches(userId));
 	}
 
-	accept(invitationId: number) {
-		return from(this.prismaGameInvitationRepository.accept(invitationId));
+	accept(users: Users) {
+		return from(this.prismaGameInvitationRepository.accept(users));
 	}
 
 	getAllFutureMatches() {

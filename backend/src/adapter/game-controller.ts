@@ -11,9 +11,9 @@ export class GameController {
 		return this.gameService.invite(UsersRequest.toDomain(request));
 	}
 
-	@Delete('/invite/:invitationId')
-	deleteOrDecline(@Param('invitationId') invitationId: number) {
-		return this.gameService.deleteOrDecline(invitationId);
+	@Delete('/invite/delete')
+	deleteOrDecline(@Body() request: UsersRequest) {
+		return this.gameService.deleteOrDecline(UsersRequest.toDomain(request));
 	}
 
 	@Get('/invitations/:recipientId')
@@ -26,9 +26,9 @@ export class GameController {
 		return this.gameService.getFutureMatches(userId);
 	}
 
-	@Put('/invite/:invitationId')
-	accept(@Param('invitationId') invitationId: number) {
-		return this.gameService.accept(invitationId);
+	@Put('/invite/accept')
+	accept(@Body() request: UsersRequest) {
+		return this.gameService.accept(UsersRequest.toDomain(request));
 	}
 
 	@Get('/future-matches')

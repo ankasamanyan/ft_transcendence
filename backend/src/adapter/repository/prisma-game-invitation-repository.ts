@@ -19,10 +19,11 @@ export class PrismaGameInvitationRepository {
 	}
 
 	//when match starts or if recipient declines
-	async deleteOrDecline(invitationId: number) {
-		await this.prisma.gameInvitation.delete({
+	async deleteOrDecline(users: Users) {
+		await this.prisma.gameInvitation.deleteMany({
 			where: {
-				id: Number(invitationId)
+				initiatorId: Number(users.users[0].id),
+				recipientId: Number(users.users[1].id)
 			}
 		})
 	}
@@ -49,10 +50,11 @@ export class PrismaGameInvitationRepository {
 		return futureMatches;
 	}
 
-	async accept(invitationId: number) {
-		await this.prisma.gameInvitation.update({
+	async accept(users: Users) {
+		await this.prisma.gameInvitation.updateMany({
 			where: {
-				id: Number(invitationId)
+				initiatorId: Number(users.users[0].id),
+				recipientId: Number(users.users[1].id)
 			},
 			data: {
 				status: 'accepted'

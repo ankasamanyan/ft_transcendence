@@ -1,1 +1,7 @@
 <router-outlet></router-outlet>
+
+<app-wanna-play-modal
+        *ngIf="showWannaPlayModal"
+        [whoInvitedMeToPlay]="whoInvitedMeToPlay"
+        (modalClose)="showWannaPlayModal=false">
+</app-wanna-play-modal>

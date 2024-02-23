@@ -1,0 +1,14 @@
+<div class="wish-to-exit-modal">
+    <div class="wish-to-exit-inner-modal">
+        <div class="exit-icon">
+            <i class="bi bi-x-lg" (click)="modalClose.emit()"></i>
+        </div>
+        <div class="container">
+            <span>{{whoInvitedMeToPlay?.name}} has invited you to play a game, do you accept?</span>
+        </div>
+        <div id="buttons">
+            <button (click)="rejectInvitation()" id="no-button">Nope</button>
+            <button (click)="acceptInvitation()" id="yes-button">Yep</button>
+        </div>
+    </div>
+</div>
