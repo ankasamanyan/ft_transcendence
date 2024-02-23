@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UsersService} from "../../service/users.service";
-import {Users} from "../../domain/user";
+import {User, Users} from "../../domain/user";
 import {Channel} from "../../domain/channel";
 import {ChannelService} from "../../service/channel.service";
 import {OurSocket} from "../../socket/socket";
@@ -16,9 +16,11 @@ export class DialogsComponent implements OnInit {
   displayedChannels: Channel[] = [];
   selectedChannelId: number | undefined;
   users: Users | undefined;
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true);
 
   showCreateChannelModal: boolean = false;
   channelsLoaded: boolean = false;
+  searchModeOn: boolean = false;
 
   @Output()
   selectedChannelChanged = new EventEmitter<number>();
@@ -37,7 +39,10 @@ export class DialogsComponent implements OnInit {
     socket.on("participantBanned", () => {
       this.getChannels();
     });
-    socket.on("participantLeft", () => {
+    socket.on("participantLeft", ({userId}: {userId: number}) => {
+      if (userId === this.authenticatedUser.id) {
+        this.selectedChannelId = undefined;
+      }
       this.getChannels();
     });
     socket.on("channelRenamed", () => {
@@ -66,15 +71,22 @@ export class DialogsComponent implements OnInit {
   find(channelToSearchFor: string) {
     if (channelToSearchFor == "") {
       this.displayedChannels = this.channels;
+      this.searchModeOn = false;
     } else {
       this.displayedChannels = this.searchedForChannels
         .filter((channel) => channel.name?.toUpperCase().startsWith(channelToSearchFor.toUpperCase()));
+      this.searchModeOn = true;
     }
   }
 
   changeSelectedChannel(selectedChannelId: number) {
-    this.selectedChannelId = selectedChannelId;
-    this.selectedChannelChanged.emit(selectedChannelId);
+    if (this.channels.some((channel) => channel.id === selectedChannelId)) {
+      this.selectedChannelId = selectedChannelId;
+      this.selectedChannelChanged.emit(selectedChannelId);
+    }
+    else {
+
+    }
   }
 
   noChannels() {

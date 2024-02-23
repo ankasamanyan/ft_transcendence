@@ -19,11 +19,13 @@ model Message {
 }
 
 model User {
-  id            Int    @id @default(autoincrement())
-  name          String
-  intra_login   String
-  picture       String
-  games         Int[]
+  id                Int    @id @default(autoincrement())
+  name              String
+  intra_login       String
+  picture           String?
+  email             String?
+  is_authenticated  Boolean?
+  games             Int[]
 }
 
 model BlockedUser {
@@ -35,7 +37,7 @@ model BlockedUser {
 model Channel {
   id             Int     @id @default(autoincrement())
   name           String
-  picture        String
+  picture        String?
   created_at     DateTime
   type           String
   channelOwnerId Int?

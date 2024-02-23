@@ -1,5 +1,5 @@
 import {Body, Controller, Delete, Get, Post, Param} from '@nestjs/common';
-import {UserRequest, UsersRequest} from "./dto/users-request";
+import {UsersRequest} from "./dto/users-request";
 import {BlockedUsersService} from "../service/blocked-users.service";
 
 @Controller('/blocked-users')
@@ -12,7 +12,7 @@ export class BlockedUsersController {
   }
 
   @Delete()
-  async unblockUser(@Param('blockerId') blockerId: number, @Param('blockedId') blockedId: number) {
+  unblockUser(@Param('blockerId') blockerId: number, @Param('blockedId') blockedId: number) {
     return this.blockedUsersService.unblockUser(blockerId, blockedId);
   }
 
@@ -20,4 +20,10 @@ export class BlockedUsersController {
   getBlockedUsers(@Param('userId') userId: number) {
     return this.blockedUsersService.getBlockedUsers(userId);
   }
+
+  @Get('/is-blocked/:blockerId/:blockedId') 
+  isBlocked(@Param('blockerId') blockerId: number, @Param('blockedId') blockedId: number) {
+    return this.blockedUsersService.isBlocked(blockerId, blockedId);
+  }
+  
 }

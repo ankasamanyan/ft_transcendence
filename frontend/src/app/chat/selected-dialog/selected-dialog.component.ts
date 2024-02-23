@@ -3,7 +3,7 @@ import {MessageService} from "../../service/message.service";
 import {ChannelMessage} from "../../domain/channel-message";
 import {ChannelService} from "../../service/channel.service";
 import {OurSocket} from "../../socket/socket";
-import {User, Users} from "../../domain/user";
+import {User} from "../../domain/user";
 
 @Component({
   selector: 'app-selected-dialog',
@@ -16,9 +16,11 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
 
   @ViewChild('wholeSelectedDialogContainer') private wholeSelectedDialogContainer!: ElementRef;
 
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true);
   selectedDialog: ChannelMessage[] | undefined;
   message: string | undefined;
   isMuted: boolean = false;
+  isBlocked: boolean = false;
 
   constructor(
     private messageService: MessageService,
@@ -39,10 +41,17 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
           this.sleep(30001).then(() => {
             this.channelService.isMuted(1, this.selectedChannelId!).subscribe((value) => {
               this.isMuted = value;
-          });
+            });
+          })
         })
-      })
-    }});
+      }
+    });
+    socket.on("participantLeft", ({userId}: { userId: number }) => {
+      if (userId === this.authenticatedUser.id) {
+        this.selectedDialog = undefined;
+        this.selectedChannelId = undefined;
+      }
+    });
   }
 
   sleep(ms: number) {
@@ -73,7 +82,8 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
           this.selectedChannelId!,
           1,
           this.message!,
-          new Date()))};
+          new Date()))
+    }
     this.message = '';
     this.clearInputField();
   }

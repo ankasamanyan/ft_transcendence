@@ -26,12 +26,16 @@ export class PrismaFriendRepository {
       id: number;
       name: string;
       intra_login: string;
-      picture: string
+      picture: string,
+      email: string,
+      is_authenticated: boolean
     }> = await this.prisma.$queryRaw`
-        SELECT u.id          as id,
-               u.name        as name,
-               u.intra_login as intra_login,
-               u.picture     as picture
+        SELECT u.id               as id,
+               u.name             as name,
+               u.intra_login      as intra_login,
+               u.picture          as picture,
+               u.email            as email,
+               u.is_authenticated as is_authenticated
         FROM "User" u
                  JOIN "Friend" f ON u.id = CASE
                                                WHEN f.sent_user_id = ${userIdAsInteger} THEN f.received_user_id
@@ -45,7 +49,9 @@ export class PrismaFriendRepository {
         user.id,
         user.name,
         user.intra_login,
-        user.picture);
+        user.picture,
+        user.email,
+        user.is_authenticated);
     }));
   }
 
@@ -97,7 +103,9 @@ export class PrismaFriendRepository {
         user.id,
         user.name,
         user.intra_login,
-        user.picture);
+        user.picture,
+        user.email,
+        user.is_authenticated);
     }));
   }
 

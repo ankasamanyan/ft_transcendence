@@ -42,7 +42,8 @@ export class FriendsComponent implements OnInit {
       name: 'Fedia', 
       picture: '../../../assets/placeholderComrade5.jpeg',
       intraLogin: '@fstaryk',
-      
+      email: "",
+      isAuthenticated: true
     },];
 
     // this.blockedList = [

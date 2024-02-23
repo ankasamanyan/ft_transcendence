@@ -32,10 +32,11 @@ import { PrismaGameInvitationRepository } from './adapter/repository/prisma-game
 import { GameModule } from './socket/game/game.module';
 import { ConfigModule } from '@nestjs/config';
 import {AuthController} from "./auth/auth.controller";
-import {FTStrategy} from "./auth/42.strategy";
+import {FTStrategy} from "./auth/strategy/42.strategy";
 import {AuthService} from "./auth/auth.service";
-import {FTAuthGuard} from "./guards/auth.42.guard";
 import { PrismaGameRepository } from './adapter/repository/prisma-game-repository';
+import { FTAuthGuard } from './auth/guards/auth.42.guard';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -80,6 +81,7 @@ import { PrismaGameRepository } from './adapter/repository/prisma-game-repositor
     AuthService,
     FTAuthGuard,
     FTStrategy,
+    JwtService
   ],
 })
 export class AppModule {}

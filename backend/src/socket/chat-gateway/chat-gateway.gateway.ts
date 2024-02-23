@@ -5,6 +5,8 @@ import {Server} from "socket.io";
 import {ChannelService} from "../../service/channel.service";
 import {ChannelRequest} from "../../adapter/dto/channel.request";
 import {ChannelUpdateRequest} from "../../adapter/dto/channel-update.request";
+import {BlockedUsersService} from "../../service/blocked-users.service";
+import {UsersRequest} from "../../adapter/dto/users-request";
 
 @WebSocketGateway({cors: {origin: '*'}})
 export class ChatGatewayGateway {
@@ -13,7 +15,8 @@ export class ChatGatewayGateway {
   server: Server;
   constructor(
     private messageService: MessageService,
-    private channelService: ChannelService) {
+    private channelService: ChannelService,
+    private blockedUsersService: BlockedUsersService) {
 
   }
 
@@ -80,6 +83,20 @@ export class ChatGatewayGateway {
   @SubscribeMessage('participantLeaving')
   async leaveChannel(@MessageBody() request: ChannelUpdateRequest) {
     await this.channelService.leaveChannel(ChannelUpdateRequest.toDomain(request));
-    this.server.emit("participantLeft");
+    this.server.emit("participantLeft", {userId: request.users[0].id});
+  }
+
+  @SubscribeMessage('userBlocking')
+  async blockUser(@MessageBody() request: UsersRequest) {
+    await this.blockedUsersService.blockUser(UsersRequest.toDomain(request));
+    this.server.emit("userBlocked", {blockerId: request.users[0].id, blockeeId: request.users[1].id});
+  }
+
+  @SubscribeMessage('userUnblocking')
+  async unblockUser(@MessageBody() request: UsersRequest) {
+    const blockerId = UsersRequest.toDomain(request).users[0].id
+    const blockeeId = UsersRequest.toDomain(request).users[1].id
+    await this.blockedUsersService.unblockUser(blockerId, blockeeId);
+    this.server.emit("userUnblocked", {blockerId: blockerId, blockeeId: blockeeId});
   }
 }

@@ -5,18 +5,22 @@
     <div class="dropdown" *ngIf="selectedDialogPartner && isDialog()">
         <i class="bi bi-three-dots-vertical"></i>
         <div class="dropdown-content">
-            <div id="invite-action" (click)="inviteUserToPlay()">
+            <div id="invite-action" *ngIf="!isBlocking" (click)="inviteUserToPlay()">
                 <i class="bi bi-dice-2 game-icon"></i>
                 <i class="bi bi-dice-2-fill game-icon-hidden">
                 </i>Invite to play
             </div>
-            <div id="befriend-action" *ngIf="selectedPersonBefriendable" (click)="sendAFriendRequest()">
+            <div id="befriend-action" *ngIf="selectedPersonBefriendable && !isBlocking" (click)="sendAFriendRequest()">
                 <i class="bi bi-people befriend-icon">
                 </i>Add to friends
             </div>
-            <div id="block-action" (click)="showBlockModal=true">
+            <div id="block-action" *ngIf="!isBlocking" (click)="showBlockModal=true">
                 <i class="bi bi-person-slash block-icon">
                 </i>Block
+            </div>
+            <div id="unblock-action" *ngIf="isBlocking" (click)="unblock()">
+                <i class="bi bi-person-plus">
+                </i>Unblock
             </div>
         </div>
     </div>
@@ -33,6 +37,12 @@
         [selectedPerson]="selectedDialogPartner"
         (notificationClose)="showInvitedToPlayNotification=false">
 </app-invitation-to-be-friends-received-notification>
+
+<app-user-unblocked-notification
+        *ngIf="showUserUnblockedNotification"
+        [selectedPerson]="selectedDialogPartner"
+        (notificationClose)="showUserUnblockedNotification=false">
+</app-user-unblocked-notification>
 
 <app-block-modal
         *ngIf="showBlockModal"

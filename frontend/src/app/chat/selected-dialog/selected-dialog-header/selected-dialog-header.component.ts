@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {User, Users} from "../../../domain/user";
 import {FriendService} from "../../../service/friend.service";
 import {UsersService} from "../../../service/users.service";
@@ -7,6 +7,7 @@ import {Channel} from "../../../domain/channel";
 import {OurSocket} from "../../../socket/socket";
 import {GameService} from "../../../service/game.service";
 import {ChannelUpdate} from "../../../domain/channel-update";
+import {BlockedUsersService} from "../../../service/blocked-users.service";
 
 @Component({
   selector: 'app-selected-dialog-header',
@@ -17,6 +18,10 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   @Input()
   selectedChannelId: number | undefined;
 
+  @Output()
+  userBlocked = new EventEmitter<boolean>();
+
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true);
   channel: Channel | undefined;
   participants: User[] | undefined;
   admins: User[] | undefined;
@@ -28,12 +33,15 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   showLeaveModal: boolean = false;
   showInvitedToPlayNotification: boolean = false;
   showInvitedToBeFriendsNotification: boolean = false;
+  showUserUnblockedNotification: boolean = false;
+  isBlocking: boolean = false;
 
   constructor(
     private friendService: FriendService,
     private userService: UsersService,
     private channelService: ChannelService,
     private gameService: GameService,
+    private blockedUserService: BlockedUsersService,
     private socket: OurSocket) {
     socket.on("channelRenamed", () => {
       this.channelService.updateChannels.next(true);
@@ -71,12 +79,35 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       this.channelService.updateChannels.next(true);
       this.getChannel();
     });
-    socket.on("participantLeft", () => {
+    socket.on("participantLeft", ({userId}: {userId: number}) => {
       this.channelService.updateChannels.next(true);
-      this.getChannel();
+      if (userId === this.authenticatedUser.id) {
+        this.channel = undefined;
+        this.selectedDialogPartner = undefined;
+        this.selectedChannelId = undefined;
+      }
+      else {
+        this.getChannel();
+      }
     });
     socket.on("invitationSent", () => {
       this.showInviteNotificationForFewSeconds();
+    });
+    socket.on("userBlocked", ({blockerId, blockeeId}: { blockerId: number, blockeeId: number }) => {
+      if (this.authenticatedUser.id === blockeeId && this.selectedDialogPartner?.id === blockerId) {
+        this.updateBlockedStatus();
+      }
+      else if (this.authenticatedUser.id === blockerId && this.selectedDialogPartner?.id === blockeeId) {
+        this.updateBlockingStatus();
+      }
+    });
+    socket.on("userUnblocked", ({blockerId, blockeeId}: { blockerId: number, blockeeId: number }) => {
+      if (this.authenticatedUser.id === blockeeId && this.selectedDialogPartner?.id === blockerId) {
+        this.updateBlockedStatus();
+      }
+      else if (this.authenticatedUser.id === blockerId && this.selectedDialogPartner?.id === blockeeId) {
+        this.updateBlockingStatus();
+      }
     });
   }
 
@@ -93,7 +124,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   sendAFriendRequest() {
     this.friendService.sendAFriendRequest(
       new Users([
-        new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg"),
+        new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true),
         this.selectedDialogPartner!
       ])
     ).subscribe(() => {
@@ -106,7 +137,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
 
   inviteUserToPlay() {
     this.gameService.invite(new Users([
-      new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg"),
+      new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true),
       this.selectedDialogPartner!
     ]));
   }
@@ -122,6 +153,13 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     this.showInvitedToBeFriendsNotification = true;
     this.sleep(2000).then(() => {
       this.showInvitedToBeFriendsNotification = false;
+    });
+  }
+
+  showUserUnblockedForFewSeconds() {
+    this.showUserUnblockedNotification = true;
+    this.sleep(2000).then(() => {
+      this.showUserUnblockedNotification = false;
     });
   }
 
@@ -153,6 +191,8 @@ export class SelectedDialogHeaderComponent implements OnChanges {
         return value.id != 1
       })[0];
       this.checkWhetherBefriendable();
+      this.updateBlockedStatus();
+      this.updateBlockingStatus();
     }
   }
 
@@ -175,9 +215,33 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     } else {
       this.channelService.leaveChannel(new ChannelUpdate(
         this.channel?.id!,
-        [new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg")]
+        [new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true)]
       ));
       this.showLeaveModal = false;
     }
+  }
+
+  updateBlockedStatus() {
+    if (this.selectedDialogPartner) {
+      this.blockedUserService.isBlocked(this.selectedDialogPartner.id!, this.authenticatedUser.id!).subscribe((value) => {
+        this.userBlocked.emit(value);
+      })
+    }
+  }
+
+  updateBlockingStatus() {
+    if (this.selectedDialogPartner) {
+      this.blockedUserService.isBlocked(this.authenticatedUser.id!, this.selectedDialogPartner.id!).subscribe((value) => {
+        this.isBlocking = value;
+      })
+    }
+  }
+
+  unblock() {
+    this.blockedUserService.unblockUser(new Users([
+      new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true),
+      this.selectedDialogPartner!
+    ]));
+    this.showUserUnblockedForFewSeconds();
   }
 }

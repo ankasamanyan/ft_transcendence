@@ -24,7 +24,7 @@ export class FriendService {
   }
 
   befriendable(sentUserId: number, receivedUserId: number) {
-    return this.httpClient.get<boolean>("http://localhost:3000/friends/" + sentUserId + "/" + receivedUserId);
+    return this.httpClient.get<boolean>("http://localhost:3000/friends/befriendable/" + sentUserId + "/" + receivedUserId);
   }
 
   initializeFriends() {

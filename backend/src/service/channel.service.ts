@@ -89,8 +89,8 @@ export class ChannelService {
     return from(this.prismaChannelAdminRepository.removeChannelAdmins(channelUpdate));
   }
 
-  enterChannel(user: User, channelId: number) {
-    return from(this.prismaChannelParticipantRepository.enterChannel(user, channelId));
+  enterChannel(channelUpdate: ChannelUpdate) {
+    return from(this.prismaChannelParticipantRepository.enterChannel(channelUpdate));
   }
 
     //at the moment this is exactly like kickUser
@@ -136,6 +136,10 @@ export class ChannelService {
 
   unbanUser(channelId: number, userId: number) {
     return from(this.prismaBannedUsersRepository.unbanUser(channelId, userId))
+  }
+
+  isBanned(channelUpdate: ChannelUpdate) {
+    return from(this.prismaBannedUsersRepository.isBanned(channelUpdate));
   }
 
   changeStatus(channel: Channel) {
