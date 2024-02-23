@@ -34,6 +34,7 @@ import { ConfigModule } from '@nestjs/config';
 import {AuthController} from "./auth/auth.controller";
 import {FTStrategy} from "./auth/strategy/42.strategy";
 import {AuthService} from "./auth/auth.service";
+import { PrismaGameRepository } from './adapter/repository/prisma-game-repository';
 import { FTAuthGuard } from './auth/guards/auth.42.guard';
 import { JwtService } from '@nestjs/jwt';
 
@@ -68,6 +69,7 @@ import { JwtService } from '@nestjs/jwt';
     PrismaChannelRepository,
     PrismaBlockedUsersRepository,
     PrismaMessagesRepository,
+    PrismaGameRepository,
     PrismaFriendRepository,
     PrismaChannelAdminRepository,
     PrismaChannelParticipantRepository,

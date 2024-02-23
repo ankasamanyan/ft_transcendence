@@ -25,6 +25,7 @@ model User {
   picture           String?
   email             String?
   is_authenticated  Boolean?
+  games             Int[]
 }
 
 model BlockedUser {
@@ -94,4 +95,13 @@ model GameInvitation {
     initiatorId   Int
     recipientId   Int
     status        String
+}
+
+model Game {
+    id          Int      @id @default(autoincrement())
+    player1     Int
+    player2     Int
+    score1      Int     @default(0)
+    score2      Int     @default(0)
+    finished    Boolean @default(false)
 }

@@ -12,6 +12,20 @@ export class FriendController {
     return this.friendService.sendAFriendRequest(UsersRequest.toDomain(request));
   }
 
+<<<<<<< HEAD
+=======
+  @Get('/:userId')
+  getFriends(@Param('userId') userId: number) {
+    return this.friendService.getFriends(userId);
+  }
+
+  //first user is sender, second user is receiver
+  @Get('/befriendable/:sentUserId/:receivedUserId')
+  befriendable(@Param('sentUserId') sentUserId: number, @Param('receivedUserId') receivedUserId: number) {
+    return this.friendService.befriendable(sentUserId, receivedUserId);
+  }
+
+>>>>>>> origin/game
   @Post("/mocks")
   initializeFriends() {
     return this.friendService.initializeFriends();

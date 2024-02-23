@@ -3,6 +3,12 @@
     width: 100%;
 }
 
+.row {
+    border-top-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+    z-index: 999;
+}
+
 @media (max-width: 576px) {
     .dialogs {
         display: none;
