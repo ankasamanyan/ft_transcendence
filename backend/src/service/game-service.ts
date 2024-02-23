@@ -5,39 +5,9 @@ import { PrismaGameInvitationRepository } from 'src/adapter/repository/prisma-ga
 import { PrismaService } from './prisma.service';
 import { Server } from 'socket.io';
 import { PrismaGameRepository } from 'src/adapter/repository/prisma-game-repository';
+import { GameResponsetDto, GameScoreUpdateDto, GameStartResponseDto, PaddleUpdateDto } from 'src/adapter/dto/game.dto';
 
-class GameRequestDto {
-    constructor(
-      public gameId:number,
-      public userId:number,
-      public paddleMove:number,
-    ){}
-  }
 
-class GameResponsetDto {
-    constructor(
-      public gameId:number,
-      public paddleLeft:number,
-      public paddleRight:number,
-	  public ballPos: [number, number],
-    ){}
-  }
-
-class GameStartResponseDto {
-	constructor(
-	  public gameId:number,
-	  public player1:number,
-	  public player2:number,
-	){}
-  }
-
-  class GameScoreUpdateDto {
-	constructor(
-	  public gameId:number,
-	  public player1Score:number,
-	  public player2Score:number,
-	){}
-  }
 
   enum GameStatus {
 	INIT,
@@ -158,7 +128,12 @@ export class GameData {
 		if (scoringPlayer === GameEvent.SCORE2) {
 			this.ScorePlayer2 = this.ScorePlayer2 + 1;
 		}
-		this.server.emit('ScoreUpdate', new GameScoreUpdateDto(this.gameId, this.ScorePlayer1, this.ScorePlayer2));
+		const dto: GameScoreUpdateDto = {
+			gameId: this.gameId,
+			player1Score: this.ScorePlayer1,
+			player2Score: this.ScorePlayer2,
+		}
+		this.server.emit('ScoreUpdate', dto);
 	}
 	resetAfterScore() {
 		console.log("resetAfterScore")
@@ -218,7 +193,13 @@ export class GameData {
 		if (scoreCase === GameEvent.PADDLECOLLISION) {
 			this.handlePaddleCollision();
 		}
-		this.server.emit('GameUpdate', new GameResponsetDto(this.gameId, this.PositionPaddle1, this.PositionPaddle2, this.PositionBall));
+		const dto: GameResponsetDto = {
+			gameId: this.gameId,
+			paddleLeft: this.PositionPaddle1,
+			paddleRight: this.PositionPaddle2,
+			ballPos: this.PositionBall,
+		}
+		this.server.emit('GameUpdate', dto);
 		// have to emit new positionsfor both users here
 		if (scoreCase === GameEvent.SCORE2 || scoreCase === GameEvent.SCORE1) {
 			await new Promise(resolve => setTimeout(resolve, 1000));
@@ -242,13 +223,24 @@ export class GameData {
 	};
 
 	gameState(): GameResponsetDto {
-		return new GameResponsetDto(this.gameId, this.PositionPaddle1, this.PositionPaddle2, this.PositionBall);
+		const dto:GameResponsetDto =  {
+			gameId: this.gameId,
+			paddleLeft:  this.PositionPaddle1,
+			paddleRight: this.PositionPaddle2,
+			ballPos: this.PositionBall,
+		};
+		return dto;
 	};
 
 
 	async startGame(_server: Server) {
 		this.server = _server;
-		this.server.emit("gameStarted", new GameStartResponseDto(this.gameId, this.player1, this.player2));
+		const dto:GameStartResponseDto = {
+			gameId: this.gameId,
+			player1: this.player1,
+			player2: this.player2,
+		};
+		this.server.emit("gameStarted", dto);
 		await new Promise(resolve => setTimeout(resolve, 1000));
 		while(this.gameStatus !== GameStatus.ENDED)
 		{
@@ -263,7 +255,8 @@ export class GameData {
 export class GameService {
 	constructor(private prismaGameInvitationRepository: PrismaGameInvitationRepository,
 		private prismaGameInventory: PrismaGameRepository,
-		private prisma: PrismaService) {}
+		private prisma: PrismaService
+		) {}
 
 	gameList: GameData[] = [];
 
@@ -295,11 +288,13 @@ export class GameService {
 		return from(this.prismaGameInvitationRepository.getNextMatch());
 	}
 
-	async updatePaddle(gameRequestDto: GameRequestDto): Promise<GameResponsetDto | undefined> {
-		let gameIndex = this.findGameIndex(gameRequestDto.gameId);
-		// console.log("updatePaddle mit index: " + gameIndex + " user" + gameRequestDto.gameId)
+	async updatePaddle(paddleUpdateDto: PaddleUpdateDto): Promise<GameResponsetDto | undefined> {
+		let gameIndex = this.findGameIndex(paddleUpdateDto.gameId);
+		console.log("updatePaddle mit index: " + gameIndex + " user" + paddleUpdateDto.gameId)
+		console.log(paddleUpdateDto[0])
+		console.log(paddleUpdateDto)
 		if (gameIndex != -1) {
-			this.gameList[gameIndex].updatePaddle(gameRequestDto.userId, gameRequestDto.paddleMove);
+			this.gameList[gameIndex].updatePaddle(paddleUpdateDto.userId, paddleUpdateDto.paddleMove);
 			return this.gameList[gameIndex].gameState();
 		}
 		return undefined;
@@ -321,6 +316,7 @@ export class GameService {
 	}
 
 	async startGame(player1: number, player2: number, server: Server) {
+		console.log("game start with " + player1 + " " + player2);
 		const datbaseGameObj = await this.prisma.game.create({
 			data: {
                 player1: Number(player1),
@@ -335,7 +331,7 @@ export class GameService {
 
 	findGameIndex(gameIdToFind: number): number{
 		return this.gameList.findIndex((game) => {
-			game.gameId === gameIdToFind;
+			return game.gameId === gameIdToFind;
 		});
 	}
 }

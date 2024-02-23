@@ -3,31 +3,9 @@ import { NavigationBarStatus } from '../domain/navigation-bar';
 import { OurSocket } from '../socket/socket';
 import { SharedDataService } from '../service/shared-data.service';
 import { ElementRef, ViewChild } from '@angular/core';
+import { GameResponsetDto, GameScoreUpdateDto, GameStartResponseDto, PaddleUpdateDto } from '../service/dto/game.dto';
 
-class GameResponsetDto {
-  constructor(
-    public gameId:number,
-    public paddleLeft:number,
-    public paddleRight:number,
-    public ballPos: [number, number],
-  ){}
-}
 
-class GameStartResponseDto {
-  constructor(
-    public gameId:number,
-    public player1:number,
-    public player2:number,
-  ){}
-}
-
-class GameScoreUpdateDto {
-	constructor(
-	  public gameId:number,
-	  public player1Score:number,
-	  public player2Score:number,
-	){}
-  }
 
 @Component({
   selector: 'app-game',
@@ -37,10 +15,11 @@ class GameScoreUpdateDto {
 export class GameComponent implements OnInit {
   userId!: number ;
   gameId: number = 1;
-  paddleMoveSize: number = 10;
+  paddleMoveSize: number = 5;
   constructor(private socket: OurSocket, private sharedDataService: SharedDataService){}
 
   NavigationBarStatus = NavigationBarStatus;
+
   gameState = 'play';
 
   // constants   if these change you have to change them in the backend too!!!
@@ -54,6 +33,7 @@ export class GameComponent implements OnInit {
   // paddle1Left = 'calc(10vw + 30px)';
   // paddle2Top = 'calc(85vh + 7.5vh - 100px - 55px)';
   // paddle2Right = 'calc(10vw + 30px)';
+
 
   paddle1Top: number = 50;
   paddle2Top: number = 50;
@@ -131,13 +111,14 @@ export class GameComponent implements OnInit {
   private handleKeyDown(e: KeyboardEvent): void {
     if (this.gameState === 'play') {
       if (e.key === 'ArrowUp') {
-        this.socket.emit("paddleUpdate", this.gameId, this.userId, this.paddleMoveSize * -1);
+        this.socket.emit("paddleUpdate", {gameId: this.gameId, userId: this.userId, paddleMove: this.paddleMoveSize * -1} as PaddleUpdateDto);
         console.log("pressed arrow up");
       } else if (e.key === 'ArrowDown') {
-        this.socket.emit("paddleUpdate", this.gameId, this.userId, this.paddleMoveSize);
+        this.socket.emit("paddleUpdate", {gameId: this.gameId, userId: this.userId, paddleMove: this.paddleMoveSize} as PaddleUpdateDto);
         console.log("pressed arrow down");
       } else if (e.key === 'ArrowLeft') {
-      this.socket.emit("startGame", {user1: 1, user2: 2});
+        const my_id = this.sharedDataService.getData$().subscribe();
+      this.socket.emit("startGame", {user1: this.userId, user2: 98629});
       console.log("pressed arrow left");
     }
   }
