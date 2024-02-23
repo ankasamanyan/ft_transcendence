@@ -86,6 +86,12 @@ export class ChatGatewayGateway {
     this.server.emit("participantLeft", {userId: request.users[0].id});
   }
 
+  @SubscribeMessage('participantJoining')
+  async enterChannel(@MessageBody() request: ChannelUpdateRequest) {
+    await this.channelService.enterChannel(ChannelUpdateRequest.toDomain(request));
+    this.server.emit("participantJoined", {userId: request.users[0].id});
+  }
+
   @SubscribeMessage('userBlocking')
   async blockUser(@MessageBody() request: UsersRequest) {
     await this.blockedUsersService.blockUser(UsersRequest.toDomain(request));

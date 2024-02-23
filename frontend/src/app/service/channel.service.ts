@@ -107,6 +107,10 @@ export class ChannelService {
     return this.socket.emit('participantLeaving', ChannelUpdateRequest.fromDomain(channelUpdate));
   }
 
+  enterChannel(channelUpdate: ChannelUpdate) {
+    return this.socket.emit('participantJoining', ChannelUpdateRequest.fromDomain(channelUpdate));
+  }
+
   isMuted(userId: number, channelId: number) {
     return this.httpClient.get<boolean>("http://localhost:3000/channels/muted-users/" + channelId + "/" + userId);
   }
