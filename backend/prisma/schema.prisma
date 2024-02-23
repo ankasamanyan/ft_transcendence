@@ -23,6 +23,7 @@ model User {
   name          String
   intra_login   String
   picture       String
+  games         Int[]
 }
 
 model BlockedUser {

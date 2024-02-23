@@ -25,7 +25,6 @@ export class GameGateway {
   @WebSocketServer()
   server: Server;
 
-
   constructor(
     private gameService: GameService) {
 
@@ -36,10 +35,10 @@ export class GameGateway {
     console.log("gamepaddle update backend with value");
     console.log(gameRequestDto);
     const response = await this.gameService.updatePaddle(gameRequestDto);
-    this.server.emit('GameUpdate', response);  
+    // this.server.emit('GameUpdate', response);  // probably dont need this as the loop is running :)
+    // this.server.emit('GameUpdate', response);  // probably dont need this as the loop is running :)
   }
   
-
   @SubscribeMessage('invitationToPlay')
   async invite(@MessageBody() request: UsersRequest) {
     await this.gameService.invite(UsersRequest.toDomain(request));
@@ -49,7 +48,7 @@ export class GameGateway {
   @SubscribeMessage('startGame')
   async startGame(@MessageBody() data: {user1: number, user2: number}) {
     console.log("startGame message subscribe")
-    const responseDto = await this.gameService.startGame(data.user1, data.user2);
-    this.server.emit("gameStarted", responseDto);
+    this.gameService.startGame(data.user1, data.user2, this.server);
   }
 }
+

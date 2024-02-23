@@ -35,6 +35,7 @@ import {AuthController} from "./auth/auth.controller";
 import {FTStrategy} from "./auth/42.strategy";
 import {AuthService} from "./auth/auth.service";
 import {FTAuthGuard} from "./guards/auth.42.guard";
+import { PrismaGameRepository } from './adapter/repository/prisma-game-repository';
 
 @Module({
   imports: [
@@ -67,6 +68,7 @@ import {FTAuthGuard} from "./guards/auth.42.guard";
     PrismaChannelRepository,
     PrismaBlockedUsersRepository,
     PrismaMessagesRepository,
+    PrismaGameRepository,
     PrismaFriendRepository,
     PrismaChannelAdminRepository,
     PrismaChannelParticipantRepository,
