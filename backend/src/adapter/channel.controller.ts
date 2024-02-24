@@ -19,7 +19,9 @@ export class ChannelController {
   // @UseGuards(JWTAuthGuard)
   @Post()
   addChannelInformation(@Body() request: UsersRequest): Observable<ChannelResponse> {
-    return this.channelService.addChannelInformation(Channel.aChannel(UsersRequest.toDomain(request).users));
+    return this.channelService.addChannelInformation(
+      Channel.aChannel(UsersRequest.toDomain(request).users),
+    );
   }
 
   // @UseGuards(JWTAuthGuard)

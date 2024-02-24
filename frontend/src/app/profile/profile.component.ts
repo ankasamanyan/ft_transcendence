@@ -8,13 +8,13 @@ import { Observable } from 'rxjs';
 
 
 @Component({
-  selector: 'app-my-profile',
-  templateUrl: './my-profile.component.html',
-  styleUrls: ['./my-profile.component.css'],
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css'],
 })
 
 
-  export class MyProfileComponent implements OnInit{
+  export class ProfileComponent implements OnInit{
 
   public user!: User;
 
