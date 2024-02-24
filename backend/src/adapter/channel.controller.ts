@@ -1,16 +1,12 @@
 import {Body, Controller, Get, Param, Post, Put, Delete, UseGuards} from '@nestjs/common';
 import {ChannelService} from "../service/channel.service";
-import {UserRequest, UsersRequest} from "./dto/users-request";
+import {UsersRequest} from "./dto/users-request";
 import {Channel} from "../domain/channel";
 import {Observable} from "rxjs";
 import {ChannelResponse} from "./dto/channel.response";
 import {ChannelRequest} from "./dto/channel.request";
-import { UserResponse, UsersResponse } from './dto/users-response';
 import { ChannelUpdateRequest } from './dto/channel-update.request';
-import { ChannelUpdate } from 'src/domain/channel-update';
-import {JWTAuthGuard} from "../auth/guards/auth.jwt.guard";
 import { ConfirmPasswordRequest } from './dto/confirm-password-request';
-import { ConfirmPassword } from 'src/domain/confirm-password';
 
 @Controller('/channels')
 export class ChannelController {
@@ -25,7 +21,7 @@ export class ChannelController {
   }
 
   // @UseGuards(JWTAuthGuard)
-  @Get('get-channels/:userId')
+  @Get('/get-channels/:userId')
   getChannels(@Param('userId') userId: number) {
     return this.channelService.getChannels(userId);
   }
