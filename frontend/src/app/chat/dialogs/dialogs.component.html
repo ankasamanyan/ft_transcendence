@@ -27,3 +27,8 @@
         [users]="users"
         (modalClose)="showCreateChannelModal=false">
 </app-create-channel-modal>
+
+<app-enter-password-modal
+        *ngIf="showEnterPasswordModal"
+        (modalClose)="showEnterPasswordModal=false">
+</app-enter-password-modal>

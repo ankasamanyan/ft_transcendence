@@ -38,6 +38,7 @@ import { LeaveChannelModalComponent } from './chat/selected-dialog/selected-dial
 import {TokenInterceptor} from "./token.interceptor";
 import { UserUnblockedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/user-unblocked-notification/user-unblocked-notification.component';
 import { WannaPlayModalComponent } from './wanna-play-modal/wanna-play-modal.component';
+import { EnterPasswordModalComponent } from './chat/dialogs/enter-password-modal/enter-password-modal.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { WannaPlayModalComponent } from './wanna-play-modal/wanna-play-modal.com
     LeaveChannelModalComponent,
     UserUnblockedNotificationComponent,
     WannaPlayModalComponent,
+    EnterPasswordModalComponent,
   ],
   imports: [
     BrowserModule,
