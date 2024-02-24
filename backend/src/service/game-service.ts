@@ -272,6 +272,10 @@ export class GameService {
 		return from(this.prismaGameInvitationRepository.getInvitations(userId));
 	}
 
+	isInvitationAlreadySent(initiatorId: number, recipientId: number) {
+		return from(this.prismaGameInvitationRepository.isInvitationAlreadySent(initiatorId, recipientId));
+	}
+
 	getFutureMatches(userId: number) {
 		return from(this.prismaGameInvitationRepository.getFutureMatches(userId));
 	}

@@ -79,4 +79,16 @@ export class PrismaGameInvitationRepository {
 		})
 		return nextMatch;
 	}
+
+	async isInvitationAlreadySent(initiatorId: number, recipientId: number) {
+		const invitation = await this.prisma.gameInvitation.findFirst({
+			where: {
+				OR: [
+					{initiatorId: Number(initiatorId), recipientId: Number(recipientId)},
+					{initiatorId: Number(recipientId), recipientId: Number(initiatorId)}
+				]
+			}
+		})
+		return !!invitation;
+	}
 }

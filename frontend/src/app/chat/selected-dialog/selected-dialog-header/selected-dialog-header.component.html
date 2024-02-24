@@ -5,12 +5,12 @@
     <div class="dropdown" *ngIf="selectedDialogPartner && isDialog()">
         <i class="bi bi-three-dots-vertical"></i>
         <div class="dropdown-content">
-            <div id="invite-action" *ngIf="!isBlocking" (click)="inviteUserToPlay()">
+            <div id="invite-action" *ngIf="!isBlocking && !invitationToPlayExists && !isBlocked" (click)="inviteUserToPlay()">
                 <i class="bi bi-dice-2 game-icon"></i>
                 <i class="bi bi-dice-2-fill game-icon-hidden">
                 </i>Invite to play
             </div>
-            <div id="befriend-action" *ngIf="selectedPersonBefriendable && !isBlocking" (click)="sendAFriendRequest()">
+            <div id="befriend-action" *ngIf="selectedPersonBefriendable && !isBlocking && !isBlocked" (click)="sendAFriendRequest()">
                 <i class="bi bi-people befriend-icon">
                 </i>Add to friends
             </div>

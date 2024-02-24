@@ -35,6 +35,8 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   showInvitedToBeFriendsNotification: boolean = false;
   showUserUnblockedNotification: boolean = false;
   isBlocking: boolean = false;
+  isBlocked: boolean = false;
+  invitationToPlayExists: boolean = false;
 
   constructor(
     private friendService: FriendService,
@@ -90,8 +92,11 @@ export class SelectedDialogHeaderComponent implements OnChanges {
         this.getChannel();
       }
     });
-    socket.on("invitationSent", () => {
-      this.showInviteNotificationForFewSeconds();
+    socket.on("invitationSent",({invitedId, beenInvitedId}: { invitedId: number, beenInvitedId: number }) => {
+      if (this.authenticatedUser.id === beenInvitedId) {
+        this.showInviteNotificationForFewSeconds();
+      }
+      this.updateGameInvitationStatus();
     });
     socket.on("userBlocked", ({blockerId, blockeeId}: { blockerId: number, blockeeId: number }) => {
       if (this.authenticatedUser.id === blockeeId && this.selectedDialogPartner?.id === blockerId) {
@@ -193,6 +198,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       this.checkWhetherBefriendable();
       this.updateBlockedStatus();
       this.updateBlockingStatus();
+      this.updateGameInvitationStatus();
     }
   }
 
@@ -224,6 +230,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   updateBlockedStatus() {
     if (this.selectedDialogPartner) {
       this.blockedUserService.isBlocked(this.selectedDialogPartner.id!, this.authenticatedUser.id!).subscribe((value) => {
+        this.isBlocked = value;
         this.userBlocked.emit(value);
       })
     }
@@ -243,5 +250,13 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       this.selectedDialogPartner!
     ]));
     this.showUserUnblockedForFewSeconds();
+  }
+
+  updateGameInvitationStatus() {
+    if (this.selectedDialogPartner) {
+      this.gameService.isInvitationAlreadySent(this.authenticatedUser.id!, this.selectedDialogPartner.id!).subscribe((value) => {
+        this.invitationToPlayExists = value;
+      })
+    }
   }
 }

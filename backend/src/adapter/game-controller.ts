@@ -21,6 +21,11 @@ export class GameController {
 		return this.gameService.getInvitations(recipientId);
 	}
 
+	@Get('/invitations/exists/:initiatorId/:recipientId/')
+	isInvitationAlreadySent(@Param('initiatorId') initiatorId: number, @Param('recipientId') recipientId: number) {
+		return this.gameService.isInvitationAlreadySent(initiatorId, recipientId);
+	}
+
 	@Get('/future-matches/:userId')
 	getFutureMatches(@Param('userId') userId: number) {
 		return this.gameService.getFutureMatches(userId);
