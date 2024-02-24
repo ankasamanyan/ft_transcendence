@@ -32,8 +32,8 @@ export class PrismaBlockedUsersRepository {
     await this.prisma.blockedUser.deleteMany({
       where: {
         AND: [
-          {blockerId: blockerId},
-          {blockedId: blockedId}
+          {blockerId: Number(blockerId)},
+          {blockedId: Number(blockedId)}
         ]
       }
     });

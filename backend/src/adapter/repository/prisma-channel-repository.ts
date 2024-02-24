@@ -261,6 +261,7 @@ export class PrismaChannelRepository {
             AND message.text IS NULL
            OR (message.text IS NOT NULL AND message.id in (SELECT id from subres))
         order by COALESCE(message.created_at, channel.created_at) desc
+        
     `;
 
     return new ChannelsResponse(channels.map((channel) => {

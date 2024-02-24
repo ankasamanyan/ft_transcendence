@@ -70,6 +70,10 @@ export class ChannelService {
   }
 
   setPassword(channel: Channel) {
+    const argon2 = require('argon2');
+    const hashedPassword = argon2.hash(channel.password);
+    channel.password = hashedPassword;
+    console.log(channel.password);
     return from(this.prismaChannelRepository.setPassword(channel));
   }
 

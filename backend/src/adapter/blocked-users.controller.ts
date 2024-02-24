@@ -11,7 +11,7 @@ export class BlockedUsersController {
     return this.blockedUsersService.blockUser(UsersRequest.toDomain(request));
   }
 
-  @Delete()
+  @Delete("unblock-user/:blockerId/:blockedId")
   unblockUser(@Param('blockerId') blockerId: number, @Param('blockedId') blockedId: number) {
     return this.blockedUsersService.unblockUser(blockerId, blockedId);
   }
