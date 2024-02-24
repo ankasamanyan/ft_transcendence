@@ -9,6 +9,8 @@ import { UserResponse, UsersResponse } from './dto/users-response';
 import { ChannelUpdateRequest } from './dto/channel-update.request';
 import { ChannelUpdate } from 'src/domain/channel-update';
 import {JWTAuthGuard} from "../auth/guards/auth.jwt.guard";
+import { ConfirmPasswordRequest } from './dto/confirm-password-request';
+import { ConfirmPassword } from 'src/domain/confirm-password';
 
 @Controller('/channels')
 export class ChannelController {
@@ -21,7 +23,7 @@ export class ChannelController {
   }
 
   // @UseGuards(JWTAuthGuard)
-  @Get('/:userId')
+  @Get('get-channels/:userId')
   getChannels(@Param('userId') userId: number) {
     return this.channelService.getChannels(userId);
   }
@@ -69,7 +71,7 @@ export class ChannelController {
   }
 
   // @UseGuards(JWTAuthGuard)
-  @Delete("/channels/:channelId")
+  @Delete("/delete-channel/:channelId")
   removeChannel(@Param('channelId') channelId: number) {
     return this.channelService.removeChannel(channelId);
   }
@@ -78,6 +80,11 @@ export class ChannelController {
   @Put("/set-password")
   setPassword(@Body() request: ChannelRequest) {
     return this.channelService.setPassword(ChannelRequest.toDomain(request));
+  }
+
+  @Get('/confirm-password')
+  confirmPassword(@Body() request: ConfirmPasswordRequest) {
+    return this.channelService.confirmPassword(ConfirmPasswordRequest.toDomain(request));
   }
 
   // @UseGuards(JWTAuthGuard)

@@ -25,7 +25,7 @@ export class ChannelService {
   }
 
   getChannels(userId: number): Observable<Channels> {
-    return this.httpClient.get<ChannelsResponse>("http://localhost:3000/channels/" + userId).pipe(
+    return this.httpClient.get<ChannelsResponse>("http://localhost:3000/channels/get-channels/" + userId).pipe(
         map((response: ChannelsResponse) => {
           return ChannelsResponse.toDomain(response);
         }));

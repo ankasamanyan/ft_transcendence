@@ -201,6 +201,12 @@ export class PrismaChannelRepository {
     });
   }
 
+  async confirmPassword(confirmPassword: ConfirmPassword) {
+    console.log(confirmPassword.channel.password)
+    const boolean =  await argon2.verify(confirmPassword.channel.password, confirmPassword.passwordAttempt);
+    return boolean;
+  }
+
   async deletePassword(channelId: number) {
     await this.prisma.channel.update({
       where: {

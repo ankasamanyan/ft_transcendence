@@ -9,6 +9,7 @@ import {PrismaBannedUsersRepository } from 'src/adapter/repository/prisma-banned
 import {PrismaMutedUsersRepository } from 'src/adapter/repository/prisma-muted-users-repository';
 import { MuteTimer } from 'src/cron/timer';
 import { ChannelUpdate } from 'src/domain/channel-update';
+import { ConfirmPassword } from 'src/domain/confirm-password';
 
 
 
@@ -71,11 +72,12 @@ export class ChannelService {
     return from(this.prismaChannelRepository.removeChannel(channelId))
   }
 
-  
-
   setPassword(channel: Channel) {
-
     return from(this.prismaChannelRepository.setPassword(channel));
+  }
+
+  confirmPassword(confirmPassword: ConfirmPassword) {
+    return from(this.prismaChannelRepository.confirmPassword(confirmPassword));
   }
 
   deletePassword(channelId: number) {
