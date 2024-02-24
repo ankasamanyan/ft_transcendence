@@ -33,8 +33,7 @@ export class FriendsComponent implements OnInit {
     private usersService: UsersService,
     private socket: OurSocket) {
     
-    socket.on("FriendRequestAccepted", ({userId, userId2}: {userId: number, userId2: number}) => {
-      console.log("got the emit on frontend")
+    socket.on("friendRequestAccepted", ({userId, userId2}: {userId: number, userId2: number}) => {
       if (this.me.id === userId || this.me.id === userId2) {
         this.friendService.getPendingFriendRequests(this.userId)
         .subscribe((pending) => {
@@ -43,10 +42,22 @@ export class FriendsComponent implements OnInit {
           } else {this.pendingList = [];}
         });
       }
-      console.log("new pendinglist " + this.pendingList)
-      // this.acceptFriendRequest()
     })
-  }
+
+    socket.on("friendRequestDeclined",({userId, userId2}: {userId: number, userId2: number}) => {
+      if (this.me.id === userId || this.me.id === userId2) {
+        if (this.me.id === userId || this.me.id === userId2) {
+          this.friendService.getPendingFriendRequests(this.userId)
+          .subscribe((pending) => {
+            if (pending.users.length) {
+              this.pendingList = pending.users;
+            } else {this.pendingList = [];}
+          });
+        }
+      }
+    })
+  
+}
   
   ngOnInit(): void {
 
@@ -90,12 +101,13 @@ export class FriendsComponent implements OnInit {
   }
 
   acceptFriendRequest(newFriend: User) {
-    // this.friendService.acceptFriendRequest(new Users([newFriend, this.me])).subscribe(() => {});
     this.socket.emit("acceptFriendRequest", {newFriend: newFriend, meUser: this.me});
+    // this.friendService.acceptFriendRequest(new Users([newFriend, this.me])).subscribe(() => {});
   }
   
   declineFriendRequest(notFriend: User) {
-    this.friendService.declineFriendRequest(new Users([notFriend, this.me])).subscribe(() => {});
+    this.socket.emit("declineFriendRequest", {notFriend: notFriend, meUser: this.me});
+    // this.friendService.declineFriendRequest(new Users([notFriend, this.me])).subscribe(() => {});
   }
 
 }

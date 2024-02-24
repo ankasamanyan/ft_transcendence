@@ -16,10 +16,15 @@ export class ProfileGateway {
   ) {}
 
   @SubscribeMessage("acceptFriendRequest")
-  async handleMessage(@MessageBody() data: {newFriend: User, meUser: User}) {
-    // console.log("receiving subscribe message accept friend reqest " + data.newFriend.id + data.meUser.id);
+  async acceptFriendRequest(@MessageBody() data: {newFriend: User, meUser: User}) {
     await this.friendService.acceptFriendRequest(new Users([data.newFriend, data.meUser]));
-    this.server.emit("FriendRequestAccepted", {userId: data.newFriend.id, userId2: data.meUser.id});
+    this.server.emit("friendRequestAccepted", {userId: data.newFriend.id, userId2: data.meUser.id});
+  }
+
+  @SubscribeMessage("declineFriendRequest")
+  async declineFriendRequest(@MessageBody() data: {notFriend: User, meUser: User}) {
+    await this.friendService.declineFriendRequest(new Users([data.notFriend, data.meUser]));
+    this.server.emit("friendRequestDeclined", {userId: data.notFriend.id, userId2: data.meUser.id});
   }
 }
 
