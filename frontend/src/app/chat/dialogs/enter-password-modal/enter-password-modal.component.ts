@@ -10,7 +10,7 @@ export class EnterPasswordModalComponent {
   @Output()
   modalClose = new EventEmitter<void>();
 
-  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true);
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false);
 
   enteredPassword: string | undefined;
   passwordEntered() {

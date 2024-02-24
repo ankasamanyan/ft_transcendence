@@ -17,7 +17,7 @@ import {User} from "./domain/user";
 export class AppComponent {
   showWannaPlayModal: boolean = false;
   whoInvitedMeToPlay: User | undefined;
-  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true);
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false);
 
   constructor(
       private modalService: NgbModal,

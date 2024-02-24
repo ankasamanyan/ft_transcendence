@@ -19,7 +19,8 @@ export class UserResponse {
       public intraLogin: string,
       public picture: string,
       public email: string | undefined,
-      public isAuthenticated: boolean | undefined
+      public isAuthenticated: boolean | undefined,
+      public tfa_enabled: boolean | undefined,
   )
   {}
 
@@ -30,7 +31,8 @@ export class UserResponse {
       response.intraLogin,
       response.picture,
       response.email,
-      response.isAuthenticated
+      response.isAuthenticated,
+      response.tfa_enabled,
     );
   }
 
@@ -41,7 +43,8 @@ export class UserResponse {
       user.intraLogin,
       user.picture,
       user.email,
-      user.isAuthenticated
+      user.isAuthenticated,
+      user.tfa_enabled,
     );
   }
 }

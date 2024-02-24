@@ -37,7 +37,7 @@ export class EditChannelModalComponent implements AfterViewInit {
   typeOnInit: string | undefined;
   passwordOnInit: string | undefined;
   updatedUsers = new Map<User, string>();
-  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true);
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false);
   displayTypes: boolean = false;
 
   constructor(

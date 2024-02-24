@@ -31,7 +31,7 @@ export class CreateChannelModalComponent {
 
   selectUsers() {
     const onlySelected = this.selectedUsers();
-    const authenticatedUser = new User(1, "Anahit", "@akasaman","assets/placeholderAvatar.jpeg", "", true)
+    const authenticatedUser = new User(1, "Anahit", "@akasaman","assets/placeholderAvatar.jpeg", "", true, false)
     onlySelected.push(authenticatedUser);
     this.channelService.addChannelInformation(onlySelected).subscribe((value: any) => {
       const channel = value as Channel;

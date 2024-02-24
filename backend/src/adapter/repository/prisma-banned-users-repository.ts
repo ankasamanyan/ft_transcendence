@@ -10,7 +10,8 @@ interface RawSql {
   intra_login: string,
   picture: string,
   email: string,
-  is_authenticated: boolean
+  is_authenticated: boolean,
+  tfa_enabled: boolean,
 }
 
 @Injectable()
@@ -77,7 +78,8 @@ export class PrismaBannedUsersRepository {
                u.intra_login      as intra_login,
                u.picture          as picture,
                u.email            as email,
-               u.is_authenticated as is_authenticated
+               u.is_authenticated as is_authenticated,
+               u.tfa_enabled      as tfa_enabled
         from "BannedUser" b
                  LEFT JOIN "User" u on b."user_id" = u.id
         where b."channel_id" = ${channelIdasInt}`
@@ -88,7 +90,8 @@ export class PrismaBannedUsersRepository {
         user.intra_login,
         user.picture,
         user.email,
-        user.is_authenticated);
+        user.is_authenticated,
+          user.tfa_enabled);
     }));
   }
 

@@ -10,7 +10,7 @@ export class PrismaUsersRepository {
   }
 
   async initializeUsers() {
-    if (await this.prisma.user.count() === 0) {
+    if ((await this.prisma.user.count()) === 0) {
       await this.prisma.user.createMany({
         data: [
           {name: "Anahit", intra_login: "@akasaman", picture: "assets/placeholderAvatar.jpeg"},
@@ -32,7 +32,8 @@ export class PrismaUsersRepository {
             intra_login: user.intraLogin,
             picture: user.picture,
             email: user.email,
-            is_authenticated: user.isAuthenticated
+            is_authenticated: user.isAuthenticated,
+            tfa_enabled: user.tfa_enabled
           }
         }
     );
@@ -51,7 +52,8 @@ export class PrismaUsersRepository {
           user.intra_login,
           user.picture,
           user.email,
-          user.is_authenticated);
+          user.is_authenticated,
+          user.tfa_enabled);
     }
     return ;
   }
@@ -71,7 +73,8 @@ export class PrismaUsersRepository {
           user.intra_login,
           user.picture,
           user.email,
-          user.is_authenticated);
+          user.is_authenticated,
+          user.tfa_enabled);
     }));
   }
 
@@ -84,7 +87,8 @@ export class PrismaUsersRepository {
           user.intra_login,
           user.picture,
           user.email,
-          user.is_authenticated);
+          user.is_authenticated,
+          user.tfa_enabled);
     }));
   }
 }

@@ -84,7 +84,10 @@ export class PrismaGameInvitationRepository {
 		const invitation = await this.prisma.gameInvitation.findFirst({
 			where: {
 				OR: [
-					{initiatorId: Number(initiatorId), recipientId: Number(recipientId)},
+          {
+            initiatorId: Number(initiatorId),
+            recipientId: Number(recipientId),
+          },
 					{initiatorId: Number(recipientId), recipientId: Number(initiatorId)}
 				]
 			}

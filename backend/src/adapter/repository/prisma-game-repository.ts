@@ -1,6 +1,6 @@
-import {PrismaService} from "../../service/prisma.service";
+import { PrismaService } from '../../service/prisma.service';
 import {Injectable} from "@nestjs/common";
-import { MatchHistoryDto } from "../dto/game.dto";
+import { MatchHistoryDto } from '../dto/game.dto';
 
 interface MatchHistory {
     name: string,
