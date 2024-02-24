@@ -5,6 +5,8 @@ import {PrismaChannelParticipantRepository} from "./prisma-channel-participant-r
 import {PrismaChannelAdminRepository} from "./prisma-channel-admin-repository";
 import {ChannelResponse, ChannelsResponse} from "../dto/channel.response";
 import {User} from "../../domain/user";
+import * as argon2 from 'argon2';
+import { ConfirmPassword } from "src/domain/confirm-password";
 
 interface RawSql {
   channelname: string,
@@ -188,15 +190,27 @@ export class PrismaChannelRepository {
   }
 
   async setPassword(channel: Channel) {
+    const hashedPassword = await argon2.hash(channel.password);
     await this.prisma.channel.update({
       where: {
         id: Number(channel.id),
       },
       data: {
-        password: channel.password,
+        password: hashedPassword
       },
     });
   }
+
+  // async setPassword(channel: Channel) {
+  //   await this.prisma.channel.update({
+  //     where: {
+  //       id: Number(channel.id),
+  //     },
+  //     data: {
+  //       password: channel.password,
+  //     },
+  //   });
+  // }
 
   async deletePassword(channelId: number) {
     await this.prisma.channel.update({
@@ -279,30 +293,5 @@ export class PrismaChannelRepository {
       );
     }));
   }
-
-
-  // async getJoinedPublicandProtectedChannels(userId: number) {
-  //   const userParticipantChannels = await this.prisma.channelParticipant.findMany({
-  //     where: {
-  //       user_id: Number(userId),
-  //     },
-  //     select: {
-  //       channel_id: true,
-  //     },
-  //   });
-
-  //   const userParticipantChannelIds = userParticipantChannels.map(channel => channel.channel_id);
-  //   const joinedPublicandProtectedChannels =  await this.prisma.channel.findMany({
-  //     where: {
-  //       OR: [
-  //         { type: { notIn: ['private', 'dialog'] } },
-  //         { id: { in: 
-  //           userParticipantChannelIds }}
-  //       ],
-  //     },
-  //   });
-
-  //   return joinedPublicandProtectedChannels;
-  // }
 
 }

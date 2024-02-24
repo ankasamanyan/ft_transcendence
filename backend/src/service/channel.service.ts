@@ -10,6 +10,8 @@ import {PrismaMutedUsersRepository } from 'src/adapter/repository/prisma-muted-u
 import { MuteTimer } from 'src/cron/timer';
 import { ChannelUpdate } from 'src/domain/channel-update';
 
+
+
 @Injectable()
 export class ChannelService {
   constructor(
@@ -69,11 +71,10 @@ export class ChannelService {
     return from(this.prismaChannelRepository.removeChannel(channelId))
   }
 
+  
+
   setPassword(channel: Channel) {
-    const argon2 = require('argon2');
-    const hashedPassword = argon2.hash(channel.password);
-    channel.password = hashedPassword;
-    console.log(channel.password);
+
     return from(this.prismaChannelRepository.setPassword(channel));
   }
 
