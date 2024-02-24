@@ -37,11 +37,13 @@ import {AuthService} from "./auth/auth.service";
 import { PrismaGameRepository } from './adapter/repository/prisma-game-repository';
 import { FTAuthGuard } from './auth/guards/auth.42.guard';
 import { JwtService } from '@nestjs/jwt';
+import { ProfileModule } from './socket/profile/profile.module';
 
 @Module({
   imports: [
     ChatGatewayModule,
     GameModule,
+    ProfileModule,
     ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [

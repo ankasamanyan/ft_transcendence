@@ -21,12 +21,20 @@ export class PrismaBlockedUsersRepository {
   }
 
   async blockUser(users: Users) {
-    await this.prisma.blockedUser.create({
-      data: {
+    const blockedUser = await this.prisma.blockedUser.findFirst({
+      where: {
         blockerId: users.users[0].id,
         blockedId: users.users[1].id,
       }
-    });
+    })
+    if (!blockedUser) {
+      await this.prisma.blockedUser.create({
+        data: {
+          blockerId: users.users[0].id,
+          blockedId: users.users[1].id,
+        }
+      });
+    }
   }
 
   async unblockUser(blockerId: number, blockedId: number) {

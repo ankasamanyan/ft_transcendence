@@ -28,7 +28,7 @@ export class FriendService {
     return from(this.prismaFriendRepository.getPendingRequests(userId));
   }
 
-  acceptFriendRequest(users: Users) {
+  async acceptFriendRequest(users: Users) {
     return from(this.prismaFriendRepository.acceptFriendRequest(users));
   }
 

@@ -24,7 +24,7 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="Pending"> 
+    <mat-tab label="Requests"> 
       <div class="empty-list-container" *ngIf="pendingList.length === 0">
         <div class="empty-list">
           <p>{{placeHolderMessage}}</p>
@@ -41,6 +41,14 @@
             <button class="action-button accept" (click)="acceptFriendRequest(user)">Accept<i class="bi bi-check-circle icon-item"></i></button>
             <button class="action-button decline" (click)="declineFriendRequest(user)">Decline<i class="bi bi-x-circle icon-item"></i></button>
           </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Invitations">
+      <div class="empty-list-container" *ngIf="inviteList.length === 0">
+        <div class="empty-list">
+          <p>{{placeHolderMessage}}</p>
         </div>
       </div>
     </mat-tab>

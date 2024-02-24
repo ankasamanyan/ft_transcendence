@@ -3,6 +3,7 @@ import {FriendService} from "../../service/friend.service";
 import {User, Users} from "../../domain/user";
 import { BlockedUsersService } from 'src/app/service/blocked-users.service';
 import { UsersService } from 'src/app/service/users.service';
+import { OurSocket } from 'src/app/socket/socket';
 
 @Component({
   selector: 'app-friends',
@@ -16,17 +17,36 @@ export class FriendsComponent implements OnInit {
 
   private me!: User;
 
-  public friendsList!: User[];
+  public friendsList: User[] = [];
 
-  public pendingList!: User[];
+  public pendingList: User[] = [];
 
-  public blockedList!: User[];
+  public blockedList: User[] = [];
+
+  public inviteList: User[] = [];
 
   public placeHolderMessage: string = 'This list is currently empty 🤷🏻‍♀️'
 
-  constructor ( private friendService: FriendService,
-                private blockedUsersService: BlockedUsersService,
-                private usersService: UsersService) { }
+  constructor (
+    private friendService: FriendService,
+    private blockedUsersService: BlockedUsersService,
+    private usersService: UsersService,
+    private socket: OurSocket) {
+    
+    socket.on("FriendRequestAccepted", ({userId, userId2}: {userId: number, userId2: number}) => {
+      console.log("got the emit on frontend")
+      if (this.me.id === userId || this.me.id === userId2) {
+        this.friendService.getPendingFriendRequests(this.userId)
+        .subscribe((pending) => {
+          if (pending.users.length) {
+            this.pendingList = pending.users;
+          } else {this.pendingList = [];}
+        });
+      }
+      console.log("new pendinglist " + this.pendingList)
+      // this.acceptFriendRequest()
+    })
+  }
   
   ngOnInit(): void {
 
@@ -69,8 +89,9 @@ export class FriendsComponent implements OnInit {
     this.blockedUsersService.unblockUser(new Users([this.me, blocked])).subscribe(() => {});
   }
 
-  acceptFriendRequest(newFriends: User) {
-    this.friendService.acceptFriendRequest(new Users([newFriends, this.me])).subscribe(() => {});
+  acceptFriendRequest(newFriend: User) {
+    // this.friendService.acceptFriendRequest(new Users([newFriend, this.me])).subscribe(() => {});
+    this.socket.emit("acceptFriendRequest", {newFriend: newFriend, meUser: this.me});
   }
   
   declineFriendRequest(notFriend: User) {
