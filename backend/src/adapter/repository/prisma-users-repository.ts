@@ -44,13 +44,16 @@ export class PrismaUsersRepository {
         id: Number(userId)
       }
     });
-    return new UserResponse(
-        user.id,
-        user.name,
-        user.intra_login,
-        user.picture,
-        user.email,
-        user.is_authenticated);
+    if (user) {
+      return new UserResponse(
+          user.id,
+          user.name,
+          user.intra_login,
+          user.picture,
+          user.email,
+          user.is_authenticated);
+    }
+    return ;
   }
 
   async getUsers(userId: number) {

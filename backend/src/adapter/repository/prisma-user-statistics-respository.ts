@@ -49,7 +49,9 @@ export class PrismaUserStatisticsRespository {
       where: {userId: Number(userId)},
       select: {wins: true}
     });
-    return user.wins;
+    if (user)
+      return user.wins;
+    return null;
   }
 
   async getLosses(userId: number) {
@@ -57,7 +59,9 @@ export class PrismaUserStatisticsRespository {
       where: {userId: Number(userId)},
       select: {losses: true}
     });
-    return user.losses;
+    if (user)
+      return user.losses;
+    return null;
   }
 
   async getUserStatistics(userId: number) {
