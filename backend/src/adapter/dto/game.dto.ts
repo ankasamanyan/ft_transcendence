@@ -29,13 +29,14 @@ export type GameResponsetDto = {
      ballPos: [number, number]
 }
 
-export type MatchHistoryDto = {
-    name: string 
-    username: string
-    opponentName: string
-    opponentUsername: string
-    myMatchResult: number
-    opponentMatchResult: number
-    profilePicture: string
-    opponentProfilePicture: string
+export class MatchHistoryDto  {
+    constructor(
+        public name: string,
+        public username: string,
+        public opponentName: string,
+        public opponentUsername: string,
+        public myMatchResult: number,
+        public opponentMatchResult: number,
+        public profilePicture: string,
+        public opponentProfilePicture: string) {}
 }
