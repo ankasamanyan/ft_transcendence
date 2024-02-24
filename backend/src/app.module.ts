@@ -38,6 +38,12 @@ import { PrismaGameRepository } from './adapter/repository/prisma-game-repositor
 import { FTAuthGuard } from './auth/guards/auth.42.guard';
 import { JwtService } from '@nestjs/jwt';
 import { ProfileModule } from './socket/profile/profile.module';
+import { StatusController } from './adapter/status-controller';
+import { QueueController } from './adapter/queue-controller';
+import { PrismaQueueRepository } from './adapter/repository/prisma-queue-repository';
+import { PrismaStatusRepository } from './adapter/repository/prisma-status-repository';
+import { QueueService } from './service/queue-service';
+import { StatusService } from './service/status-service';
 
 @Module({
   imports: [
@@ -56,6 +62,8 @@ import { ProfileModule } from './socket/profile/profile.module';
     UserStatisticsController,
     GameController,
     AuthController,
+    StatusController,
+    QueueController,
   ],
   providers: [
     MuteTimer,
@@ -67,6 +75,8 @@ import { ProfileModule } from './socket/profile/profile.module';
     FriendService,
     PrismaService,
     GameService,
+    QueueService,
+    StatusService,
     PrismaUsersRepository,
     PrismaChannelRepository,
     PrismaBlockedUsersRepository,
@@ -79,6 +89,8 @@ import { ProfileModule } from './socket/profile/profile.module';
     PrismaBannedUsersRepository,
     PrismaUserStatisticsRespository,
     PrismaGameInvitationRepository,
+    PrismaQueueRepository,
+    PrismaStatusRepository,
     UserStatisticsService,
     AuthService,
     FTAuthGuard,

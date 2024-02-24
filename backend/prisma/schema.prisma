@@ -98,6 +98,17 @@ model GameInvitation {
     status        String
 }
 
+model Status {
+    id          Int      @id @default(autoincrement())
+    userId      Int
+    status      String
+}
+
+model Queue {
+    id              Int      @id @default(autoincrement())
+    userId   Int
+}
+
 model Game {
     id          Int      @id @default(autoincrement())
     player1     Int
