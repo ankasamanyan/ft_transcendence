@@ -22,6 +22,10 @@ login_backend:
 login_frontend:
 	docker exec -it frontend sh
 
+npm:
+	@cd frontend && npm ci
+	@cd backend && npm ci
+
 git:
 	git add .
 	@read -p "Enter the commit message: " halp; \
