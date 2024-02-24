@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatchHistoryDto } from 'src/app/service/dto/game.dto';
 
 @Component({
   selector: 'app-match-history',
@@ -9,7 +10,7 @@ export class MatchHistoryComponent implements OnInit {
 
   @Input() userId!: number;
   
-  public historyList:any[] = [];
+  public historyList:MatchHistoryDto[] = [];
   
   public placeHolderMessage: string = "You will see something here, once you start playing << THE PONG >> 🎯✨";
 
@@ -20,8 +21,8 @@ export class MatchHistoryComponent implements OnInit {
         name: 'Anait', 
         profilePicture: '../../../assets/placeholderAvatar.jpeg',
         username: '@akasaman',
-        myMatchResult: '3',
-        opponentMatchResult: '2',
+        myMatchResult: 3,
+        opponentMatchResult: 2,
         opponentName: 'Cedric',
         opponentUsername: '@cerdelen',
         opponentProfilePicture: '../../../assets/placeholderComrade2.jpeg',
@@ -30,8 +31,8 @@ export class MatchHistoryComponent implements OnInit {
         name: 'Anait', 
         profilePicture: '../../../assets/placeholderAvatar.jpeg',
         username: '@akasaman',
-        myMatchResult: '1',
-        opponentMatchResult: '3',
+        myMatchResult: 1,
+        opponentMatchResult: 3,
         opponentName: 'Tetiana',
         opponentUsername: '@tfedoren',
         opponentProfilePicture: '../../../assets/placeholderComrade.jpeg',
@@ -40,8 +41,8 @@ export class MatchHistoryComponent implements OnInit {
         name: 'Anait', 
         profilePicture: '../../../assets/placeholderAvatar.jpeg',
         username: '@akasaman',
-        myMatchResult: '2',
-        opponentMatchResult: '2',
+        myMatchResult: 2,
+        opponentMatchResult: 2,
         opponentName: 'Kristiyana',
         opponentUsername: '@kmilchev',
         opponentProfilePicture: '../../../assets/placeholderComrade3.jpeg',

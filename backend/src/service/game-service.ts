@@ -212,12 +212,18 @@ export class GameData {
 			console.log("player1")
 			if (!(paddleMove + this.PositionPaddle1 - (this.paddleHeight / 2) < 0 || paddleMove + this.PositionPaddle1 + (this.paddleHeight / 2) > this.windowHeight)) {
 				this.PositionPaddle1 = paddleMove + this.PositionPaddle1;
-			}
+				if (this.checkPaddleCollision(this.PositionBall[0], this.PositionBall[1])){
+					this.PositionPaddle1 = this.PositionPaddle1 - paddleMove;
+				} // doesnt go "into" the ball, if so revert it
+			} // doesnt go out of the window
 		}
 		else if (userId === this.player2) {
 			console.log("player2")
 			if (!(paddleMove + this.PositionPaddle2 - (this.paddleHeight / 2) < 0 || paddleMove + this.PositionPaddle2 + (this.paddleHeight / 2) > this.windowHeight)) {
 				this.PositionPaddle2 = paddleMove + this.PositionPaddle2;
+				if (this.checkPaddleCollision(this.PositionBall[0], this.PositionBall[1])){
+					this.PositionPaddle2 = this.PositionPaddle2 - paddleMove;
+				}
 			}
 		}
 	};
@@ -247,7 +253,6 @@ export class GameData {
 			await new Promise(resolve => setTimeout(resolve, 25));
 			await this.gameLoop();
 		}
-		console.log("game Ended");
 	};
 }
 
@@ -294,9 +299,6 @@ export class GameService {
 
 	async updatePaddle(paddleUpdateDto: PaddleUpdateDto): Promise<GameResponsetDto | undefined> {
 		let gameIndex = this.findGameIndex(paddleUpdateDto.gameId);
-		console.log("updatePaddle mit index: " + gameIndex + " user" + paddleUpdateDto.gameId)
-		console.log(paddleUpdateDto[0])
-		console.log(paddleUpdateDto)
 		if (gameIndex != -1) {
 			this.gameList[gameIndex].updatePaddle(paddleUpdateDto.userId, paddleUpdateDto.paddleMove);
 			return this.gameList[gameIndex].gameState();

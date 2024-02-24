@@ -1,25 +1,28 @@
 import {Body, Controller, Get, Param, Post, Put, Delete} from '@nestjs/common';
 import { UsersRequest} from "./dto/users-request";
 import { GameService } from 'src/service/game-service';
+import { PrismaGameRepository } from './repository/prisma-game-repository';
 
 @Controller('/game')
 export class GameController {
-	constructor(private gameService: GameService) {}
+    constructor(private gameService: GameService,
+        private prismaGameRepository: PrismaGameRepository
+        ) {}
 
-	@Post('/invite')
-	invite(@Body() request: UsersRequest) {
-		return this.gameService.invite(UsersRequest.toDomain(request));
-	}
+    @Post('/invite')
+    invite(@Body() request: UsersRequest) {
+        return this.gameService.invite(UsersRequest.toDomain(request));
+    }
 
 	@Delete('/invite/delete')
 	deleteOrDecline(@Body() request: UsersRequest) {
 		return this.gameService.deleteOrDecline(UsersRequest.toDomain(request));
 	}
 
-	@Get('/invitations/:recipientId')
-	getInvitations(@Param('recipientId') recipientId: number) {
-		return this.gameService.getInvitations(recipientId);
-	}
+    @Get('/invitations/:recipientId')
+    getInvitations(@Param('recipientId') recipientId: number) {
+        return this.gameService.getInvitations(recipientId);
+    }
 
 	@Get('/invitations/exists/:initiatorId/:recipientId/')
 	isInvitationAlreadySent(@Param('initiatorId') initiatorId: number, @Param('recipientId') recipientId: number) {
@@ -36,13 +39,18 @@ export class GameController {
 		return this.gameService.accept(UsersRequest.toDomain(request));
 	}
 
-	@Get('/future-matches')
-	getAllFutureMatches() {
-		return this.gameService.getAllFutureMatches();
-	}
+    @Get('/future-matches')
+    getAllFutureMatches() {
+        return this.gameService.getAllFutureMatches();
+    }
 
-	@Get('/next-match')
-	getNextMatch() {
-		return this.gameService.getNextMatch();
-	}
+    @Get('/next-match')
+    getNextMatch() {
+        return this.gameService.getNextMatch();
+    }
+
+    @Get('/history/:userId')
+    getMatchHistory(@Param('userId') userId: number) {
+        return this.prismaGameRepository.matchHistory(userId);
+    }
 }
