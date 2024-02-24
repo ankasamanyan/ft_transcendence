@@ -52,6 +52,14 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
         this.selectedChannelId = undefined;
       }
     });
+    socket.on("participantJoined", () => {
+      if (this.selectedChannelId) {
+        this.messageService.getChannelMessages(this.selectedChannelId).subscribe((value) => {
+          this.selectedDialog = value;
+        });
+      }
+      this.channelService.updateChannels.next(true);
+    });
   }
 
   sleep(ms: number) {

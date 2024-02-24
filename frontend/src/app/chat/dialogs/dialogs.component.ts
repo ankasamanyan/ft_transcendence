@@ -4,6 +4,7 @@ import {User, Users} from "../../domain/user";
 import {Channel} from "../../domain/channel";
 import {ChannelService} from "../../service/channel.service";
 import {OurSocket} from "../../socket/socket";
+import {ChannelUpdate} from "../../domain/channel-update";
 
 @Component({
   selector: 'app-dialogs',
@@ -14,6 +15,7 @@ export class DialogsComponent implements OnInit {
   channels: Channel[] = [];
   searchedForChannels: Channel[] = [];
   displayedChannels: Channel[] = [];
+  foundChannel: Channel | undefined
   selectedChannelId: number | undefined;
   users: Users | undefined;
   authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true);
@@ -21,6 +23,7 @@ export class DialogsComponent implements OnInit {
   showCreateChannelModal: boolean = false;
   channelsLoaded: boolean = false;
   searchModeOn: boolean = false;
+  showEnterPasswordModal: boolean = false;
 
   @Output()
   selectedChannelChanged = new EventEmitter<number>();
@@ -57,6 +60,9 @@ export class DialogsComponent implements OnInit {
     socket.on("passwordDeleted", () => {
       this.getChannels();
     });
+    socket.on("participantJoined", () => {
+      this.getChannels();
+    });
   }
 
   ngOnInit(): void {
@@ -85,7 +91,17 @@ export class DialogsComponent implements OnInit {
       this.selectedChannelChanged.emit(selectedChannelId);
     }
     else {
-
+      this.channelService.getChannelDetailsById(selectedChannelId).subscribe((value) => {
+        this.foundChannel = value;
+        if (this.foundChannel!.type === "public") {
+          this.channelService.enterChannel(new ChannelUpdate(selectedChannelId, [this.authenticatedUser]));
+          this.selectedChannelId = selectedChannelId;
+          this.selectedChannelChanged.emit(selectedChannelId);
+        }
+        else if (this.foundChannel!.type === "password-protected") {
+          this.showEnterPasswordModal = true;
+        }
+      })
     }
   }
 
