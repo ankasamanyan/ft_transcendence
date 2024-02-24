@@ -36,6 +36,7 @@ export class FTStrategy extends PassportStrategy(Strategy, '42') {
           name: profile.displayName,
           id: Number(profile.id),
           intra_login: profile.username,
+          picture: `assets/defaultAvatar${pictureIndex}.jpeg`
         },
       });
     }
