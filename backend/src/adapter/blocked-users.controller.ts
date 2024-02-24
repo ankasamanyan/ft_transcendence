@@ -1,29 +1,41 @@
-import {Body, Controller, Delete, Get, Post, Param} from '@nestjs/common';
-import {UsersRequest} from "./dto/users-request";
-import {BlockedUsersService} from "../service/blocked-users.service";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Param,
+  // UseGuards,
+} from '@nestjs/common';
+import { UsersRequest } from './dto/users-request';
+import { BlockedUsersService } from '../service/blocked-users.service';
+// import { JWTAuthGuard } from '../auth/guards/auth.jwt.guard';
 
 @Controller('/blocked-users')
 export class BlockedUsersController {
   constructor(private blockedUsersService: BlockedUsersService) {}
 
+  // @UseGuards(JWTAuthGuard)
   @Post()
   blockUser(@Body() request: UsersRequest) {
     return this.blockedUsersService.blockUser(UsersRequest.toDomain(request));
   }
 
-  @Delete("unblock-user/:blockerId/:blockedId")
+  // @UseGuards(JWTAuthGuard)
+  @Delete('unblock-user/:blockerId/:blockedId')
   unblockUser(@Param('blockerId') blockerId: number, @Param('blockedId') blockedId: number) {
     return this.blockedUsersService.unblockUser(blockerId, blockedId);
   }
 
+  // @UseGuards(JWTAuthGuard)
   @Get('/:userId')
   getBlockedUsers(@Param('userId') userId: number) {
     return this.blockedUsersService.getBlockedUsers(userId);
   }
 
-  @Get('/is-blocked/:blockerId/:blockedId') 
+  // @UseGuards(JWTAuthGuard)
+  @Get('/is-blocked/:blockerId/:blockedId')
   isBlocked(@Param('blockerId') blockerId: number, @Param('blockedId') blockedId: number) {
     return this.blockedUsersService.isBlocked(blockerId, blockedId);
   }
-  
 }

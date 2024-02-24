@@ -16,25 +16,25 @@ export class AuthService {
     private config: ConfigService,
   ) {}
 
-  async	login(@Req() _req: any, @Res() _res: any) : Promise<any> 
-	{
-		var user = await this.findUser(_req.user.id);
-		// if(user.two_FA_enabled)
-		// {
-		// 	return _res.redirect(`http://${serv_ip}:3000/auth?2fa=` + String(_req.user.id));
-		// }
-		return (this.sign_42_jwt_token(user.id, _res));
-	}
+  async login(@Req() _req: any, @Res() _res: any): Promise<any> {
+    var user = await this.findUser(_req.user.id);
+    // if(user.two_FA_enabled)
+    // {
+    // 	return _res.redirect(`http://${serv_ip}:3000/auth?2fa=` + String(_req.user.id));
+    // }
+    return this.sign_42_jwt_token(user.id, _res);
+  }
 
-	async	sign_42_jwt_token(user_id: number, res: any, is_two_FAed = false)
-	{
-		const	user	= await this.findUser(user_id);
-		const	payload	= { name: user.name, sub: user.id, is_two_FAed: is_two_FAed };
-		const	token	= this.jwtService.sign(payload, {secret: this.config.get('our_JWT_secret')});
-		res.cookie('accessToken', token);
-        res.cookie('id', payload.sub);
-		res.redirect(`http://localhost:4200/`);
-	}
+  async sign_42_jwt_token(user_id: number, res: any, is_two_FAed = false) {
+    const user = await this.findUser(user_id);
+    const payload = { name: user.name, sub: user.id, is_two_FAed: is_two_FAed };
+    const token = this.jwtService.sign(payload, {
+      secret: this.config.get('our_JWT_secret'),
+    });
+    res.cookie('accessToken', token);
+    res.cookie('id', payload.sub);
+    res.redirect(`http://localhost:4200/chat`);
+  }
 
   async findUser(id: number) {
     const user = await this.prisma.user.findUnique({
@@ -50,33 +50,12 @@ export class AuthService {
 
     try {
       const user = await this.findUser(id);
-      if (!user) return null;
+      if (!user) {
+        return null;
+      }
       return user;
     } catch (error) {
       return null;
-    }
-  }
-
-  async signup(user: User) {
-
-    try {
-      await this.prisma.user.create({
-        data: {
-          // email: user.email,
-          name: user.name,
-          intra_login: user.intraLogin,
-          picture: user.picture,
-          // isAuthenticated: false,
-        },
-      });
-    } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new ForbiddenException(
-            'An account with email or username already exists',
-          );
-        }
-      }
     }
   }
 }

@@ -82,7 +82,7 @@ import { WannaPlayModalComponent } from './wanna-play-modal/wanna-play-modal.com
     ReactiveFormsModule,
     MatBadgeModule,
     RouterModule.forRoot([
-      { path: '', component: ChatComponent },
+      { path: '', component: AuthorizationPageComponent },
       { path: 'my-profile', component: MyProfileComponent },
       { path: 'game', component: GameComponent },
       { path: 'chat', component: ChatComponent },

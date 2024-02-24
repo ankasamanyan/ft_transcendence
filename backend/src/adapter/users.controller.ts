@@ -33,7 +33,7 @@ export class UsersController {
   getUsers(@Param('userId') userId: number) {
     return this.usersService.getUsers(userId);
   }
-
+  // @UseGuards(JWTAuthGuard)
   @Get('/all/users')
   getAllUsers() {
     return this.usersService.getAllUsers();

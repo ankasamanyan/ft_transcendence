@@ -1,16 +1,16 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, ExtractJwt } from 'passport-jwt'
+import { Strategy, ExtractJwt } from 'passport-jwt';
 import { AuthService } from '../auth.service';
-import { User } from '@prisma/client'
+import { User } from '@prisma/client';
 import { ConfigService } from '@nestjs/config';
 
 
 export type JwtPayload = {
   name: string,
-  sub: string | Number,
+  sub: string | number,
   mail: string,
-  is_two_FAed: boolean,
+  is_two_FAed: boolean;
 }
 
 @Injectable()
@@ -33,8 +33,7 @@ export class JwtStrategy extends PassportStrategy(Strategy)
     // ////// console.log("validate jwt strategy")
 
     const user = await this.authService.validate_user(payload);
-    if(!user)
-    {
+    if (!user) {
       ////// console.log("Jwt guard validate invalid token");
       throw new HttpException('Invalid Token', HttpStatus.UNAUTHORIZED);
     }

@@ -1,19 +1,27 @@
-import {Controller, Get, Param, Post, Put, Body, UseGuards} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Body,
+  UseGuards,
+} from '@nestjs/common';
 import { UserStatisticsService } from 'src/service/user-statistics.service';
 import { UserRequest } from './dto/users-request';
-import {JWTAuthGuard} from "../auth/guards/auth.jwt.guard";
+import { JWTAuthGuard } from '../auth/guards/auth.jwt.guard';
 
 @Controller('/user-statistics')
 export class UserStatisticsController {
-	constructor(private userStatisticsService: UserStatisticsService) {}
+  constructor(private userStatisticsService: UserStatisticsService) {}
 
-	// @UseGuards(JWTAuthGuard)
-	@Get('/wins/:userId')
-	getWins(@Param('userId') userId: number) {
-		return this.userStatisticsService.getWins(userId);
-	}
+  // @UseGuards(JWTAuthGuard)
+  @Get('/wins/:userId')
+  getWins(@Param('userId') userId: number) {
+    return this.userStatisticsService.getWins(userId);
+  }
 
-	// @UseGuards(JWTAuthGuard)
+  // @UseGuards(JWTAuthGuard)
 	@Get('/losses/:userId')
 	getLosses(@Param('userId') userId: number) {
 		return this.userStatisticsService.getLosses(userId);
