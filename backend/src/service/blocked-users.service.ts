@@ -11,9 +11,9 @@ export class BlockedUsersService {
     return from(this.blockedUsersRepository.blockUser(users));
   }
 
-  unblockUser(blockerId: number, blockedId: number) {
+  async unblockUser(blockerId: number, blockedId: number) {
     return from(this.blockedUsersRepository.unblockUser(blockerId, blockedId));
-    }
+  }
   
   getBlockedUsers(userId: number) {
     return from(this.blockedUsersRepository.getBlockedUsers(userId));

@@ -45,7 +45,6 @@ export class FriendsComponent implements OnInit {
     })
 
     socket.on("friendRequestDeclined",({userId, userId2}: {userId: number, userId2: number}) => {
-      if (this.me.id === userId || this.me.id === userId2) {
         if (this.me.id === userId || this.me.id === userId2) {
           this.friendService.getPendingFriendRequests(this.userId)
           .subscribe((pending) => {
@@ -54,8 +53,18 @@ export class FriendsComponent implements OnInit {
             } else {this.pendingList = [];}
           });
         }
-      }
     })
+
+    socket.on("userUnblocked",({userId, userId2}: {userId: number, userId2: number}) => {
+        if (this.me.id === userId || this.me.id === userId2) {
+          this.blockedUsersService.getBlockedUsers(this.userId)
+          .subscribe((blocked) => {
+            if (blocked.users.length) {
+              this.blockedList = blocked.users;
+            } else {this.blockedList = [];}
+        })};
+      })
+    
   
 }
   
@@ -97,7 +106,9 @@ export class FriendsComponent implements OnInit {
   }
 
   unBlock(blocked: User) {
-    this.blockedUsersService.unblockUser(new Users([this.me, blocked])).subscribe(() => {});
+    this.socket.emit("unBlockUser", {meUser:this.me, unBlokee: blocked});
+    // this.blockedUsersService.unblockUser(new Users([this.me, blocked])).subscribe(() => {});
+
   }
 
   acceptFriendRequest(newFriend: User) {

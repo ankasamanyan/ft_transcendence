@@ -32,7 +32,7 @@ export class FriendService {
     return from(this.prismaFriendRepository.acceptFriendRequest(users));
   }
 
-  declineFriendRequest(users: Users) {
+  async declineFriendRequest(users: Users) {
     return from(this.prismaFriendRepository.declineFriendRequest(users))
   }
 
