@@ -201,17 +201,6 @@ export class PrismaChannelRepository {
     });
   }
 
-  // async setPassword(channel: Channel) {
-  //   await this.prisma.channel.update({
-  //     where: {
-  //       id: Number(channel.id),
-  //     },
-  //     data: {
-  //       password: channel.password,
-  //     },
-  //   });
-  // }
-
   async deletePassword(channelId: number) {
     await this.prisma.channel.update({
       where: {
