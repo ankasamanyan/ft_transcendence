@@ -5,6 +5,7 @@ import { User } from '../domain/user';
 import { UsersService } from '../service/users.service';
 import { HttpClient } from '@angular/common/http';
 import { OurSocket } from '../socket/socket';
+import { GameOverDto, GameStartResponseDto } from '../service/dto/game.dto';
 
 
 @Component({
@@ -27,7 +28,7 @@ import { OurSocket } from '../socket/socket';
 
 
   public selectedMenuItem: string = 'friends';
-  
+
   constructor(
     private socket: OurSocket,
     private sharedDataService: SharedDataService,
@@ -53,18 +54,35 @@ import { OurSocket } from '../socket/socket';
       }
     });
 
+this.socket.on("gameStarted",(data: GameStartResponseDto) => {
+      if (data.player1 == this.userId || data.player2) {
+        this.status = "Playing";
+      }
+    });
+
+    this.socket.on("gameOver", (data: GameOverDto) => {
+      if (data.loserId == this.userId || data.winnerId == this.userId) {
+        this.getStatus()
+      }
+    });
+
+    this.getStatus();
+
+
+
     this.sharedDataService.getMyUserId$()
     .subscribe(myUserId => {
       if (myUserId === this.userId){
         this.isThisMe = true;
       } else { this.isThisMe = false}
     });
-
     this.usersService.getUserById(this.userId)
     .subscribe((user) => {
       this.user = user;
     });
+}
 
+  getStatus() {
     this.httpClient.get<any>("http://localhost:3000/users/getStatus/" + this.userId)
     .subscribe((data: {status: string})=> {
       this.status = data.status;
@@ -83,7 +101,6 @@ import { OurSocket } from '../socket/socket';
         return 'var(--color-dark blue)';
     }
   }
-
   selectMenuItem(menuItem: string) {
     this.selectedMenuItem = menuItem;
   }

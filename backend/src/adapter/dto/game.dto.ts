@@ -31,6 +31,7 @@ export type GameRequestDto = {
 export type GameOverDto = {
     gameId: number
     winnerId: number
+    loserId: number
 }
 
 export type BallUpdateDto = {

@@ -253,6 +253,7 @@ export class GameData {
 		this.server.emit("gameOver", {
 			gameId: this.gameId,
 			winnerId: this.ScorePlayer1 < this.ScorePlayer2 ? this.player2 : this.player1,
+			loserId:  this.ScorePlayer1 < this.ScorePlayer2 ? this.player1 : this.player2,
 		} as GameOverDto );
 	};
 }
