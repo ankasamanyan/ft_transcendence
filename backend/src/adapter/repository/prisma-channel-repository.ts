@@ -249,7 +249,6 @@ export class PrismaChannelRepository {
   }
 
   async getJoinedPublicandProtectedChannels(userId: number) {
-
     const userIdAsInteger = Number(userId);
     const channels = await this.prisma.$queryRaw<RawSql[]>`
         with subres as (select max(id) as id
@@ -273,10 +272,8 @@ export class PrismaChannelRepository {
                from "ChannelParticipant"
                where user_id = ${userIdAsInteger}
                   or channel.type in ('public', 'password-protected'))
-            AND message.text IS NULL
-           OR (message.text IS NOT NULL AND message.id in (SELECT id from subres))
+          AND (message.id in (SELECT id from subres) OR message.text IS NULL)
         order by COALESCE(message.created_at, channel.created_at) desc
-        
     `;
 
     return new ChannelsResponse(channels.map((channel) => {
