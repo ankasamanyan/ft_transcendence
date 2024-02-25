@@ -35,4 +35,8 @@ export class UserStatisticsService {
 	getRanking() {
 		return from(this.prismaUserStatisticsRepository.getAllUsersRankedByWins())
 	}
+
+	getAchievements(userId: number) {
+		return from(this.prismaUserStatisticsRepository.getAchievements(userId));
+	}
 }
