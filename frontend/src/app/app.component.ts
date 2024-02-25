@@ -57,7 +57,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.sharedDataService.getData$().subscribe((value) => {
+    this.sharedDataService.getMyUserId$().subscribe((value) => {
       this.usersService.getUserById(value).subscribe((user) => {
         this.authenticatedUser = user;
       });

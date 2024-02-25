@@ -49,7 +49,7 @@ export class GameComponent implements OnInit {
   gameMessage = 'Press Enter to Play Pong';
 
   ngOnInit(): void {
-    this.sharedDataService.getData$()
+    this.sharedDataService.getMyUserId$()
         .subscribe((userId) => {
           this.userId = userId;
         });
@@ -129,7 +129,7 @@ export class GameComponent implements OnInit {
       } else if (e.key === 'ArrowDown') {
         this.socket.emit("paddleUpdate", {gameId: this.gameId, userId: this.userId, paddleMove: this.paddleMoveSize} as PaddleUpdateDto);
       } else if (e.key === 'ArrowLeft') {
-        const my_id = this.sharedDataService.getData$().subscribe();
+        const my_id = this.sharedDataService.getMyUserId$().subscribe();
         this.socket.emit("startGame", {user1: this.userId, user2: 98629});
       }
     }

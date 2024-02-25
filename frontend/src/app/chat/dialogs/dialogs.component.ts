@@ -70,7 +70,7 @@ export class DialogsComponent implements OnInit {
         this.getChannels();
       }
     });
-    this.sharedDataService.getData$().subscribe((value) => {
+    this.sharedDataService.getMyUserId$().subscribe((value) => {
       this.usersService.getUserById(value).subscribe((user) => {
         this.authenticatedUser = user;
         this.usersService.getUsers(this.authenticatedUser!.id!).subscribe((value)  => {

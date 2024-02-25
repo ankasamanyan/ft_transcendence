@@ -20,7 +20,7 @@ export class MessageComponent implements OnInit {
       private userService: UsersService) {}
 
   ngOnInit() {
-    this.sharedDataService.getData$().subscribe((value) => {
+    this.sharedDataService.getMyUserId$().subscribe((value) => {
       this.userService.getUserById(value).subscribe((user) => {
         this.authenticatedUser = user;
       });

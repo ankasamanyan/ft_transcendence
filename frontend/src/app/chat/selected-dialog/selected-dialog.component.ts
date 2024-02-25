@@ -76,7 +76,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked, OnI
   }
 
   ngOnInit() {
-    this.sharedDataService.getData$().subscribe((value) => {
+    this.sharedDataService.getMyUserId$().subscribe((value) => {
       this.userService.getUserById(value).subscribe((user) => {
         this.authenticatedUser = user;
       });
