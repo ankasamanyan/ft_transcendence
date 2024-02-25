@@ -7,7 +7,7 @@ import { PrismaBlockedUsersRepository } from 'src/adapter/repository/prisma-bloc
 export class BlockedUsersService {
   constructor(private blockedUsersRepository: PrismaBlockedUsersRepository) {}
 
-  blockUser(users: Users) {
+  async blockUser(users: Users) {
     return from(this.blockedUsersRepository.blockUser(users));
   }
 

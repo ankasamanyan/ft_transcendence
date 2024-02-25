@@ -1,9 +1,10 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {FriendService} from "../../service/friend.service";
 import {User, Users} from "../../domain/user";
 import { BlockedUsersService } from 'src/app/service/blocked-users.service';
 import { UsersService } from 'src/app/service/users.service';
 import { OurSocket } from 'src/app/socket/socket';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-friends',
@@ -11,9 +12,11 @@ import { OurSocket } from 'src/app/socket/socket';
   styleUrls: [`./friends.component.css`],
 
 })
-export class FriendsComponent implements OnInit {
+export class FriendsComponent implements OnInit,OnChanges {
 
   @Input() userId!: number;
+
+  private destroy$: Subject<void> = new Subject<void>();
 
   private me!: User;
 
@@ -33,68 +36,82 @@ export class FriendsComponent implements OnInit {
     private usersService: UsersService,
     private socket: OurSocket) {
     
-    socket.on("friendRequestAccepted", ({userId, userId2}: {userId: number, userId2: number}) => {
-      if (this.me.id === userId || this.me.id === userId2) {
-        this.friendService.getPendingFriendRequests(this.userId)
-        .subscribe((pending) => {
-          if (pending.users.length) {
-            this.pendingList = pending.users;
-          } else {this.pendingList = [];}
-        });
-      }
-    })
-
-    socket.on("friendRequestDeclined",({userId, userId2}: {userId: number, userId2: number}) => {
-        if (this.me.id === userId || this.me.id === userId2) {
-          this.friendService.getPendingFriendRequests(this.userId)
-          .subscribe((pending) => {
-            if (pending.users.length) {
-              this.pendingList = pending.users;
-            } else {this.pendingList = [];}
-          });
-        }
-    })
-
-    socket.on("userUnblocked",({userId, userId2}: {userId: number, userId2: number}) => {
-        if (this.me.id === userId || this.me.id === userId2) {
-          this.blockedUsersService.getBlockedUsers(this.userId)
-          .subscribe((blocked) => {
-            if (blocked.users.length) {
-              this.blockedList = blocked.users;
-            } else {this.blockedList = [];}
-        })};
-      })
     
-  
-}
+  }
   
   ngOnInit(): void {
+    this.getMeUser();
+    this.getFriendList();
+    this.getPendingRequestList();
+    this.getBlockedUserList();
 
-    this.friendService.getFriends(this.userId)
-      .subscribe((friends) => {
-        if (friends.users.length) {
-          this.friendsList = friends.users;
-        } else {this.friendsList = [];}
-      });
+    this.socket.on("friendRequestAccepted", ({userId, userId2}: {userId: number, userId2: number}) => {
+      if (this.me.id === userId || this.me.id === userId2) {
+        this.getPendingRequestList();
+      }
+    });
 
-    this.friendService.getPendingFriendRequests(this.userId)
-      .subscribe((pending) => {
-        if (pending.users.length) {
-          this.pendingList = pending.users;
-        } else {this.pendingList = [];}
-      });
+    this.socket.on("friendRequestDeclined",({userId, userId2}: {userId: number, userId2: number}) => {
+        if (this.me.id === userId || this.me.id === userId2) {
+          this.getPendingRequestList();
+        }
+    });
 
-    this.blockedUsersService.getBlockedUsers(this.userId)
-      .subscribe((blocked) => {
-        if (blocked.users.length) {
-          this.blockedList = blocked.users;
-        } else {this.blockedList = [];}
-      });
+    this.socket.on("userUnblocked",({userId, userId2}: {userId: number, userId2: number}) => {
+      if (this.me.id === userId || this.me.id === userId2) {
+        this.getBlockedUserList();
+      };
+    });
 
+    this.socket.on("userBlocked",({userId, userId2}: {userId: number, userId2: number}) => {
+      if (this.me.id === userId || this.me.id === userId2) {
+        this.getBlockedUserList();
+      }
+    });
+  }
+
+ngOnChanges(changes: SimpleChanges): void {
+  if ('this.friendsList' in changes) {
+    this.getFriendList();
+  }
+  if ('pendingList' in changes) {
+    this.getPendingRequestList();
+  }
+  if ('this.blockedList' in changes) {
+    this.getBlockedUserList();
+  }
+}
+
+  getMeUser(){
     this.usersService.getUserById(this.userId)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((user) => {
         this.me = user;
       });
+  }
+
+  getFriendList() {
+    this.friendService.getFriends(this.userId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((friends) => {
+        this.friendsList = friends.users || [];
+      });
+  }
+
+  getPendingRequestList() {
+    this.friendService.getPendingFriendRequests(this.userId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((pending) => {
+        this.pendingList = pending.users || [];
+      });
+  }
+
+  getBlockedUserList() {
+    this.blockedUsersService.getBlockedUsers(this.userId)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((blocked) => {
+      this.blockedList = blocked.users || [];
+    });
   }
 
   inviteToPlay(){
@@ -102,23 +119,24 @@ export class FriendsComponent implements OnInit {
   }
 
   blockUser(blockee: User) {
-    this.blockedUsersService.blockUser(new Users([this.me, blockee])).subscribe(() => {});
+    this.blockedUsersService.blockUser(new Users([this.me, blockee]));
   }
 
   unBlock(blocked: User) {
     this.socket.emit("unBlockUser", {meUser:this.me, unBlokee: blocked});
-    // this.blockedUsersService.unblockUser(new Users([this.me, blocked])).subscribe(() => {});
-
   }
 
   acceptFriendRequest(newFriend: User) {
     this.socket.emit("acceptFriendRequest", {newFriend: newFriend, meUser: this.me});
-    // this.friendService.acceptFriendRequest(new Users([newFriend, this.me])).subscribe(() => {});
   }
   
   declineFriendRequest(notFriend: User) {
     this.socket.emit("declineFriendRequest", {notFriend: notFriend, meUser: this.me});
-    // this.friendService.declineFriendRequest(new Users([notFriend, this.me])).subscribe(() => {});
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }
