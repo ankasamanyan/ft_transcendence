@@ -22,7 +22,10 @@ import { OurSocket } from '../socket/socket';
   public user!: User;
 
   public userId!: number;
-  
+
+
+
+
   public selectedMenuItem: string = 'friends';
   
   constructor(
@@ -43,13 +46,13 @@ import { OurSocket } from '../socket/socket';
         this.status = "Online";
       }
     });
-    
+
     this.socket.on("UserLogOut",({userId}: {userId: number}) => {
       if (userId == this.userId) {
         this.status = "Offline";
       }
     });
-    
+
     this.sharedDataService.getMyUserId$()
     .subscribe(myUserId => {
       if (myUserId === this.userId){
@@ -61,7 +64,7 @@ import { OurSocket } from '../socket/socket';
     .subscribe((user) => {
       this.user = user;
     });
-    
+
     this.httpClient.get<any>("http://localhost:3000/users/getStatus/" + this.userId)
     .subscribe((data: {status: string})=> {
       this.status = data.status;

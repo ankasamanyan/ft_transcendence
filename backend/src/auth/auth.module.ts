@@ -5,6 +5,10 @@ import { FTAuthGuard } from './guards/auth.42.guard';
 import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { JWTAuthGuard } from './guards/auth.jwt.guard';
+import {JwtStrategy} from "./strategy/jwt.strategy";
+import {FTStrategy} from "./strategy/42.strategy";
+import {TfaStrategy} from "./strategy/tfa.strategy";
+import {TFAAuthGuard} from "./guards/auth.tfa.guard";
 
 @Module({
   imports: [
@@ -16,6 +20,11 @@ import { JWTAuthGuard } from './guards/auth.jwt.guard';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, FTAuthGuard, JWTAuthGuard],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    FTStrategy,
+    TfaStrategy,
+  ],
 })
 export class AuthModule {}

@@ -54,6 +54,6 @@ export class UsersController {
 
   @Put('/update')
   updateNameOrPicture(@Body() request: UserRequest) {
-    return this.usersService.updateNameOrPicture(UserRequest.toDomain(request));
+    return this.usersService.updateNamePicture2faEnabl(UserRequest.toDomain(request));
   }
 }

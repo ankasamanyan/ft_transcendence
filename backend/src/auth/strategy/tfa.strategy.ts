@@ -13,7 +13,7 @@ export type JwtPayload = {
 };
 
 @Injectable()
-export class TfaStrategy extends PassportStrategy(Strategy) {
+export class TfaStrategy extends PassportStrategy(Strategy, 'Two-FA') {
   constructor(
     private readonly authService: AuthService,
     private configService: ConfigService,

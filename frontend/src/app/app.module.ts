@@ -39,6 +39,9 @@ import {TokenInterceptor} from "./token.interceptor";
 import { UserUnblockedNotificationComponent } from './chat/selected-dialog/selected-dialog-header/user-unblocked-notification/user-unblocked-notification.component';
 import { WannaPlayModalComponent } from './wanna-play-modal/wanna-play-modal.component';
 import { EnterPasswordModalComponent } from './chat/dialogs/enter-password-modal/enter-password-modal.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -72,25 +75,28 @@ import { EnterPasswordModalComponent } from './chat/dialogs/enter-password-modal
     WannaPlayModalComponent,
     EnterPasswordModalComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    NgbModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatTabsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatBadgeModule,
-    RouterModule.forRoot([
-      { path: '', component: AuthorizationPageComponent },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'game', component: GameComponent },
-      { path: 'chat', component: ChatComponent },
-      { path: 'authorization', component: AuthorizationPageComponent },
-    ]),
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        NgbModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatTabsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatBadgeModule,
+        RouterModule.forRoot([
+            {path: '', component: AuthorizationPageComponent},
+            {path: 'profile', component: ProfileComponent},
+            {path: 'game', component: GameComponent},
+            {path: 'chat', component: ChatComponent},
+            {path: 'authorization', component: AuthorizationPageComponent},
+        ]),
+        MatCheckboxModule,
+        MatInputModule,
+        MatButtonModule,
+    ],
   providers: [SharedDataService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},],
   bootstrap: [AppComponent],

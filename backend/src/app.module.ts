@@ -45,6 +45,7 @@ import { PrismaStatusRepository } from './adapter/repository/prisma-status-repos
 import { QueueService } from './service/queue-service';
 import { StatusService } from './service/status-service';
 import { PrismaOnlineStatusRepository } from './adapter/repository/prisma-online-status-repository';
+import {JwtStrategy} from "./auth/strategy/jwt.strategy";
 
 @Module({
   imports: [
@@ -97,7 +98,8 @@ import { PrismaOnlineStatusRepository } from './adapter/repository/prisma-online
     AuthService,
     FTAuthGuard,
     FTStrategy,
-    JwtService
+    JwtService,
+    JwtStrategy,
   ],
 })
 export class AppModule {}

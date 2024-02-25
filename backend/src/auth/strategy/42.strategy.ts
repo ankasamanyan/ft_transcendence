@@ -27,7 +27,7 @@ export class FTStrategy extends PassportStrategy(Strategy, '42') {
     const pictureIndex = Math.floor(Math.random() * 7);
     let user = await this.prisma.user.findUnique({
       where: {
-				id: Number(profile.id),
+        id: Number(profile.id),
       },
     });
     if (!user) {

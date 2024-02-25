@@ -13,8 +13,7 @@ export type JwtPayload = {
 };
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy)
-{
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
     private readonly authService: AuthService,
     private configService: ConfigService,
@@ -22,12 +21,12 @@ export class JwtStrategy extends PassportStrategy(Strategy)
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       // ignoreExpiration: false,									// after testing enable again (disabled because testuser token hardcoded)
-      secretOrKey: configService.get('secret'),
+      secretOrKey: configService.get('our_JWT_secret'),
     });
   }
 
   async validate(payload: JwtPayload): Promise<User> {
-    // ////// console.log("validate jwt strategy")
+    // console.log("validate jwt strategy")
 
     const user = await this.authService.validate_user(payload);
     if (!user) {

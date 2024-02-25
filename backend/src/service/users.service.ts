@@ -35,12 +35,11 @@ export class UsersService {
     return from(this.usersRepository.getAllUsers());
   }
 
-  updateNameOrPicture(user: User) {
-    return from(this.usersRepository.updateNameOrPicture(user));
+  updateNamePicture2faEnabl(user: User) {
+    return from(this.usersRepository.updateNamePicture2faEnabl(user));
   }
 
   isUniqueName(name: string) {
     return from(this.usersRepository.isUniqueName(name));
   }
-
 }

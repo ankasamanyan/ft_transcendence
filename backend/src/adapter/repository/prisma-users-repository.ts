@@ -49,17 +49,20 @@ export class PrismaUsersRepository {
     return isUnique === null;
   }
 
-  async updateNameOrPicture(user: User) {
+  async updateNamePicture2faEnabl(user: User) {
     await this.prisma.user.updateMany({
       where: {
         id: Number(user.id)
       },
       data: {
         name: user.name,
-        picture: user.picture
+        picture: user.picture,
+        tfa_enabled: user.tfa_enabled
       }
     });
   }
+
+
 
   async addUser(user: User) {
     await this.prisma.$transaction([

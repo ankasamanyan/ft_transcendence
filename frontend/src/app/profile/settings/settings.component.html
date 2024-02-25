@@ -26,8 +26,18 @@
             <div class="color-option4" (click)="selectColorTheme4()"></div>
             </div>
         </div>
-        <button type="button" class="action-button" (click)="saveSettings()">Save Settings</button>
+
+
+            <button type="button" class="action-button" (click)="saveSettings()">Save Settings</button>
         </form>
+        <div>
+            <div>
+                <button class="action-button"  (click)="updateStatus2FA()"> Enable 2fa </button>
+            </div>
+            <div *ngIf="!this.userFromProfile.tfa_enabled && this.qrString != ''" >
+                <img src="{{this.qrString}}">
+            </div>
+        </div>
     </div>
   </div>
   

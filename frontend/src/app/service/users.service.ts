@@ -39,4 +39,10 @@ export class UsersService {
         return UsersResponse.toDomain(users);
       }));
   }
+
+  updateUser(user: User): Observable<User> {
+    return this.httpClient.put<any>("http://localhost:3000/users/all/users", user).pipe(map ((user: UserResponse) => {
+      return UserResponse.toDomain(user);
+    }))
+  }
 }

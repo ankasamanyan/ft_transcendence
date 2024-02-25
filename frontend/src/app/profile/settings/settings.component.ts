@@ -1,5 +1,8 @@
 import { Component, Input, OnInit, Renderer2, ElementRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {User} from "../../domain/user";
+import {UsersService} from "../../service/users.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-settings',
@@ -11,10 +14,25 @@ export class SettingsComponent implements OnInit {
   @Input() username!: string;
   @Input() name!: string;
   @Input() profilePicture: any;
+  @Input() is_2fa_enabled!: boolean | undefined;
+  @Input() userFromProfile!: User;
   settingsForm: FormGroup = new FormGroup ({});
   selectedColorTheme: string = '';
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
+  qrString: string = ''
+
+  tfaButtonText: string  = '';
+
+  qrCodeFormGroup: any;
+
+  constructor(private renderer: Renderer2,
+              private el: ElementRef,
+              private usersService: UsersService,
+              private http: HttpClient) {
+    // if(!this.userFromProfile.tfa_enabled){
+      this.getQRCode();
+    // }
+  }
 
   changeColorScheme ( 
     primaryColor: string, 
@@ -38,12 +56,29 @@ export class SettingsComponent implements OnInit {
     localStorage.setItem('colorScheme', JSON.stringify({ orangeColor, darkerOrangeColor, backgroundColor, lightBlueLighterColor, lightBlueDarkerColor, lightGreyColor, primaryColor, secondaryColor}));
 
   }
+
+  updateStatus2FA(){
+    const user = this.userFromProfile
+    // this.usersService.updateUser(e)
+  }
+
+  getQRCode(){
+    this.http.get<any>("http://localhost:3000/auth/generateQRCode").subscribe(response =>{
+          this.qrString = response.qrCode;
+        }
+    )
+  }
+
+
   ngOnInit(): void {
+
     this.settingsForm.patchValue({
       name: this.name,
       username: this.username
     });
   }
+
+
 
   selectColorTheme1(): void {
   document.documentElement.style.setProperty(`${'primaryColor'}`, '#fce4ec' + '');
@@ -104,4 +139,13 @@ export class SettingsComponent implements OnInit {
     // console.log(this.settingsForm.value);
     // console.log('Selected Color Theme:', this.selectedColorTheme);
   }
+
+  handleCodeSubmit() {
+    // console.log("this.qrCodeFormGroup = ", this.qrCodeFormGroup)
+    this.http.post<any>("http://localhost:3000/auth/ResultFromQrCode", {two_FA_code: (this.qrCodeFormGroup)}).subscribe(response => {
+      // console.log("response = ", response)
+    })
+  }
+
+  protected readonly FormGroup = FormGroup;
 }
