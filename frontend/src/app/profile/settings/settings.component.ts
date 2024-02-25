@@ -149,6 +149,6 @@ export class SettingsComponent implements OnInit {
   protected readonly FormGroup = FormGroup;
 
   submit2FACode() {
-    this.authenticationService.submit2FACode(new TwoFactorCode(this.twoFactorCodeInput!)).subscribe((value) => {});
+    this.authenticationService.submit2FACode(new TwoFactorCode(this.twoFactorCodeInput!)).subscribe();
   }
 }
