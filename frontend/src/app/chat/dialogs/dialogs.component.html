@@ -25,6 +25,7 @@
 <app-create-channel-modal
         *ngIf="showCreateChannelModal"
         [users]="users"
+        [authenticatedUser]="authenticatedUser"
         (modalClose)="showCreateChannelModal=false">
 </app-create-channel-modal>
 

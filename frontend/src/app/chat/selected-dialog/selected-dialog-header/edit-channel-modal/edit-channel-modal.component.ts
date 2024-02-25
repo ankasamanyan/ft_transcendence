@@ -31,13 +31,15 @@ export class EditChannelModalComponent implements AfterViewInit {
   @Input()
   admins: User[] | undefined;
 
+  @Input()
+  authenticatedUser: User | undefined;
+
   @ViewChild('name') channelName!: ElementRef;
 
   nameOnInit: string | undefined;
   typeOnInit: string | undefined;
   passwordOnInit: string | undefined;
   updatedUsers = new Map<User, string>();
-  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false, "");
   displayTypes: boolean = false;
 
   constructor(
@@ -125,7 +127,7 @@ export class EditChannelModalComponent implements AfterViewInit {
   }
 
   isAuthenticatedUserOwner() {
-    return this.authenticatedUser.id === this.channel?.owner!.id;
+    return this.authenticatedUser!.id === this.channel?.owner!.id;
   }
 
   isCurrentTypePrivate() {

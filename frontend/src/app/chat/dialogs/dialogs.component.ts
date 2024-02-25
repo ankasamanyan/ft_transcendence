@@ -1,10 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UsersService} from "../../service/users.service";
 import {User, Users} from "../../domain/user";
 import {Channel} from "../../domain/channel";
 import {ChannelService} from "../../service/channel.service";
 import {OurSocket} from "../../socket/socket";
 import {ChannelUpdate} from "../../domain/channel-update";
+import {SharedDataService} from "../../service/shared-data.service";
 
 @Component({
   selector: 'app-dialogs',
@@ -18,12 +19,12 @@ export class DialogsComponent implements OnInit {
   foundChannel: Channel | undefined
   selectedChannelId: number | undefined;
   users: Users | undefined;
-  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false, "");
 
   showCreateChannelModal: boolean = false;
   channelsLoaded: boolean = false;
   searchModeOn: boolean = false;
   showEnterPasswordModal: boolean = false;
+  authenticatedUser: User | undefined;
 
   @Output()
   selectedChannelChanged = new EventEmitter<number>();
@@ -31,11 +32,8 @@ export class DialogsComponent implements OnInit {
   constructor(
       private usersService: UsersService,
       private channelService: ChannelService,
+      private sharedDataService: SharedDataService,
       private socket: OurSocket) {
-    this.getChannels();
-    usersService.getUsers(1).subscribe((value)  => {
-      this.users = value;
-    });
     socket.on("participantKicked", () => {
       this.getChannels();
     });
@@ -43,7 +41,7 @@ export class DialogsComponent implements OnInit {
       this.getChannels();
     });
     socket.on("participantLeft", ({userId}: {userId: number}) => {
-      if (userId === this.authenticatedUser.id) {
+      if (userId === this.authenticatedUser!.id) {
         this.selectedChannelId = undefined;
       }
       this.getChannels();
@@ -72,6 +70,15 @@ export class DialogsComponent implements OnInit {
         this.getChannels();
       }
     });
+    this.sharedDataService.getData$().subscribe((value) => {
+      this.usersService.getUserById(value).subscribe((user) => {
+        this.authenticatedUser = user;
+        this.usersService.getUsers(this.authenticatedUser!.id!).subscribe((value)  => {
+          this.users = value;
+        });
+        this.getChannels();
+      });
+    });
   }
 
   find(channelToSearchFor: string) {
@@ -94,7 +101,7 @@ export class DialogsComponent implements OnInit {
       this.channelService.getChannelDetailsById(selectedChannelId).subscribe((value) => {
         this.foundChannel = value;
         if (this.foundChannel!.type === "public") {
-          this.channelService.enterChannel(new ChannelUpdate(selectedChannelId, [this.authenticatedUser]));
+          this.channelService.enterChannel(new ChannelUpdate(selectedChannelId, [this.authenticatedUser!]));
           this.selectedChannelId = selectedChannelId;
           this.selectedChannelChanged.emit(selectedChannelId);
         }
@@ -111,10 +118,10 @@ export class DialogsComponent implements OnInit {
   }
 
   getChannels() {
-    this.channelService.getChannels(1).subscribe((value)  => {
+    this.channelService.getChannels(this.authenticatedUser?.id!).subscribe((value)  => {
       this.channels = value.channels;
       this.displayedChannels = this.channels;
-      this.channelService.getChannelsAvailableWhenSearching(1).subscribe((value) => {
+      this.channelService.getChannelsAvailableWhenSearching(this.authenticatedUser?.id!).subscribe((value) => {
         this.searchedForChannels = value.channels;
         this.channelsLoaded = true;
       });
@@ -123,7 +130,7 @@ export class DialogsComponent implements OnInit {
 
   handleEnteredPassword() {
     this.showEnterPasswordModal = false;
-    this.channelService.enterChannel(new ChannelUpdate(this.selectedChannelId!, [this.authenticatedUser]));
+    this.channelService.enterChannel(new ChannelUpdate(this.selectedChannelId!, [this.authenticatedUser!]));
     this.selectedChannelChanged.emit(this.selectedChannelId);
   }
 }

@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {ChannelService} from "../../../../service/channel.service";
 
 @Component({
   selector: 'app-leave-channel-modal',

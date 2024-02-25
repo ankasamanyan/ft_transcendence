@@ -17,7 +17,8 @@ import {User} from "./domain/user";
 export class AppComponent {
   showWannaPlayModal: boolean = false;
   whoInvitedMeToPlay: User | undefined;
-  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false, "");
+
+  authenticatedUser: User | undefined;
 
   constructor(
       private socket: OurSocket,
@@ -41,12 +42,20 @@ export class AppComponent {
     this.sharedDataService.setData(id);
     // }
     socket.on("invitationSent",({invitedId, beenInvitedId}: { invitedId: number, beenInvitedId: number }) => {
-      if (beenInvitedId === this.authenticatedUser.id) {
+      if (beenInvitedId === this.authenticatedUser?.id) {
         this.usersService.getUserById(invitedId).subscribe((value) => {
           this.whoInvitedMeToPlay = value;
           this.showWannaPlayModal = true;
         })
       }
+    });
+  }
+
+  ngOnInit() {
+    this.sharedDataService.getData$().subscribe((value) => {
+      this.usersService.getUserById(value).subscribe((user) => {
+        this.authenticatedUser = user;
+      });
     });
   }
 

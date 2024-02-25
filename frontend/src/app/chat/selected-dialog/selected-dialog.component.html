@@ -1,6 +1,7 @@
 <div #wholeSelectedDialogContainer id="whole-selected-dialog">
     <app-selected-dialog-header
             [selectedChannelId]="selectedChannelId"
+            [authenticatedUser]="authenticatedUser"
             (userBlocked)="isBlocked=$event">
     </app-selected-dialog-header>
     <div id="selected-dialog-body">

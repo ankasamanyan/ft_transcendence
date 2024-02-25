@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NavigationBarStatus} from "../domain/navigation-bar";
 
 @Component({
@@ -8,7 +8,6 @@ import {NavigationBarStatus} from "../domain/navigation-bar";
 })
 export class ChatComponent {
   protected readonly NavigationBarStatus = NavigationBarStatus;
-
   selectedChannelId: number | undefined;
 
   constructor() {

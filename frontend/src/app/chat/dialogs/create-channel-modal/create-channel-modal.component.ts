@@ -15,6 +15,9 @@ export class CreateChannelModalComponent {
   @Input()
   users: Users | undefined;
 
+  @Input()
+  authenticatedUser: User | undefined;
+
   usersWithStatus = new Map<User, boolean>();
 
   constructor(public channelService: ChannelService) {
@@ -31,8 +34,7 @@ export class CreateChannelModalComponent {
 
   selectUsers() {
     const onlySelected = this.selectedUsers();
-    const authenticatedUser = new User(1, "Anahit", "@akasaman","assets/placeholderAvatar.jpeg", "", true, false, "")
-    onlySelected.push(authenticatedUser);
+    onlySelected.push(this.authenticatedUser!);
     this.channelService.addChannelInformation(onlySelected).subscribe((value: any) => {
       const channel = value as Channel;
       this.channelService.addChannelParticipants(channel).subscribe(() => {

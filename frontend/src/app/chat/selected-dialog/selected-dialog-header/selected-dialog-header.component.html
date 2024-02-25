@@ -46,6 +46,7 @@
 
 <app-block-modal
         *ngIf="showBlockModal"
+        [authenticatedUser]="authenticatedUser"
         [selectedPerson]="selectedDialogPartner"
         (modalClose)="showBlockModal=false">
 </app-block-modal>
@@ -55,6 +56,7 @@
         [channel]="channel"
         [channelParticipants]="participants"
         [admins]="admins"
+        [authenticatedUser]="authenticatedUser"
         (modalClose)="showEditModal=false">
 </app-edit-channel-modal>
 

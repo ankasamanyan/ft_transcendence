@@ -1,23 +1,34 @@
-import {AfterViewChecked, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {MessageService} from "../../service/message.service";
 import {ChannelMessage} from "../../domain/channel-message";
 import {ChannelService} from "../../service/channel.service";
 import {OurSocket} from "../../socket/socket";
 import {User} from "../../domain/user";
+import {SharedDataService} from "../../service/shared-data.service";
+import {UsersService} from "../../service/users.service";
 
 @Component({
   selector: 'app-selected-dialog',
   templateUrl: './selected-dialog.component.html',
   styleUrls: ['./selected-dialog.component.css']
 })
-export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
+export class SelectedDialogComponent implements OnChanges, AfterViewChecked, OnInit {
   @Input()
   selectedChannelId: number | undefined;
 
   @ViewChild('wholeSelectedDialogContainer') private wholeSelectedDialogContainer!: ElementRef;
 
-  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false, "");
   selectedDialog: ChannelMessage[] | undefined;
+  authenticatedUser: User | undefined;
   message: string | undefined;
   isMuted: boolean = false;
   isBlocked: boolean = false;
@@ -25,6 +36,8 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
   constructor(
     private messageService: MessageService,
     private channelService: ChannelService,
+    private userService: UsersService,
+    private sharedDataService: SharedDataService,
     private socket: OurSocket) {
     socket.on("NewMessage", () => {
       if (this.selectedChannelId) {
@@ -36,10 +49,10 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
     });
     socket.on("participantMuted", () => {
       if (this.selectedChannelId) {
-        this.channelService.isMuted(1, this.selectedChannelId).subscribe((value) => {
+        this.channelService.isMuted(this.authenticatedUser?.id!, this.selectedChannelId).subscribe((value) => {
           this.isMuted = value;
           this.sleep(30001).then(() => {
-            this.channelService.isMuted(1, this.selectedChannelId!).subscribe((value) => {
+            this.channelService.isMuted(this.authenticatedUser?.id!, this.selectedChannelId!).subscribe((value) => {
               this.isMuted = value;
             });
           })
@@ -47,7 +60,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
       }
     });
     socket.on("participantLeft", ({userId}: { userId: number }) => {
-      if (userId === this.authenticatedUser.id) {
+      if (userId === this.authenticatedUser!.id) {
         this.selectedDialog = undefined;
         this.selectedChannelId = undefined;
       }
@@ -59,6 +72,14 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
         });
       }
       this.channelService.updateChannels.next(true);
+    });
+  }
+
+  ngOnInit() {
+    this.sharedDataService.getData$().subscribe((value) => {
+      this.userService.getUserById(value).subscribe((user) => {
+        this.authenticatedUser = user;
+      });
     });
   }
 
@@ -88,7 +109,7 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked {
       this.messageService.saveChannelMessage(
         new ChannelMessage(
           this.selectedChannelId!,
-          1,
+          this.authenticatedUser?.id!,
           this.message!,
           new Date()))
     }

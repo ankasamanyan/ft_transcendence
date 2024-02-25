@@ -14,13 +14,16 @@ export class BlockModalComponent {
   @Input()
   selectedPerson: User | undefined;
 
+  @Input()
+  authenticatedUser: User | undefined;
+
   constructor(private blockedUsersService: BlockedUsersService) {
   }
 
   blockUser() {
     this.blockedUsersService.blockUser(new Users([
-        new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false, ""),
-        new User(this.selectedPerson!.id, this.selectedPerson!.name, this.selectedPerson!.intraLogin, "assets/placeholderComrade2.jpeg", "", true, false, "")
+        this.authenticatedUser!,
+        this.selectedPerson!
     ]));
     this.modalClose.emit();
   }

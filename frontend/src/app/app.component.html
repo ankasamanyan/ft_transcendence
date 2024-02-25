@@ -3,5 +3,6 @@
 <app-wanna-play-modal
         *ngIf="showWannaPlayModal"
         [whoInvitedMeToPlay]="whoInvitedMeToPlay"
+        [authenticatedUser]="authenticatedUser"
         (modalClose)="showWannaPlayModal=false">
 </app-wanna-play-modal>
