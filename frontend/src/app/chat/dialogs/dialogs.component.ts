@@ -99,6 +99,7 @@ export class DialogsComponent implements OnInit {
           this.selectedChannelChanged.emit(selectedChannelId);
         }
         else if (this.foundChannel!.type === "password-protected") {
+          this.selectedChannelId = selectedChannelId;
           this.showEnterPasswordModal = true;
         }
       })
@@ -118,5 +119,11 @@ export class DialogsComponent implements OnInit {
         this.channelsLoaded = true;
       });
     });
+  }
+
+  handleEnteredPassword() {
+    this.showEnterPasswordModal = false;
+    this.channelService.enterChannel(new ChannelUpdate(this.selectedChannelId!, [this.authenticatedUser]));
+    this.selectedChannelChanged.emit(this.selectedChannelId);
   }
 }

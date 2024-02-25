@@ -30,5 +30,7 @@
 
 <app-enter-password-modal
         *ngIf="showEnterPasswordModal"
-        (modalClose)="showEnterPasswordModal=false">
+        [selectedChannelId]="selectedChannelId"
+        (modalClose)="showEnterPasswordModal=false"
+        (correctPasswordSubmitted)="handleEnteredPassword()">
 </app-enter-password-modal>
