@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Put, UseGuards} from '@nestjs/common';
 import {from, of} from "rxjs";
 import { UsersResponse } from 'src/adapter/dto/users-response';
 import {UsersService} from "../service/users.service";
@@ -37,5 +37,15 @@ export class UsersController {
   @Get('/all/users')
   getAllUsers() {
     return this.usersService.getAllUsers();
+  }
+
+  @Get('unique-name/:name')
+  isUniqueName(@Param('name') name: string) {
+    return this.usersService.isUniqueName(name);
+  }
+
+  @Put('/update')
+  updateNameOrPicture(@Body() request: UserRequest) {
+    return this.usersService.updateNameOrPicture(UserRequest.toDomain(request));
   }
 }

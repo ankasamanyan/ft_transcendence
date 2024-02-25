@@ -46,10 +46,10 @@ export class GameController {
   }
 
   // @UseGuards(JWTAuthGuard)
-  @Get('/future-matches/:userId')
-  getFutureMatches(@Param('userId') userId: number) {
-    return this.gameService.getFutureMatches(userId);
-  }
+  // @Get('/future-matches/:userId')
+  // getFutureMatches(@Param('userId') userId: number) {
+  //   return this.gameService.getFutureMatches(userId);
+  // }
 
   @Put('/invite/accept')
   accept(@Body() request: UsersRequest) {
@@ -58,15 +58,15 @@ export class GameController {
   // @UseGuards(JWTAuthGuard)
 
 
-    @Get('/future-matches')
-    getAllFutureMatches() {
-        return this.gameService.getAllFutureMatches();
-    }
+    // @Get('/future-matches')
+    // getAllFutureMatches() {
+    //     return this.gameService.getAllFutureMatches();
+    // }
 
-    @Get('/next-match')
-    getNextMatch() {
-        return this.gameService.getNextMatch();
-    }
+    // @Get('/next-match')
+    // getNextMatch() {
+    //     return this.gameService.getNextMatch();
+    // }
 
     @Get('/history/:userId')
     getMatchHistory(@Param('userId') userId: number) {

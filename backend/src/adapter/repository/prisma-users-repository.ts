@@ -40,6 +40,27 @@ export class PrismaUsersRepository {
   
   }
 
+  async isUniqueName(username: string) {
+    const isUnique = await this.prisma.user.findFirst({
+      where: {
+        name: username
+      }
+    });
+    return isUnique === null;
+  }
+
+  async updateNameOrPicture(user: User) {
+    await this.prisma.user.updateMany({
+      where: {
+        id: Number(user.id)
+      },
+      data: {
+        name: user.name,
+        picture: user.picture
+      }
+    });
+  }
+
   async addUser(user: User) {
     await this.prisma.$transaction([
 
