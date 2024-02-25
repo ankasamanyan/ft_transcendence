@@ -15,7 +15,7 @@
           <div class="friend-form">
             <div class="friend-info">
               <h3>{{ friend.name }}</h3>
-              <p class="username">{{ friend.intraLogin }}</p>
+              <p class="username">&commat;{{ friend.intraLogin }}</p>
             </div>
             <button class="action-button play" (click)="inviteToPlay()">Play<i class="bi bi-dice-2 icon-item"></i></button>
             <button class="action-button block" (click)="blockUser(friend)" >Block<i class="bi bi-ban icon-item"></i></button>
@@ -36,7 +36,7 @@
           <div class="friend-form">
             <div class="friend-info">
               <h3>{{ user.name }}</h3>
-              <p class="username">{{ user.intraLogin }} wants to be your friend </p>
+              <p class="username">&commat;{{ user.intraLogin }} wants to be your friend </p>
             </div>
             <button class="action-button accept" (click)="acceptFriendRequest(user)">Accept<i class="bi bi-check-circle icon-item"></i></button>
             <button class="action-button decline" (click)="declineFriendRequest(user)">Decline<i class="bi bi-x-circle icon-item"></i></button>
@@ -65,7 +65,7 @@
           <div class="friend-form">
             <div class="friend-info">
               <h3>{{ user.name }}</h3>
-              <p class="username">{{ user.intraLogin }}</p>
+              <p class="username">&commat;{{ user.intraLogin }}</p>
             </div>
             <button class="action-button" (click)="unBlock(user)">Unblock</button>
           </div>
