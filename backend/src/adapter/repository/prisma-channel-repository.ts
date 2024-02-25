@@ -29,6 +29,7 @@ interface ChannelDetails {
   owneremail: string,
   ownerisauthenticated: boolean,
   ownertfaenabled: boolean,
+  ownertfasecret: string | undefined,
 }
 
 @Injectable()
@@ -85,7 +86,8 @@ export class PrismaChannelRepository {
                u.intra_login      as ownerintraLogin,
                u.email            as owneremail,
                u.is_authenticated as ownerisauthenticated,
-               u.tfa_enabled      as tfa_enabled
+               u.tfa_enabled      as tfa_enabled,
+               u.tfa_secret         as tfa_secret
         from "Channel" c
                  LEFT JOIN "User" u on c."channelOwnerId" = u.id
         where c.id = ${channelIdAsInteger}
@@ -105,6 +107,7 @@ export class PrismaChannelRepository {
         channel[0].owneremail,
         channel[0].ownerisauthenticated,
         channel[0].ownertfaenabled,
+        channel[0].ownertfasecret,
       ),
       undefined,
       undefined,

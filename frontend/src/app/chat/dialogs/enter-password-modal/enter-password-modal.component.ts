@@ -13,6 +13,7 @@ export class EnterPasswordModalComponent {
   @Output()
   modalClose = new EventEmitter<void>();
 
+
   @Output()
   correctPasswordSubmitted = new EventEmitter<void>();
 
@@ -20,7 +21,8 @@ export class EnterPasswordModalComponent {
   selectedChannelId: number | undefined;
 
   channel: Channel | undefined;
-  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false);
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false, "");
+
 
   enteredPassword: string | undefined;
   showTryAgainText: boolean = false;

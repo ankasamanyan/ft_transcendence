@@ -98,7 +98,8 @@ export class PrismaUserStatisticsRespository {
         user.picture,
         user.email,
         user.is_authenticated,
-          user.tfa_enabled);
+          user.tfa_enabled,
+          user.tfa_secret);
     }));
 
 

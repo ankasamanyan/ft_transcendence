@@ -12,6 +12,8 @@ interface RawSql {
   email: string,
   is_authenticated: boolean,
   tfa_enabled: boolean,
+  tfa_secret: string | undefined
+
 }
 
 @Injectable()
@@ -64,7 +66,8 @@ export class PrismaBlockedUsersRepository {
                u.picture          as picture,
                u.email            as email,
                u.is_authenticated as is_authenticated,
-               u.tfa_enabled      as tfa_enabled
+               u.tfa_enabled      as tfa_enabled,
+                u.tfa_secret      as tfa_secret
         from "BlockedUser" b
                  LEFT JOIN "User" u on b."blockedId" = u.id
         where b."blockerId" = ${blockerIdAsInt}`
@@ -77,6 +80,7 @@ export class PrismaBlockedUsersRepository {
         user.email,
           user.is_authenticated,
           user.tfa_enabled,
+          user.tfa_secret,
         );
     }));
 

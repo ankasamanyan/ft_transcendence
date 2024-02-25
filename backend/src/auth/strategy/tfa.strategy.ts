@@ -26,13 +26,15 @@ export class TfaStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JwtPayload): Promise<User> {
-    // ////// console.log("validate jwt strategy")
 
     const user = await this.authService.findUser(Number(payload.sub));
-    if (!user) {
-      ////// console.log("Jwt guard validate invalid token");
+    if (!user.tfa_enabled) {
+      return user;
+    } else if (payload.is_two_FAed) {
+      return user;
+    } else {
+      ////// console.log("2-fa guard validate invalid token");
       throw new HttpException('Invalid Token', HttpStatus.UNAUTHORIZED);
     }
-    return user;
   }
 }

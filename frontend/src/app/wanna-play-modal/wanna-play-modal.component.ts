@@ -14,7 +14,7 @@ export class WannaPlayModalComponent {
   @Output()
   modalClose = new EventEmitter<void>();
 
-  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false);
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false, "");
 
   constructor(private gameService: GameService) {
 

@@ -17,7 +17,8 @@ export class UserResponse {
     public picture: string,
     public email: string | undefined,
     public isAuthenticated: boolean | undefined,
-    public tfa_enabled: boolean | undefined
+    public tfa_enabled: boolean | undefined,
+    public tfa_secret: string | undefined
   ) {
   }
 
@@ -30,6 +31,7 @@ export class UserResponse {
       response.email,
       response.isAuthenticated,
         response.tfa_enabled,
+        response.tfa_secret,
     );
   }
 
@@ -41,7 +43,8 @@ export class UserResponse {
       user.picture,
       user.email,
       user.isAuthenticated,
-        user.tfa_enabled
+        user.tfa_enabled,
+        user.tfa_secret
     );
   }
 }
@@ -63,7 +66,8 @@ export class UserRequest {
     public picture: string,
     public email: string | undefined,
     public isAuthenticated: boolean | undefined,
-    public tfa_enabled: boolean | undefined
+    public tfa_enabled: boolean | undefined,
+    public tfa_secret: string | undefined
   ) {
   }
 
@@ -75,7 +79,8 @@ export class UserRequest {
       request.picture,
       request.email,
       request.isAuthenticated,
-        request.tfa_enabled
+        request.tfa_enabled,
+        request.tfa_secret
     );
   }
 
@@ -87,7 +92,8 @@ export class UserRequest {
       user.picture,
       user.email,
       user.isAuthenticated,
-        user.tfa_enabled
+        user.tfa_enabled,
+        user.tfa_secret
     );
   }
 }

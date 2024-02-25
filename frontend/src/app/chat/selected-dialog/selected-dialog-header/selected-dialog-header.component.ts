@@ -21,7 +21,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   @Output()
   userBlocked = new EventEmitter<boolean>();
 
-  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false);
+  authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false, "");
   channel: Channel | undefined;
   participants: User[] | undefined;
   admins: User[] | undefined;
@@ -132,7 +132,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   sendAFriendRequest() {
     this.friendService.sendAFriendRequest(
       new Users([
-        new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false),
+        new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false, ""),
         this.selectedDialogPartner!
       ])
     ).subscribe(() => {
@@ -145,7 +145,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
 
   inviteUserToPlay() {
     this.gameService.invite(new Users([
-      new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false),
+      new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false, ""),
       this.selectedDialogPartner!
     ]));
   }
@@ -224,7 +224,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     } else {
       this.channelService.leaveChannel(new ChannelUpdate(
         this.channel?.id!,
-        [new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false)]
+        [new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false, "")]
       ));
       this.showLeaveModal = false;
     }
@@ -249,7 +249,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
 
   unblock() {
     this.blockedUserService.unblockUser(new Users([
-      new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false),
+      new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false, ""),
       this.selectedDialogPartner!
     ]));
     this.showUserUnblockedForFewSeconds();

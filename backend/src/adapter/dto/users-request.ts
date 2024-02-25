@@ -21,6 +21,7 @@ export class UserRequest {
       public email: string | undefined,
       public isAuthenticated: boolean | undefined,
       public tfa_enabled: boolean | undefined,
+      public tfa_secret: string | undefined,
   )
   {}
 
@@ -33,6 +34,7 @@ export class UserRequest {
         request.email,
         request.isAuthenticated,
         request.tfa_enabled,
+        request.tfa_secret,
     );
   }
 
@@ -45,6 +47,7 @@ export class UserRequest {
       user.email,
       user.isAuthenticated,
       user.tfa_enabled,
+        user.tfa_secret
     );
   }
 }

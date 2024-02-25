@@ -13,6 +13,7 @@ export class User {
   public email: string | undefined;
   public isAuthenticated: boolean | undefined;
   public tfa_enabled: boolean | undefined;
+  public tfa_secret: string | undefined;
 
   constructor(
     id: number | undefined,
@@ -22,6 +23,7 @@ export class User {
     email: string | undefined,
     isAuthenticated: boolean | undefined,
     tfa_enabled: boolean | undefined,
+    tfa_secret: string | undefined,
   ) {
     this.id = id;
     this.name = name;
@@ -30,5 +32,6 @@ export class User {
     this.email = email;
     this.isAuthenticated = isAuthenticated;
     this.tfa_enabled = tfa_enabled;
+    this.tfa_secret = tfa_secret;
   }
 }

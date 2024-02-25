@@ -71,7 +71,8 @@ export class PrismaUsersRepository {
             picture: user.picture,
             email: user.email,
             is_authenticated: user.isAuthenticated,
-            tfa_enabled: user.tfa_enabled
+            tfa_enabled: user.tfa_enabled,
+            tfa_secret: user.tfa_secret
           }
         }
     ),
@@ -98,7 +99,8 @@ export class PrismaUsersRepository {
           user.picture,
           user.email,
           user.is_authenticated,
-          user.tfa_enabled);
+          user.tfa_enabled,
+          user.tfa_secret);
     }
     return ;
   }
@@ -119,13 +121,15 @@ export class PrismaUsersRepository {
           user.picture,
           user.email,
           user.is_authenticated,
-          user.tfa_enabled);
+          user.tfa_enabled,
+          user.tfa_secret);
     }));
   }
 
   async getAllUsers() {
     const users = await this.prisma.user.findMany({});
-    return new UsersResponse(users.map((user) => {
+    return new UsersResponse(
+      users.map((user) => {
       return new UserResponse(
           user.id,
           user.name,
@@ -133,7 +137,8 @@ export class PrismaUsersRepository {
           user.picture,
           user.email,
           user.is_authenticated,
-          user.tfa_enabled);
+          user.tfa_enabled,
+          user.tfa_secret);
     }));
   }
 }

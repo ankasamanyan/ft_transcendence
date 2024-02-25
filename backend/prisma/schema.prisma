@@ -27,6 +27,7 @@ model User {
   is_authenticated  Boolean?
   games             Int[]
   tfa_enabled       Boolean?
+  tfa_secret	    String?
 }
 
 model BlockedUser {

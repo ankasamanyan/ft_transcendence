@@ -41,7 +41,8 @@ export class PrismaChannelAdminRepository {
       picture: string,
       email: string,
       is_authenticated: boolean,
-      tfa_enabled: boolean
+      tfa_enabled: boolean,
+      tfa_secret: string | undefined
     }] = await this.prisma.$queryRaw`
         SELECT u.id               as id,
                u.name             as name,
@@ -49,7 +50,8 @@ export class PrismaChannelAdminRepository {
                u.picture          as picture,
                u.email            as email,
                u.is_authenticated as is_authenticated,
-               u.tfa_enabled      as tfa_enabled
+               u.tfa_enabled      as tfa_enabled,
+               u.tfa_secret       as tfa_secret
         from "User" u
                  LEFT JOIN "ChannelAdmin" a on u.id = a.user_id
         where a.channel_id = ${channelIdInt}`
@@ -61,7 +63,8 @@ export class PrismaChannelAdminRepository {
         user.picture,
         user.email,
         user.is_authenticated,
-          user.tfa_enabled);
+          user.tfa_enabled,
+          user.tfa_secret);
     }));
   }
 
