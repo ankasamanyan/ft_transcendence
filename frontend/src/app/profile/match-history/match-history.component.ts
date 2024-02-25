@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatchHistoryDto } from 'src/app/service/dto/game.dto';
+import { GameService } from 'src/app/service/game.service';
 
 @Component({
   selector: 'app-match-history',
@@ -7,6 +8,10 @@ import { MatchHistoryDto } from 'src/app/service/dto/game.dto';
   styleUrls: ['./match-history.component.css']
 })
 export class MatchHistoryComponent implements OnInit {
+
+  constructor(
+    private gameService: GameService,
+  ){}
 
   @Input() userId!: number;
   
@@ -16,38 +21,10 @@ export class MatchHistoryComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.historyList = [
-      { 
-        name: 'Anait', 
-        profilePicture: '../../../assets/placeholderAvatar.jpeg',
-        username: '@akasaman',
-        myMatchResult: 3,
-        opponentMatchResult: 2,
-        opponentName: 'Cedric',
-        opponentUsername: '@cerdelen',
-        opponentProfilePicture: '../../../assets/placeholderComrade2.jpeg',
-      },
-      { 
-        name: 'Anait', 
-        profilePicture: '../../../assets/placeholderAvatar.jpeg',
-        username: '@akasaman',
-        myMatchResult: 1,
-        opponentMatchResult: 3,
-        opponentName: 'Tetiana',
-        opponentUsername: '@tfedoren',
-        opponentProfilePicture: '../../../assets/placeholderComrade.jpeg',
-      },
-      { 
-        name: 'Anait', 
-        profilePicture: '../../../assets/placeholderAvatar.jpeg',
-        username: '@akasaman',
-        myMatchResult: 2,
-        opponentMatchResult: 2,
-        opponentName: 'Kristiyana',
-        opponentUsername: '@kmilchev',
-        opponentProfilePicture: '../../../assets/placeholderComrade3.jpeg',
-      },
-    ];
+    this.gameService.getMatchHistory(this.userId)
+      .subscribe(data => {
+        this.historyList = data.history;
+      });
   }
 
 }

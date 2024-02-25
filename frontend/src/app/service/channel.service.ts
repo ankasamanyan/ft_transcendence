@@ -8,6 +8,8 @@ import {ChannelRequest, ChannelResponse, ChannelsResponse} from "./dto/channel.d
 import {OurSocket} from "../socket/socket";
 import {ChannelUpdate} from "../domain/channel-update";
 import {ChannelUpdateRequest} from "./dto/channel-update.dto";
+import {ConfirmPassword} from "../domain/confirm-password";
+import {ConfirmPasswordRequest} from "./dto/confirm-password.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -81,6 +83,10 @@ export class ChannelService {
 
   setPassword(channel: Channel) {
     return this.socket.emit('passwordChange', ChannelRequest.fromDomain(channel));
+  }
+
+  confirmPassword(confirmPassword: ConfirmPassword) {
+    return this.httpClient.post<boolean>("http://localhost:3000/channels/confirm-password", ConfirmPasswordRequest.fromDomain(confirmPassword));
   }
 
   assignAdmins(channelUpdate: ChannelUpdate) {

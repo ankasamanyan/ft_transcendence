@@ -80,7 +80,7 @@ export class ChannelController {
     return this.channelService.setPassword(ChannelRequest.toDomain(request));
   }
 
-  @Get('/confirm-password')
+  @Post('/confirm-password')
   confirmPassword(@Body() request: ConfirmPasswordRequest) {
     return this.channelService.confirmPassword(ConfirmPasswordRequest.toDomain(request));
   }

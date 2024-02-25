@@ -8,7 +8,7 @@
           <i class="bi bi-pencil-square menu" (click)="selectMenuItem('settings')"> </i>
         </div>
 
-          <div><img src="{{user.picture}}" class="profile-icon" alt="Profile Picture"></div>
+          <div><img [src]="user.picture" class="profile-icon" alt="Profile Picture"></div>
 
         <div class="profile-info">
           <h5 class="name">{{user.name}}</h5>
@@ -32,14 +32,20 @@
 
       </div>
       <div class="content">
-        <app-friends *ngIf="selectedMenuItem === 'friends'" [userId]="userId"></app-friends>
-        <app-achievements  *ngIf="selectedMenuItem === 'achievements'" [userId]="userId"></app-achievements>
-        <app-match-history  *ngIf="selectedMenuItem ===  'match-history'" [userId]="userId"></app-match-history>
+        <app-friends *ngIf="selectedMenuItem === 'friends'" 
+                      [userId]="userId">
+        </app-friends>
+        <app-achievements  *ngIf="selectedMenuItem === 'achievements'" 
+                          [userId]="userId">
+        </app-achievements>
+        <app-match-history  *ngIf="selectedMenuItem ===  'match-history'" 
+                            [userId]="userId">
+        </app-match-history>
         <app-statistics *ngIf="selectedMenuItem ===  'statistics'" [userId]="userId"></app-statistics>
         <app-settings  *ngIf="selectedMenuItem === 'settings'"
                       [name]="user.name" 
                       [username]="user.intraLogin"
                       [profilePicture]="user.picture">
-         </app-settings>
+        </app-settings>
   </div>
 </div>

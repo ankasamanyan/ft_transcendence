@@ -10,8 +10,8 @@
   <div class="header">
     <div><img class="picture" [src]='match.profilePicture' alt="User Picture"></div>
     <div class="info">
-      <h3>{{ match.name }}</h3>
-      <p class="username">{{ match.username }}</p>
+      <h3>{{ match.name.split(' ')[0] }}</h3>
+      <p class="username">&commat;{{ match.username }}</p>
     </div>
   </div>
 
@@ -21,8 +21,8 @@
 
   <div class="header">
     <div class="info">
-      <h3>{{ match.opponentName }}</h3>
-      <p class="username">{{ match.opponentUsername }}</p>
+      <h3>{{ match.opponentName.split(' ')[0] }}</h3>
+      <p class="username">&commat;{{ match.opponentUsername }}</p>
     </div>
     <div><img class="picture" [src]='match.opponentProfilePicture' alt="Opponent Picture"></div>
   </div>
