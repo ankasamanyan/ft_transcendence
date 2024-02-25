@@ -44,6 +44,7 @@ import { PrismaQueueRepository } from './adapter/repository/prisma-queue-reposit
 import { PrismaStatusRepository } from './adapter/repository/prisma-status-repository';
 import { QueueService } from './service/queue-service';
 import { StatusService } from './service/status-service';
+import { PrismaOnlineStatusRepository } from './adapter/repository/prisma-online-status-repository';
 
 @Module({
   imports: [
@@ -91,6 +92,7 @@ import { StatusService } from './service/status-service';
     PrismaGameInvitationRepository,
     PrismaQueueRepository,
     PrismaStatusRepository,
+    PrismaOnlineStatusRepository,
     UserStatisticsService,
     AuthService,
     FTAuthGuard,

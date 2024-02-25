@@ -63,7 +63,6 @@ export class PrismaUsersRepository {
 
   async addUser(user: User) {
     await this.prisma.$transaction([
-
      this.prisma.user.create({
           data: {
             name: user.name,
@@ -72,7 +71,8 @@ export class PrismaUsersRepository {
             email: user.email,
             is_authenticated: user.isAuthenticated,
             tfa_enabled: user.tfa_enabled,
-            tfa_secret: user.tfa_secret
+            tfa_secret: user.tfa_secret,
+            online: false
           }
         }
     ),
@@ -140,5 +140,36 @@ export class PrismaUsersRepository {
           user.tfa_enabled,
           user.tfa_secret);
     }));
+  }
+
+  async getStatus(userId: number) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId
+      }
+    });
+    if (user) {
+      if (user.online == false) {
+        return "Offline"
+      }
+      const runningGames = await this.prisma.game.findMany({
+        where: {
+          finished: false,
+          OR: [
+            { player1: userId },
+            { player2: userId }
+          ]
+        }
+      })
+      if (runningGames.length > 0) {
+        console.log("return playing")
+        return "Playing"
+      }
+      console.log("return online")
+      return "Online"
+    } else {
+      console.log("return unknown user")
+      return "UnknownUser"
+    }
   }
 }

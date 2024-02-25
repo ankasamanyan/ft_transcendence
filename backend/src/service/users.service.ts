@@ -8,6 +8,10 @@ export class UsersService {
   constructor(public usersRepository: PrismaUsersRepository) {
   }
 
+  getStatus(userId: number) {
+    return from(this.usersRepository.getStatus(userId));
+  }
+
   initializeUsers() {
     return from(this.usersRepository.initializeUsers());
   }

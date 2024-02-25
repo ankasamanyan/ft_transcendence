@@ -1,12 +1,8 @@
 
-import { ForbiddenException, Injectable, Req, Res } from '@nestjs/common';
+import { Injectable, Req, Res } from '@nestjs/common';
 import { PrismaService } from '../service/prisma.service';
-import { User } from '../domain/user';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-// import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-// import { User } from '../domain/user';
 
 @Injectable()
 export class AuthService {
@@ -31,8 +27,8 @@ export class AuthService {
     const token = this.jwtService.sign(payload, {
       secret: this.config.get('our_JWT_secret'),
     });
-    res.cookie('accessToken', token);
     res.cookie('id', payload.sub);
+    res.cookie('accessToken', token);
     res.redirect(`http://localhost:4200/chat`);
   }
 

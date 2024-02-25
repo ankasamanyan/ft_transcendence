@@ -13,6 +13,8 @@ import { MuteTimer } from 'src/cron/timer';
 import { PrismaUserStatisticsRespository } from 'src/adapter/repository/prisma-user-statistics-respository';
 import {BlockedUsersService} from "../../service/blocked-users.service";
 import {PrismaBlockedUsersRepository} from "../../adapter/repository/prisma-blocked-users-repository";
+import { OnlineStatusService } from 'src/service/online-status.service';
+import { PrismaOnlineStatusRepository } from 'src/adapter/repository/prisma-online-status-repository';
 
 @Module({
   providers: [
@@ -30,6 +32,8 @@ import {PrismaBlockedUsersRepository} from "../../adapter/repository/prisma-bloc
     MuteTimer,
     BlockedUsersService,
     PrismaBlockedUsersRepository,
+    PrismaOnlineStatusRepository,
+    OnlineStatusService
   ]
 })
 export class ChatGatewayModule {

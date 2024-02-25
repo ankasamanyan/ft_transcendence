@@ -39,6 +39,11 @@ export class UsersController {
     return this.usersService.getAllUsers();
   }
 
+  @Get('/getStatus/:userId')
+  getStatus(@Param('userId') userId: number) {
+    return this.usersService.getStatus(Number(userId));
+  }
+
   @Get('unique-name/:name')
   isUniqueName(@Param('name') name: string) {
     return this.usersService.isUniqueName(name);

@@ -4,6 +4,7 @@ import { OurSocket } from '../socket/socket';
 import { SharedDataService } from '../service/shared-data.service';
 import { ElementRef, ViewChild } from '@angular/core';
 import { GameOverDto, BallUpdateDto, GameScoreUpdateDto, GameStartResponseDto, PaddleUpdateDto, PaddleUpdateResponseDto } from '../service/dto/game.dto';
+import { HttpClient } from "@angular/common/http";
 
 
 
@@ -16,7 +17,8 @@ export class GameComponent implements OnInit {
   userId!: number ;
   gameId: number = 1;
   paddleMoveSize: number = 5;
-  constructor(private socket: OurSocket, private sharedDataService: SharedDataService){}
+  constructor(private socket: OurSocket, private sharedDataService: SharedDataService,
+    private httpClient: HttpClient){}
 
   NavigationBarStatus = NavigationBarStatus;
 
@@ -115,18 +117,20 @@ export class GameComponent implements OnInit {
     }
   }
 
-  private handleKeyDown(e: KeyboardEvent): void {
+  private handleKeyDown(e: KeyboardEvent):void {
+    if (e.key === 'ArrowRight') {
+    this.httpClient.get<string>("http://localhost:3000/users/getStatus/"+ 98455)
+    .subscribe((data: string) => {
+    });
+  }
     if (this.gameState === 'play') {
       if (e.key === 'ArrowUp') {
         this.socket.emit("paddleUpdate", {gameId: this.gameId, userId: this.userId, paddleMove: this.paddleMoveSize * -1} as PaddleUpdateDto);
-        console.log("pressed arrow up");
       } else if (e.key === 'ArrowDown') {
         this.socket.emit("paddleUpdate", {gameId: this.gameId, userId: this.userId, paddleMove: this.paddleMoveSize} as PaddleUpdateDto);
-        console.log("pressed arrow down");
       } else if (e.key === 'ArrowLeft') {
         const my_id = this.sharedDataService.getData$().subscribe();
         this.socket.emit("startGame", {user1: this.userId, user2: 98629});
-        console.log("pressed arrow left");
       }
     }
     if (e.key === 'Enter') {
