@@ -17,7 +17,7 @@
              *ngFor="let channel of displayedChannels"
              (click)="changeSelectedChannel(channel.id!)"
              [ngClass]="{'selected-color': channel.id === this.selectedChannelId}">
-            <app-dialog [channel]="channel"></app-dialog>
+            <app-dialog [channel]="channel" [authenticatedUser]="authenticatedUser"></app-dialog>
         </div>
     </div>
 </div>

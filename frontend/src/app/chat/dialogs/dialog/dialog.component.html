@@ -9,7 +9,7 @@
         {{getTime()}}
       </span>
     </div>
-    <div class="message">
+    <div *ngIf="shouldShowMessage()" class="message">
       <span>
         {{channel?.lastMessage}}
       </span>
