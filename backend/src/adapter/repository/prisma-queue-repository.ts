@@ -25,7 +25,6 @@ export class PrismaQueueRepository {
 				}
 			}),
 		]);
-		console.log('queue entry created and status updated successfully');
 	}    
 
 

@@ -14,4 +14,13 @@ export class PrismaStatusRepository {
 		})
 	}
 
+	async getStatus(userId: number) {
+		const user = await this.prisma.status.findFirst({
+			where: {
+				userId: Number(userId)
+			}
+		});
+		return user.status;
+	}
+
 }

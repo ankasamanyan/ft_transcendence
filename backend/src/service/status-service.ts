@@ -9,4 +9,8 @@ export class StatusService {
 	createStatus(userId: number) {
 		return from(this.statusRepository.createStatus(userId));
 	}
+
+	getStatus(userId: number) {
+		return from(this.statusRepository.getStatus(userId));
+	}
 }

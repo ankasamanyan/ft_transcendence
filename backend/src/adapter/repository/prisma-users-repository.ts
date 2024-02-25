@@ -10,8 +10,10 @@ export class PrismaUsersRepository {
   }
 
   async initializeUsers() {
+
     if ((await this.prisma.user.count()) === 0) {
-      await this.prisma.user.createMany({
+      await this.prisma.$transaction([
+       this.prisma.user.createMany({
         data: [
           {name: "Anahit", intra_login: "@akasaman", picture: "assets/placeholderAvatar.jpeg"},
           {name: "Tania", intra_login: "@tfedoren", picture: "assets/placeholderComrade.jpeg"},
@@ -21,12 +23,27 @@ export class PrismaUsersRepository {
           {name: "Fedia", intra_login: "@fstaryk", picture: "assets/placeholderComrade5.jpeg"},
           {name: "Wolf", intra_login: "@wmardin", picture: "assets/placeholderComrade6.jpeg"},
         ]
-      });
-    }
+      }),
+      this.prisma.status.createMany({
+        data: [
+          {userId: Number(1), status: 'available'},
+          {userId: Number(2), status: 'available'},
+          {userId: Number(3), status: 'available'},
+          {userId: Number(4), status: 'available'},
+          {userId: Number(5), status: 'available'},
+          {userId: Number(6), status: 'available'},
+          {userId: Number(7), status: 'available'},
+        ]
+      })
+    ]);
+    };
+  
   }
 
   async addUser(user: User) {
-    await this.prisma.user.create({
+    await this.prisma.$transaction([
+
+     this.prisma.user.create({
           data: {
             name: user.name,
             intra_login: user.intraLogin,
@@ -36,7 +53,14 @@ export class PrismaUsersRepository {
             tfa_enabled: user.tfa_enabled
           }
         }
-    );
+    ),
+    this.prisma.status.create({
+			data: {
+				userId: Number(user.id),
+				status: 'available'
+			}
+		}),
+  ]);
   }
 
   async getUserById(userId: number) {

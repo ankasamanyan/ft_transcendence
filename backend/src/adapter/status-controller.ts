@@ -9,4 +9,9 @@ export class StatusController {
 	createStatus(@Param('userId') userId: number) {
 		return this.statusService.createStatus(userId);
 	}
+
+	@Get('/status/:userId')
+	getStatus(@Param('userId') userId: number) {
+		return this.statusService.getStatus(userId);
+	}
 }
