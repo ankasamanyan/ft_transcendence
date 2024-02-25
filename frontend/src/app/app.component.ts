@@ -20,13 +20,13 @@ export class AppComponent {
   authenticatedUser: User = new User(1, "Anahit", "@akasaman", "assets/placeholderAvatar.jpeg", "", true, false, "");
 
   constructor(
+      private socket: OurSocket,
       private modalService: NgbModal,
       private usersService: UsersService,
       private messageService: MessageService,
       private friendService: FriendService,
       private channelService: ChannelService,
       private sharedDataService: SharedDataService,
-      private socket: OurSocket
   ) {
     this.usersService.initializeUsers().subscribe();
     this.friendService.initializeFriends().subscribe();

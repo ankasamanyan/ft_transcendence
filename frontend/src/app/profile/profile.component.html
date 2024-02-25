@@ -8,7 +8,7 @@
           <i class="bi bi-pencil-square menu" (click)="selectMenuItem('settings')"> </i>
         </div>
 
-          <div><img [src]="user.picture" class="profile-icon" alt="Profile Picture"></div>
+          <div><img #statusRef [ngStyle]="{'border-color' : getStatusColor(status)}" [src]="user.picture" class="profile-icon" alt="Profile Picture"></div>
 
         <div class="profile-info">
           <h5 class="name">{{user.name}}</h5>

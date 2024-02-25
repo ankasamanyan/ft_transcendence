@@ -55,6 +55,7 @@
   justify-content: center;
   object-fit: cover;
   box-shadow: 0 2px 20px rgb(255, 255, 255);
+  border: 5px solid ;
 }
 
 .username {

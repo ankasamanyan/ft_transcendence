@@ -139,4 +139,17 @@ ngOnChanges(changes: SimpleChanges): void {
     this.destroy$.complete();
   }
 
+  getStatusColor(status: string): string {
+    switch (status) {
+      case 'Online':
+        return '#692a71';
+      case 'Offline':
+        return 'red';
+      case 'Playing':
+        return 'purple';
+      default:
+        return 'var(--color-dark blue)';
+    }
+  }
+
 }

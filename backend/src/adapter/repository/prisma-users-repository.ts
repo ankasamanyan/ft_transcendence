@@ -150,7 +150,7 @@ export class PrismaUsersRepository {
     });
     if (user) {
       if (user.online == false) {
-        return "Offline"
+        return {status: "Offline"}          
       }
       const runningGames = await this.prisma.game.findMany({
         where: {
@@ -163,13 +163,13 @@ export class PrismaUsersRepository {
       })
       if (runningGames.length > 0) {
         console.log("return playing")
-        return "Playing"
+        return {status: "Playing"}      
       }
       console.log("return online")
-      return "Online"
+      return {status: "Online"}      
     } else {
       console.log("return unknown user")
-      return "UnknownUser"
+      return {status: "unknown"}      
     }
   }
 }
