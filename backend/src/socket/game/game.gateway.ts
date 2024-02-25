@@ -12,7 +12,7 @@ export class GameGateway {
   server: Server;
 
   constructor(
-    private gameService: GameService) {
+      private gameService: GameService) {
 
   }
 
@@ -20,10 +20,7 @@ export class GameGateway {
   async paddleArrowUp(@MessageBody() input: PaddleUpdateDto) {
     console.log("gamepaddle update backend with value");
     console.log(input);
-    console.log(input);
-    const response = await this.gameService.updatePaddle(input);
-    // this.server.emit('GameUpdate', response);  // probably dont need this as the loop is running :)
-    // this.server.emit('GameUpdate', response);  // probably dont need this as the loop is running :)
+    this.gameService.updatePaddle(input);
   }
 
 

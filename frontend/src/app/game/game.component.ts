@@ -3,7 +3,7 @@ import { NavigationBarStatus } from '../domain/navigation-bar';
 import { OurSocket } from '../socket/socket';
 import { SharedDataService } from '../service/shared-data.service';
 import { ElementRef, ViewChild } from '@angular/core';
-import { GameResponsetDto, GameScoreUpdateDto, GameStartResponseDto, PaddleUpdateDto } from '../service/dto/game.dto';
+import { GameOverDto, BallUpdateDto, GameScoreUpdateDto, GameStartResponseDto, PaddleUpdateDto, PaddleUpdateResponseDto } from '../service/dto/game.dto';
 
 
 
@@ -24,26 +24,15 @@ export class GameComponent implements OnInit {
 
   // constants   if these change you have to change them in the backend too!!!
   paddleOffset: number = 10;
-	paddleWidth: number = 2;
-	ballRadius: number = 3;
-	paddleHeight: number = 36 / 2;
-  
-  // Paddle positions
-  // paddle1Top = 'calc(7.5vh + 55px)';
-  // paddle1Left = 'calc(10vw + 30px)';
-  // paddle2Top = 'calc(85vh + 7.5vh - 100px - 55px)';
-  // paddle2Right = 'calc(10vw + 30px)';
+  paddleWidth: number = 2;
+  ballRadius: number = 2;
+  paddleHeight: number = 36 / 2;
 
-
-  paddle1Top: number = 50;
-  paddle2Top: number = 50;
+  paddle1Top: number = 0;
+  paddle2Top: number = 0;
 
   paddle1Left: number = 50;
   paddle2Right: number = 50;
-
-  // Ball position
-  ballTop = 'calc(50% - 15px)';
-  ballLeft = 'calc(50% - 15px)';
 
   ballPosition: [number, number] = [0, 0];
 
@@ -56,56 +45,74 @@ export class GameComponent implements OnInit {
 
   // Game message
   gameMessage = 'Press Enter to Play Pong';
-  
+
   ngOnInit(): void {
-
-
     this.sharedDataService.getData$()
-      .subscribe((userId) => {
-        this.userId = userId;
-      });
-      this.socket.on("GameUpdate", (gameResponsetDto: GameResponsetDto) => {
-        // console.log(gameResponsetDto);
-        this.ballPosition = gameResponsetDto.ballPos;
-        this.paddle1Top = gameResponsetDto.paddleLeft;
-        this.paddle2Top = gameResponsetDto.paddleRight;
-        // console.log("new ballPosition: " + this.ballPosition);
-        const ballElement: HTMLElement = this.ballRef.nativeElement;
-        const paddle1Element: HTMLElement = this.paddle1Ref.nativeElement;
-        const paddle2Element: HTMLElement = this.paddle2Ref.nativeElement;
-        ballElement.style.top = (this.ballPosition[0] - this.ballRadius) + '%';
-        ballElement.style.left = (this.ballPosition[1] - this.ballRadius) + '%';
-        paddle1Element.style.top = (this.paddle1Top - (this.paddleHeight / 2)) + '%';
-        paddle2Element.style.top = (this.paddle2Top - (this.paddleHeight / 2)) + '%';
-        paddle1Element.style.left= (this.paddleOffset - this.paddleWidth / 2) + '%';
-        paddle2Element.style.right = (this.paddleOffset - this.paddleWidth / 2) + '%';
-        paddle1Element.style.width = this.paddleWidth + '%';
-        paddle1Element.style.height = this.paddleHeight + '%';
-        paddle2Element.style.width = this.paddleWidth + '%';
-        paddle2Element.style.height = this.paddleHeight + '%';
-      });
-      this.socket.on("gameStarted", (gameStartResponseDto: GameStartResponseDto) => {
-        console.log(gameStartResponseDto);
-        this.gameId = gameStartResponseDto.gameId;
-        this.score1 = 0;
-        this.score2 = 0;
-        const ballElement: HTMLElement = this.ballRef.nativeElement;
-        ballElement.style.height = this.ballRadius + '%';
-        ballElement.style.width = this.ballRadius + '%';
-      });
-      this.socket.on("ScoreUpdate", (gameScoreUpdateDto: GameScoreUpdateDto) => {
-        console.log(gameScoreUpdateDto);
-        console.log("got a new score update");
-        console.log("this is game id" + this.gameId);
-        
-        if (this.gameId === gameScoreUpdateDto.gameId)
-        {
-          this.score1 = gameScoreUpdateDto.player1Score;
-          this.score2 = gameScoreUpdateDto.player2Score;
+        .subscribe((userId) => {
+          this.userId = userId;
+        });
+    this.socket.on("GameUpdate", (BallUpdateDto: BallUpdateDto) => {
+      this.ballPosition = BallUpdateDto.ballPos;
+      const ballElement: HTMLElement = this.ballRef.nativeElement;
+      ballElement.style.top = (this.ballPosition[1] - this.ballRadius) + '%';
+      ballElement.style.left = (this.ballPosition[0] - this.ballRadius) + '%';
+      console.log("BallUpdate: " + this.ballPosition);
+    });
+
+    this.socket.on("paddleUpdate", (paddleUpdate: PaddleUpdateResponseDto) => {
+      if (this.gameId === paddleUpdate.gameId) {
+        this.renderPaddles(paddleUpdate.paddleLeft, paddleUpdate.paddleRight);
+      }
+
+    });
+
+    this.socket.on("gameOver", (gameOverDto: GameOverDto) => {
+      if (gameOverDto.gameId === this.gameId) {
+        if (gameOverDto.winnerId === this.userId) {
+          this.gameMessage = "You Won!"
         }
-        console.log(this.score1 + this.score2);
-      });
+        else {
+          this.gameMessage = "You lost!"
+        }
+      }
+    })
+
+    this.socket.on("gameStarted", (gameStartResponseDto: GameStartResponseDto) => {
+      this.gameId = gameStartResponseDto.gameId;
+      this.score1 = 0;
+      this.score2 = 0;
+      const ballElement: HTMLElement = this.ballRef.nativeElement;
+      ballElement.style.height = this.ballRadius + '%';
+      ballElement.style.width = this.ballRadius + '%';
+      this.renderPaddles(50, 50);
+    });
+    this.socket.on("ScoreUpdate", (gameScoreUpdateDto: GameScoreUpdateDto) => {
+      if (this.gameId === gameScoreUpdateDto.gameId)
+      {
+        this.score1 = gameScoreUpdateDto.player1Score;
+        this.score2 = gameScoreUpdateDto.player2Score;
+      }
+    });
     document.addEventListener('keydown', (e) => this.handleKeyDown(e));
+  }
+
+  renderPaddles(paddleLeft: number, paddleRight: number) {
+    if (this.paddle1Top !== paddleLeft){
+      const paddle1Element: HTMLElement = this.paddle1Ref.nativeElement;
+      this.paddle1Top = paddleLeft;
+      paddle1Element.style.top = (this.paddle1Top - (this.paddleHeight / 2)) + '%';
+      paddle1Element.style.left= (this.paddleOffset - this.paddleWidth / 2) + '%';
+      paddle1Element.style.width = this.paddleWidth + '%';
+      paddle1Element.style.height = this.paddleHeight + '%';
+    }
+    if (this.paddle2Top !== paddleRight){
+      const paddle2Element: HTMLElement = this.paddle2Ref.nativeElement;
+      this.paddle2Top = paddleRight;
+      paddle2Element.style.top = (this.paddle2Top - (this.paddleHeight / 2)) + '%';
+      paddle2Element.style.right = (this.paddleOffset - this.paddleWidth / 2) + '%';
+      paddle2Element.style.width = this.paddleWidth + '%';
+      paddle2Element.style.height = this.paddleHeight + '%';
+    }
   }
 
   private handleKeyDown(e: KeyboardEvent): void {
@@ -118,10 +125,10 @@ export class GameComponent implements OnInit {
         console.log("pressed arrow down");
       } else if (e.key === 'ArrowLeft') {
         const my_id = this.sharedDataService.getData$().subscribe();
-      this.socket.emit("startGame", {user1: this.userId, user2: 98629});
-      console.log("pressed arrow left");
+        this.socket.emit("startGame", {user1: this.userId, user2: 98629});
+        console.log("pressed arrow left");
+      }
     }
-  }
     if (e.key === 'Enter') {
       this.gameState = this.gameState === 'start' ? 'play' : 'start';
       if (this.gameState === 'play') {

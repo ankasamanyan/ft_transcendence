@@ -5,15 +5,14 @@ import { PrismaGameInvitationRepository } from 'src/adapter/repository/prisma-ga
 import { PrismaService } from './prisma.service';
 import { Server } from 'socket.io';
 import { PrismaGameRepository } from 'src/adapter/repository/prisma-game-repository';
-import { GameResponsetDto, GameScoreUpdateDto, GameStartResponseDto, PaddleUpdateDto } from 'src/adapter/dto/game.dto';
+import { GameOverDto, BallUpdateDto, GameScoreUpdateDto, GameStartResponseDto, PaddleUpdateDto, PaddleUpdateResponseDto } from 'src/adapter/dto/game.dto';
 
-
-
-  enum GameStatus {
+enum GameStatus {
 	INIT,
 	RUNNING,
 	ENDED
 }
+
 
 enum GameEvent {
 	SCORE1,
@@ -31,7 +30,7 @@ export class GameData {
 	// constants     if any of these change you have to change them in the frontend too!!!
 	windowWidth: number = 100;
 	windowHeight: number = 100;
-	ballRadius: number = 3;
+	ballRadius: number = 2;
 	paddleOffset: number = 10;
 	paddleWidth: number = 2;
 	paddleHeight: number = 36 / 2;
@@ -39,13 +38,11 @@ export class GameData {
 
 	ScorePlayer1: number = 0;
 	ScorePlayer2: number = 0;
-	PositionPaddle1: number = 50 - this.paddleHeight;
-	PositionPaddle2: number = 50 - this.paddleHeight;
+	PositionPaddle1: number = 50;
+	PositionPaddle2: number = 50;
 	PositionBall: [number, number] = [50, 50];
 	VelocityBall: [number, number] = this.initializeRandomVelocity();
 	gameStatus: GameStatus = GameStatus.INIT;
-
-	interval: NodeJS.Timer;
 
 	constructor(userId1: number, userId2: number, gameID: number) {
 		this.player1 = userId1;
@@ -54,17 +51,19 @@ export class GameData {
 	}
 
 	initializeRandomVelocity(): [number, number] {
-		// Generate random angle
+		const minVx: number = 0.35;
 		const velo: number = 1.5;
-		const angle = Math.random() * Math.PI * 2; // Random angle in radians
 
-		// Calculate vx and vy based on the angle
-		const vx = Math.cos(angle) * velo;
-		const vy = Math.sin(angle) * velo;
+		let angle = Math.random() * Math.PI * 2;
+		let vx = Math.cos(angle) * velo;
+		let vy = Math.sin(angle) * velo;
 
+		while (Math.abs(vx) < minVx) {
+			angle = Math.random() * Math.PI * 2;
+			vx = Math.cos(angle) * velo;
+			vy = Math.sin(angle) * velo;
+		} // redo velocities in case x velocity is too small
 		return [vx, vy];
-
-		// return [-1, +0.5]
 	}
 
 	checkPaddleCollision(nextBallX: number, nextBallY: number): Boolean {
@@ -80,14 +79,14 @@ export class GameData {
 		if (
 			nextBallX - this.ballRadius <= paddle1Right && // Check if ball's right side is beyond paddle's left side
 			((nextBallY - this.ballRadius>= paddle1Top && nextBallY - this.ballRadius <= paddle1Bottom) ||
-			(nextBallY + this.ballRadius >= paddle1Top && nextBallY + this.ballRadius<= paddle1Bottom))
+				(nextBallY + this.ballRadius >= paddle1Top && nextBallY + this.ballRadius<= paddle1Bottom))
 		) {
 			return true;
 		} // paddle 1 coll
 		if (
 			nextBallX + this.ballRadius >= paddle2Left && // Check if ball's left side is beyond paddle's right side
 			((nextBallY - this.ballRadius>= paddle2Top && nextBallY - this.ballRadius <= paddle2Bottom) ||
-			(nextBallY + this.ballRadius >= paddle2Top && nextBallY + this.ballRadius<= paddle2Bottom))
+				(nextBallY + this.ballRadius >= paddle2Top && nextBallY + this.ballRadius<= paddle2Bottom))
 		) {
 			return true;
 		} // paddle 2 coll
@@ -97,14 +96,14 @@ export class GameData {
 	checkEvent(): GameEvent {
 		const [ballX, ballY] = this.PositionBall;
 		const [ballVx, ballVy] = this.VelocityBall;
-	
+
 		const nextBallX = ballX + ballVx;
 		const nextBallY = ballY + ballVy;
 		if (nextBallX - this.ballRadius <= 0) {
-				return GameEvent.SCORE2;
+			return GameEvent.SCORE2;
 		}
 		if (nextBallX + this.ballRadius >= this.windowWidth) {
-				return GameEvent.SCORE1;
+			return GameEvent.SCORE1;
 		}
 		if (this.checkPaddleCollision(nextBallX, nextBallY) === true) {
 			console.log("paddlecollision")
@@ -144,8 +143,6 @@ export class GameData {
 	}
 	handlePaddleCollision() {
 		// problem it alwas thinks it will collide top or bottom if its past its middle facing boundry
-
-
 		if (this.PositionBall[0] < 50) {
 			if (this.PositionBall[0] - this.ballRadius > this.paddleOffset + (this.paddleWidth / 2)) {
 				this.VelocityBall[0] *= -1;
@@ -176,9 +173,7 @@ export class GameData {
 
 	async gameLoop() {
 		console.log("inside gameLoop function with ballCoord: " + this.PositionBall + " " + this.VelocityBall);
-		// console.log(this.PositionPaddle1 + " " + this.PositionPaddle2);
 		const scoreCase = this.checkEvent();
-		// console.log("scoreCase: " + scoreCase);
 		if (scoreCase === GameEvent.SCORE2 || scoreCase === GameEvent.SCORE1) {
 			this.scoreUpdate(scoreCase);
 			if (this.ScorePlayer1 === this.winscore || this.ScorePlayer2 === this.winscore) {
@@ -186,17 +181,17 @@ export class GameData {
 				return ;
 			}
 			this.resetAfterScore();
+			this.server.emit("paddleUpdate", {gameId: this.gameId, paddleLeft: this.PositionPaddle1, paddleRight: this.PositionPaddle2} as PaddleUpdateResponseDto);
 		}
 		if (scoreCase === GameEvent.NOTHING) {
 			this.updateBallPosition();
 		}
 		if (scoreCase === GameEvent.PADDLECOLLISION) {
 			this.handlePaddleCollision();
+			this.updateBallPosition();
 		}
-		const dto: GameResponsetDto = {
+		const dto: BallUpdateDto = {
 			gameId: this.gameId,
-			paddleLeft: this.PositionPaddle1,
-			paddleRight: this.PositionPaddle2,
 			ballPos: this.PositionBall,
 		}
 		this.server.emit('GameUpdate', dto);
@@ -226,13 +221,12 @@ export class GameData {
 				}
 			}
 		}
+		this.server.emit("paddleUpdate", {gameId: this.gameId, paddleLeft: this.PositionPaddle1, paddleRight: this.PositionPaddle2} as PaddleUpdateResponseDto);
 	};
 
-	gameState(): GameResponsetDto {
-		const dto:GameResponsetDto =  {
+	gameState(): BallUpdateDto {
+		const dto:BallUpdateDto =  {
 			gameId: this.gameId,
-			paddleLeft:  this.PositionPaddle1,
-			paddleRight: this.PositionPaddle2,
 			ballPos: this.PositionBall,
 		};
 		return dto;
@@ -250,18 +244,25 @@ export class GameData {
 		await new Promise(resolve => setTimeout(resolve, 1000));
 		while(this.gameStatus !== GameStatus.ENDED)
 		{
-			await new Promise(resolve => setTimeout(resolve, 25));
+			await new Promise(resolve => setTimeout(resolve, 50));
 			await this.gameLoop();
 		}
+	};
+
+	gameOver() {
+		this.server.emit("gameOver", {
+			gameId: this.gameId,
+			winnerId: this.ScorePlayer1 < this.ScorePlayer2 ? this.player2 : this.player1,
+		} as GameOverDto );
 	};
 }
 
 @Injectable()
 export class GameService {
 	constructor(private prismaGameInvitationRepository: PrismaGameInvitationRepository,
-		private prismaGameInventory: PrismaGameRepository,
-		private prisma: PrismaService
-		) {}
+				private prismaGameInventory: PrismaGameRepository,
+				private prisma: PrismaService
+	) {}
 
 	gameList: GameData[] = [];
 
@@ -297,23 +298,23 @@ export class GameService {
 		return from(this.prismaGameInvitationRepository.getNextMatch());
 	}
 
-	async updatePaddle(paddleUpdateDto: PaddleUpdateDto): Promise<GameResponsetDto | undefined> {
+	async updatePaddle(paddleUpdateDto: PaddleUpdateDto): Promise<BallUpdateDto | undefined> {
 		let gameIndex = this.findGameIndex(paddleUpdateDto.gameId);
 		if (gameIndex != -1) {
 			this.gameList[gameIndex].updatePaddle(paddleUpdateDto.userId, paddleUpdateDto.paddleMove);
 			return this.gameList[gameIndex].gameState();
 		}
 		return undefined;
-    }
+	}
 
 
 	async gameFinished(gameIdToRemove: number) {
 		const indexToRemove = this.gameList.findIndex((game) => {
-			console.log(game.gameId + " " + gameIdToRemove)
 			return game.gameId === gameIdToRemove;
 		});
 		console.log("game finished id: " + gameIdToRemove + " with index " + indexToRemove)
 		if (indexToRemove !== -1) {
+			this.gameList[indexToRemove].gameOver();
 			this.prismaGameInventory.gameOver( this.gameList[indexToRemove].gameId,
 				Number(this.gameList[indexToRemove].ScorePlayer1),
 				Number(this.gameList[indexToRemove].ScorePlayer2))
@@ -325,9 +326,9 @@ export class GameService {
 		console.log("game start with " + player1 + " " + player2);
 		const datbaseGameObj = await this.prisma.game.create({
 			data: {
-                player1: Number(player1),
-                player2: Number(player2),
-            }
+				player1: Number(player1),
+				player2: Number(player2),
+			}
 		});
 		const gameToStart = new GameData(player1, player2, datbaseGameObj.id);
 		this.gameList.push(gameToStart);

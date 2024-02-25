@@ -11,22 +11,32 @@ export type GameScoreUpdateDto = {
 }
 
 export type PaddleUpdateDto ={
-      gameId:number
-      userId:number
-      paddleMove:number
+    gameId:number
+    userId:number
+    paddleMove:number
+}
+
+export type PaddleUpdateResponseDto ={
+    gameId:number
+    paddleLeft: number
+    paddleRight: number
 }
 
 export type GameRequestDto = {
-     gameId:number
-     userId:number
-     paddleMove:number
+    gameId:number
+    userId:number
+    paddleMove:number
 }
 
-export type GameResponsetDto = {
-     gameId:number
-     paddleLeft:number
-     paddleRight:number
-     ballPos: [number, number]
+export type GameOverDto = {
+    gameId: number
+    winnerId: number
+}
+
+
+export type BallUpdateDto = {
+    gameId:number
+    ballPos: [number, number]
 }
 
 export class MatchHistoryList {
