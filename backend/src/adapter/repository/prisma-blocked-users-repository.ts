@@ -33,6 +33,12 @@ export class PrismaBlockedUsersRepository {
           received_user_id: {in: [Number(users.users[0].id), Number(users.users[1].id)]},
           sent_user_id: {in: [Number(users.users[0].id), Number(users.users[1].id)]}
         }
+      }),
+      this.prisma.gameInvitation.deleteMany({
+        where: {
+          initiatorId: {in: [Number(users.users[0].id), Number(users.users[1].id)]},
+          recipientId: {in: [Number(users.users[0].id), Number(users.users[1].id)]}
+        }
       })
     ]);
     
