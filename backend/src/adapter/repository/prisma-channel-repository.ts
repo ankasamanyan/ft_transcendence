@@ -266,6 +266,7 @@ export class PrismaChannelRepository {
 
         from "Channel" channel
                  LEFT JOIN "ChannelMessage" message on channel.id = message.channel_id
+                 LEFT JOIN "BannedUser" banneduser on channel.id = banneduser.channel_id
 
         where channel.id in
               (SELECT DISTINCT channel_id
@@ -273,6 +274,7 @@ export class PrismaChannelRepository {
                where user_id = ${userIdAsInteger}
                   or channel.type in ('public', 'password-protected'))
           AND (message.id in (SELECT id from subres) OR message.text IS NULL)
+          AND banneduser IS NULL
         order by COALESCE(message.created_at, channel.created_at) desc
     `;
 
