@@ -13,4 +13,8 @@ export class StatusService {
 	getStatus(userId: number) {
 		return from(this.statusRepository.getStatus(userId));
 	}
+
+	isAvailable(userId: number) {
+		return from(this.statusRepository.isAvailable(userId));
+	}
 }

@@ -23,4 +23,13 @@ export class PrismaStatusRepository {
 		return user.status;
 	}
 
+	async isAvailable(userId: number) {
+		const user = await this.prisma.status.findFirst({
+			where: {
+				userId: Number(userId)
+			}
+		});
+		return user.status === 'available';
+	}
+
 }

@@ -14,4 +14,9 @@ export class StatusController {
 	getStatus(@Param('userId') userId: number) {
 		return this.statusService.getStatus(userId);
 	}
+
+	@Get('/available/:userId')
+	isAvailable(@Param('userId') userId: number) {
+		return this.statusService.isAvailable(userId);
+	}
 }
