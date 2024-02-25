@@ -18,7 +18,7 @@ export class FriendsComponent implements OnInit, OnChanges {
 
   @Input() userId!: number;
 
-  private rerenderParentSubject: Subject<void> = new Subject<void>();
+  @Input() isThisMe!: boolean;
 
   private destroy$: Subject<void> = new Subject<void>();
 

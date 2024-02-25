@@ -4,11 +4,16 @@
     <div class="main-content-container">
       <div class="profile-container">
 
-        <div class="edit-icon">
+        <div class="edit-icon" *ngIf="isThisMe">
           <i class="bi bi-pencil-square menu" (click)="selectMenuItem('settings')"> </i>
         </div>
 
-          <div><img #statusRef [ngStyle]="{'border-color' : getStatusColor(status)}" [src]="user.picture" class="profile-icon" alt="Profile Picture"></div>
+          <div><img #statusRef 
+                    [ngStyle]="{'border-color' : getStatusColor(status)}" 
+                    [src]="user.picture"
+                    class="profile-icon" 
+                    alt="Profile Picture">
+          </div>
 
         <div class="profile-info">
           <h5 class="name">{{user.name}}</h5>
@@ -33,7 +38,8 @@
       </div>
       <div class="content">
         <app-friends *ngIf="selectedMenuItem === 'friends'" 
-                      [userId]="userId">
+                      [userId]="userId"
+                      [isThisMe]="isThisMe">
         </app-friends>
         <app-achievements  *ngIf="selectedMenuItem === 'achievements'" 
                           [userId]="userId">
@@ -41,7 +47,9 @@
         <app-match-history  *ngIf="selectedMenuItem ===  'match-history'" 
                             [userId]="userId">
         </app-match-history>
-        <app-statistics *ngIf="selectedMenuItem ===  'statistics'" [userId]="userId"></app-statistics>
+        <app-statistics *ngIf="selectedMenuItem ===  'statistics'" 
+                        [userId]="userId">
+        </app-statistics>
         <app-settings  *ngIf="selectedMenuItem === 'settings'"
                        [userFromProfile]="user"
                       [name]="user.name" 

@@ -24,7 +24,7 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="Requests" (onclick)="getPendingRequestList()"> 
+    <mat-tab label="Requests" (onclick)="getPendingRequestList()" *ngIf="isThisMe"> 
       <div class="empty-list-container" *ngIf="pendingList.length === 0">
         <div class="empty-list">
           <p>{{placeHolderMessage}}</p>
@@ -45,7 +45,7 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="Invitations" >
+    <mat-tab label="Invitations" *ngIf="isThisMe">
       <div class="empty-list-container" *ngIf="inviteList.length === 0">
         <div class="empty-list">
           <p>{{placeHolderMessage}}</p>
@@ -53,7 +53,7 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="Blocked" (onclick)="getBlockedUserList()">
+    <mat-tab label="Blocked" (onclick)="getBlockedUserList()" *ngIf="isThisMe">
       <div class="empty-list-container" *ngIf="blockedList.length === 0">
         <div class="empty-list">
           <p>{{placeHolderMessage}}</p>

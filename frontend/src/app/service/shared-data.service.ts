@@ -7,7 +7,7 @@ import { Observable, ReplaySubject, Subject } from 'rxjs';
 export class SharedDataService {
 
   private dataSubject: ReplaySubject<number> = new ReplaySubject<number>(1);
-  private myUserIdSubject: ReplaySubject<number> = new ReplaySubject<number>(2);
+  private myUserIdSubject: ReplaySubject<number> = new ReplaySubject<number>(1);
 
 
   setData(data: number ): void {
