@@ -21,20 +21,21 @@ export class PrismaBlockedUsersRepository {
   }
 
   async blockUser(users: Users) {
-    const blockedUser = await this.prisma.blockedUser.findFirst({
-      where: {
-        blockerId: users.users[0].id,
-        blockedId: users.users[1].id,
-      }
-    })
-    if (!blockedUser) {
-      await this.prisma.blockedUser.create({
-        data: {
-          blockerId: users.users[0].id,
-          blockedId: users.users[1].id,
+    await this.prisma.$transaction([
+     this.prisma.blockedUser.create({
+       data: {
+         blockerId: users.users[0].id,
+         blockedId: users.users[1].id,
         }
-      });
-    }
+      }),
+      this.prisma.friend.deleteMany({
+        where: {
+          received_user_id: {in: [Number(users.users[0].id), Number(users.users[1].id)]},
+          sent_user_id: {in: [Number(users.users[0].id), Number(users.users[1].id)]}
+        }
+      })
+    ]);
+    
   }
 
   async unblockUser(blockerId: number, blockedId: number) {
