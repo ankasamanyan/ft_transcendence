@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="./game.component.css">
 <app-navigation-bar [navigationStatus]="NavigationBarStatus.GAME"></app-navigation-bar>
-<div id="whole-game">
+<div id="whole-game" *ngIf="isGameOn">
     <!-- pong-game.component.html -->
     <div class="canvas">
         <!-- Your Pong game canvas goes here -->
@@ -19,3 +19,5 @@
     </div>
 
 </div>
+
+<app-wait-for-the-game-page *ngIf="!isGameOn"></app-wait-for-the-game-page>

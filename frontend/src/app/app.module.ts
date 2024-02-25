@@ -42,6 +42,7 @@ import { EnterPasswordModalComponent } from './chat/dialogs/enter-password-modal
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import { WaitForTheGamePageComponent } from './game/wait-for-the-game-page/wait-for-the-game-page.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import {MatButtonModule} from "@angular/material/button";
     UserUnblockedNotificationComponent,
     WannaPlayModalComponent,
     EnterPasswordModalComponent,
+    WaitForTheGamePageComponent,
   ],
     imports: [
         BrowserModule,

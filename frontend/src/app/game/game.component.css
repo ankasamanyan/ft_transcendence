@@ -71,4 +71,11 @@
     left: 38vw;
     margin: 30px auto auto auto;
     justify-content: center;
-} 
+}
+
+app-wait-for-the-game-page {
+    margin-left: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

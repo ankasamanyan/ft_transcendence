@@ -48,6 +48,8 @@ export class GameComponent implements OnInit {
   // Game message
   gameMessage = 'Press Enter to Play Pong';
 
+  isGameOn: boolean = false;
+
   ngOnInit(): void {
     this.sharedDataService.getMyUserId$()
         .subscribe((userId) => {

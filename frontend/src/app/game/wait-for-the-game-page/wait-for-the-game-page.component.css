@@ -1,0 +1,25 @@
+#wait-for-it-wrapper {
+    margin-top: 25vh;
+    padding: 36px;
+    display: flex;
+    width: 550px;
+    box-shadow: 0 7px 17px 6px rgba(0,0,0,0.09);
+}
+
+button {
+    border-radius: 7px;
+    height: 35px;
+    width: 140px;
+    padding-right: 16px;
+    padding-left: 16px;
+    font-weight: 300;
+    border: none;
+    background-color: var(--color-orange);
+    color: white;
+    margin: auto;
+}
+
+button:hover {
+    background-color: var(--color-orange-darker);
+    color: white;
+}
