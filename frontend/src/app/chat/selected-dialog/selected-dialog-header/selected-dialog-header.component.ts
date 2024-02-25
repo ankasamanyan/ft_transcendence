@@ -96,7 +96,7 @@ export class SelectedDialogHeaderComponent implements OnChanges {
         this.getChannel();
     });
     socket.on("invitationSent",({invitedId, beenInvitedId}: { invitedId: number, beenInvitedId: number }) => {
-      if (this.authenticatedUser.id === beenInvitedId) {
+      if (this.authenticatedUser.id === invitedId) {
         this.showInviteNotificationForFewSeconds();
       }
       this.updateGameInvitationStatus();
