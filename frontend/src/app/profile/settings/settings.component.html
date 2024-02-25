@@ -32,10 +32,16 @@
         </form>
         <div>
             <div>
-                <button class="action-button"  (click)="updateStatus2FA()"> Enable 2fa </button>
+                <button class="action-button update-qa-status"  (click)="updateStatus2FA()"> Enable 2fa </button>
             </div>
             <div *ngIf="!this.userFromProfile.tfa_enabled && this.qrString != ''" >
-                <img src="{{this.qrString}}">
+                <img id="QR-code" src="{{this.qrString}}">
+                <div><input id="two-factor-code-input" maxlength="6" [(ngModel)]="twoFactorCodeInput"></div>
+               <div><button
+                    id="submit-button"
+                    [ngClass]="{'deactivated' : twoFactorCodeInput?.length === 0 || !twoFactorCodeInput}"
+                    (click)="submit2FACode()">Submit</button>
+               </div>
             </div>
         </div>
     </div>

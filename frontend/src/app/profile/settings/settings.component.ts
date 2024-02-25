@@ -1,8 +1,10 @@
 import { Component, Input, OnInit, Renderer2, ElementRef } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {User} from "../../domain/user";
 import {UsersService} from "../../service/users.service";
 import {HttpClient} from "@angular/common/http";
+import {TwoFactorCode} from "../../domain/two-factor-code";
+import {AuthenticationService} from "../../service/authentication.service";
 
 @Component({
   selector: 'app-settings',
@@ -25,18 +27,21 @@ export class SettingsComponent implements OnInit {
 
   qrCodeFormGroup: any;
 
+  twoFactorCodeInput: string | undefined;
+
   constructor(private renderer: Renderer2,
               private el: ElementRef,
               private usersService: UsersService,
+              private authenticationService: AuthenticationService,
               private http: HttpClient) {
     // if(!this.userFromProfile.tfa_enabled){
       this.getQRCode();
     // }
   }
 
-  changeColorScheme ( 
-    primaryColor: string, 
-    secondaryColor: string, 
+  changeColorScheme (
+    primaryColor: string,
+    secondaryColor: string,
     orangeColor: string,
     backgroundColor: string,
     darkerOrangeColor: string,
@@ -131,7 +136,7 @@ export class SettingsComponent implements OnInit {
       '#ecf0f1', // Light Clouds
       '#bdc3c7', // Silver
       '#7f8c8d'  // Grayish Blue
-    );    
+    );
   }
 
   saveSettings(): void {
@@ -140,12 +145,10 @@ export class SettingsComponent implements OnInit {
     // console.log('Selected Color Theme:', this.selectedColorTheme);
   }
 
-  handleCodeSubmit() {
-    // console.log("this.qrCodeFormGroup = ", this.qrCodeFormGroup)
-    this.http.post<any>("http://localhost:3000/auth/ResultFromQrCode", {two_FA_code: (this.qrCodeFormGroup)}).subscribe(response => {
-      // console.log("response = ", response)
-    })
-  }
 
   protected readonly FormGroup = FormGroup;
+
+  submit2FACode() {
+    this.authenticationService.submit2FACode(new TwoFactorCode(this.twoFactorCodeInput!)).subscribe((value) => {});
+  }
 }

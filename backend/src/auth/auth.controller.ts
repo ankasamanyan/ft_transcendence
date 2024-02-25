@@ -2,6 +2,7 @@ import {Body, Controller, Get, Post, Req, Res, UnauthorizedException, UseGuards}
 import { AuthService } from './auth.service';
 import { FTAuthGuard } from './guards/auth.42.guard';
 import {JWTAuthGuard} from "./guards/auth.jwt.guard";
+import {TwoFactorCode} from "../domain/two-factor-code";
 
 @Controller('auth')
 export class AuthController {
@@ -27,21 +28,14 @@ export class AuthController {
     return this.authService.pipeQrCodeStream(otpauthUrl);
   }
 
-
   @Post('ResultFromQrCode')
   @UseGuards(JWTAuthGuard)
-  async	turn_on_2fa(@Req() req: any, @Body('two_FA_code') code : string, @Res({passthrough: true}) res: any) : Promise<any>
-  {
-    console.log("result from qr code ");
-    console.log(code);
-    const valid_code = await this.authService.verifyCode(req.user.id, code);
-    // console.log("log 1 ");
-    if(!valid_code)
-    {
-      // console.log("log 2 ");
+  async	turn_on_2fa(@Req() req: any, @Body() code : TwoFactorCode, @Res({passthrough: true}) res: any)  {
+    console.log("result from qr code -", code.code);
+    const valid_code = await this.authService.verifyCode(req.user.id, code.code);
+    if(!valid_code) {
       throw new UnauthorizedException('Wrong authentication code');
     }
-    // console.log("log 3 ");
     await this.authService.turn_on(req.user.id);
     return this.authService.sign_jwt_token(req.user.id, res, true);
   }

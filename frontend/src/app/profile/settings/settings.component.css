@@ -177,3 +177,48 @@ body {
     cursor: pointer;
 
   }
+
+#QR-code, .update-qa-status {
+  display: block;
+  margin: auto;
+}
+
+.update-qa-status {
+  margin-bottom: 16px;
+}
+
+#two-factor-code-input {
+  font-size: 16px;
+  border: none;
+  letter-spacing: 0.4px;
+}
+
+input:focus {
+  outline: none;
+}
+
+#submit-button {
+  display: block;
+  border-radius: 7px;
+  height: 35px;
+  width: 90px;
+  padding-right: 16px;
+  padding-left: 16px;
+  font-weight: 300;
+  border: 2px solid var(--color-secondary);
+  background-color: var(--color-light-blue);
+  color: var(--color-secondary);
+  margin: auto;
+}
+
+#submit-button:hover {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+#submit-button.deactivated {
+  border: 2px solid lightgrey;
+  background-color: lightgrey;
+  pointer-events: none;
+  color: black;
+}
