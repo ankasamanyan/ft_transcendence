@@ -1,5 +1,7 @@
 <div id="dialog-header">
-    <span id="selected-person">{{channel?.name}}</span>
+    <span
+        id="selected-person"
+        [ngClass]="{'clickable' : selectedDialogPartner, 'non-clickable' : !selectedDialogPartner}">{{channel?.name}}</span>
     <i class="bi bi-box-arrow-right" *ngIf="!isDialog() && channel" (click)="showLeaveModal=true"></i>
     <i class="bi bi-pen" *ngIf="!isDialog() && channel" (click)="showEditModal=true"></i>
     <div class="dropdown" *ngIf="selectedDialogPartner && isDialog()">

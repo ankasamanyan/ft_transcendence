@@ -109,3 +109,11 @@
         white-space: nowrap;
     }
 }
+
+.clickable {
+    cursor: pointer;
+}
+
+.non-clickable {
+    pointer-events: none;
+}
