@@ -56,4 +56,11 @@ export class UserStatisticsController {
 	getRanking() {
 		return this.userStatisticsService.getRanking();
 	}
+
+	@Get('/achievements/:userId')
+	getAchievements(@Param('userId') userId: number) {
+		return this.userStatisticsService.getAchievements(userId);
+	}
+	
+
 }

@@ -101,7 +101,21 @@ export class PrismaUserStatisticsRespository {
           user.tfa_enabled,
           user.tfa_secret);
     }));
-
-
   }
+
+  async getAchievements(userId: number) {
+      const user = await this.prisma.userStatistics.findUnique({
+        where: {userId: Number(userId)},
+        select: {wins: true}
+      });
+      if (user.wins === Number(1))
+        return "bronze";
+      if (user.wins === Number(2))
+        return "silver";
+      if (user.wins === Number(3))
+        return "gold";
+      if (user.wins > Number(3))
+        return "platinum";
+      return "nothing";
+    }
 }
