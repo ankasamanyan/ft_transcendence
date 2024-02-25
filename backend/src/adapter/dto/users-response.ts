@@ -14,7 +14,7 @@ export class UsersResponse {
 
 export class UserResponse {
   constructor(
-      public id: number | undefined,
+      public id: number,
       public name: string,
       public intraLogin: string,
       public picture: string,

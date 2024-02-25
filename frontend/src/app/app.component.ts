@@ -39,7 +39,12 @@ export class AppComponent {
     localStorage.setItem('tr_access_token', trToken)
     let id = Number(Cookie.get('id'))
     // if(id){
-    this.sharedDataService.setData(id);
+    this.sharedDataService.setMyUserId(id);
+    
+    this.sharedDataService.getMyUserId$()
+    .subscribe(data => {
+      this.sharedDataService.setData(id);
+    })
     // }
     socket.on("invitationSent",({invitedId, beenInvitedId}: { invitedId: number, beenInvitedId: number }) => {
       if (beenInvitedId === this.authenticatedUser?.id) {

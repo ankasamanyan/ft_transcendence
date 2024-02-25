@@ -51,6 +51,10 @@ h5 {
   object-fit: cover;
 }
 
+.friend-picture:hover {
+  cursor: pointer;
+}
+
 .friend-info {
   width: 100%;
   display: flex;
@@ -117,20 +121,20 @@ button {
 
 .block:hover {
   color: white;
-  background-color: rgb(180, 60, 60);
+  background-color: #783C3C;
 }
 
 .decline {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  color: rgb(180, 60, 60);
-  border: 2px solid rgb(180, 60, 60);
+  color: #913737;
+  border: 2px solid #783C3C;
   /* border-color: transparent; */
 }
 
 .decline:hover {
-  background-color: rgb(180, 60, 60);
+  background-color: #783C3C;
   color: #ffffff;
   cursor: pointer;
 }
@@ -139,8 +143,8 @@ button {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  color: rgb(80, 120, 80);
-  border: 2px solid rgb(80, 120, 80);
+  color: #507850;
+  border: 2px solid #507850;
   /* border-color: transparent; */
 }
 

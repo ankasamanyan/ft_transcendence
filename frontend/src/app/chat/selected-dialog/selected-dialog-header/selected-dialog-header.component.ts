@@ -8,6 +8,8 @@ import {OurSocket} from "../../../socket/socket";
 import {GameService} from "../../../service/game.service";
 import {ChannelUpdate} from "../../../domain/channel-update";
 import {BlockedUsersService} from "../../../service/blocked-users.service";
+import { SharedDataService } from 'src/app/service/shared-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-selected-dialog-header',
@@ -46,7 +48,9 @@ export class SelectedDialogHeaderComponent implements OnChanges {
     private channelService: ChannelService,
     private gameService: GameService,
     private blockedUserService: BlockedUsersService,
-    private socket: OurSocket) {
+    private socket: OurSocket,
+    private sharedDataService: SharedDataService,
+    private router: Router) {
     socket.on("channelRenamed", () => {
       this.channelService.updateChannels.next(true);
       this.getChannel();
@@ -262,6 +266,17 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       this.gameService.isInvitationAlreadySent(this.authenticatedUser!.id!, this.selectedDialogPartner.id!).subscribe((value) => {
         this.invitationToPlayExists = value;
       })
+    }
+  }
+  
+  openFriendProfile() {
+    if (this.selectedDialogPartner) {
+      this.sharedDataService.setData(this.selectedDialogPartner.id!);
+      this.sharedDataService.getData$()
+      .subscribe((data: any) =>{
+        console.log(data);
+      })
+      this.router.navigate(['profile']);
     }
   }
 }

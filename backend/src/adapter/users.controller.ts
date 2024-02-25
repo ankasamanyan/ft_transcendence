@@ -15,7 +15,7 @@ export class UsersController {
   initializeUsers() {
     return this.usersService.initializeUsers();
   }
-
+  
   // @UseGuards(JWTAuthGuard)
   @Post("/new-user")
   addUser(@Body() request: UserRequest) {
@@ -41,6 +41,9 @@ export class UsersController {
 
   @Get('/getStatus/:userId')
   getStatus(@Param('userId') userId: number) {
+    if (Number.isNaN(Number(userId))) {
+      return {status: "UnknownUser"}
+    }
     return this.usersService.getStatus(Number(userId));
   }
 

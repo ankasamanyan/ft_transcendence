@@ -15,7 +15,7 @@ export class NavigationBarComponent implements OnInit{
 
   showExitModal: boolean = false;
 
-  currentUserId!: number;
+  meUserId!: number;
 
   user!: User;
 
@@ -35,14 +35,19 @@ export class NavigationBarComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.sharedDataService.getData$()
-      .subscribe((data) => {
-        this.currentUserId = data;
+
+    this.sharedDataService.getMyUserId$()
+      .subscribe((meUserId) => {
+        this.meUserId = meUserId;
       })
     
-    this.usersService.getUserById(this.currentUserId)
-    .subscribe((user) => {
-      this.user = user;
-    });
+    this.usersService.getUserById(this.meUserId)
+      .subscribe((user) => {
+          this.user = user;
+      });
+  }
+
+  openMyProfile() {
+    this.sharedDataService.setData(this.meUserId);
   }
 }

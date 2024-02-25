@@ -1,10 +1,12 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import {FriendService} from "../../service/friend.service";
 import {User, Users} from "../../domain/user";
 import { BlockedUsersService } from 'src/app/service/blocked-users.service';
 import { UsersService } from 'src/app/service/users.service';
 import { OurSocket } from 'src/app/socket/socket';
 import { Subject, takeUntil } from 'rxjs';
+import { SharedDataService } from 'src/app/service/shared-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-friends',
@@ -12,9 +14,11 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: [`./friends.component.css`],
 
 })
-export class FriendsComponent implements OnInit,OnChanges {
+export class FriendsComponent implements OnInit, OnChanges {
 
   @Input() userId!: number;
+
+  private rerenderParentSubject: Subject<void> = new Subject<void>();
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -34,8 +38,9 @@ export class FriendsComponent implements OnInit,OnChanges {
     private friendService: FriendService,
     private blockedUsersService: BlockedUsersService,
     private usersService: UsersService,
-    private socket: OurSocket) {
-    
+    private socket: OurSocket,
+    private sharedDataService: SharedDataService,
+    private router: Router) {
     
   }
   
@@ -150,6 +155,15 @@ ngOnChanges(changes: SimpleChanges): void {
       default:
         return 'var(--color-dark blue)';
     }
+  }
+
+  openFriendProfile(user: User) {
+    this.sharedDataService.setData(user.id!);
+   
+    this.sharedDataService.getData$().subscribe(data => {
+      console.log(data);
+    });
+    this.router.navigate(['profile']);
   }
 
 }

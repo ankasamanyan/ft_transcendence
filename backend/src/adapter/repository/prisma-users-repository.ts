@@ -143,6 +143,8 @@ export class PrismaUsersRepository {
   }
 
   async getStatus(userId: number) {
+    console.log(userId)
+    console.log("in getStatus")
     const user = await this.prisma.user.findUnique({
       where: {
         id: userId

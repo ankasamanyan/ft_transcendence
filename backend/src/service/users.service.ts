@@ -21,6 +21,9 @@ export class UsersService {
   }
 
   getUserById(userId: number) {
+    if (Number.isNaN(Number(userId))) {
+      return ;
+    }
     return from(this.usersRepository.getUserById(userId));
   }
 
