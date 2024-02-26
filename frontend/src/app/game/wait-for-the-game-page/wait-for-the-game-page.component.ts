@@ -21,6 +21,7 @@ export class WaitForTheGamePageComponent implements OnInit {
       private socket: OurSocket) {
     socket.on("checkQueue", ({userId}: {userId: number}) => {
       this.isInTheQueue = userId === this.authenticatedUser!.id;
+      this.statusLoaded = true;
     })
   }
 
@@ -29,7 +30,6 @@ export class WaitForTheGamePageComponent implements OnInit {
       this.userService.getUserById(value).subscribe((user) => {
         this.authenticatedUser = user;
         this.gameService.checkQueue();
-        this.statusLoaded = true;
       });
     });
   }
