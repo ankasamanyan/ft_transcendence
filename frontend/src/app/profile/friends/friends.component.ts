@@ -76,6 +76,7 @@ export class FriendsComponent implements OnInit, OnChanges {
         this.getBlockedUserList();
       }
     });
+
 }
 
 ngOnChanges(changes: SimpleChanges): void {
@@ -152,6 +153,14 @@ ngOnChanges(changes: SimpleChanges): void {
   
   declineFriendRequest(notFriend: User) {
     this.socket.emit("declineFriendRequest", {notFriend: notFriend, meUser: this.me});
+  }
+
+  acceptInvite(invitee: User) {
+    this.gameService.accept(new Users([invitee, this.me]));
+  }
+
+  declineInvite(invitee: User) {
+    this.gameService.decline(new Users([invitee, this.me]));
   }
 
   ngOnDestroy(): void {
