@@ -61,4 +61,8 @@ export class GameService {
         return new MatchHistoryList(matchHistoryList);
     }));
   }
+
+  getInvitationsByRecipientId(recipientId: number) {
+    return this.httpClient.get<number[]>(`${this.backendUrl}/game/invitations/` + recipientId);
+  }
 }

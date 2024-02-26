@@ -20,10 +20,10 @@ export class GameController {
         private prismaGameRepository: PrismaGameRepository
         ) {}
 
-    @Post('/invite')
-    invite(@Body() request: UsersRequest) {
-        return this.gameService.invite(UsersRequest.toDomain(request));
-    }
+  @Post('/invite')
+  invite(@Body() request: UsersRequest) {
+    return this.gameService.invite(UsersRequest.toDomain(request));
+  }
 
 
   @Delete('/invite/delete')
@@ -31,10 +31,10 @@ export class GameController {
     return this.gameService.deleteOrDecline(UsersRequest.toDomain(request));
   }
 
-    @Get('/invitations/:recipientId')
-    getInvitations(@Param('recipientId') recipientId: number) {
-        return this.gameService.getInvitations(recipientId);
-    }
+  @Get('/invitations/:recipientId')
+  getInvitations(@Param('recipientId') recipientId: number) {
+    return this.gameService.getInvitations(recipientId);
+  }
 
 
   @Get('/invitations/exists/:initiatorId/:recipientId/')

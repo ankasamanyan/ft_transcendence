@@ -28,7 +28,7 @@ export class PrismaGameInvitationRepository {
 		})
 	}
 
-	//returns the matches where the user has been invited
+	//returns the initiatorIds for a given recipient
 	async getInvitations(userId: number) {
 		const invitations = await this.prisma.gameInvitation.findMany({
 			where: {
@@ -36,7 +36,7 @@ export class PrismaGameInvitationRepository {
 				status: 'pending'
 			}
 		})
-		return invitations;
+		return invitations.forEach(invitation => invitation.initiatorId);
 	}
 
 	//returns matches waiting for play time
