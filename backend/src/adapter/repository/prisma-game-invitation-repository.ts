@@ -1,7 +1,7 @@
 import {PrismaService} from "../../service/prisma.service";
 import {Injectable} from "@nestjs/common";
 import { Users, User } from "src/domain/user";
-
+import { UserResponse, UsersResponse } from "../dto/users-response";
 //status 'pending', 'accepted'
 @Injectable()
 export class PrismaGameInvitationRepository {
@@ -28,15 +28,31 @@ export class PrismaGameInvitationRepository {
 		})
 	}
 
-	//returns the initiatorIds for a given recipient
 	async getInvitations(userId: number) {
 		const invitations = await this.prisma.gameInvitation.findMany({
 			where: {
 				recipientId: Number(userId),
 				status: 'pending'
+			},
+			select: { initiatorId: true }
+		});
+		const initiatorIds = invitations.map(invitation => invitation.initiatorId);
+		const iniatators = await this.prisma.user.findMany({
+			where: {
+				id: {in: initiatorIds}
 			}
-		})
-		return invitations.forEach(invitation => invitation.initiatorId);
+		});
+		return new UsersResponse(iniatators.map((user) => {
+			return new UserResponse(
+			  user.id,
+			  user.name,
+			  user.intra_login,
+			  user.picture,
+			  user.email,
+			  user.is_authenticated,
+				user.tfa_enabled,
+				user.tfa_secret);
+		  }));	
 	}
 
 	//returns matches waiting for play time
