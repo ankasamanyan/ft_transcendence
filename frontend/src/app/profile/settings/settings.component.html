@@ -4,17 +4,17 @@
 
         <div class="pictute-container">
             <i class="bi bi-camera "></i>
-            <img class="profile-picture" [src]='profilePicture' alt="Profile Picture">
+            <img class="profile-picture" [src]='userFromProfile!.picture' alt="Profile Picture">
         </div>
 
         <form >
 
         <div class="form-group">
-            <input type="text" id="name" placeholder="{{name}}">
+            <input id="name" name="name" #name [(ngModel)]="userFromProfile!.name">
         </div>
     
         <div class="form-group username">
-            <span>{{username}}</span>
+            <span>{{userFromProfile!.intraLogin}}</span>
         </div> 
     
         <div class="color-theme-container">
@@ -26,12 +26,15 @@
             <div class="color-option4" (click)="selectColorTheme4()"></div>
             </div>
         </div>
-
-
-            <button type="button" class="action-button" (click)="saveSettings()">Save Settings</button>
+            <button type="button"
+                    class="action-button"
+                    id="save-settings"
+                    (click)="updateUser()"
+                    [ngClass]="{'deactivated' : !channelDetailsChanged()}">Save Settings
+            </button>
         </form>
         <div>
-            <div *ngIf="!this.userFromProfile.tfa_enabled && this.qrString != ''; else otherContent">
+            <div *ngIf="!this.userFromProfile!.tfa_enabled && this.qrString != ''; else otherContent">
                 <img id="QR-code" src="{{this.qrString}}">
                 <div><input id="two-factor-code-input" maxlength="6" [(ngModel)]="twoFactorCodeInput"></div>
                <div><button

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {User, Users} from "../domain/user";
-import {UserRequest, UserResponse, UsersResponse} from "./dto/users.dto";
+import {UserRequest, UserResponse, UsersRequest, UsersResponse} from "./dto/users.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -40,9 +40,7 @@ export class UsersService {
       }));
   }
 
-  updateUser(user: User): Observable<User> {
-    return this.httpClient.put<any>("http://localhost:3000/users/all/users", user).pipe(map ((user: UserResponse) => {
-      return UserResponse.toDomain(user);
-    }))
+  updateUser(user: User) {
+    return this.httpClient.put<UserResponse>("http://localhost:3000/users/update", UserRequest.fromDomain(user));
   }
 }

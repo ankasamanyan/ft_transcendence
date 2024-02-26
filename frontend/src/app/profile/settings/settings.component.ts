@@ -3,10 +3,7 @@ import {
   Input,
   OnInit,
   Renderer2,
-  ElementRef,
-  OnChanges,
-  SimpleChanges,
-  ChangeDetectorRef,
+  ElementRef, ViewChild, AfterViewInit,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { User } from "../../domain/user";
@@ -20,15 +17,17 @@ import { AuthenticationService } from "../../service/authentication.service";
   templateUrl: "./settings.component.html",
   styleUrls: ["./settings.component.css"],
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, AfterViewInit {
   selectColor(arg0: string) {
     throw new Error("Method not implemented.");
   }
-  @Input() username!: string;
-  @Input() name!: string;
-  @Input() profilePicture: any;
-  @Input() is_2fa_enabled!: boolean | undefined;
-  @Input() userFromProfile!: User;
+  @Input()
+  userFromProfile: User | undefined;
+
+  @ViewChild('name') authenticatedUserName!: ElementRef;
+
+  nameOnInit: string | undefined;
+
   settingsForm: FormGroup = new FormGroup({});
   selectedColorTheme: string = "";
 
@@ -51,6 +50,23 @@ export class SettingsComponent implements OnInit {
     // if(!this.userFromProfile.tfa_enabled){
     this.getQRCode();
     // }
+  }
+
+  ngAfterViewInit() {
+    this.authenticatedUserName.nativeElement.focus();
+    this.nameOnInit = this.userFromProfile?.name;
+  }
+
+  isNameChanged() {
+    return this.nameOnInit != this.userFromProfile?.name;
+  }
+
+  channelDetailsChanged() {
+    return this.isNameChanged();
+  }
+
+  updateUser() {
+    this.usersService.updateUser(this.userFromProfile!).subscribe();
   }
 
   changeColorScheme(
@@ -135,8 +151,8 @@ export class SettingsComponent implements OnInit {
     }
 
     this.settingsForm.patchValue({
-      name: this.name,
-      username: this.username,
+      name: this.userFromProfile!.name,
+      username: this.userFromProfile!.intraLogin,
     });
   }
 
@@ -192,11 +208,6 @@ export class SettingsComponent implements OnInit {
     );
   }
 
-  saveSettings(): void {
-    // console.log(this.settingsForm.value);
-    // console.log('Selected Color Theme:', this.selectedColorTheme);
-  }
-
   protected readonly FormGroup = FormGroup;
 
   submit2FACode() {
@@ -204,7 +215,7 @@ export class SettingsComponent implements OnInit {
       .submit2FACode(new TwoFactorCode(this.twoFactorCodeInput!))
       .subscribe((data: any) => {
         console.log(data);
-        this.is_2fa_enabled = true;
+        this.userFromProfile!.tfa_enabled = true;
         this.qrString = ''
         this.twoFactorCodeInput = ''
       });
@@ -214,9 +225,9 @@ export class SettingsComponent implements OnInit {
     this.authenticationService.disable2FACode()
     .subscribe((data: any) => {
       console.log(data);
-      this.is_2fa_enabled = false;
+      this.userFromProfile!.tfa_enabled = false;
       this.getQRCode()
-      console.log(this.is_2fa_enabled);
+      console.log(this.userFromProfile!.tfa_enabled);
     });
   }
 }

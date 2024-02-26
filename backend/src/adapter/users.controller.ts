@@ -1,10 +1,6 @@
-import {Body, Controller, Get, Param, Post, Put, UseGuards} from '@nestjs/common';
-import {from, of} from "rxjs";
-import { UsersResponse } from 'src/adapter/dto/users-response';
+import {Body, Controller, Get, Param, Post, Put} from '@nestjs/common';
 import {UsersService} from "../service/users.service";
 import {UserRequest} from "./dto/users-request";
-import {FTAuthGuard} from "../auth/guards/auth.42.guard";
-import {JWTAuthGuard} from "../auth/guards/auth.jwt.guard";
 
 @Controller('/users')
 export class UsersController {
@@ -53,7 +49,7 @@ export class UsersController {
   }
 
   @Put('/update')
-  updateNameOrPicture(@Body() request: UserRequest) {
-    return this.usersService.updateNamePicture2faEnabl(UserRequest.toDomain(request));
+  updateUser(@Body() request: UserRequest) {
+    return this.usersService.updateUser(UserRequest.toDomain(request));
   }
 }

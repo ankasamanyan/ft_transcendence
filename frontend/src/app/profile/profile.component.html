@@ -51,11 +51,7 @@
                         [userId]="userId">
         </app-statistics>
         <app-settings  *ngIf="selectedMenuItem === 'settings'"
-                       [userFromProfile]="user"
-                      [name]="user.name" 
-                      [username]="user.intraLogin"
-                      [profilePicture]="user.picture"
-                       [is_2fa_enabled]="user.tfa_enabled">
+                       [userFromProfile]="user">
         </app-settings>
   </div>
 </div>
