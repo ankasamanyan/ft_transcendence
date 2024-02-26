@@ -42,13 +42,13 @@ export class PieChartComponent implements AfterViewInit {
     context.beginPath();
     context.moveTo(centerX, centerY);
     context.arc(centerX, centerY, radius, 0, lossesAngle);
-    context.fillStyle = '#c92828';
+    context.fillStyle = '#c76262';
     context.fill();
     
     context.beginPath();
     context.moveTo(centerX, centerY);
     context.arc(centerX, centerY, radius, lossesAngle, winsAngle + lossesAngle);
-    context.fillStyle = '#4d6494';
+    context.fillStyle = '#8c84e7';
     context.fill();
   }
 }

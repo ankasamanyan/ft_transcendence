@@ -8,6 +8,7 @@ export class SharedDataService {
 
   private dataSubject: ReplaySubject<number> = new ReplaySubject<number>(1);
   private myUserIdSubject: ReplaySubject<number> = new ReplaySubject<number>(1);
+  private styleSubject: ReplaySubject<number> = new ReplaySubject<number>(1);
 
 
   setData(data: number ): void {
@@ -29,4 +30,16 @@ export class SharedDataService {
   getMyUserId$(): Observable<number> {
     return this.myUserIdSubject.asObservable();
   }
+
+  setStyle(style: number): void {
+    if (style) {
+      this.styleSubject.next(style);
+    }
+  }
+
+  getStyle$(): Observable<number> {
+    return this.styleSubject.asObservable();
+  }
+
+
 }

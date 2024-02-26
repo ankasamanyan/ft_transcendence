@@ -33,7 +33,7 @@
   display: flex;
   align-items: stretch;
   height: 100%;
-  background-color: #e5eef1;
+  background-color: var(--color-light-blue);
 }
 
 .profile-container {
@@ -74,7 +74,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  color: rgb(102, 100, 147);
+  color: var(--color-secondary);
 }
 
 .menu:hover {

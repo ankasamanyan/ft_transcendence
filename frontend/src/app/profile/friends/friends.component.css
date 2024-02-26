@@ -17,6 +17,7 @@ h5 {
   margin-top: 20px;
   display: table;
   margin-bottom: 30px;
+  color: var(--color-dark-blue);
 }
 
 .friend-card {

@@ -36,11 +36,11 @@ h5 {
   }
   
   .wins .sample {
-      background-color: var(--color-secondary);
+      background-color: #8c84e7;
     }
     
     .losses .sample {
-      background-color: #c92828;
+      background-color: #c76262;
     }
 
   .total .sample {

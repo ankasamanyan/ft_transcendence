@@ -53,6 +53,7 @@ body {
     object-fit: cover;
     background-color: var(--color-light-blue);
     filter: brightness(70%);
+    cursor: pointer;
   }
 
   .profile-picture::before {
@@ -139,7 +140,7 @@ body {
   }
   
   .color-option1 { 
-    background-color: #ddcb82;
+    background-color: #171e2d;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -159,7 +160,7 @@ body {
   }
 
   .color-option3 { 
-    background-color: #556db4;
+    background-color: #6B8A47;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -169,7 +170,7 @@ body {
   }
 
   .color-option4 { 
-    background-color: #873ba1;
+    background-color: #0d4cde;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -177,6 +178,12 @@ body {
     cursor: pointer;
 
   }
+
+  .color-option1:hover, .color-option2:hover,
+  .color-option3:hover,.color-option4:hover {
+    cursor: pointer;
+  }
+
 
 #QR-code, .update-qa-status {
   display: block;
@@ -221,4 +228,8 @@ input:focus {
   background-color: lightgrey;
   pointer-events: none;
   color: black;
+}
+
+:ng-deep *  {
+  --color-dark-blue: #047934;
 }

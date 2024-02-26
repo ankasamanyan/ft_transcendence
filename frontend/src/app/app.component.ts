@@ -62,9 +62,50 @@ export class AppComponent {
         this.authenticatedUser = user;
       });
     });
+
+
+    const savedColorScheme = localStorage.getItem('colorScheme');
+    if (savedColorScheme) {
+      const colorScheme = JSON.parse(savedColorScheme);
+      this.changeColorScheme(
+        colorScheme.primaryColor,
+        colorScheme.secondaryColor,
+        colorScheme.orangeColor,
+        colorScheme.backgroundColor,
+        colorScheme.darkerOrangeColor,
+        colorScheme.lightBlueLighterColor,
+        colorScheme.lightBlueDarkerColor,
+        colorScheme.lightGreyColor
+      );
+    }
+
   }
 
   public open(modal: any): void {
     this.modalService.open(modal);
+  }
+
+  
+  changeColorScheme (
+    primaryColor: string,
+    secondaryColor: string,
+    orangeColor: string,
+    backgroundColor: string,
+    darkerOrangeColor: string,
+    lightBlueLighterColor: string,
+    lightBlueDarkerColor: string,
+    lightGreyColor:string ): void {
+
+    document.documentElement.style.setProperty('--color-orange', orangeColor);
+    document.documentElement.style.setProperty('--color-orange-darker', darkerOrangeColor);
+    document.documentElement.style.setProperty('--color-light-blue', backgroundColor);
+    document.documentElement.style.setProperty('--color-light-blue-lighter', lightBlueLighterColor);
+    document.documentElement.style.setProperty('--color-light-blue-darker', lightBlueDarkerColor);
+    document.documentElement.style.setProperty('--color-light-gray', lightGreyColor);
+    document.documentElement.style.setProperty('--color-dark-blue', primaryColor);
+    document.documentElement.style.setProperty('--color-secondary', secondaryColor);
+
+    localStorage.setItem('colorScheme', JSON.stringify({ orangeColor, darkerOrangeColor, backgroundColor, lightBlueLighterColor, lightBlueDarkerColor, lightGreyColor, primaryColor, secondaryColor}));
+
   }
 }
