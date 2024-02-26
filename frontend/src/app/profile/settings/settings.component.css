@@ -207,11 +207,8 @@ input:focus {
 #submit-button {
   display: block;
   border-radius: 7px;
-  height: 35px;
-  width: 90px;
-  padding-right: 16px;
-  padding-left: 16px;
-  font-weight: 300;
+  width: 120px;
+  padding: 8px 16px;
   border: 2px solid var(--color-secondary);
   background-color: var(--color-light-blue);
   color: var(--color-secondary);
