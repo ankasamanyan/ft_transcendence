@@ -31,12 +31,12 @@ export class GameService {
     return this.socket.emit('joinQueue', {userId: userId});
   }
 
-  leaveQueue() {
-    return this.socket.emit('leaveQueue', );
+  leaveQueue(userId: number) {
+    return this.socket.emit('leaveQueue', {userId: userId});
   }
 
   checkQueue() {
-    return this.socket.emit('checkQueue', );
+    return this.socket.emit('checkQueue');
   }
 
   isInvitationAlreadySent(initiatorId: number, recipientId: number) {
