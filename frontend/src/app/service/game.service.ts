@@ -27,6 +27,18 @@ export class GameService {
     return this.socket.emit('rejectionOfInvitation', UsersRequest.fromDomain(users));
   }
 
+  joinQueue(userId: number) {
+    return this.socket.emit('joinQueue', {userId: userId});
+  }
+
+  leaveQueue() {
+    return this.socket.emit('leaveQueue', );
+  }
+
+  checkQueue() {
+    return this.socket.emit('checkQueue', );
+  }
+
   isInvitationAlreadySent(initiatorId: number, recipientId: number) {
     return this.httpClient.get<boolean>("http://localhost:3000/game/invitations/exists/" + initiatorId + "/" + recipientId);
   }

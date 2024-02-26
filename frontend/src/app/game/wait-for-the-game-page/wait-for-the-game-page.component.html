@@ -1,4 +1,8 @@
 <div id="wait-for-it-wrapper">
     <div><img class="channel-photo" src="assets/wanna-play-page-picture.jpg" alt=""></div>
-    <button>I wanna play!</button>
+    <button *ngIf="!isInTheQueue" (click)="joinQueue()">I wanna play!</button>
+    <div *ngIf="isInTheQueue" class="waiting-for-the-game-to-start">
+        <div class="we-are-looking-text">We are looking for an adversary for you, it might take some time</div>
+        <div class="spinner-border" role="status"></div>
+    </div>
 </div>

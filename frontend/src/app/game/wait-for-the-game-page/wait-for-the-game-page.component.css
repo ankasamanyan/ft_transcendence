@@ -23,3 +23,20 @@ button:hover {
     background-color: var(--color-orange-darker);
     color: white;
 }
+
+.waiting-for-the-game-to-start {
+    margin: auto;
+    text-align:center;
+}
+
+.we-are-looking-text {
+    font-weight: 200;
+    font-style: italic;
+    font-size: 15px;
+}
+
+.spinner-border {
+    margin-top: 16px;
+    width: 1.6rem;
+    height: 1.6rem;
+}
