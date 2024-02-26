@@ -39,5 +39,14 @@ export class AuthController {
     await this.authService.turn_on(req.user.id);
     return this.authService.sign_jwt_token(req.user.id, res, true);
   }
+
+  @Get('disable2FA')
+  @UseGuards(JWTAuthGuard)
+  async	turn_off_2fa(@Req() req: any, @Res({passthrough: true}) res: any)  {
+    await this.authService.turn_off_2fa(req.user.id);
+    return this.authService.sign_jwt_token(req.user.id, res, false);
+    console.log("yeay");
+  }
+
 }
 

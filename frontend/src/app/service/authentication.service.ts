@@ -11,4 +11,9 @@ export class AuthenticationService {
   submit2FACode(code: TwoFactorCode) {
     return this.httpClient.post<TwoFactorCode>("http://localhost:3000/auth/ResultFromQrCode", code);
   }
+
+  disable2FACode() {
+    return this.httpClient.get<any>("http://localhost:3000/auth/disable2FA");
+  }
+
 }

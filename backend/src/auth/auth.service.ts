@@ -22,10 +22,11 @@ export class AuthService {
 
   async login(@Req() _req: any, @Res() _res: any): Promise<any> {
     var user = await this.findUser(_req.user.id);
-    // if(user.two_FA_enabled)
-    // {
-    // 	return _res.redirect(`http://${serv_ip}:3000/auth?2fa=` + String(_req.user.id));
-    // }
+    if(user.tfa_enabled)
+    {
+      console.log("redirecthaha")
+    	return _res.redirect(`http://localhost:4200/2-fa?2fa=` + String(_req.user.id));
+    }
     // let result = this.sign_42_jwt_token(user.id, _res)
     return this.sign_42_jwt_token(user.id, _res);
     // res.redirect(`http://localhost:4200/chat`);
@@ -50,7 +51,7 @@ export class AuthService {
     });
     res.cookie('accessToken', token);
     res.cookie('id', payload.sub);
-    return token;
+    return {accessToken: token};
   }
 
   async findUser(id: number) {
@@ -117,10 +118,27 @@ export class AuthService {
   }
   async turn_on(user_id: number) {
     const user = await this.findUser(user_id);
+    if (!user) {
+      return ;
+    }
     if (!user.tfa_enabled) {
       await this.prisma.user.update({
         where: { id: user_id },
         data: { tfa_enabled: true },
+      });
+    }
+    // this.userService.turn_on_2FA(user_id);
+  }
+
+  async turn_off_2fa(user_id: number) {
+    const user = await this.findUser(user_id);
+    if (!user) {
+      return ;
+    }
+    if (user.tfa_enabled) {
+      await this.prisma.user.update({
+        where: { id: user_id },
+        data: { tfa_enabled: false },
       });
     }
     // this.userService.turn_on_2FA(user_id);

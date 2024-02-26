@@ -1,1 +1,7 @@
-<p>two-factor works!</p>
+<div><input id="two-factor-code-input" maxlength="6" [(ngModel)]="twoFactorCodeInput"></div>
+<div><button
+	 class="action-button update-qa-status"
+	 id="submit-button"
+	 [ngClass]="{'deactivated' : twoFactorCodeInput?.length === 0 || !twoFactorCodeInput}"
+	 (click)="submit2FACode()">Submit</button>
+</div>

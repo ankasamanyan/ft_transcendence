@@ -1,0 +1,37 @@
+.action-button {
+    border: 2px solid var(--color-secondary);
+    background-color: transparent;
+    color: var(--color-secondary);
+    padding: 10px 10px;
+    font-size: 14px;
+    margin: 20px 5px;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+  
+  .action-button:hover {
+    background-color: var(--color-secondary);
+    color: white;
+  }
+  .update-qa-status {
+	display: block;
+	margin: auto;
+  }
+  
+  .update-qa-status {
+	margin-bottom: 16px;
+}
+
+
+input {
+    min-width: 500px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 15px;
+    border: 2px solid var(--color-light-blue);
+    text-align: center;
+  }
+
+  input::placeholder {
+    color: var(--color-dark-blue);
+  }

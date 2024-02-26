@@ -96,6 +96,7 @@ import { TwoFactorComponent } from './two-factor/two-factor.component';
             {path: 'game', component: GameComponent},
             {path: 'chat', component: ChatComponent},
             {path: 'authorization', component: AuthorizationPageComponent},
+            {path: '2-fa', component: TwoFactorComponent},
         ]),
         MatCheckboxModule,
         MatInputModule,
