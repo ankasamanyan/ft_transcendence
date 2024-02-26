@@ -27,9 +27,9 @@ export class WaitForTheGamePageComponent implements OnInit {
     this.sharedDataService.getMyUserId$().subscribe((value) => {
       this.userService.getUserById(value).subscribe((user) => {
         this.authenticatedUser = user;
+        this.gameService.checkQueue();
       });
     });
-    this.gameService.checkQueue();
   }
 
   joinQueue() {
