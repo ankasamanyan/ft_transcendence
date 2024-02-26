@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {OurSocket} from "../socket/socket";
 import {Users} from "../domain/user";
-import {UsersRequest} from "./dto/users.dto";
+import {UsersRequest, UsersResponse} from "./dto/users.dto";
 import {HttpClient} from "@angular/common/http";
 import { MatchHistory, MatchHistoryDto, MatchHistoryList } from './dto/game.dto';
-import { map, pipe } from 'rxjs';
+import { Observable, map, pipe } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -62,7 +62,10 @@ export class GameService {
     }));
   }
 
-  getInvitationsByRecipientId(recipientId: number) {
-    return this.httpClient.get<number[]>(`${this.backendUrl}/game/invitations/` + recipientId);
+  getInvitationsByRecipientId(recipientId: number): Observable<Users> {
+    return this.httpClient.get<UsersResponse>(`${this.backendUrl}/game/invitations/` + recipientId)
+      .pipe(map((response: UsersResponse) => {
+        return UsersResponse.toDomain(response);
+      }));
   }
 }

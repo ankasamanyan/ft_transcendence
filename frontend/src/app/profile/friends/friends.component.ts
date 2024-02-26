@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import {FriendService} from "../../service/friend.service";
 import {User, Users} from "../../domain/user";
 import { BlockedUsersService } from 'src/app/service/blocked-users.service';
+import { GameService } from 'src/app/service/game.service';
 import { UsersService } from 'src/app/service/users.service';
 import { OurSocket } from 'src/app/socket/socket';
 import { Subject, takeUntil } from 'rxjs';
@@ -37,6 +38,7 @@ export class FriendsComponent implements OnInit, OnChanges {
   constructor (
     private friendService: FriendService,
     private blockedUsersService: BlockedUsersService,
+    private gameService: GameService,
     private usersService: UsersService,
     private socket: OurSocket,
     private sharedDataService: SharedDataService,
@@ -49,6 +51,7 @@ export class FriendsComponent implements OnInit, OnChanges {
     this.getFriendList();
     this.getPendingRequestList();
     this.getBlockedUserList();
+    this.getInviteList();
 
     this.socket.on("friendRequestAccepted", ({userId, userId2}: {userId: number, userId2: number}) => {
       if (this.me.id === userId || this.me.id === userId2) {
@@ -85,6 +88,10 @@ ngOnChanges(changes: SimpleChanges): void {
   if ('this.blockedList' in changes) {
     this.getBlockedUserList();
   }
+
+  if ('this.inviteList' in changes) {
+    this.getInviteList();
+  }
 }
 
   getMeUser(){
@@ -101,6 +108,14 @@ ngOnChanges(changes: SimpleChanges): void {
       .subscribe((friends) => {
         this.friendsList = friends.users || [];
       });
+  }
+
+  getInviteList() {
+    this.gameService.getInvitationsByRecipientId(this.userId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((invites) => {
+        this.inviteList = invites.users  || [];
+      })
   }
 
   getPendingRequestList() {
