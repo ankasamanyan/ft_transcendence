@@ -45,10 +45,22 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="Invitations" *ngIf="isThisMe">
+    <mat-tab label="Invitations" (onclick)="getInviteList()" *ngIf="isThisMe">
       <div class="empty-list-container" *ngIf="inviteList.length === 0">
         <div class="empty-list">
           <p>{{placeHolderMessage}}</p>
+        </div>
+      </div>
+      <div class="friend-card"  *ngFor="let user of inviteList"> 
+        <div class="friend-header"></div>
+        <div><img class="friend-picture" [src]='user.picture' alt="Friend Picture"></div>
+        <div class="friend-form">
+          <div class="friend-info">
+            <h3>{{ user.name }}</h3>
+            <p class="username">&commat;{{ user.intraLogin }}</p>
+          </div>
+          <button class="action-button" >Accept</button>
+          <button class="action-button" >Decline</button>
         </div>
       </div>
     </mat-tab>

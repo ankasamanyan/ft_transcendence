@@ -76,7 +76,7 @@ export class FriendsComponent implements OnInit, OnChanges {
         this.getBlockedUserList();
       }
     });
-  }
+}
 
 ngOnChanges(changes: SimpleChanges): void {
   if ('this.friendsList' in changes) {
