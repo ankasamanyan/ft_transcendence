@@ -13,6 +13,7 @@ import {User} from "../../domain/user";
 export class WaitForTheGamePageComponent implements OnInit {
   authenticatedUser: User | undefined;
   isInTheQueue: boolean = false;
+  statusLoaded: boolean = false;
   constructor(
       private sharedDataService: SharedDataService,
       private userService: UsersService,
@@ -28,6 +29,7 @@ export class WaitForTheGamePageComponent implements OnInit {
       this.userService.getUserById(value).subscribe((user) => {
         this.authenticatedUser = user;
         this.gameService.checkQueue();
+        this.statusLoaded = true;
       });
     });
   }
