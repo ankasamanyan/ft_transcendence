@@ -43,6 +43,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import { WaitForTheGamePageComponent } from './game/wait-for-the-game-page/wait-for-the-game-page.component';
+import { TwoFactorComponent } from './two-factor/two-factor.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { WaitForTheGamePageComponent } from './game/wait-for-the-game-page/wait-
     WannaPlayModalComponent,
     EnterPasswordModalComponent,
     WaitForTheGamePageComponent,
+    TwoFactorComponent,
   ],
     imports: [
         BrowserModule,
