@@ -50,6 +50,13 @@ export class PrismaUsersRepository {
   }
 
   async updateUser(user: User) {
+    const matchingName = await this.prisma.user.findFirst({
+      where: {
+        name: user.name
+      }
+    });
+    if (matchingName !== null)
+      return false;
     await this.prisma.user.updateMany({
       where: {
         id: Number(user.id)
@@ -60,6 +67,7 @@ export class PrismaUsersRepository {
         tfa_enabled: user.tfa_enabled
       }
     });
+    return true;
   }
 
 
