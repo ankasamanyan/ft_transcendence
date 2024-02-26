@@ -49,7 +49,7 @@ export class PrismaUsersRepository {
     return isUnique === null;
   }
 
-  async updateNamePicture2faEnabl(user: User) {
+  async updateUser(user: User) {
     await this.prisma.user.updateMany({
       where: {
         id: Number(user.id)

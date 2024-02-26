@@ -35,8 +35,8 @@ export class UsersService {
     return from(this.usersRepository.getAllUsers());
   }
 
-  updateNamePicture2faEnabl(user: User) {
-    return from(this.usersRepository.updateNamePicture2faEnabl(user));
+  updateUser(user: User) {
+    return from(this.usersRepository.updateUser(user));
   }
 
   isUniqueName(name: string) {
