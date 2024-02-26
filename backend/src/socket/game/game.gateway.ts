@@ -3,6 +3,7 @@ import { Server } from 'socket.io';
 import {UsersRequest} from "../../adapter/dto/users-request";
 import {GameService} from "../../service/game-service";
 import { PaddleUpdateDto } from 'src/adapter/dto/game.dto';
+import { QueueService } from 'src/service/queue-service';
 
 
 
@@ -12,7 +13,8 @@ export class GameGateway {
   server: Server;
 
   constructor(
-      private gameService: GameService) {
+      private gameService: GameService,
+      private queueService: QueueService) {
 
   }
 
@@ -33,6 +35,9 @@ export class GameGateway {
   @SubscribeMessage('acceptanceOfInvitation')
   async accept(@MessageBody() request: UsersRequest) {
     await this.gameService.accept(UsersRequest.toDomain(request));
+    this.queueService.leaveQueue(request.users[0].id);
+    this.queueService.leaveQueue(request.users[1].id);
+    this.gameService.startGame(request.users[0].id, request.users[1].id, this.server);
     this.server.emit("invitationAccepted", {invitedId: request.users[0].id, beenInvitedId: request.users[1].id});
   }
 
@@ -47,4 +52,32 @@ export class GameGateway {
     console.log("startGame message subscribe")
     this.gameService.startGame(data.user1, data.user2, this.server);
   }
+
+  @SubscribeMessage('joinQueue')
+  async joinQueue(@MessageBody() data: {userId: number}) {
+    let userId = Number(data.userId);
+    if (Number.isNaN(Number(userId))) {
+      return ;
+    }
+    if (this.queueService.checkQueue() !== userId) {
+      this.queueService.joinQueue(userId, this.server);
+    }
+  }
+
+  @SubscribeMessage('checkQueue')
+  async checkQueue() {
+    const id = this.queueService.checkQueue();
+    this.server.emit('checkQueue', {userId: id});
+  }
+
+  @SubscribeMessage('leaveQueue')
+  async leaveQueue(@MessageBody() data: {userId: number}) {
+    let userId = Number(data.userId);
+    if (Number.isNaN(Number(userId))) {
+      return ;
+    }
+    this.queueService.leaveQueue(userId);
+  }
+
+
 }

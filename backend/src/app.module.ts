@@ -39,7 +39,7 @@ import { FTAuthGuard } from './auth/guards/auth.42.guard';
 import { JwtService } from '@nestjs/jwt';
 import { ProfileModule } from './socket/profile/profile.module';
 import { StatusController } from './adapter/status-controller';
-import { QueueController } from './adapter/queue-controller';
+// import { QueueController } from './adapter/queue-controller';
 import { PrismaQueueRepository } from './adapter/repository/prisma-queue-repository';
 import { PrismaStatusRepository } from './adapter/repository/prisma-status-repository';
 import { QueueService } from './service/queue-service';
@@ -65,7 +65,7 @@ import {JwtStrategy} from "./auth/strategy/jwt.strategy";
     GameController,
     AuthController,
     StatusController,
-    QueueController,
+    // QueueController,
   ],
   providers: [
     MuteTimer,

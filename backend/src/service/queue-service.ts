@@ -1,20 +1,38 @@
 import {Injectable} from '@nestjs/common';
+import { Server } from 'socket.io';
 import {from} from "rxjs";
 import { PrismaQueueRepository } from 'src/adapter/repository/prisma-queue-repository';
+import { GameService } from './game-service';
 
 @Injectable()
 export class QueueService {
-	constructor(public queueRepository: PrismaQueueRepository) {}
+	constructor(private gameService: GameService) {}
+	empty = true;
+	userId = -1;
 
-	queue(userId: number) {
-		return from(this.queueRepository.queue(userId));
+	joinQueue(joiningUser: number, server: Server) {
+		if (this.empty === true) {
+			this.empty = false;
+			this.userId = joiningUser;
+			return ;
+		}
+		else {
+			this.gameService.startGame(this.userId, joiningUser, server)
+			this.empty = true
+			this.userId = -1
+		}
 	}
-
-	removeFromQueueToPlayMatch(userId: number) {
-		return from(this.queueRepository.removeFromQueueToPlayMatch(userId));
+  
+	checkQueue(): number {
+		return this.userId;
 	}
-
-	findOtherPlayer() {
-		return from(this.queueRepository.findOtherPlayer());
+  
+	leaveQueue(leavingUser: number) {
+		if (this.empty === false) {
+			if (leavingUser === this.userId) {
+				this.empty = true
+				this.userId = -1
+			}
+		}
 	}
 }
