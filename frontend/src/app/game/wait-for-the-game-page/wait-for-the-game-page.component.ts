@@ -35,6 +35,7 @@ export class WaitForTheGamePageComponent implements OnInit {
   }
 
   joinQueue() {
+    this.isInTheQueue = true;
     this.gameService.joinQueue(this.authenticatedUser?.id!);
   }
 }
