@@ -233,3 +233,8 @@ input:focus {
   pointer-events: none;
   color: black;
 }
+
+#disable-2FA {
+  display: block;
+  margin: auto;
+}

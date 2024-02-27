@@ -46,8 +46,8 @@
             </div>
             <ng-template #otherContent>
                 <div><button
-                    id="Disable 2FA"
-                    [ngClass]="{'deactivated' : twoFactorCodeInput?.length === 0 || !twoFactorCodeInput}"
+                    id="disable-2FA"
+                    class="action-button"
                     (click)="disable2FA()">Disable 2FA</button>
                </div>
             </ng-template>
