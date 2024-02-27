@@ -272,11 +272,17 @@ export class SelectedDialogHeaderComponent implements OnChanges {
   openFriendProfile() {
     if (this.selectedDialogPartner) {
       this.sharedDataService.setData(this.selectedDialogPartner.id!);
-      this.sharedDataService.getData$()
-      .subscribe((data: any) =>{
-        console.log(data);
-      })
+      this.sharedDataService.getData$().subscribe()
       this.router.navigate(['profile']);
+    }
+  }
+
+  showChannelName() {
+    if (this.selectedDialogPartner) {
+      return this.selectedDialogPartner.name;
+    }
+    else {
+      return this.channel?.name;
     }
   }
 }

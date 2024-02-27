@@ -37,4 +37,13 @@ export class DialogComponent implements OnInit {
     return this.channel?.type !== "password-protected" && this.participants?.some((user) =>
       user.id === this.authenticatedUser?.id)
   }
+
+  showDialogName() {
+    if (this.participants?.length === 2) {
+      return this.participants!.filter((user) => {return user.id !== this.authenticatedUser!.id!})[0].name
+    }
+    else {
+      return this.channel?.name
+    }
+  }
 }

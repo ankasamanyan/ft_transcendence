@@ -2,7 +2,7 @@
     <span
         id="selected-person"
         (click)="openFriendProfile()"
-        [ngClass]="{'clickable' : selectedDialogPartner, 'non-clickable' : !selectedDialogPartner}">{{channel?.name}}</span>
+        [ngClass]="{'clickable' : selectedDialogPartner, 'non-clickable' : !selectedDialogPartner}">{{showChannelName()}}</span>
     <i class="bi bi-box-arrow-right" *ngIf="!isDialog() && channel" (click)="showLeaveModal=true"></i>
     <i class="bi bi-pen" *ngIf="!isDialog() && channel" (click)="showEditModal=true"></i>
     <div class="dropdown" *ngIf="selectedDialogPartner && isDialog()">
