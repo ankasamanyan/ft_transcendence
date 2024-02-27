@@ -3,7 +3,7 @@
     <div class="empty-list-container" *ngIf="achievementList.length === 0" >
         <div class="empty-list">
           <ul>
-            <li *ngFor="let achievement of getAchievements()">
+            <li style="list-style-type: none" *ngFor="let achievement of getAchievements()">
               {{achievement}}
             </li>
           </ul>
