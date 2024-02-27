@@ -46,4 +46,13 @@ export class DialogComponent implements OnInit {
       return this.channel?.name
     }
   }
+
+  showPicture() {
+    if (this.participants?.length === 2) {
+      return this.participants!.filter((user) => {return user.id !== this.authenticatedUser!.id!})[0].picture
+    }
+    else {
+      return this.channel?.picture
+    }
+  }
 }
