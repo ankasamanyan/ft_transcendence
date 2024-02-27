@@ -5,6 +5,7 @@ import { SharedDataService } from '../service/shared-data.service';
 import { ElementRef, ViewChild } from '@angular/core';
 import { GameOverDto, BallUpdateDto, GameScoreUpdateDto, GameStartResponseDto, PaddleUpdateDto, PaddleUpdateResponseDto } from '../service/dto/game.dto';
 import { HttpClient } from "@angular/common/http";
+import {Router} from "@angular/router";
 
 
 
@@ -17,8 +18,11 @@ export class GameComponent implements OnInit {
   userId!: number ;
   gameId: number = 1;
   paddleMoveSize: number = 5;
-  constructor(private socket: OurSocket, private sharedDataService: SharedDataService,
-    private httpClient: HttpClient){}
+  constructor(
+      private socket: OurSocket,
+      private sharedDataService: SharedDataService,
+      private httpClient: HttpClient,
+      private router: Router) {}
 
   NavigationBarStatus = NavigationBarStatus;
 
@@ -55,6 +59,11 @@ export class GameComponent implements OnInit {
         .subscribe((userId) => {
           this.userId = userId;
         });
+    this.socket.on("invitationAccepted",({invitedId, beenInvitedId}: { invitedId: number, beenInvitedId: number }) => {
+      if (beenInvitedId === this.userId || invitedId === this.userId) {
+        this.isGameOn = true;
+      }
+    });
     this.socket.on("GameUpdate", (BallUpdateDto: BallUpdateDto) => {
       this.ballPosition = BallUpdateDto.ballPos;
       const ballElement: HTMLElement = this.ballRef.nativeElement;
@@ -82,6 +91,7 @@ export class GameComponent implements OnInit {
     })
 
     this.socket.on("gameStarted", (gameStartResponseDto: GameStartResponseDto) => {
+      this.isGameOn = true;
       this.gameId = gameStartResponseDto.gameId;
       this.score1 = 0;
       this.score2 = 0;

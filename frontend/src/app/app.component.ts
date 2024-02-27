@@ -8,6 +8,7 @@ import { SharedDataService } from './service/shared-data.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import {OurSocket} from "./socket/socket";
 import {User} from "./domain/user";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -28,6 +29,7 @@ export class AppComponent {
       private friendService: FriendService,
       private channelService: ChannelService,
       private sharedDataService: SharedDataService,
+      private router: Router
   ) {
     this.usersService.initializeUsers().subscribe();
     this.friendService.initializeFriends().subscribe();
@@ -52,6 +54,19 @@ export class AppComponent {
           this.whoInvitedMeToPlay = value;
           this.showWannaPlayModal = true;
         })
+      }
+    });
+    socket.on("invitationSent",({invitedId, beenInvitedId}: { invitedId: number, beenInvitedId: number }) => {
+      if (beenInvitedId === this.authenticatedUser?.id) {
+        this.usersService.getUserById(invitedId).subscribe((value) => {
+          this.whoInvitedMeToPlay = value;
+          this.showWannaPlayModal = true;
+        })
+      }
+    });
+    socket.on("invitationAccepted",({invitedId, beenInvitedId}: { invitedId: number, beenInvitedId: number }) => {
+      if (beenInvitedId === this.authenticatedUser?.id || invitedId === this.authenticatedUser?.id) {
+        this.router.navigate(['/game']);
       }
     });
   }
