@@ -10,13 +10,12 @@ import { Router } from '@angular/router';
 })
 export class TwoFactorComponent {
   twoFactorCodeInput: string | undefined;
-  constructor(private authenticationService: AuthenticationService,
-    private router: Router) {}
-
+  constructor(
+      private authenticationService: AuthenticationService,
+      private router: Router) {}
 
   submit2FACode() {
     this.authenticationService.submit2FACode(new TwoFactorCode(this.twoFactorCodeInput!)).subscribe((data: any) => {
-      console.log(data);
       this.router.navigate(['/chat']);
     });
   }
