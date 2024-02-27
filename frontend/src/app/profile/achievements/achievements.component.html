@@ -2,7 +2,12 @@
     <h5>✨ My Achievements ✨</h5>
     <div class="empty-list-container" *ngIf="achievementList.length === 0" >
         <div class="empty-list">
-          <p>{{placeHolderMessage}}</p>
+          <ul>
+            <li *ngFor="let achievement of getAchievements()">
+              {{achievement}}
+            </li>
+          </ul>
+          
         </div>
     </div>
 </div>

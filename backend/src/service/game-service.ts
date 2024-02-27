@@ -288,7 +288,7 @@ export class GameService {
 	}
 
 	accept(users: Users) {
-		return from(this.prismaGameInvitationRepository.accept(users));
+		return from(this.prismaGameInvitationRepository.deleteOrDecline(users));
 	}
 
 	getAllFutureMatches() {
