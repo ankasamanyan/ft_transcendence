@@ -3,7 +3,7 @@
 <span class="owner" *ngIf="isOwner(participant!)">Owner</span>
 <span class="admin" *ngIf="(isAdmin(participant!) || this.tempAdminStatus) && !isAuthenticatedadminOrOwner()">Admin</span>
 <span class="three-dots-icon"
-      *ngIf="isAuthenticatedadminOrOwner() && !isOwner(participant!)"
+      *ngIf="isAuthenticatedadminOrOwner() && !isOwner(participant!) && !isAuthenticatedUser(participant!)"
       (click)="displayUserActions=true">
     <i class="bi bi-three-dots-vertical"></i>
 </span>

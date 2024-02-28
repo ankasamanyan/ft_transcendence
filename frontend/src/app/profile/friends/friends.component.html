@@ -17,8 +17,8 @@
               <h3>{{ friend.name }}</h3>
               <p class="username">&commat;{{ friend.intraLogin }}</p>
             </div>
-            <button class="action-button play" (click)="inviteToPlay()">Play<i class="bi bi-dice-2 icon-item"></i></button>
-            <button class="action-button block" (click)="blockUser(friend)" >Block<i class="bi bi-ban icon-item"></i></button>
+            <button *ngIf="isThisMe" class="action-button play" (click)="inviteToPlay(friend)">Play<i class="bi bi-dice-2 icon-item"></i></button>
+            <button *ngIf="isThisMe" class="action-button block" (click)="blockUser(friend)" >Block<i class="bi bi-ban icon-item"></i></button>
           </div>
         </div>
       </div>

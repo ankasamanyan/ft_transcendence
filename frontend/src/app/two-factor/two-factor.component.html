@@ -1,7 +1,13 @@
-<div><input id="two-factor-code-input" maxlength="6" [(ngModel)]="twoFactorCodeInput"></div>
-<div><button
-	 class="action-button update-qa-status"
-	 id="submit-button"
-	 [ngClass]="{'deactivated' : twoFactorCodeInput?.length === 0 || !twoFactorCodeInput}"
-	 (click)="submit2FACode()">Submit</button>
+<div class="tfa-page">
+    <div class="wrapper">
+        <div id="enter-code-text">Please, enter the code from the Authenticator app</div>
+        <div id="input-and-button">
+            <input id="two-factor-code-input" maxlength="6" [(ngModel)]="twoFactorCodeInput">
+            <button
+                    id="submit-button"
+                    [ngClass]="{'deactivated' : twoFactorCodeInput?.length === 0 || !twoFactorCodeInput}"
+                    (click)="submit2FACode()">Submit
+            </button>
+        </div>
+    </div>
 </div>

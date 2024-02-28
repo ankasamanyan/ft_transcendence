@@ -242,6 +242,7 @@ input:focus {
   color: black;
 }
 
-:ng-deep *  {
-  --color-dark-blue: #047934;
+#disable-2FA {
+  display: block;
+  margin: auto;
 }

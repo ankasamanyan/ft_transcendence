@@ -135,8 +135,8 @@ ngOnChanges(changes: SimpleChanges): void {
     });
   }
 
-  inviteToPlay(){
-    //game invitation
+  inviteToPlay(user: User){
+    this.gameService.invite(new Users([this.me, user]));
   }
 
   blockUser(blockee: User) {

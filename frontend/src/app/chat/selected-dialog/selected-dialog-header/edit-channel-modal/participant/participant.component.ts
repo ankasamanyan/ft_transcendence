@@ -52,6 +52,10 @@ export class ParticipantComponent {
     return false;
   }
 
+  isAuthenticatedUser(user: User) {
+    return this.authenticatedUser?.id === user.id;
+  }
+
   isAuthenticatedUserOwner() {
     return this.authenticatedUser?.id === this.channel?.owner!.id;
   }

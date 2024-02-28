@@ -1,37 +1,62 @@
-.action-button {
+.tfa-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-light-blue);
+    height: 100vh;
+}
+
+#enter-code-text {
+    text-align: center;
+    justify-self: center;
+    font-size: 50px;
+    font-weight: 200;
+    letter-spacing: 0.5px;
+    background-image: linear-gradient(45deg, var(--color-orange), var(--color-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+#input-and-button {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    margin-top: 8px;
+}
+
+input {
+    min-width: 130px;
+    border-radius: 10px;
+    padding: 7px 10px;
+    border: 2px solid var(--color-light-blue);
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+input:focus {
+    outline: none;
+}
+
+#submit-button {
     border: 2px solid var(--color-secondary);
     background-color: transparent;
     color: var(--color-secondary);
-    padding: 10px 10px;
-    font-size: 14px;
-    margin: 20px 5px;
+    font-size: 16px;
     cursor: pointer;
     border-radius: 10px;
+    margin-left: 8px;
+    padding: 4px 16px;
   }
-  
-  .action-button:hover {
+
+#submit-button:hover {
     background-color: var(--color-secondary);
     color: white;
-  }
-  .update-qa-status {
-	display: block;
-	margin: auto;
-  }
-  
-  .update-qa-status {
-	margin-bottom: 16px;
 }
 
-
-input {
-    min-width: 500px;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 15px;
-    border: 2px solid var(--color-light-blue);
-    text-align: center;
-  }
-
-  input::placeholder {
-    color: var(--color-dark-blue);
-  }
+#submit-button.deactivated {
+    border: 2px solid lightgrey;
+    background-color: lightgrey;
+    pointer-events: none;
+    color: black;
+}
