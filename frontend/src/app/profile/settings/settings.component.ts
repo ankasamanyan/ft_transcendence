@@ -30,6 +30,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   nameOnInit: string | undefined;
 
   settingsForm: FormGroup = new FormGroup({});
+
   selectedColorTheme: string = "";
 
   qrString: string = "";
@@ -41,6 +42,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   qrCodeFormGroup: any;
 
   twoFactorCodeInput: string | undefined;
+  
   selectedFile: File | undefined;
 
   constructor(

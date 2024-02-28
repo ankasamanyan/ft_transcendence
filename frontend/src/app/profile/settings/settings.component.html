@@ -2,18 +2,15 @@
     <h5 >✨ Settings ✨</h5>
     <div class="settings-card">
 
-        <div class="pictute-container">
-            <i class="bi bi-camera "></i>
-            <img class="profile-picture" [src]='userFromProfile!.picture' alt="Profile Picture">
+        <div class="picture-container" >
+            <i class="bi bi-camera" (click)="fileUpload.click()"></i>
+            <img class="profile-picture" [src]="userFromProfile!.picture" alt="Profile Picture" (click)="fileUpload.click()">
             <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
-                <div class="file-upload">
-                    {{fileName || "No file uploaded yet."}}
-                    <button color="primary" class="upload-btn" (click)="fileUpload.click()">
-                        Upload profile image
-                    </button>
-                </div>
+            <div class="file-upload">
+                {{fileName || "No file uploaded yet."}}
+            </div>
         </div>
-
+        
         <form >
 
         <div class="form-group">
