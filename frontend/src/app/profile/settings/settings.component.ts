@@ -41,6 +41,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   qrCodeFormGroup: any;
 
   twoFactorCodeInput: string | undefined;
+  selectedFile: File | undefined;
 
   constructor(
     private renderer: Renderer2,
@@ -75,11 +76,10 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   }
 
   onFileSelected(event: any) {
-    const file:File = event.target.files[0];
-    if (file && this.userFromProfile) {
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile && this.userFromProfile) {
       console.log("file selected");
-      this.fileName = file.name;
-      this.uploadService.uploadProfilePicture(file, this.userFromProfile?.id);
+      this.uploadService.uploadProfilePicture(this.selectedFile, this.userFromProfile?.id).subscribe();
     }
   }
 
