@@ -6,6 +6,14 @@ body {
     margin: 20px auto 30px auto;
     display: table;
   }
+
+  .file-input {
+    display: none;
+  }
+
+  .file-upload {
+    text-align: center;
+  }
   
   .settings-tab {
     top: 0;

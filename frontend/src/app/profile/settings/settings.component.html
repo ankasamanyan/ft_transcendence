@@ -5,6 +5,13 @@
         <div class="pictute-container">
             <i class="bi bi-camera "></i>
             <img class="profile-picture" [src]='userFromProfile!.picture' alt="Profile Picture">
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                <div class="file-upload">
+                    {{fileName || "No file uploaded yet."}}
+                    <button color="primary" class="upload-btn" (click)="fileUpload.click()">
+                        Upload profile image
+                    </button>
+                </div>
         </div>
 
         <form >

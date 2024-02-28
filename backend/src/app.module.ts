@@ -39,13 +39,15 @@ import { FTAuthGuard } from './auth/guards/auth.42.guard';
 import { JwtService } from '@nestjs/jwt';
 import { ProfileModule } from './socket/profile/profile.module';
 import { StatusController } from './adapter/status-controller';
-// import { QueueController } from './adapter/queue-controller';
 import { PrismaQueueRepository } from './adapter/repository/prisma-queue-repository';
 import { PrismaStatusRepository } from './adapter/repository/prisma-status-repository';
 import { QueueService } from './service/queue-service';
 import { StatusService } from './service/status-service';
 import { PrismaOnlineStatusRepository } from './adapter/repository/prisma-online-status-repository';
 import {JwtStrategy} from "./auth/strategy/jwt.strategy";
+import { UploadController } from './adapter/upload-controller';
+import { UploadService } from './service/upload.service';
+import {PrismaUploadRepository} from "./adapter/repository/prisma-upload-repository";
 
 @Module({
   imports: [
@@ -65,13 +67,14 @@ import {JwtStrategy} from "./auth/strategy/jwt.strategy";
     GameController,
     AuthController,
     StatusController,
-    // QueueController,
+    UploadController,
   ],
   providers: [
     MuteTimer,
     AppService,
     MessageService,
     UsersService,
+    UploadService,
     BlockedUsersService,
     ChannelService,
     FriendService,
@@ -94,6 +97,7 @@ import {JwtStrategy} from "./auth/strategy/jwt.strategy";
     PrismaQueueRepository,
     PrismaStatusRepository,
     PrismaOnlineStatusRepository,
+    PrismaUploadRepository,
     UserStatisticsService,
     AuthService,
     FTAuthGuard,
