@@ -264,7 +264,8 @@ export class PrismaChannelRepository {
                channel.name       as channelName,
                channel.picture    as channelPicture,
                channel.id         as channelId,
-               channel.created_at as channelCreatedAt
+               channel.created_at as channelCreatedAt,
+               channel.type       as channelType
 
         from "Channel" channel
                  LEFT JOIN "ChannelMessage" message on channel.id = message.channel_id
@@ -286,7 +287,7 @@ export class PrismaChannelRepository {
         channel.channelpicture,
         channel.createdat,
         channel.channelid,
-        undefined,
+        channel.channeltype,
         undefined,
         undefined,
         undefined,

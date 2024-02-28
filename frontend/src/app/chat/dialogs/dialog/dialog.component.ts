@@ -17,7 +17,8 @@ export class DialogComponent implements OnInit {
 
   participants: User[] | undefined;
 
-  constructor(private channelService: ChannelService) {
+  constructor(
+      private channelService: ChannelService) {
   }
 
   ngOnInit() {
@@ -34,8 +35,8 @@ export class DialogComponent implements OnInit {
   }
 
   shouldShowMessage() {
-    return this.channel?.type !== "password-protected" && this.participants?.some((user) =>
-      user.id === this.authenticatedUser?.id)
+    return !(this.channel?.type === "password-protected" && !this.participants?.some((user) =>
+        user.id === this.authenticatedUser?.id))
   }
 
   showDialogName() {
@@ -49,9 +50,10 @@ export class DialogComponent implements OnInit {
 
   showPicture() {
     if (this.channel?.type === "dialog") {
-      return this.participants!.filter((user) => {return user.id !== this.authenticatedUser!.id!})[0].picture
-    }
-    else {
+      return this.participants!.filter((user) => {
+        return user.id !== this.authenticatedUser!.id!
+      })[0].picture
+    } else {
       return this.channel?.picture
     }
   }
