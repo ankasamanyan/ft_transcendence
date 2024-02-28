@@ -11,6 +11,6 @@ export class UploadService {
 	uploadProfilePicture(file: File, userId: number | undefined) {
 		const formData = new FormData();
 		formData.append("thumbnail", file);
-		return this.httpClient.post<any>("https://localhost:3000/upload/upload" + userId, formData);
+		return this.httpClient.post<any>("https://localhost:3000/upload/upload/" + userId, formData);
 	}
 }
