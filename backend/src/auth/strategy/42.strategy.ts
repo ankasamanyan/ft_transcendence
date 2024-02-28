@@ -38,7 +38,24 @@ export class FTStrategy extends PassportStrategy(Strategy, '42') {
           intra_login: profile.username,
           picture: `assets/defaultAvatar${pictureIndex}.jpeg`
         },
+
       });
+      let stats = await this.prisma.userStatistics.findUnique({
+        where: {
+          userId: Number(profile.id),
+        },
+      });
+      if(!stats) {
+        await this.prisma.userStatistics.create({
+          data: {
+            userId:Number(profile.id),
+            wins: 0,
+            losses: 0,
+          },
+
+        });
+      }
+
     }
     return user;
   }
