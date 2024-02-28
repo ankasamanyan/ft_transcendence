@@ -52,14 +52,14 @@ export class PrismaGameRepository {
     async updateUserStatisticsLoss(userId: number) {
         const stats = await this.prisma.userStatistics.findUnique({
             where: {
-                id: userId,
+                userId: userId,
             }
         });
         if (stats) {
             stats.losses = stats.losses + 1
             await this.prisma.userStatistics.update({
                 where: {
-                    id: userId,
+                    userId: userId,
                 },
                 data: stats
             });
@@ -68,14 +68,14 @@ export class PrismaGameRepository {
     async updateUserStatisticsWin(userId: number) {
         const stats = await this.prisma.userStatistics.findUnique({
             where: {
-                id: userId,
+                userId: userId,
             }
         });
         if (stats) {
             stats.wins = stats.wins + 1
             await this.prisma.userStatistics.update({
                 where: {
-                    id: userId,
+                    userId: userId,
                 },
                 data: stats
             });
