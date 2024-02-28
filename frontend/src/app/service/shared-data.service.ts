@@ -28,6 +28,10 @@ export class SharedDataService {
   }
 
   getMyUserId$(): Observable<number> {
+    this.myUserIdSubject.asObservable().subscribe((data: number) => {
+      console.log("this is inside the getter")
+      console.log(data)
+  })
     return this.myUserIdSubject.asObservable();
   }
 

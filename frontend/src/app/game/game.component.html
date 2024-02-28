@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="./game.component.css">
 <app-navigation-bar [navigationStatus]="NavigationBarStatus.GAME"></app-navigation-bar>
-<div id="whole-game" *ngIf="isGameOn">
+<div id="whole-game" *ngIf="gameState !== 0">
     <!-- pong-game.component.html -->
     <div class="canvas">
         <!-- Your Pong game canvas goes here -->
@@ -17,7 +17,8 @@
         </div>
 
     </div>
+    <button *ngIf="gameState === 3" (click)="leaveGame()">Leave Game!</button>
 
 </div>
 
-<app-wait-for-the-game-page *ngIf="!isGameOn"></app-wait-for-the-game-page>
+<app-wait-for-the-game-page *ngIf="gameState === 0"></app-wait-for-the-game-page>

@@ -50,3 +50,8 @@ export class MatchHistoryDto  {
         public profilePicture: string,
         public opponentProfilePicture: string) {}
 }
+
+export type gameReadyDto = {
+    invitedId:number
+    beenInvitedId: number
+}

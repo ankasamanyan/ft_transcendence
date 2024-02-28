@@ -5,7 +5,7 @@ import { PrismaGameInvitationRepository } from 'src/adapter/repository/prisma-ga
 import { PrismaService } from './prisma.service';
 import { Server } from 'socket.io';
 import { PrismaGameRepository } from 'src/adapter/repository/prisma-game-repository';
-import { GameOverDto, BallUpdateDto, GameScoreUpdateDto, GameStartResponseDto, PaddleUpdateDto, PaddleUpdateResponseDto } from 'src/adapter/dto/game.dto';
+import { gameReadyDto, GameOverDto, BallUpdateDto, GameScoreUpdateDto, GameStartResponseDto, PaddleUpdateDto, PaddleUpdateResponseDto } from 'src/adapter/dto/game.dto';
 
 enum GameStatus {
 	INIT,
@@ -322,6 +322,16 @@ export class GameService {
 			this.gameList.splice(indexToRemove, 1);
 		}
 	}
+
+	ready_game(userId: number, joiningUser: number, server: Server) {
+
+		const gameReadyData: gameReadyDto = {
+			invitedId: userId,
+			beenInvitedId: joiningUser
+		}
+		server.emit("gameReady", gameReadyData);
+	}
+
 
 	async startGame(player1: number, player2: number, server: Server) {
 		console.log("game start with " + player1 + " " + player2);

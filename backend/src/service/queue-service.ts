@@ -17,7 +17,8 @@ export class QueueService {
 			return ;
 		}
 		else {
-			this.gameService.startGame(this.userId, joiningUser, server)
+			// this.gameService.startGame(this.userId, joiningUser, server)
+			this.gameService.ready_game(this.userId, joiningUser, server)
 			this.empty = true
 			this.userId = -1
 		}

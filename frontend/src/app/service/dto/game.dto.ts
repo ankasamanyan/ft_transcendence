@@ -93,3 +93,8 @@ export class MatchHistoryDto {
 
     }
 }
+
+export type gameReadyDto = {
+    invitedId:number
+    beenInvitedId: number
+}

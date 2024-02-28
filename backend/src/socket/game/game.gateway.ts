@@ -37,7 +37,7 @@ export class GameGateway {
     await this.gameService.accept(UsersRequest.toDomain(request));
     this.queueService.leaveQueue(request.users[0].id);
     this.queueService.leaveQueue(request.users[1].id);
-    this.gameService.startGame(request.users[0].id, request.users[1].id, this.server);
+    // this.gameService.startGame(request.users[0].id, request.users[1].id, this.server);
     this.server.emit("invitationAccepted", {invitedId: request.users[0].id, beenInvitedId: request.users[1].id});
   }
 
