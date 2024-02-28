@@ -244,7 +244,7 @@ export class GameData {
 		await new Promise(resolve => setTimeout(resolve, 1000));
 		while(this.gameStatus !== GameStatus.ENDED)
 		{
-			await new Promise(resolve => setTimeout(resolve, 50));
+			await new Promise(resolve => setTimeout(resolve, 35));
 			await this.gameLoop();
 		}
 	};

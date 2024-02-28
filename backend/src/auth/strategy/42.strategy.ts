@@ -7,6 +7,9 @@ import { Strategy, Profile } from 'passport-42';
 import { AuthService } from '../auth.service';
 import { PrismaService } from '../../service/prisma.service';
 import { User } from '@prisma/client';
+import { PrismaUsersRepository } from 'src/adapter/repository/prisma-users-repository';
+
+
 
 @Injectable()
 export class FTStrategy extends PassportStrategy(Strategy, '42') {
@@ -14,6 +17,7 @@ export class FTStrategy extends PassportStrategy(Strategy, '42') {
     private config: ConfigService,
     private authService: AuthService,
     private prisma: PrismaService,
+    private prismaUsersRepository: PrismaUsersRepository,
   ) {
     super({
       clientID: config.get('42_UID'),

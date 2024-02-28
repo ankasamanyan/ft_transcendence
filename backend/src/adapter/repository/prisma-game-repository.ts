@@ -1,6 +1,8 @@
 import { PrismaService } from '../../service/prisma.service';
 import {Injectable} from "@nestjs/common";
 import { MatchHistoryDto } from '../dto/game.dto';
+import { Game } from '@prisma/client';
+import { stat } from 'fs';
 
 interface MatchHistory {
     name: string,
@@ -45,6 +47,49 @@ export class PrismaGameRepository {
             value.profilepicture,
             value.opponentprofilepicture,
         )});
+
+    }
+    async updateUserStatisticsLoss(userId: number) {
+        const stats = await this.prisma.userStatistics.findUnique({
+            where: {
+                id: userId,
+            }
+        });
+        if (stats) {
+            stats.losses = stats.losses + 1
+            await this.prisma.userStatistics.update({
+                where: {
+                    id: userId,
+                },
+                data: stats
+            });
+        }
+    }
+    async updateUserStatisticsWin(userId: number) {
+        const stats = await this.prisma.userStatistics.findUnique({
+            where: {
+                id: userId,
+            }
+        });
+        if (stats) {
+            stats.wins = stats.wins + 1
+            await this.prisma.userStatistics.update({
+                where: {
+                    id: userId,
+                },
+                data: stats
+            });
+        }
+    }
+
+    async updateUserStatistics(game: Game) {
+        if (game.score1 > game.score2) {
+            this.updateUserStatisticsLoss(game.player2);
+            this.updateUserStatisticsWin(game.player1);
+        } else {
+            this.updateUserStatisticsLoss(game.player1);
+            this.updateUserStatisticsWin(game.player2);
+        }
     }
 
     async pushGameToUserHistory(userId: number, gameId: number) {
@@ -69,7 +114,7 @@ export class PrismaGameRepository {
     }
 
     async gameOver(gameId: number, finalScore1: number, finalScore2: number) {
-        const datbaseGameObj = await this.prisma.game.update({
+        const datbaseGameObj: Game = await this.prisma.game.update({
             where: {
                 id: gameId
             },
@@ -84,5 +129,6 @@ export class PrismaGameRepository {
         }
         await this.pushGameToUserHistory(datbaseGameObj.player1, datbaseGameObj.id);
         await this.pushGameToUserHistory(datbaseGameObj.player2, datbaseGameObj.id);
+        await this.updateUserStatistics(datbaseGameObj);
     }
 }

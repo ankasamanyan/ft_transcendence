@@ -8,8 +8,6 @@ import { authenticator } from 'otplib';
 import { toDataURL } from 'qrcode';
 import { UsersService } from '../service/users.service';
 import {User} from "@prisma/client";
-// import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-// import { User } from '../domain/user';
 
 @Injectable()
 export class AuthService {
