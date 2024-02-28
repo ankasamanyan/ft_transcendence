@@ -15,7 +15,7 @@ export class MessageComponent implements OnInit {
   message: ChannelMessage | undefined;
 
   authenticatedUser: User | undefined;
-  isSenderBlockedByUs: boolean = false;
+  isSenderBlockedByUs: boolean = true;
 
   constructor(
       private sharedDataService: SharedDataService,
