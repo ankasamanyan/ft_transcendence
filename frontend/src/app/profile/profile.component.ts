@@ -54,7 +54,7 @@ import { GameOverDto, GameStartResponseDto } from '../service/dto/game.dto';
       }
     });
 
-this.socket.on("gameStarted",(data: GameStartResponseDto) => {
+    this.socket.on("gameStarted",(data: GameStartResponseDto) => {
       if (data.player1 == this.userId || data.player2) {
         this.status = "Playing";
       }
