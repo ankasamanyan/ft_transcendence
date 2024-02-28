@@ -42,15 +42,10 @@ import { GameOverDto, GameStartResponseDto } from '../service/dto/game.dto';
       this.userId = data;
       console.log("THIS IS THE CURRENT USER:  " + this.userId);
     });
+
     this.socket.on("UserLogIn",({userId}: {userId: number}) => {
       if (userId == this.userId) {
         this.status = "Online";
-      }
-    });
-
-    this.socket.on("UserLogOut",({userId}: {userId: number}) => {
-      if (userId == this.userId) {
-        this.status = "Offline";
       }
     });
 
@@ -67,8 +62,6 @@ import { GameOverDto, GameStartResponseDto } from '../service/dto/game.dto';
     });
 
     this.getStatus();
-
-
 
     this.sharedDataService.getMyUserId$()
     .subscribe(myUserId => {

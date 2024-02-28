@@ -6,6 +6,8 @@ import { ElementRef, ViewChild } from '@angular/core';
 import { gameReadyDto, GameOverDto, BallUpdateDto, GameScoreUpdateDto, GameStartResponseDto, PaddleUpdateDto, PaddleUpdateResponseDto } from '../service/dto/game.dto';
 import { HttpClient } from "@angular/common/http";
 import {Router} from "@angular/router";
+import { UsersService } from '../service/users.service';
+import { User } from '../domain/user';
 
 enum GameState {
   WAITING,
@@ -24,11 +26,18 @@ export class GameComponent implements OnInit {
   otherUser!: number ;
   gameId: number = 1;
   paddleMoveSize: number = 5;
+  meUser!: User;
+  opponentUser!: User;
+
+  leftUser!: User;
+  rightUser!: User;
+
   constructor(
       private socket: OurSocket,
       private sharedDataService: SharedDataService,
       private httpClient: HttpClient,
-      private router: Router) {}
+      private router: Router,
+      private usersServices: UsersService) {}
 
   NavigationBarStatus = NavigationBarStatus;
 
@@ -64,6 +73,8 @@ export class GameComponent implements OnInit {
     this.sharedDataService.getMyUserId$()
         .subscribe((userId) => {
           this.userId = userId;
+          this.usersServices.getUserById(userId)
+          .subscribe(meUserData => {this.meUser = meUserData;})
         });
     this.socket.on("gameReady", (gameReadyData: gameReadyDto) => {
       if (gameReadyData.beenInvitedId === this.userId || gameReadyData.invitedId === this.userId) {
@@ -74,6 +85,17 @@ export class GameComponent implements OnInit {
         else {
           this.otherUser = gameReadyData.invitedId;
         }
+        this.usersServices.getUserById(this.otherUser)
+          .subscribe(opponentUserData => {
+            this.opponentUser = opponentUserData;
+            if (this.meUser.id === gameReadyData.beenInvitedId) {
+              this.leftUser = this.meUser;
+              this.rightUser = this.opponentUser;
+            } else {
+              this.rightUser = this.meUser;
+              this.leftUser = this.opponentUser;
+            }
+          })
       }
     });
   
@@ -89,12 +111,14 @@ export class GameComponent implements OnInit {
       }
     });
 
-    this.socket.on("GameUpdate", (BallUpdateDto: BallUpdateDto) => {
-      this.ballPosition = BallUpdateDto.ballPos;
-      const ballElement: HTMLElement = this.ballRef.nativeElement;
-      ballElement.style.top = (this.ballPosition[1] - this.ballRadius) + '%';
-      ballElement.style.left = (this.ballPosition[0] - this.ballRadius) + '%';
-      console.log("BallUpdate: " + this.ballPosition);
+    this.socket.on("GameUpdate", (ballUpdateDto: BallUpdateDto) => {
+      if (this.gameId === ballUpdateDto.gameId) {
+        this.ballPosition = ballUpdateDto.ballPos;
+        const ballElement: HTMLElement = this.ballRef.nativeElement;
+        ballElement.style.top = (this.ballPosition[1] - this.ballRadius) + '%';
+        ballElement.style.left = (this.ballPosition[0] - this.ballRadius) + '%';
+        console.log("BallUpdate: " + this.ballPosition);
+      }
     });
 
     this.socket.on("paddleUpdate", (paddleUpdate: PaddleUpdateResponseDto) => {
@@ -152,6 +176,7 @@ export class GameComponent implements OnInit {
       this.gameState = GameState.WAITING;
       this.paddle1Top = 50;
       this.paddle2Top = 50;
+      this.ballPosition = [50,50];
     }
   }
 

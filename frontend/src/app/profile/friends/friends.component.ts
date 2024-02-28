@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import {FriendService} from "../../service/friend.service";
 import {User, Users} from "../../domain/user";
 import { BlockedUsersService } from 'src/app/service/blocked-users.service';
@@ -15,11 +15,13 @@ import { Router } from '@angular/router';
   styleUrls: [`./friends.component.css`],
 
 })
-export class FriendsComponent implements OnInit, OnChanges {
+export class FriendsComponent implements OnInit, OnChanges{
 
   @Input() userId!: number;
 
   @Input() isThisMe!: boolean;
+
+  // @ViewChild('friendsList') frendos: User[];
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -45,6 +47,10 @@ export class FriendsComponent implements OnInit, OnChanges {
     private router: Router) {
     
   }
+
+  // ngAfterViewInit {
+
+  // }
   
   ngOnInit(): void {
     this.getMeUser();
@@ -71,26 +77,31 @@ export class FriendsComponent implements OnInit, OnChanges {
       };
     });
 
+    this.socket.on("invitationAccepted",({userId, userId2}: {userId: number, userId2: number}) => {
+      if (this.me.id === userId || this.me.id === userId2) {
+        this.getFriendList();
+      }
+    });
+    
     this.socket.on("userBlocked",({userId, userId2}: {userId: number, userId2: number}) => {
       if (this.me.id === userId || this.me.id === userId2) {
         this.getBlockedUserList();
       }
     });
-
 }
 
 ngOnChanges(changes: SimpleChanges): void {
-  if ('this.friendsList' in changes) {
+  if ('friendsList' in changes) {
     this.getFriendList();
   }
   if ('pendingList' in changes) {
     this.getPendingRequestList();
   }
-  if ('this.blockedList' in changes) {
+  if ('blockedList' in changes) {
     this.getBlockedUserList();
   }
 
-  if ('this.inviteList' in changes) {
+  if ('inviteList' in changes) {
     this.getInviteList();
   }
 }

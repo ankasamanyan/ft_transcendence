@@ -23,7 +23,7 @@
 .ball {
     border-radius: 50%;
     position: absolute;
-    background-color: #48426d;
+    background-color: var(--color-dark-blue);
 }
 
 
@@ -64,10 +64,9 @@
 
 .message {
     position: fixed;
-    color: #48426d;
+    color: var(--color-secondary);
     height: 10vh;
     width: 30vw;
-    color: #c9cbff;
     left: 38vw;
     margin: 30px auto auto auto;
     justify-content: center;
@@ -78,4 +77,39 @@ app-wait-for-the-game-page {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-info-left {
+    position: absolute;
+    left: 150px; 
+    top: 40%;
+    transform: translateY(-50%);
+
+}
+
+.user-info-right {
+    position: absolute;
+    right: 150px; 
+    top: 40%;
+    transform: translateY(-50%);
+}
+
+.user-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: var(--color-light-blue-darker);
+    object-fit: cover;
+}
+
+.username {
+    margin-top: 15px;
+    font-size: 25px;
+    color: var(--color-secondary);
 }
