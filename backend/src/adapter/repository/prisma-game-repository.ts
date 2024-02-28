@@ -47,8 +47,28 @@ export class PrismaGameRepository {
         )});
     }
 
+    async pushGameToUserHistory(userId: number, gameId: number) {
+        const user = await this.prisma.user.findUnique({
+            where: {
+                id: userId,
+            }
+        });
+        if (!user){
+            return ;
+        }   
+        await this.prisma.user.update({
+            where: {
+                id: userId,
+            },
+            data: {
+                games: {
+                    push: gameId,
+                }
+            }
+        });
+    }
+
     async gameOver(gameId: number, finalScore1: number, finalScore2: number) {
-        console.log("trying to update database");
         const datbaseGameObj = await this.prisma.game.update({
             where: {
                 id: gameId
@@ -59,25 +79,10 @@ export class PrismaGameRepository {
                 finished: true
             }
         });
-        await this.prisma.user.update({
-            where: {
-                id: datbaseGameObj.player1,
-            },
-            data: {
-                games: {
-                    push: datbaseGameObj.id ,
-                }
-            }
-        });
-        await this.prisma.user.update({
-            where: {
-                id: datbaseGameObj.player2,
-            },
-            data: {
-                games: {
-                    push: datbaseGameObj.id ,
-                }
-            }
-        })
+        if (!datbaseGameObj) {
+            return ;
+        }
+        await this.pushGameToUserHistory(datbaseGameObj.player1, datbaseGameObj.id);
+        await this.pushGameToUserHistory(datbaseGameObj.player2, datbaseGameObj.id);
     }
 }
