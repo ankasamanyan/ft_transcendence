@@ -11,6 +11,7 @@ import { UsersService } from "../../service/users.service";
 import { HttpClient } from "@angular/common/http";
 import { TwoFactorCode } from "../../domain/two-factor-code";
 import { AuthenticationService } from "../../service/authentication.service";
+import { UploadService } from "src/app/service/upload.service";
 
 @Component({
   selector: "app-settings",
@@ -35,6 +36,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   tfaButtonText: string = "";
 
+  fileName = "";
+
   qrCodeFormGroup: any;
 
   twoFactorCodeInput: string | undefined;
@@ -45,6 +48,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     private usersService: UsersService,
     private authenticationService: AuthenticationService,
     private http: HttpClient,
+    private uploadService: UploadService,
     // private cdr: ChangeDetectorRef
   ) {
     // if(!this.userFromProfile.tfa_enabled){
@@ -57,6 +61,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.nameOnInit = this.userFromProfile?.name;
   }
 
+
   isNameChanged() {
     return this.nameOnInit != this.userFromProfile?.name;
   }
@@ -67,6 +72,15 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   updateUser() {
     this.usersService.updateUser(this.userFromProfile!).subscribe();
+  }
+
+  onFileSelected(event: any) {
+    const file:File = event.target.files[0];
+    if (file && this.userFromProfile) {
+      console.log("file selected");
+      this.fileName = file.name;
+      this.uploadService.uploadProfilePicture(file, this.userFromProfile?.id);
+    }
   }
 
   changeColorScheme(

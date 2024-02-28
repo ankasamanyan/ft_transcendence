@@ -13,6 +13,7 @@ interface RawSql {
   channelpicture: string,
   createdat: Date,
   channelid: number,
+  channeltype: string,
   lastmessage: string,
   lastmessagecreatedat: Date
 }
@@ -125,12 +126,13 @@ export class PrismaChannelRepository {
                                              where user_id = ${userIdAsInteger})
                         GROUP BY (channel_id))
 
-        select message.text       as lastMessage,
-               message.created_at as lastMessageCreatedAt,
-               channel.name       as channelName,
-               channel.picture    as channelPicture,
-               channel.id         as channelId,
-               channel.created_at as channelCreatedAt
+        select message.text       as lastmessage,
+               message.created_at as lastmessagecreatedat,
+               channel.name       as channelname,
+               channel.picture    as channelpicture,
+               channel.id         as channelid,
+               channel.created_at as channelcreatedat,
+               channel.type       as channeltype
 
         from "Channel" channel
                  LEFT JOIN "ChannelMessage" message on channel.id = message.channel_id
@@ -148,7 +150,7 @@ export class PrismaChannelRepository {
         channel.channelpicture,
         channel.createdat,
         channel.channelid,
-        undefined,
+        channel.channeltype,
         undefined,
         undefined,
         undefined,

@@ -39,7 +39,7 @@ export class DialogComponent implements OnInit {
   }
 
   showDialogName() {
-    if (this.participants?.length === 2) {
+    if (this.channel?.type === "dialog") {
       return this.participants!.filter((user) => {return user.id !== this.authenticatedUser!.id!})[0].name
     }
     else {
@@ -48,7 +48,7 @@ export class DialogComponent implements OnInit {
   }
 
   showPicture() {
-    if (this.participants?.length === 2) {
+    if (this.channel?.type === "dialog") {
       return this.participants!.filter((user) => {return user.id !== this.authenticatedUser!.id!})[0].picture
     }
     else {
