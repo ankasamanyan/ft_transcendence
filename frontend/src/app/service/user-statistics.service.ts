@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,9 @@ export class UserStatisticsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private backendUrl = 'http://10.64.250.217:3000'
+  private ip = environment.ip
+
+  private backendUrl = `http://${this.ip}:3000`
 
 
   getWins(userId: number) {

@@ -3,13 +3,15 @@ import {map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {User, Users} from "../domain/user";
 import {UserRequest, UserResponse, UsersRequest, UsersResponse} from "./dto/users.dto";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  host = "10.64.250.217";
+  host = environment.ip;
+  // host = process.env["API_KEY"]
 
   constructor(private httpClient: HttpClient) { }
 

@@ -10,6 +10,7 @@ import {ChannelUpdate} from "../domain/channel-update";
 import {ChannelUpdateRequest} from "./dto/channel-update.dto";
 import {ConfirmPassword} from "../domain/confirm-password";
 import {ConfirmPasswordRequest} from "./dto/confirm-password.dto";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class ChannelService {
     private httpClient: HttpClient,
     private socket: OurSocket) { }
 
-  private backendUrl = 'http://10.64.250.217:3000';
+  host =  environment.ip;
+  private backendUrl =  `http://${this.host}:3000`;
 
   updateChannels: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 

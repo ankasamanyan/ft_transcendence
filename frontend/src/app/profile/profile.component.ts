@@ -6,6 +6,7 @@ import { UsersService } from '../service/users.service';
 import { HttpClient } from '@angular/common/http';
 import { OurSocket } from '../socket/socket';
 import { GameOverDto, GameStartResponseDto } from '../service/dto/game.dto';
+import {environment} from "../../environments/environment";
 
 
 @Component({
@@ -24,7 +25,8 @@ import { GameOverDto, GameStartResponseDto } from '../service/dto/game.dto';
 
   public userId!: number;
 
-  private backendUrl = 'http://10.64.250.217:3000';
+  host =  environment.ip;
+  private backendUrl =  `http://${this.host}:3000`;
 
 
 

@@ -8,6 +8,7 @@ import { HttpClient } from "@angular/common/http";
 import {Router} from "@angular/router";
 import { UsersService } from '../service/users.service';
 import { User } from '../domain/user';
+import {environment} from "../../environments/environment";
 
 enum GameState {
   WAITING,
@@ -69,7 +70,9 @@ export class GameComponent implements OnInit {
 
   gameState: GameState = GameState.WAITING;
 
-  private backendUrl = 'http://10.64.250.217:3000';
+  private ip = environment.ip
+
+  private backendUrl = `http://${this.ip}:3000`;
   ngOnInit(): void {
     this.sharedDataService.getMyUserId$()
         .subscribe((userId) => {

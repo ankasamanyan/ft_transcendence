@@ -42,9 +42,11 @@ export class AppComponent {
     let id = Number(Cookie.get('id'))
     // if(id){
     this.sharedDataService.setMyUserId(id);
+
     
     this.sharedDataService.getMyUserId$()
     .subscribe(data => {
+      console.log("THE ID: " + data);
       this.sharedDataService.setData(id);
     })
     // }

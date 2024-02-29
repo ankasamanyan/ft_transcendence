@@ -4,13 +4,14 @@ import {map} from "rxjs";
 import {ChannelMessage} from "../domain/channel-message";
 import {ChannelMessageRequest, ChannelMessageResponse} from "./dto/channel-message.dto";
 import {OurSocket} from "../socket/socket";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
 
-  host = "10.64.250.217";
+  host = environment.ip;
 
   constructor(private httpClient: HttpClient, private socket: OurSocket) { }
 

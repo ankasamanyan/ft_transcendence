@@ -1,5 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {DOCUMENT} from "@angular/common";
+import {environment} from "../../environments/environment";
 
 
 @Component({
@@ -21,4 +22,6 @@ export class AuthorizationPageComponent
       }
       window.history.replaceState({}, document.title, "/" + "");
   }
+
+    protected readonly environment = environment;
 }

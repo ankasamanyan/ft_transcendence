@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 import {User, Users} from "../domain/user";
 import {UsersRequest, UsersResponse} from "./dto/users.dto";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import {UsersRequest, UsersResponse} from "./dto/users.dto";
 export class FriendService {
   constructor(private httpClient: HttpClient) { }
 
-  private backendUrl = 'http://10.64.250.217:3000';
+  host =  environment.ip;
+  private backendUrl =  `http://${this.host}:3000`;
 
   sendAFriendRequest(users: Users): Observable<void> {
     return this.httpClient.post<void>(

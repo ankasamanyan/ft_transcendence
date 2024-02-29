@@ -5,6 +5,7 @@ import {UsersRequest, UsersResponse} from "./dto/users.dto";
 import {HttpClient} from "@angular/common/http";
 import { MatchHistory, MatchHistoryDto, MatchHistoryList } from './dto/game.dto';
 import { Observable, map, pipe } from 'rxjs';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class GameService {
 
   constructor(private socket: OurSocket, private httpClient: HttpClient) { }
 
-  host = "10.64.250.217";
-  private backendUrl =  `http://10.64.250.217:3000`;
+  host =  environment.ip;
+  private backendUrl =  `http://${this.host}:3000`;
 
   invite(users: Users) {
     return this.socket.emit('invitationToPlay', UsersRequest.fromDomain(users));

@@ -8,6 +8,7 @@ import { authenticator } from 'otplib';
 import { toDataURL } from 'qrcode';
 import { UsersService } from '../service/users.service';
 import {User} from "@prisma/client";
+import {config} from "rxjs";
 
 @Injectable()
 export class AuthService {
@@ -18,12 +19,16 @@ export class AuthService {
     private usersService: UsersService,
   ) {}
 
+
+
   async login(@Req() _req: any, @Res() _res: any): Promise<any> {
     var user = await this.findUser(_req.user.id);
+
     if(user.tfa_enabled)
     {
+
       console.log("redirecthaha")
-    	return _res.redirect(`http://10.64.250.217:4200/2-fa?2fa=` + String(_req.user.id));
+    	return _res.redirect(`http://${this.config.get('ip_address')}:4200/2-fa?2fa=` + String(_req.user.id));
     }
     // let result = this.sign_42_jwt_token(user.id, _res)
     return this.sign_42_jwt_token(user.id, _res);
@@ -38,7 +43,7 @@ export class AuthService {
     });
     res.cookie('id', payload.sub);
     res.cookie('accessToken', token);
-    res.redirect(`http://10.64.250.217:4200/chat`);
+    res.redirect(`http://${this.config.get('ip_address')}:4200/chat`);
   }
 
   async sign_jwt_token(user_id: number, res: any, is_two_FAed = false) {
