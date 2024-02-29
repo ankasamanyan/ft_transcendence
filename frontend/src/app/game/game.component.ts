@@ -46,7 +46,7 @@ export class GameComponent implements OnInit {
   // constants   if these change you have to change them in the backend too!!!
   paddleOffset: number = 10;
   paddleWidth: number = 2;
-  ballRadius: number = 2;
+  ballRadius: number = 3;
   paddleHeight: number = 36 / 2;
 
   paddle1Top: number = 50;

@@ -22,6 +22,7 @@
 
 .ball {
     border-radius: 50%;
+    margin-left: -10px ;
     position: absolute;
     background-color: var(--color-dark-blue);
 }
