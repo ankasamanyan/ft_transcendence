@@ -31,6 +31,7 @@
     "@nestjs/websockets": "^10.3.2",
     "@prisma/client": "^5.9.1",
     "argon2": "^0.40.1",
+    "express": "^4.18.2",
     "otplib": "^12.0.1",
     "passport": "^0.7.0",
     "passport-42": "^1.2.6",

@@ -50,7 +50,7 @@ export class FriendService {
 
   uploadProfilePicture(file: File, userId: number | undefined) {
 		const formData = new FormData();
-		formData.append("thumbnail", file);
+		formData.append("file", file);
 		return this.httpClient.post<any>('http://localhost:3000/upload/' + userId, formData);
 	}
 }
