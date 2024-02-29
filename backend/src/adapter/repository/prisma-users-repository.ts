@@ -3,6 +3,19 @@ import {Injectable} from "@nestjs/common";
 import {User} from "../../domain/user";
 import {UserResponse, UsersResponse} from "../dto/users-response";
 
+interface UserRawSql {
+  id: number,
+  name: string,
+  intra_login: string,
+  picture: string,
+  email: string,
+  is_authenticated: boolean,
+  games: any,
+  tfa_enabled: boolean,
+  tfa_secret: string,
+  online: boolean
+}
+
 @Injectable()
 export class PrismaUsersRepository {
   constructor(private prisma: PrismaService) {
@@ -117,13 +130,15 @@ export class PrismaUsersRepository {
   }
 
   async getUsers(userId: number) {
-    const users = await this.prisma.user.findMany({
-      where: {
-        id: {
-          not: Number(userId)
-        }
-      }
-    });
+    const userIdAsInteger = Number(userId);
+    const users = await this.prisma.$queryRaw<[UserRawSql]>`
+        SELECT *
+        FROM "User"
+        WHERE "id" != ${userIdAsInteger}
+          AND "id" NOT IN (SELECT "blockedId"
+            FROM "BlockedUser"
+            WHERE "blockerId" = ${userIdAsInteger})
+    `;
     return new UsersResponse(users.map((user) => {
       return new UserResponse(
           user.id,
