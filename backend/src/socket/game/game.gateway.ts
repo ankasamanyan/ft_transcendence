@@ -12,6 +12,8 @@ export class GameGateway {
   @WebSocketServer()
   server: Server;
 
+  gameReadyId: {user1:number, user2:number}[] = [];
+
   constructor(
       private gameService: GameService,
       private queueService: QueueService) {
@@ -40,6 +42,20 @@ export class GameGateway {
     this.queueService.leaveQueue(request.users[1].id);
     // this.gameService.startGame(request.users[0].id, request.users[1].id, this.server);
     this.server.emit("invitationAccepted", {invitedId: request.users[0].id, beenInvitedId: request.users[1].id});
+    this.gameReadyId.push({user1: request.users[0].id, user2: request.users[1].id})
+  }
+
+  @SubscribeMessage('checkIfGameReady')
+  async checkIfGameReady(@MessageBody() data: {userId: number}) {
+    const userId = Number(data.userId)
+    const index = this.gameReadyId.findIndex((ind_data: {user1:number, user2:number}) => {
+      return (ind_data.user1 === userId || ind_data.user2 === userId)
+    });
+
+    if (index !== -1) {
+			await new Promise(resolve => setTimeout(resolve, 35));
+    this.server.emit("checkIfGameReadyPositive", {userId1: this.gameReadyId[index].user1, userId2: this.gameReadyId[index].user2});
+    }
   }
 
   @SubscribeMessage('rejectionOfInvitation')
@@ -50,9 +66,15 @@ export class GameGateway {
 
   @SubscribeMessage('startGame')
   async startGame(@MessageBody() data: {user1: number, user2: number}) {
-    console.log("startGame message subscribe")
+    const index = this.gameReadyId.findIndex((ind_data: {user1:number, user2:number}) => {
+        return (ind_data.user1 == data.user1 && ind_data.user2 == data.user2) || (ind_data.user1 == data.user2 && ind_data.user2 == data.user1);
+    });
+    if (index !== -1) {
+      this.gameReadyId.splice(index, 1);
+    }
     this.gameService.startGame(data.user1, data.user2, this.server);
   }
+
 
   @SubscribeMessage('joinQueue')
   async joinQueue(@MessageBody() data: {userId: number}) {
