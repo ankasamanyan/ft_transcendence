@@ -80,6 +80,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
     if (this.selectedFile && this.userFromProfile) {
+      this.fileName = this.selectedFile.name;
       console.log("file selected");
       this.uploadService.uploadProfilePicture(this.selectedFile, this.userFromProfile?.id).subscribe();
     }
