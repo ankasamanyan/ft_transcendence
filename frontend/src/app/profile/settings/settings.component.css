@@ -31,7 +31,7 @@ body {
     margin-bottom: 20px;
   }
 
-  .bi-camera {
+  /* .bi-camera {
     position: absolute;
     top: 40%;
     left: 50%;
@@ -40,7 +40,7 @@ body {
     color: #fff;
     cursor: pointer;
     z-index: 1;
-  }
+  } */
 
   .picture-container {
     position: relative;
@@ -75,11 +75,11 @@ body {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
-
+/* 
 .profile-picture:hover::before {
     opacity: 5; 
 }
-  
+   */
 
 
   input {
