@@ -139,8 +139,14 @@ export class PrismaChannelRepository {
 
         where channel.id in
               (SELECT DISTINCT channel_id from "ChannelParticipant" where user_id = ${userIdAsInteger})
-            AND message.text IS NULL
-           OR (message.text IS NOT NULL AND message.id in (SELECT id from subres))
+          AND channel.id NOT IN (SELECT DISTINCT cp.channel_id
+                                 FROM "ChannelParticipant" cp
+                                          JOIN "BlockedUser" bu ON cp.user_id = bu."blockedId"
+                                 WHERE bu."blockerId" = ${userIdAsInteger}
+                                   AND channel.type = 'dialog')
+          AND (message.text IS NULL
+            OR (message.text IS NOT NULL AND message.id in (SELECT id from subres)))
+
         order by COALESCE(message.created_at, channel.created_at) desc
     `;
 
@@ -276,6 +282,11 @@ export class PrismaChannelRepository {
                from "ChannelParticipant"
                where user_id = ${userIdAsInteger}
                   or channel.type in ('public', 'password-protected'))
+          AND channel.id NOT IN (SELECT DISTINCT cp.channel_id
+                                 FROM "ChannelParticipant" cp
+                                        JOIN "BlockedUser" bu ON cp.user_id = bu."blockedId"
+                                 WHERE bu."blockerId" = ${userIdAsInteger}
+                                   AND channel.type = 'dialog')
           AND (message.id in (SELECT id from subres) OR message.text IS NULL)
           AND banneduser IS NULL
         order by COALESCE(message.created_at, channel.created_at) desc

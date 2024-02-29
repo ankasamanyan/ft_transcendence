@@ -76,7 +76,40 @@ export class GameComponent implements OnInit {
           this.usersServices.getUserById(userId)
           .subscribe(meUserData => {this.meUser = meUserData;})
         });
-    this.socket.on("gameReady", (gameReadyData: gameReadyDto) => {
+      this.socket.emit("checkIfGameReady", {userId: this.userId});
+    this.socket.on("checkIfGameReadyPositive", (gameReadyCheckPositive: {userId1: number, userId2: number}) => {
+      if (this.userId === gameReadyCheckPositive.userId1) {
+        this.otherUser = gameReadyCheckPositive.userId2;
+        this.usersServices.getUserById(this.otherUser)
+        .subscribe(opponentUserData => {
+          this.opponentUser = opponentUserData;
+        if (this.meUser.id === gameReadyCheckPositive.userId1) {
+            this.leftUser = this.meUser;
+            this.rightUser = this.opponentUser;
+          } else {
+            this.rightUser = this.meUser;
+            this.leftUser = this.opponentUser;
+          }
+        })
+      this.gameState = GameState.READY;
+      }
+      else if (this.userId === gameReadyCheckPositive.userId2) {
+        this.otherUser = gameReadyCheckPositive.userId1;
+        this.usersServices.getUserById(this.otherUser)
+        .subscribe(opponentUserData => {
+          this.opponentUser = opponentUserData;
+        if (this.meUser.id === gameReadyCheckPositive.userId1) {
+            this.leftUser = this.meUser;
+            this.rightUser = this.opponentUser;
+          } else {
+            this.rightUser = this.meUser;
+            this.leftUser = this.opponentUser;
+          }
+        })
+      this.gameState = GameState.READY;
+      }
+    })
+      this.socket.on("gameReady", (gameReadyData: gameReadyDto) => {
       if (gameReadyData.beenInvitedId === this.userId || gameReadyData.invitedId === this.userId) {
         this.gameState = GameState.READY;
         if (gameReadyData.invitedId === this.userId) {
@@ -168,6 +201,7 @@ export class GameComponent implements OnInit {
     document.addEventListener('keydown', (e) => this.handleKeyDown(e));
   }
 
+  
   leaveGame() {
     if (this.gameState === GameState.GAMEOVER) {
       this.gameMessage = 'Press Enter to Play Pong';
@@ -204,7 +238,7 @@ export class GameComponent implements OnInit {
 
   private handleKeyDown(e: KeyboardEvent):void {
     if (e.key === 'ArrowRight') {
-    this.httpClient.get<string>("http://localhost:3000/users/getStatus/"+ 98455)
+    this.httpClient.get<string>(`http://localhost:3000/users/getStatus/`+ 98455)
     .subscribe((data: string) => {
     });
   }

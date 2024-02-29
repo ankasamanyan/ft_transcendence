@@ -14,23 +14,23 @@ export class FriendService {
 
   sendAFriendRequest(users: Users): Observable<void> {
     return this.httpClient.post<void>(
-        "http://localhost:3000/friends",
+        `http://localhost:3000/friends`,
         UsersRequest.fromDomain(users));
   }
 
   getFriends(userId: number): Observable<Users> {
-    return this.httpClient.get<UsersResponse>("http://localhost:3000/friends/" + userId).pipe(
+    return this.httpClient.get<UsersResponse>(`http://localhost:3000/friends/` + userId).pipe(
         map((response: UsersResponse) => {
           return UsersResponse.toDomain(response);
         }));
   }
 
   befriendable(sentUserId: number, receivedUserId: number) {
-    return this.httpClient.get<boolean>("http://localhost:3000/friends/befriendable/" + sentUserId + "/" + receivedUserId);
+    return this.httpClient.get<boolean>(`http://localhost:3000/friends/befriendable/` + sentUserId + "/" + receivedUserId);
   }
 
   initializeFriends() {
-    return this.httpClient.post<void>("http://localhost:3000/friends/mocks", {});
+    return this.httpClient.post<void>(`http://localhost:3000/friends/mocks`, {});
   }
 
   getPendingFriendRequests(userId: number): Observable<Users> {

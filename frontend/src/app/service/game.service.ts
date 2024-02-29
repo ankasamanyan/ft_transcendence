@@ -40,7 +40,7 @@ export class GameService {
   }
 
   isInvitationAlreadySent(initiatorId: number, recipientId: number) {
-    return this.httpClient.get<boolean>("http://localhost:3000/game/invitations/exists/" + initiatorId + "/" + recipientId);
+    return this.httpClient.get<boolean>(`http://localhost:3000/game/invitations/exists/` + initiatorId + "/" + recipientId);
   }
 
   getMatchHistory(userId: number) {

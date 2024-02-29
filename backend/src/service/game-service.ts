@@ -323,6 +323,7 @@ export class GameService {
 		}
 	}
 
+
 	ready_game(userId: number, joiningUser: number, server: Server) {
 
 		const gameReadyData: gameReadyDto = {

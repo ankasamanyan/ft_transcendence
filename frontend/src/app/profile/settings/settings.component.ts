@@ -145,7 +145,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   getQRCode() {
     this.http
-      .get<any>("http://localhost:3000/auth/generateQRCode")
+      .get<any>(`http://localhost:3000/auth/generateQRCode`)
       .subscribe((response) => {
         this.qrString = response.qrCode;
       });
