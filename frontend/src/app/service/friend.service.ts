@@ -10,27 +10,27 @@ import {UsersRequest, UsersResponse} from "./dto/users.dto";
 export class FriendService {
   constructor(private httpClient: HttpClient) { }
 
-  private backendUrl = 'http://localhost:3000';
+  private backendUrl = 'http://10.64.250.217:3000';
 
   sendAFriendRequest(users: Users): Observable<void> {
     return this.httpClient.post<void>(
-        `http://localhost:3000/friends`,
+        `${this.backendUrl}/friends`,
         UsersRequest.fromDomain(users));
   }
 
   getFriends(userId: number): Observable<Users> {
-    return this.httpClient.get<UsersResponse>(`http://localhost:3000/friends/` + userId).pipe(
+    return this.httpClient.get<UsersResponse>(`${this.backendUrl}/friends/` + userId).pipe(
         map((response: UsersResponse) => {
           return UsersResponse.toDomain(response);
         }));
   }
 
   befriendable(sentUserId: number, receivedUserId: number) {
-    return this.httpClient.get<boolean>(`http://localhost:3000/friends/befriendable/` + sentUserId + "/" + receivedUserId);
+    return this.httpClient.get<boolean>(`${this.backendUrl}/friends/befriendable/` + sentUserId + "/" + receivedUserId);
   }
 
   initializeFriends() {
-    return this.httpClient.post<void>(`http://localhost:3000/friends/mocks`, {});
+    return this.httpClient.post<void>(`${this.backendUrl}/friends/mocks`, {});
   }
 
   getPendingFriendRequests(userId: number): Observable<Users> {
@@ -51,6 +51,6 @@ export class FriendService {
   uploadProfilePicture(file: File, userId: number | undefined) {
 		const formData = new FormData();
 		formData.append("file", file);
-		return this.httpClient.post<any>('http://localhost:3000/upload/' + userId, formData);
+		return this.httpClient.post<any>(`${this.backendUrl}/upload/` + userId, formData);
 	}
 }

@@ -24,6 +24,8 @@ import { GameOverDto, GameStartResponseDto } from '../service/dto/game.dto';
 
   public userId!: number;
 
+  private backendUrl = 'http://10.64.250.217:3000';
+
 
 
 
@@ -76,7 +78,7 @@ import { GameOverDto, GameStartResponseDto } from '../service/dto/game.dto';
 }
 
   getStatus() {
-    this.httpClient.get<any>(`http://localhost:3000/users/getStatus/` + this.userId)
+    this.httpClient.get<any>(`${this.backendUrl}/users/getStatus/` + this.userId)
     .subscribe((data: {status: string})=> {
       this.status = data.status;
     });

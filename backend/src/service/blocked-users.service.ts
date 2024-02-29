@@ -5,6 +5,8 @@ import { PrismaBlockedUsersRepository } from 'src/adapter/repository/prisma-bloc
 
 @Injectable()
 export class BlockedUsersService {
+
+
   constructor(private blockedUsersRepository: PrismaBlockedUsersRepository) {}
 
   async blockUser(users: Users) {

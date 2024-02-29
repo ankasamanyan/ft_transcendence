@@ -45,6 +45,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   
   selectedFile: File | undefined;
 
+  private backendUrl = 'http://10.64.250.217:3000';
+
   constructor(
     private renderer: Renderer2,
     private el: ElementRef,
@@ -145,7 +147,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   getQRCode() {
     this.http
-      .get<any>(`http://localhost:3000/auth/generateQRCode`)
+      .get<any>(`${this.backendUrl}/auth/generateQRCode`)
       .subscribe((response) => {
         this.qrString = response.qrCode;
       });

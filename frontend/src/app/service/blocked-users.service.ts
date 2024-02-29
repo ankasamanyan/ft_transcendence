@@ -21,13 +21,13 @@ export class BlockedUsersService {
   }
 
   getBlockedUsers(userId: number) {
-    return this.httpClient.get<UsersResponse>(`http://localhost:3000/blocked-users/`+ userId).pipe(
+    return this.httpClient.get<UsersResponse>(`http://10.64.250:3000/blocked-users/`+ userId).pipe(
       map((users: UsersResponse) => {
         return UsersResponse.toDomain(users);
       }));
   }
 
   isBlocked(blockerId: number, blockedId: number) {
-    return this.httpClient.get<boolean>(`http://localhost:3000/blocked-users/is-blocked/`+ blockerId + "/" + blockedId);
+    return this.httpClient.get<boolean>(`http://10.64.250:3000/blocked-users/is-blocked/`+ blockerId + "/" + blockedId);
   }
 }

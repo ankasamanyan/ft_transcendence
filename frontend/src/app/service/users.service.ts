@@ -9,38 +9,40 @@ import {UserRequest, UserResponse, UsersRequest, UsersResponse} from "./dto/user
 })
 export class UsersService {
 
+  host = "10.64.250.217";
+
   constructor(private httpClient: HttpClient) { }
 
   initializeUsers() {
-    return this.httpClient.post<void>(`http://localhost:3000/users/mocks`, {});
+    return this.httpClient.post<void>(`http://${this.host}:3000/users/mocks`, {});
   }
 
   addUser(user: User) {
-    return this.httpClient.post<void>(`http://localhost:3000/users/new-user`, UserRequest.fromDomain(user));
+    return this.httpClient.post<void>(`http://${this.host}:3000/users/new-user`, UserRequest.fromDomain(user));
   }
 
   getUserById(userId: number){
-    return this.httpClient.get<UserResponse>(`http://localhost:3000/users/details/` + userId).pipe(
+    return this.httpClient.get<UserResponse>(`http://${this.host}:3000/users/details/` + userId).pipe(
         map((users: UserResponse) => {
           return UserResponse.toDomain(users);
         }));
   }
 
   getUsers(userId: number): Observable<Users> {
-    return this.httpClient.get<UsersResponse>(`http://localhost:3000/users/all-except-for/` + userId).pipe(
+    return this.httpClient.get<UsersResponse>(`http://${this.host}:3000/users/all-except-for/` + userId).pipe(
       map((users: UsersResponse) => {
         return UsersResponse.toDomain(users);
       }));
   }
 
   getAllUsers(): Observable<Users> {
-    return this.httpClient.get<UsersResponse>(`http://localhost:3000/users/all/users`).pipe(
+    return this.httpClient.get<UsersResponse>(`http://${this.host}:3000/users/all/users`).pipe(
       map((users: UsersResponse) => {
         return UsersResponse.toDomain(users);
       }));
   }
 
   updateUser(user: User) {
-    return this.httpClient.put<UserResponse>(`http://localhost:3000/users/update`, UserRequest.fromDomain(user));
+    return this.httpClient.put<UserResponse>(`http://${this.host}:3000/users/update`, UserRequest.fromDomain(user));
   }
 }

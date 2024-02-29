@@ -3,8 +3,9 @@ import {Injectable} from "@angular/core";
 import { SharedDataService } from "../service/shared-data.service";
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 
+
 const config: SocketIoConfig = {
-	url: `http://localhost:3000`, options: {
+	url: `http://10.64.250.217:3000`, options: {
 		autoConnect: true,
 		reconnection: true,
 		reconnectionDelay: 1,

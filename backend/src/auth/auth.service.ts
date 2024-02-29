@@ -23,7 +23,7 @@ export class AuthService {
     if(user.tfa_enabled)
     {
       console.log("redirecthaha")
-    	return _res.redirect(`http://localhost:4200/2-fa?2fa=` + String(_req.user.id));
+    	return _res.redirect(`http://10.64.250.217:4200/2-fa?2fa=` + String(_req.user.id));
     }
     // let result = this.sign_42_jwt_token(user.id, _res)
     return this.sign_42_jwt_token(user.id, _res);
@@ -38,7 +38,7 @@ export class AuthService {
     });
     res.cookie('id', payload.sub);
     res.cookie('accessToken', token);
-    res.redirect(`http://localhost:4200/chat`);
+    res.redirect(`http://10.64.250.217:4200/chat`);
   }
 
   async sign_jwt_token(user_id: number, res: any, is_two_FAed = false) {

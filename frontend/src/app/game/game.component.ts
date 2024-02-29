@@ -69,6 +69,7 @@ export class GameComponent implements OnInit {
 
   gameState: GameState = GameState.WAITING;
 
+  private backendUrl = 'http://10.64.250.217:3000';
   ngOnInit(): void {
     this.sharedDataService.getMyUserId$()
         .subscribe((userId) => {
@@ -236,9 +237,10 @@ export class GameComponent implements OnInit {
     // }
   }
 
+
   private handleKeyDown(e: KeyboardEvent):void {
     if (e.key === 'ArrowRight') {
-    this.httpClient.get<string>(`http://localhost:3000/users/getStatus/`+ 98455)
+    this.httpClient.get<string>(`${this.backendUrl}/users/getStatus/`+ 98455)
     .subscribe((data: string) => {
     });
   }

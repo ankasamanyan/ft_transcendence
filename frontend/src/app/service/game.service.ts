@@ -11,9 +11,12 @@ import { Observable, map, pipe } from 'rxjs';
 })
 export class GameService {
 
+
+
   constructor(private socket: OurSocket, private httpClient: HttpClient) { }
 
-  private backendUrl = 'http://localhost:3000';
+  host = "10.64.250.217";
+  private backendUrl =  `http://10.64.250.217:3000`;
 
   invite(users: Users) {
     return this.socket.emit('invitationToPlay', UsersRequest.fromDomain(users));
@@ -40,7 +43,7 @@ export class GameService {
   }
 
   isInvitationAlreadySent(initiatorId: number, recipientId: number) {
-    return this.httpClient.get<boolean>(`http://localhost:3000/game/invitations/exists/` + initiatorId + "/" + recipientId);
+    return this.httpClient.get<boolean>(`http://${this.host}:3000/game/invitations/exists/` + initiatorId + "/" + recipientId);
   }
 
   getMatchHistory(userId: number) {
