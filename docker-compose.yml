@@ -11,6 +11,7 @@ services:
       - ./frontend/public:/frontend/public
       - ./frontend/package.json:/frontend/package.json
       - ./frontend/package-lock.json:/frontend/package-lock.json
+      - ./frontend/assets:/app/uploads
     networks:
       - webapp
     ports:
@@ -34,7 +35,6 @@ services:
       - ./backend/src:/backend/src # for dev experience, remove for prod
       - ./backend/package.json:/backend/package.json # for dev experience, remove for prod
       - ./backend/package-lock.json:/backend/package-lock.json # for dev experience, remove for prod
-      - ./backend/images:/app/uploads
     networks:
       - database
       - webapp

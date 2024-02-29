@@ -33,7 +33,7 @@ export class AchievementsComponent implements OnInit {
     }
 
   getAchievements() {
-     if (this.userWins == 0)
+     if (this.userWins == 0  || this.userWins == null)
        return [this.placeHolderMessage];
     if (this.userWins == 1)
       return [this.bronze];
