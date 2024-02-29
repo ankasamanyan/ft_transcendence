@@ -8,13 +8,13 @@ import {JWTAuthGuard} from "../auth/guards/auth.jwt.guard";
 export class MessageController {
   constructor(private messageService: MessageService) {}
 
-  // @UseGuards(JWTAuthGuard)
+  @UseGuards(JWTAuthGuard)
   @Post("/mocks2")
   initializeChannelMessages() {
     return this.messageService.initializeChannelMessages();
   }
 
-  // @UseGuards(JWTAuthGuard)
+  @UseGuards(JWTAuthGuard)
   @Get('/:channelId')
   getChannelMessages(@Param('channelId') channelId: number) {
     return this.messageService.getChannelMessages(channelId);
