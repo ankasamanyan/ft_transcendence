@@ -15,8 +15,9 @@
     /* position: relative; */
     height: 700px;
     width: 700px;
+    
     background-image: linear-gradient(
-            to right, var(--color-light-blue), var(--color-light-blue-darker));
+            45deg, var(--color-light-blue), var(--color-light-blue-darker));
     border-radius: 14px;
 }
 
@@ -66,11 +67,15 @@
 .message {
     position: fixed;
     color: var(--color-secondary);
-    height: 10vh;
-    width: 30vw;
-    left: 38vw;
-    margin: 30px auto auto auto;
+    height: 40%;
+    width: 50%;
+    margin: 150px auto auto auto;
     justify-content: center;
+    background-image: linear-gradient(45deg,var(--color-orange), var(--color-secondary) );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: center;
 }
 
 app-wait-for-the-game-page {
@@ -107,6 +112,7 @@ app-wait-for-the-game-page {
     border-radius: 50%;
     background-color: var(--color-light-blue-darker);
     object-fit: cover;
+    border: 3px solid var(--color-dark-blue);
 }
 
 .username {
@@ -114,3 +120,22 @@ app-wait-for-the-game-page {
     font-size: 25px;
     color: var(--color-secondary);
 }
+
+.button {
+    border: 2px solid var(--color-secondary);
+    background-color: transparent;
+    color: var(--color-secondary);
+    padding: 10px 10px;
+    font-size: 17px;
+    margin: 20px 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    position: fixed;
+    top: 35%;
+    justify-content: center;
+  }
+  
+  .button:hover {
+    background-color: var(--color-secondary);
+    color: white;
+  }

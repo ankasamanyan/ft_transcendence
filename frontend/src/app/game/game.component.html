@@ -3,7 +3,7 @@
 <div id="whole-game" *ngIf="gameState !== 0">
     <div class="user-info user-info-left">
         <img class="user-picture" [src]="leftUser.picture" alt="User 1 Picture">
-        <span class="username">{{leftUser.name}}</span>
+        <span class="username">{{ leftUser.name.length <= 15 ? leftUser.name : leftUser.name.substr(0, 15).split(' ')[0] }}</span>
     </div>
     <div class="canvas">
         <div id="pongCanvas">
@@ -17,8 +17,8 @@
     </div>
     <div class="user-info user-info-right">
         <img class="user-picture" [src]="rightUser.picture" alt="User 2 Picture">
-        <span class="username">{{rightUser.name}}</span>
+        <span class="username">{{ rightUser.name.length <= 15 ? rightUser.name : rightUser.name.substr(0, 15).split(' ')[0] }}</span>
     </div>
-    <button *ngIf="gameState === 3" (click)="leaveGame()">Leave Game!</button>
+    <button class="button" *ngIf="gameState === 3" (click)="leaveGame()">Leave Game!</button>
 </div>
 <app-wait-for-the-game-page *ngIf="gameState === 0"></app-wait-for-the-game-page>
