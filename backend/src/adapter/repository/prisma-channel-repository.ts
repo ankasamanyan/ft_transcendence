@@ -268,6 +268,11 @@ export class PrismaChannelRepository {
                         from "ChannelMessage"
                         where channel_id in (SELECT DISTINCT channel_id
                                              from "ChannelParticipant")
+                          AND sender_id NOT IN (
+                          SELECT bu."blockedId"
+                          FROM "BlockedUser" bu
+                          WHERE bu."blockerId" = ${userIdAsInteger}
+                        )
                         GROUP BY (channel_id))
 
         select message.text       as lastMessage,
