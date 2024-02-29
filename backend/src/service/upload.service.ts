@@ -13,7 +13,7 @@ export class UploadService {
 	constructor(public uploadRepository: PrismaUploadRepository) {}
 
 	async saveFile(file: Express.Multer.File, userId: number) {
-		const uploadDirectory = path.resolve('/app/uploads');
+		const uploadDirectory = path.resolve('/backend/pictures');
 		const uniqueFilename = uuidv4() + path.extname(file.originalname);
 		const filePath = path.join(uploadDirectory, uniqueFilename);
 	
