@@ -19,8 +19,7 @@ export class UploadService {
 	
 		// Save the file to the local machine
 		await fs.promises.writeFile(filePath, file.buffer);
-
 		//store the file path in database
-		return from(this.uploadRepository.saveImagetoUser(file, userId));
+		return from(this.uploadRepository.saveImagetoUser(filePath, userId));
 	  }
 }

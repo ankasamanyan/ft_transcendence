@@ -166,7 +166,7 @@ export class GameComponent implements OnInit {
     this.socket.on("gameOver", (gameOverDto: GameOverDto) => {
       if (gameOverDto.gameId === this.gameId) {
         if (gameOverDto.winnerId === this.userId) {
-          this.gameMessage = "You Won!"
+          this.gameMessage = "You Won! "
         }
         else {
           this.gameMessage = "You lost!"
@@ -253,7 +253,7 @@ export class GameComponent implements OnInit {
       }
       else if (e.key === 'Enter') {
         if (this.gameState === GameState.READY) {
-          this.socket.emit("startGame", {user1: this.userId, user2: this.otherUser});
+          this.socket.emit("startGame", {user1: this.leftUser.id, user2: this.rightUser.id});
         }
       }
     }

@@ -65,6 +65,12 @@ export class SelectedDialogComponent implements OnChanges, AfterViewChecked, OnI
         this.selectedChannelId = undefined;
       }
     });
+    socket.on("userBlocked", ({blockerId, blockeeId}: { blockerId: number, blockeeId: number }) => {
+      if (this.authenticatedUser!.id === blockerId) {
+        this.selectedDialog = undefined;
+        this.selectedChannelId = undefined;
+      }
+    });
     socket.on("participantJoined", () => {
       if (this.selectedChannelId) {
         this.messageService.getChannelMessages(this.selectedChannelId).subscribe((value) => {
