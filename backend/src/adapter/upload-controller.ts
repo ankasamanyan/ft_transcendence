@@ -1,4 +1,4 @@
-import { Controller, Param, UseGuards } from "@nestjs/common";
+import {Controller, Get, Param, UseGuards} from "@nestjs/common";
 import { Express } from "express";
 import { UploadService } from "src/service/upload.service";
 import { Post, UseInterceptors, UploadedFile } from "@nestjs/common";
@@ -14,7 +14,12 @@ export class UploadController {
   @Post('/:userId')
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File, @Param('userId') userId: number) {
-    console.log(file);
+    ////console.log(file);
     this.uploadService.saveFile(file, userId);
     }
+
+  //   @Get('/getFile:userId')
+  // getFile(@Param('userId') userId: number){
+  //     this.uploadService.getFile(userId)
+  //   }
 }

@@ -22,8 +22,8 @@ export class GameGateway {
 
   @SubscribeMessage('paddleUpdate')
   async paddleArrowUp(@MessageBody() input: PaddleUpdateDto) {
-    console.log("gamepaddle update backend with value");
-    console.log(input);
+    // ////console.log("gamepaddle update backend with value");
+    ////console.log(input);
     this.gameService.updatePaddle(input);
   }
 

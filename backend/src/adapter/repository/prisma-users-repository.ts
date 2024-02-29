@@ -170,8 +170,8 @@ export class PrismaUsersRepository {
   }
 
   async getStatus(userId: number) {
-    console.log(userId)
-    console.log("in getStatus")
+    ////console.log(userId)
+    ////console.log("in getStatus")
     const user = await this.prisma.user.findUnique({
       where: {
         id: userId
@@ -191,13 +191,13 @@ export class PrismaUsersRepository {
         }
       })
       if (runningGames.length > 0) {
-        console.log("return playing")
+        ////console.log("return playing")
         return {status: "Playing"}      
       }
-      console.log("return online")
+      ////console.log("return online")
       return {status: "Online"}      
     } else {
-      console.log("return unknown user")
+      ////console.log("return unknown user")
       return {status: "unknown"}      
     }
   }

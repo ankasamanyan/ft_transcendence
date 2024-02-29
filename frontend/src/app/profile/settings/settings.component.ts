@@ -12,6 +12,7 @@ import { HttpClient } from "@angular/common/http";
 import { TwoFactorCode } from "../../domain/two-factor-code";
 import { AuthenticationService } from "../../service/authentication.service";
 import { FriendService } from "src/app/service/friend.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: "app-settings",
@@ -45,7 +46,9 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   
   selectedFile: File | undefined;
 
-  private backendUrl = 'http://10.64.250.217:3000';
+  private ip = environment.ip
+
+  private backendUrl = 'http://' + this.ip + ':3000';
 
   constructor(
     private renderer: Renderer2,
@@ -83,7 +86,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.selectedFile = event.target.files[0];
     if (this.selectedFile && this.userFromProfile) {
       this.fileName = this.selectedFile.name;
-      console.log("file selected");
+      //console.log("file selected");
       this.friendsService.uploadProfilePicture(this.selectedFile, this.userFromProfile?.id).subscribe();
     }
   }
@@ -233,7 +236,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.authenticationService
       .submit2FACode(new TwoFactorCode(this.twoFactorCodeInput!))
       .subscribe((data: any) => {
-        console.log(data);
+        //console.log(data);
         this.userFromProfile!.tfa_enabled = true;
         this.qrString = ''
         this.twoFactorCodeInput = ''
@@ -243,10 +246,10 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   disable2FA() {
     this.authenticationService.disable2FACode()
     .subscribe((data: any) => {
-      console.log(data);
+      //console.log(data);
       this.userFromProfile!.tfa_enabled = false;
       this.getQRCode()
-      console.log(this.userFromProfile!.tfa_enabled);
+      //console.log(this.userFromProfile!.tfa_enabled);
     });
   }
 }

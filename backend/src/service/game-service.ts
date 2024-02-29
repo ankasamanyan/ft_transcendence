@@ -106,7 +106,7 @@ export class GameData {
 			return GameEvent.SCORE1;
 		}
 		if (this.checkPaddleCollision(nextBallX, nextBallY) === true) {
-			console.log("paddlecollision")
+			////console.log("paddlecollision")
 			return GameEvent.PADDLECOLLISION;
 		}
 		return GameEvent.NOTHING;
@@ -135,7 +135,7 @@ export class GameData {
 		this.server.emit('ScoreUpdate', dto);
 	}
 	resetAfterScore() {
-		console.log("resetAfterScore")
+		////console.log("resetAfterScore")
 		this.PositionPaddle1 = 50
 		this.PositionPaddle2 = 50
 		this.PositionBall = [50, 50];
@@ -172,7 +172,7 @@ export class GameData {
 	}
 
 	async gameLoop() {
-		console.log("inside gameLoop function with ballCoord: " + this.PositionBall + " " + this.VelocityBall);
+		////console.log("inside gameLoop function with ballCoord: " + this.PositionBall + " " + this.VelocityBall);
 		const scoreCase = this.checkEvent();
 		if (scoreCase === GameEvent.SCORE2 || scoreCase === GameEvent.SCORE1) {
 			this.scoreUpdate(scoreCase);
@@ -202,9 +202,9 @@ export class GameData {
 	}
 
 	updatePaddle(userId: number, paddleMove: number) {
-		console.log("updatePaddleCalled ")
+		////console.log("updatePaddleCalled ")
 		if (userId === this.player1) {
-			console.log("player1")
+			////console.log("player1")
 			if (!(paddleMove + this.PositionPaddle1 - (this.paddleHeight / 2) < 0 || paddleMove + this.PositionPaddle1 + (this.paddleHeight / 2) > this.windowHeight)) {
 				this.PositionPaddle1 = paddleMove + this.PositionPaddle1;
 				if (this.checkPaddleCollision(this.PositionBall[0], this.PositionBall[1])){
@@ -213,7 +213,7 @@ export class GameData {
 			} // doesnt go out of the window
 		}
 		else if (userId === this.player2) {
-			console.log("player2")
+			////console.log("player2")
 			if (!(paddleMove + this.PositionPaddle2 - (this.paddleHeight / 2) < 0 || paddleMove + this.PositionPaddle2 + (this.paddleHeight / 2) > this.windowHeight)) {
 				this.PositionPaddle2 = paddleMove + this.PositionPaddle2;
 				if (this.checkPaddleCollision(this.PositionBall[0], this.PositionBall[1])){
@@ -313,7 +313,7 @@ export class GameService {
 		const indexToRemove = this.gameList.findIndex((game) => {
 			return game.gameId === gameIdToRemove;
 		});
-		console.log("game finished id: " + gameIdToRemove + " with index " + indexToRemove)
+		////console.log("game finished id: " + gameIdToRemove + " with index " + indexToRemove)
 		if (indexToRemove !== -1) {
 			this.gameList[indexToRemove].gameOver();
 			this.prismaGameInventory.gameOver( this.gameList[indexToRemove].gameId,
@@ -335,7 +335,7 @@ export class GameService {
 
 
 	async startGame(player1: number, player2: number, server: Server) {
-		console.log("game start with " + player1 + " " + player2);
+		////console.log("game start with " + player1 + " " + player2);
 		const datbaseGameObj = await this.prisma.game.create({
 			data: {
 				player1: Number(player1),

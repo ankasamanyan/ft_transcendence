@@ -154,14 +154,14 @@ export class GameComponent implements OnInit {
         const ballElement: HTMLElement = this.ballRef.nativeElement;
         ballElement.style.top = (this.ballPosition[1] - this.ballRadius) + '%';
         ballElement.style.left = (this.ballPosition[0] - this.ballRadius) + '%';
-        console.log("BallUpdate: " + this.ballPosition);
+        ////console.log("BallUpdate: " + this.ballPosition);
       }
     });
 
     this.socket.on("paddleUpdate", (paddleUpdate: PaddleUpdateResponseDto) => {
-      console.log("PaddleUpdate socket received")
+      ////console.log("PaddleUpdate socket received")
       if (this.gameId === paddleUpdate.gameId) {
-      console.log("PaddleUpdate socket accepted")
+      ////console.log("PaddleUpdate socket accepted")
       this.renderPaddles(paddleUpdate.paddleLeft, paddleUpdate.paddleRight);
       }
     });
@@ -179,9 +179,9 @@ export class GameComponent implements OnInit {
     })
 
     this.socket.on("gameStarted", (gameStartResponseDto: GameStartResponseDto) => {
-        console.log("gameStarted received")
+        ////console.log("gameStarted received")
         if (gameStartResponseDto.player1 !== this.userId && gameStartResponseDto.player2 !== this.userId) {
-        console.log("gameStart but user is wrong so i have the return")
+        ////console.log("gameStart but user is wrong so i have the return")
         return ;
       }
       this.gameMessage = ""
@@ -219,9 +219,9 @@ export class GameComponent implements OnInit {
   }
 
   renderPaddles(paddleLeft: number, paddleRight: number) {
-      console.log("renderPaddles function")
+      ////console.log("renderPaddles function")
       // if (this.paddle1Top !== paddleLeft){
-      console.log("renderPaddles paddle1")
+      ////console.log("renderPaddles paddle1")
       const paddle1Element: HTMLElement = this.paddle1Ref.nativeElement;
       this.paddle1Top = paddleLeft;
       paddle1Element.style.top = (this.paddle1Top - (this.paddleHeight / 2)) + '%';
@@ -230,7 +230,7 @@ export class GameComponent implements OnInit {
       paddle1Element.style.height = this.paddleHeight + '%';
     // }
     // if (this.paddle2Top !== paddleRight){
-      console.log("renderPaddles paddle2")
+      ////console.log("renderPaddles paddle2")
       const paddle2Element: HTMLElement = this.paddle2Ref.nativeElement;
       this.paddle2Top = paddleRight;
       paddle2Element.style.top = (this.paddle2Top - (this.paddleHeight / 2)) + '%';

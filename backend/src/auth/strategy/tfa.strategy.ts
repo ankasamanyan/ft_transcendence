@@ -33,7 +33,7 @@ export class TfaStrategy extends PassportStrategy(Strategy, 'Two-FA') {
     } else if (payload.is_two_FAed) {
       return user;
     } else {
-      ////// console.log("2-fa guard validate invalid token");
+      ////// ////console.log("2-fa guard validate invalid token");
       throw new HttpException('Invalid Token', HttpStatus.UNAUTHORIZED);
     }
   }

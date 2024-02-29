@@ -31,7 +31,7 @@ export class AuthController {
   @Post('ResultFromQrCode')
   @UseGuards(JWTAuthGuard)
   async	turn_on_2fa(@Req() req: any, @Body() code : TwoFactorCode, @Res({passthrough: true}) res: any)  {
-    console.log("result from qr code -", code.code);
+    ////console.log("result from qr code -", code.code);
     const valid_code = await this.authService.verifyCode(req.user.id, code.code);
     if(!valid_code) {
       throw new UnauthorizedException('Wrong authentication code');
@@ -45,7 +45,7 @@ export class AuthController {
   async	turn_off_2fa(@Req() req: any, @Res({passthrough: true}) res: any)  {
     await this.authService.turn_off_2fa(req.user.id);
     return this.authService.sign_jwt_token(req.user.id, res, false);
-    console.log("yeay");
+    ////console.log("yeay");
   }
 
 }

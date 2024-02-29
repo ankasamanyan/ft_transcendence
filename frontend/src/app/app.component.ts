@@ -31,11 +31,11 @@ export class AppComponent {
       private sharedDataService: SharedDataService,
       private router: Router
   ) {
-    this.usersService.initializeUsers().subscribe();
-    this.friendService.initializeFriends().subscribe();
-
-    this.channelService.initializeChannels().subscribe();
-    this.messageService.initializeChannelMessages().subscribe();
+    // this.usersService.initializeUsers().subscribe();
+    // this.friendService.initializeFriends().subscribe();
+    //
+    // this.channelService.initializeChannels().subscribe();
+    // this.messageService.initializeChannelMessages().subscribe();
     //get the current userId here
     const trToken = Cookie.get('accessToken')
     localStorage.setItem('tr_access_token', trToken)
@@ -46,7 +46,7 @@ export class AppComponent {
     
     this.sharedDataService.getMyUserId$()
     .subscribe(data => {
-      console.log("THE ID: " + data);
+      ////console.log("THE ID: " + data);
       this.sharedDataService.setData(id);
     })
     // }

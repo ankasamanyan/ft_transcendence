@@ -196,7 +196,7 @@ ngOnChanges(changes: SimpleChanges): void {
     this.sharedDataService.setData(user.id!);
    
     this.sharedDataService.getData$().subscribe(data => {
-      console.log(data);
+      //console.log(data);
     });
     this.router.navigate(['profile']);
   }

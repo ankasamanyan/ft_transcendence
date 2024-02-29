@@ -14,8 +14,8 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const trToken = localStorage.getItem('tr_access_token')
-    // console.log("accessToken = ", trToken);
-    // console.log("I'm in interceptor")
+    // //console.log("accessToken = ", trToken);
+    // //console.log("I'm in interceptor")
     if(trToken){
       request = request.clone(
           {

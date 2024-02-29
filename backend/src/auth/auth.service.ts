@@ -27,7 +27,7 @@ export class AuthService {
     if(user.tfa_enabled)
     {
 
-      console.log("redirecthaha")
+      ////console.log("redirecthaha")
     	return _res.redirect(`http://${this.config.get('ip_address')}:4200/2-fa?2fa=` + String(_req.user.id));
     }
     // let result = this.sign_42_jwt_token(user.id, _res)

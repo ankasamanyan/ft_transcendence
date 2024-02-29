@@ -44,7 +44,7 @@ import {environment} from "../../environments/environment";
     this.sharedDataService.getData$()
     .subscribe((data) => {
       this.userId = data;
-      console.log("THIS IS THE CURRENT USER:  " + this.userId);
+      //console.log("THIS IS THE CURRENT USER:  " + this.userId);
     });
 
     this.socket.on("UserLogIn",({userId}: {userId: number}) => {
