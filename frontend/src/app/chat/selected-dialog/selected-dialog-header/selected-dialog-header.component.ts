@@ -113,6 +113,9 @@ export class SelectedDialogHeaderComponent implements OnChanges {
       }
       else if (this.authenticatedUser!.id === blockerId && this.selectedDialogPartner?.id === blockeeId) {
         this.updateBlockingStatus();
+        this.channel = undefined;
+        this.selectedDialogPartner = undefined;
+        this.selectedChannelId = undefined;
       }
     });
     socket.on("userUnblocked", ({blockerId, blockeeId}: { blockerId: number, blockeeId: number }) => {

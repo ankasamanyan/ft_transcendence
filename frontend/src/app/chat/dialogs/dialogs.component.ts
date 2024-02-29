@@ -61,6 +61,16 @@ export class DialogsComponent implements OnInit {
     socket.on("participantJoined", () => {
       this.getChannels();
     });
+    socket.on("userBlocked", ({blockerId, blockeeId}: { blockerId: number, blockeeId: number }) => {
+      if (this.authenticatedUser!.id === blockerId) {
+        this.getChannels();
+      }
+    });
+    socket.on("userUnblocked", ({blockerId, blockeeId}: { blockerId: number, blockeeId: number }) => {
+      if (this.authenticatedUser!.id === blockerId) {
+        this.getChannels();
+      }
+    });
   }
 
   ngOnInit(): void {
