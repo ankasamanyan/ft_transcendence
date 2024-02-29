@@ -54,9 +54,10 @@ export class PrismaUsersRepository {
   }
 
   async isUniqueName(username: string) {
+    const shortenedName = username.substring(0,15)
     const isUnique = await this.prisma.user.findFirst({
       where: {
-        name: username
+        name: shortenedName
       }
     });
     return isUnique === null;
@@ -75,7 +76,7 @@ export class PrismaUsersRepository {
         id: Number(user.id)
       },
       data: {
-        name: user.name,
+        name: user.name.substring(0,15),
         picture: user.picture,
         tfa_enabled: user.tfa_enabled
       }
@@ -89,7 +90,7 @@ export class PrismaUsersRepository {
     await this.prisma.$transaction([
      this.prisma.user.create({
           data: {
-            name: user.name,
+            name: user.name.substring(0,15),
             intra_login: user.intraLogin,
             picture: user.picture,
             email: user.email,
