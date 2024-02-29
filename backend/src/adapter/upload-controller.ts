@@ -10,7 +10,7 @@ import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common';
 export class UploadController {
 	constructor(private uploadService: UploadService) {}
 
-@Post('/upload/:userId')
+@Post('/:userId')
 @UseInterceptors(FileInterceptor('file'))
 uploadFile(@UploadedFile() file: Express.Multer.File, @Param('userId') userId: number) {
   console.log(file);

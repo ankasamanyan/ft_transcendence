@@ -47,4 +47,10 @@ export class FriendService {
   declineFriendRequest(users: Users):Observable<void> {
     return this.httpClient.put<void>(`${this.backendUrl}/friends/reject`, UsersRequest.fromDomain(users));
   }
+
+  uploadProfilePicture(file: File, userId: number | undefined) {
+		const formData = new FormData();
+		formData.append("thumbnail", file);
+		return this.httpClient.post<any>('http://localhost:3000/upload/' + userId, formData);
+	}
 }

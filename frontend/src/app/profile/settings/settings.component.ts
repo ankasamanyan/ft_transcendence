@@ -11,7 +11,7 @@ import { UsersService } from "../../service/users.service";
 import { HttpClient } from "@angular/common/http";
 import { TwoFactorCode } from "../../domain/two-factor-code";
 import { AuthenticationService } from "../../service/authentication.service";
-import { UploadService } from "src/app/service/upload.service";
+import { FriendService } from "src/app/service/friend.service";
 
 @Component({
   selector: "app-settings",
@@ -51,7 +51,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     private usersService: UsersService,
     private authenticationService: AuthenticationService,
     private http: HttpClient,
-    private uploadService: UploadService,
+    private friendsService: FriendService,
     // private cdr: ChangeDetectorRef
   ) {
     // if(!this.userFromProfile.tfa_enabled){
@@ -82,7 +82,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     if (this.selectedFile && this.userFromProfile) {
       this.fileName = this.selectedFile.name;
       console.log("file selected");
-      this.uploadService.uploadProfilePicture(this.selectedFile, this.userFromProfile?.id).subscribe();
+      this.friendsService.uploadProfilePicture(this.selectedFile, this.userFromProfile?.id).subscribe();
     }
   }
 
