@@ -168,6 +168,7 @@ export class GameComponent implements OnInit {
     document.addEventListener('keydown', (e) => this.handleKeyDown(e));
   }
 
+  
   leaveGame() {
     if (this.gameState === GameState.GAMEOVER) {
       this.gameMessage = 'Press Enter to Play Pong';
@@ -204,7 +205,7 @@ export class GameComponent implements OnInit {
 
   private handleKeyDown(e: KeyboardEvent):void {
     if (e.key === 'ArrowRight') {
-    this.httpClient.get<string>("http://localhost:3000/users/getStatus/"+ 98455)
+    this.httpClient.get<string>(`http://localhost:3000/users/getStatus/`+ 98455)
     .subscribe((data: string) => {
     });
   }

@@ -31,6 +31,7 @@ export class GameGateway {
     await this.gameService.invite(UsersRequest.toDomain(request));
     this.server.emit("invitationSent", {invitedId: request.users[0].id, beenInvitedId: request.users[1].id});
   }
+  
 
   @SubscribeMessage('acceptanceOfInvitation')
   async accept(@MessageBody() request: UsersRequest) {

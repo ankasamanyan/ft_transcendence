@@ -13,11 +13,11 @@ export class MessageService {
   constructor(private httpClient: HttpClient, private socket: OurSocket) { }
 
   initializeChannelMessages() {
-    return this.httpClient.post<void>("http://localhost:3000/messages/mocks2", {});
+    return this.httpClient.post<void>(`http://localhost:3000/messages/mocks2`, {});
   }
 
   getChannelMessages(channelId: number) {
-    return this.httpClient.get<ChannelMessageResponse[]>("http://localhost:3000/messages/" + channelId).pipe(
+    return this.httpClient.get<ChannelMessageResponse[]>(`http://localhost:3000/messages/` + channelId).pipe(
         map((responses: ChannelMessageResponse[]) => {
           return responses.map(response => ChannelMessageResponse.toDomain(response));
         }));
