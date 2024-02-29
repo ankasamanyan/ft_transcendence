@@ -282,6 +282,11 @@ export class PrismaChannelRepository {
                from "ChannelParticipant"
                where user_id = ${userIdAsInteger}
                   or channel.type in ('public', 'password-protected'))
+          AND channel.id NOT IN (SELECT DISTINCT cp.channel_id
+                                 FROM "ChannelParticipant" cp
+                                        JOIN "BlockedUser" bu ON cp.user_id = bu."blockedId"
+                                 WHERE bu."blockerId" = ${userIdAsInteger}
+                                   AND channel.type = 'dialog')
           AND (message.id in (SELECT id from subres) OR message.text IS NULL)
           AND banneduser IS NULL
         order by COALESCE(message.created_at, channel.created_at) desc
