@@ -1,3 +1,9 @@
+# HerTranscendence
+
+ft_transcendence ("HetTranscendence") is a full-stack web application developed as a final project of 42 School curriculum. The challenge is to create a dynamic gaming experience reminiscent of classic Pong. <br>
+ The project features include networking, real-time communication, game mechanics, and user interfaces. Users are able to log in through the 42 specific platform, and play against other users in real-time and send messages in group chats or direct messages. Implemented using diverse programming languages and technologies, such as Angular, Nest.js, PostgreSQL and Docker.
+
+
 # How to run it
 
 ## Prerequisites
